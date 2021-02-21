@@ -7,16 +7,16 @@ describe('starting a boxes scene', () => {
 
   let getScene = () => aframeContainer.querySelector('a-scene')
   let scene
-  let inScene = (handler, done) => scene.addEventListener('renderstart', () => {
+  let inScene = (handler) => scene.addEventListener('renderstart', () => {
     handler(scene)
-    done()
+    aframeContainer.removeChild(scene)
   })
   
   beforeEach(() => {
     boxes.startScene('#aframe-container')
     scene = getScene()
   })
-  
+    
   it('should create a box', (done) => {
     inScene(scene => {
       expect(scene.querySelector('a-box')).to.not.be.null
