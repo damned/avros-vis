@@ -1,0 +1,3 @@
+var boxes = {
+  startScene: (sceneContainerSpec) => {}
+}

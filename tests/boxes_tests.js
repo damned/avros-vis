@@ -3,13 +3,14 @@ var chai = chai || {}
 var expect = chai.expect
 
 describe('creating a boxes scene', () => {
-  it('should create a box', () => {
-    let aframeContainer = document.getElementById('aframe-container')
-    
+  const aframeContainer = document.getElementById('aframe-container')
+
+  it('should create a box', (done) => {
     boxes.startScene('#aframe-container')
     
-    let sceneEl = document.querySelector('a-scene')
+    let sceneEl = aframeContainer.querySelector('a-scene')
     
+    sceneEl.addEventListener
     
     let box
   })
