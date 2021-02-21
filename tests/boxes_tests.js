@@ -5,13 +5,15 @@ var expect = chai.expect
 describe('creating a boxes scene', () => {
   const aframeContainer = document.getElementById('aframe-container')
 
+  let getScene = () => aframeContainer.querySelector('a-scene')
+  
   it('should create a box', (done) => {
     boxes.startScene('#aframe-container')
     
-    let sceneEl = aframeContainer.querySelector('a-scene')
+    let scene = getScene()
     
-    sceneEl.addEventListener
-    
-    let box
+    scene.addEventListener('renderstart', () => {
+      expect(scene.querySelector('a-box')).to.not.be.null
+    })
   })
 })
