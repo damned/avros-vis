@@ -7,9 +7,15 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   </head>
   <body>
+    <a-scene>
+      <a-entity id="table" position="0 0.5 -1></a-entity>
+      <a-box color="#c00" position="0 0.5 -1"></a-box>
+      <a-entity hand-controls="left"></a-entity>
+      <a-entity hand-controls="right"></a-entity>
+    </a-scene>
     <script src="boxes.js"></script>
     <script>
-      boxes.startScene('body')
+      // boxes.startScene('body')
     </script>
   </body>
 </html>
