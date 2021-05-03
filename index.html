@@ -8,10 +8,13 @@
   </head>
   <body>
     <a-scene>
-      <a-entity id="table" position="0 0.5 -1></a-entity>
-      <a-box color="#c00" position="0 0.5 -1"></a-box>
-      <a-entity hand-controls="left"></a-entity>
-      <a-entity hand-controls="right"></a-entity>
+      <a-entity id="display" position="0 0.5 -1">
+        <a-box class="subnet" color="#a22" position="0.25 0.05 0" scale="0.35 0.1 0.5"></a-box>
+        <a-box class="subnet" color="#2a2" position="-0.25 0.05 0" scale="0.35 0.1 0.5"></a-box>
+        <a-plane id="display-board" color="gray" rotation="-90 0 0"></a-plane>
+      </a-entity>
+      <a-entity hand-controls="hand: left; handModelStyle: lowPoly"></a-entity>
+      <a-entity hand-controls="hand: right; handModelStyle: lowPoly"></a-entity>
     </a-scene>
     <script src="boxes.js"></script>
     <script>
