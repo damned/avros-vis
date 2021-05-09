@@ -13,11 +13,11 @@ describe('model builder', () => {
   })
     
   it('should add a rectangular board onto tabletop', (done) => {
-    builder = ModelBuilder().addBoard('base').buildOnto(table)
+    builder = ModelBuilder(table).addBoard('first-board').build()
     
-    let baseBoard = document.querySelector('#base')
+    let board = document.querySelector('#first-board')
 
-    expect(baseBoard.getAttribute('height')).to.equal('0.1')
-    expect(baseBoard.el.parent) == table
+    expect(board.getAttribute('height')).to.equal('0.1')
+    expect(board.object3D.parent.el) == table
   })
 })
