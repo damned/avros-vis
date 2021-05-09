@@ -5,6 +5,7 @@
     <title>Hello, WebVR! • A-Frame</title>
     <meta name="description" content="Hello, WebVR! • A-Frame">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="balloon-label.js"></script>
   </head>
   <body>
     <a-scene>
@@ -17,7 +18,7 @@
         <a-box class="subnet" color="#855" position="0.25 0.01 0.5" scale="0.42 0.02 0.92"></a-box>
         <a-box class="subnet" color="#585" position="-0.25 0.01 0.5" scale="0.42 0.02 0.92"></a-box>
 
-        <a-box id="nlb" color="#444" mixin="server" position="-0.25 0.025 0.7"></a-box>
+        <a-box id="nlb" balloon-labal="nlb label" color="#444" mixin="server" position="-0.25 0.025 0.7"></a-box>
 
         <a-entity line="start: -0.25 0.025 0.7; end: 0.3 0.025 0.6"></a-entity>
         <a-box id="nlb-listener-1" color="#444" mixin="server" position="0.3 0.025 0.6"></a-box>
@@ -53,9 +54,8 @@
       <a-entity hand-controls="hand: left; handModelStyle: lowPoly"></a-entity>
       <a-entity hand-controls="hand: right; handModelStyle: lowPoly"></a-entity>
     </a-scene>
-    <script src="boxes.js"></script>
     <script>
-      let builder = ModelBuilder(document.querySelector('a-scene'))
+      // let builder = ModelBuilder(document.querySelector('a-scene'))
       
     </script>
   </body>
