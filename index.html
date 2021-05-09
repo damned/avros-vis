@@ -18,20 +18,19 @@
         <a-box class="subnet" color="#855" position="0.25 0.01 0.5" scale="0.42 0.02 0.92"></a-box>
         <a-box class="subnet" color="#585" position="-0.25 0.01 0.5" scale="0.42 0.02 0.92"></a-box>
 
-        <a-box id="nlb" balloon-labal="nlb label" color="#444" mixin="server" position="-0.25 0.025 0.7"></a-box>
+        <a-box id="nlb" balloon-label="nlb" color="#444" mixin="server" position="-0.25 0.025 0.7"></a-box>
 
         <a-entity line="start: -0.25 0.025 0.7; end: 0.3 0.025 0.6"></a-entity>
-        <a-box id="nlb-listener-1" color="#444" mixin="server" position="0.3 0.025 0.6"></a-box>
+        <a-box id="api-gateway-endpoint-1" color="#444" mixin="server" position="0.3 0.025 0.6"></a-box>
         <a-entity line="start: -0.25 0.025 0.7; end: 0.3 0.025 0.8"></a-entity>
-        <a-box id="nlb-listener-2" color="#444" mixin="server" position="0.3 0.025 0.8"></a-box>
+        <a-box id="api-gateway-endpoint-2" color="#444" mixin="server" position="0.3 0.025 0.8"></a-box>
 
         <a-entity line="start: 0.3 0.025 0.6; end: 1 0.5 0.5"></a-entity>
         <a-entity line="start: 0.3 0.025 0.8; end: 1 0.5 0.5"></a-entity>
 
-        
-        <a-box id="api-gateway" color="#444" mixin="server" position="1 0.5 0.5"></a-box>
+        <a-box id="api-gateway" balloon-label="API gateway" color="#444" mixin="server" position="1 0.5 0.5"></a-box>
         <a-entity line="start: 1 0.5 0.5; end: 1 0.5 0.3"></a-entity>
-        <a-box id="lambda" color="#444" mixin="server" position="1 0.5 0.3"></a-box>
+        <a-box id="lambda"  balloon-label="lambda" color="#444" mixin="server" position="1 0.5 0.3"></a-box>
 
         <a-entity line="start: 0.2 0 0.2; end: 1 0.5 0.3"></a-entity>
 
@@ -46,9 +45,7 @@
           <a-box color="#558" mixin="server" position="0.05  0.025  0.0"></a-box>
           <a-box color="#558" mixin="server" position="0.05  0.025  0.1"></a-box>
         </a-box>
-        
-        
-        
+
         <a-plane id="display-board" color="gray" position="0 0 0.5" rotation="-90 0 0"></a-plane>
       </a-entity>
       <a-entity hand-controls="hand: left; handModelStyle: lowPoly"></a-entity>
