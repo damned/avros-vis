@@ -8,23 +8,32 @@
   </head>
   <body>
     <a-scene>
+      <a-assets>
+        <a-mixin id="server" geometry="primitive: box; height: 0.05; depth: 0.05; width: 0.05"></a-mixin>
+      </a-assets>
+
       <a-entity id="display" position="0 1 -0.5" scale="0.5 0.5 0.5">
-        <a-assets>
-          <a-mixin id="node" geometry="box"  width="0.05" height="0.05" depth="0.05"></a-mixin>
-        </a-assets>
         
         <a-box class="subnet" color="#855" position="0.25 0.01 0.5" scale="0.42 0.02 0.92"></a-box>
         <a-box class="subnet" color="#585" position="-0.25 0.01 0.5" scale="0.42 0.02 0.92"></a-box>
-        
+
+        <a-box id="nlb" color="#444" mixin="server" position="-0.25 0.025 0.7"></a-box>
+
+        <a-entity line="start: -0.25 0.025 0.7; end: 0.3 0.025 0.6"></a-entity>
+        <a-box id="nlb-listener-1" color="#444" mixin="server" position="0.3 0.025 0.6"></a-box>
+        <a-entity line="start: -0.25 0.025 0.7; end: 0.3 0.025 0.8"></a-entity>
+        <a-box id="nlb-listener-2" color="#444" mixin="server" position="0.3 0.025 0.8"></a-box>
+
         <a-text position="0 1 0" align="center" color="#558" value="elastic cluster"></a-text>
         <a-entity line="start: 0 1 0; end: 0.1 0 0.1"></a-entity>
-        <a-box color="#77a" position="0.15 0.025 0.2" width="0.2" height="0.01" depth="0.3"></a-box>
-        <a-box color="#558" position="0.1 0.025 0.1" width="0.05" height="0.05" depth="0.05"></a-box>
-        <a-box color="#558" position="0.1 0.025 0.2" width="0.05" height="0.05" depth="0.05"></a-box>
-        <a-box color="#558" position="0.1 0.025 0.3" width="0.05" height="0.05" depth="0.05"></a-box>
-        <a-box color="#558" position="0.2 0.025 0.1" scale="0.05 0.05 0.05"></a-box>
-        <a-box color="#558" position="0.2 0.025 0.2" scale="0.05 0.05 0.05"></a-box>
-        <a-box color="#558" position="0.2 0.025 0.3" scale="0.05 0.05 0.05"></a-box>
+        <a-box color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3">
+          <a-box color="#558" mixin="server" position="-0.05 0.025 -0.1"></a-box>
+          <a-box color="#558" mixin="server" position="-0.05 0.025  0.0"></a-box>
+          <a-box color="#558" mixin="server" position="-0.05 0.025  0.1"></a-box>
+          <a-box color="#558" mixin="server" position="0.05  0.025 -0.1"></a-box>
+          <a-box color="#558" mixin="server" position="0.05  0.025  0.0"></a-box>
+          <a-box color="#558" mixin="server" position="0.05  0.025  0.1"></a-box>
+        </a-box>
         
         
         
