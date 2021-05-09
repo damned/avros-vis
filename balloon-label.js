@@ -9,12 +9,12 @@ AFRAME.registerComponent('balloon-label', {
     text.setAttribute('align', 'center')
     text.setAttribute('value', this.data)
     text.setAttribute('color', '#888')
-    text.setAttribute('scale')
+    text.setAttribute('scale', '0.5 0.5')
     text.setAttribute('position', `${pos.x} ${pos.y + 0.5} ${pos.z}`)
     parent.appendChild(text)
     
     let line = document.createElement('a-entity')
-    line.setAttribute('line', `start: ${pos.x} ${pos.y + 0.5} ${pos.z}; end: ${pos.x} ${pos.y} ${pos.z}`)
+    line.setAttribute('line', `opacity: 0.3; start: ${pos.x} ${pos.y + 0.5} ${pos.z}; end: ${pos.x} ${pos.y} ${pos.z}`)
     parent.appendChild(line)
   }
 })
