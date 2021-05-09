@@ -8,10 +8,10 @@
   </head>
   <body>
     <a-scene>
-      <a-entity id="display" position="0 0.5 -1">
-        <a-box class="subnet" color="#a22" position="0.25 0.05 0" scale="0.35 0.1 0.5"></a-box>
-        <a-box class="subnet" color="#2a2" position="-0.25 0.05 0" scale="0.35 0.1 0.5"></a-box>
-        <a-plane id="display-board" color="gray" rotation="-90 0 0"></a-plane>
+      <a-entity id="display" position="0 1 -0.5" scale="0.5 0.5 0.5">
+        <a-box class="subnet" color="#a22" position="0.25 0.01 0.5" scale="0.42 0.02 0.92"></a-box>
+        <a-box class="subnet" color="#2a2" position="-0.25 0.01 0.5" scale="0.42 0.02 0.92"></a-box>
+        <a-plane id="display-board" color="gray" position="0 0 0.5" rotation="-90 0 0"></a-plane>
       </a-entity>
       <a-entity hand-controls="hand: left; handModelStyle: lowPoly"></a-entity>
       <a-entity hand-controls="hand: right; handModelStyle: lowPoly"></a-entity>
