@@ -17,7 +17,12 @@
     <script crossorigin src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   </head>
   <body>
-    <div id="aframe-container" style="min-height: 400px"></div>
+    <div id="aframe-container" style="min-height: 400px">
+      <a-scene>
+        <a-entity id="table" position="0 0 0" scale="1 1 1">
+        </a-entity>
+      </a-scene>
+    </div>
     <div id="mocha"></div>
     <script crossorigin src="https://unpkg.com/chai/chai.js"></script>
     <script crossorigin src="https://unpkg.com/chai-shallow-deep-equal@1.4.6/chai-shallow-deep-equal.js"></script>
