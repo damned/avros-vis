@@ -12,12 +12,19 @@ describe('model builder', () => {
     table.innerHTML = ''
   })
     
+  let afterTick = handler => {
+    setTimeout(handler, 0)
+  }
+  
   it('should add a rectangular board onto tabletop', (done) => {
     builder = ModelBuilder(table).addBoard('first-board').build()
     
-    let board = document.querySelector('#first-board')
+    afterTick(() => {
+      let board = document.querySelector('#first-board')
 
-    expect(board.getAttribute('height')).to.equal('0.1')
-    expect(board.object3D.parent.el) == table
+      expect(board.getAttribute('height')).to.equal('0.1')
+      expect(board.object3D.parent.el) == table
+      done()
+    })
   })
 })
