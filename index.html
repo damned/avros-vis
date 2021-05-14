@@ -34,9 +34,10 @@
 
         <a-entity id="lam-to-es" line="start: 0.2 0 0.2; end: 1 0.5 0.1"></a-entity>
 
-        <a-box id="trg" color="red"   balloon-label="label: tr g" mixin="srv" position="0.1 0.025 0.7"></a-box>
-        <a-box id="reg" color="green" balloon-label="label: te g" mixin="srv" position="0.2 0.025 0.8"></a-box>
-        <a-box id="tog" color="blue"  balloon-label="label: to g" mixin="srv" position="0.3 0.025 0.9"></a-box>
+        <a-box id="trg" color="red"   balloon-label="label: tr g" mixin="srv" position="0.1 0.025 0.7">
+        </a-box>
+        <a-box id="reg" color="green" balloon-label="label: te g; y-offset: -0.1" mixin="srv" position="0.2 0.025 0.8"></a-box>
+        <a-box id="tog" color="blue"  balloon-label="label: to g; y-offset: -0.2" mixin="srv" position="0.3 0.025 0.9"></a-box>
 
         
         <a-box balloon-label="label: es" color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3">
@@ -65,10 +66,10 @@
         <a-plane id="tr-display-board" class="display-board" color="#399" position="0 0 0.5" rotation="-90 0 0"></a-plane>
       </a-entity>
 
-      <a-entity balloon-label="label: tool" mixin="dbt" material="color: orange" position="-1 1.025 -0.05" scale="0.5 0.5 0.5"></a-entity>
+      <a-entity balloon-label="label: tool; scale: 0.3" mixin="dbt" material="color: orange" position="-1 1.025 -0.05" scale="0.5 0.5 0.5"></a-entity>
       <a-entity id="tog-to-tool" line="start: 0.15 1.025 -0.05; end: -1 1.025 -0.05"></a-entity>
 
-      <a-cone balloon-label="label: rev" color="#444" position="1 1.025 -0.1" scale="0.1 0.1 0.1"></a-cone>
+      <a-cone balloon-label="label: rev; scale: 0.3" color="#444" position="1 1.025 -0.1" scale="0.1 0.1 0.1"></a-cone>
       <a-entity id="reg-to-rev" line="start: 0.1 1.025 -0.1; end: 1 1.025 -0.1"></a-entity>
 
       
