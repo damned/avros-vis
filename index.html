@@ -34,10 +34,12 @@
 
         <a-entity id="lam-to-es" line="start: 0.2 0 0.2; end: 1 0.5 0.1"></a-entity>
 
-        <a-box id="trg" color="red"   balloon-label="label: tr g" mixin="srv" position="0.1 0.025 0.7">
-        </a-box>
-        <a-box id="reg" color="green" balloon-label="label: te g; y-offset: -0.1" mixin="srv" position="0.2 0.025 0.8"></a-box>
-        <a-box id="tog" color="blue"  balloon-label="label: to g; y-offset: -0.2" mixin="srv" position="0.3 0.025 0.9"></a-box>
+        <a-box id="trg" color="red"   balloon-label="label: tr g" mixin="srv" position="0.1 0.025 0.7"
+               line="start: 0 0 0; end: 0.1 0 -0.4; color: orange"></a-box>
+        <a-box id="reg" color="green" balloon-label="label: te g; y-offset: -0.1" mixin="srv" position="0.2 0.025 0.8"
+               line="start: 0 0 0; end:   0 0 -0.5; color: orange"></a-box>
+        <a-box id="tog" color="blue"  balloon-label="label: to g; y-offset: -0.2" mixin="srv" position="0.3 0.025 0.9"
+               line="start: 0 0 0; end: -0.1 0 -0.6; color: orange"></a-box>
 
         
         <a-box balloon-label="label: es" color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3">
@@ -52,9 +54,9 @@
         <a-plane id="main-board" class="display-board" color="gray" position="0 0 0.5" rotation="-90 0 0"></a-plane>
       </a-entity>
 
-      <a-entity id="trg-to-tr" line="start:     0.05 1.025 -0.15; end: -0.5 1.025 -0.15"
-                               line__2="start: -0.5  1.025 -0.15; end: -0.5 1.025 -0.7"
-                               line__3="start: -0.5  1.025 -0.7;  end: -1   1.025 -0.7"></a-entity>
+      <a-entity id="trg-to-tr" line="start:     0.05 1.025 -0.15; end: -0.5 1.025 -0.15; color: orange"
+                               line__2="start: -0.5  1.025 -0.15; end: -0.5 1.025 -0.7; color: orange"
+                               line__3="start: -0.5  1.025 -0.7;  end: -1   1.025 -0.7; color: orange"></a-entity>
 
       <a-entity id="tr-display" class="display" position="-1 1 -1" scale="0.5 0.5 0.5">
         
@@ -67,10 +69,10 @@
       </a-entity>
 
       <a-entity balloon-label="label: tool; scale: 0.3" mixin="dbt" material="color: orange" position="-1 1.025 -0.05" scale="0.5 0.5 0.5"></a-entity>
-      <a-entity id="tog-to-tool" line="start: 0.15 1.025 -0.05; end: -1 1.025 -0.05"></a-entity>
+      <a-entity id="tog-to-tool" line="start: 0.15 1.025 -0.05; end: -1 1.025 -0.05; color: orange"></a-entity>
 
       <a-cone balloon-label="label: rev; scale: 0.3" color="#444" position="1 1.025 -0.1" scale="0.1 0.1 0.1"></a-cone>
-      <a-entity id="reg-to-rev" line="start: 0.1 1.025 -0.1; end: 1 1.025 -0.1"></a-entity>
+      <a-entity id="reg-to-rev" line="start: 0.1 1.025 -0.1; end: 1 1.025 -0.1; color: orange"></a-entity>
 
       
       <a-entity hand-controls="hand: left; handModelStyle: lowPoly"></a-entity>
