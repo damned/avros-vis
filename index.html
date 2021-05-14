@@ -53,7 +53,10 @@
 
       <a-entity id="tr-display" class="display" position="-1.5 1 -1" scale="0.5 0.5 0.5">
         
-        <a-box balloon-label="nlb" color="#444" mixin="srv" position="-0.25 0.025 0.55"></a-box>
+        <a-entity balloon-label="srvc" color="#444" mixin="dbt" position="-0.25 0.025 -0.25"></a-entity>
+        <a-entity balloon-label="unit" color="#444" mixin="dbt" position="0.25  0.025 -0.25"></a-entity>
+        <a-entity balloon-label="feat" color="#444" mixin="dbt" position="-0.25 0.025  0.25"></a-entity>
+        <a-entity balloon-label="pric" color="#444" mixin="dbt" position="0.25  0.025  0.25"></a-entity>
 
         <a-plane id="tr-display-board" class="display-board" color="#399" position="0 0 0.5" rotation="-90 0 0"></a-plane>
       </a-entity>
