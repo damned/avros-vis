@@ -1,10 +1,10 @@
 completeness
-[ ] tr forest
 [ ] tasks
+[ ] tr forest
 
 flows
 [ ] flow along edges, showing direction
-[ ] stop and start
+[ ] stop and start (opacity)
 [ ] sequence
 [ ] clock
 
