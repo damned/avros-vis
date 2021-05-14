@@ -3,8 +3,9 @@ approach
 [ ] move to test-drive for functionality
 
 completeness
-[ ] tasks
+[.] tasks
 [ ] tr forest
+[ ] services
 
 flows
 [ ] flow along edges, showing direction
