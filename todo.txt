@@ -1,0 +1,30 @@
+completeness
+[ ] 
+
+flows
+[ ] flow along edges, showing direction
+
+
+stages
+[ ] two stages
+[ ] switch between stages
+
+
+details
+[ ] switch been focus / scale
+[ ] occlude others
+
+
+interaction
+[ ] pull up/out
+[ ] drag around
+
+
+progression
+[ ] animate item position
+
+
+privacy
+[x] shorts
+[ ] server render
+[ ] data map from param key
