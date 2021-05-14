@@ -3,15 +3,18 @@ approach
 [ ] move to test-drive for functionality
 
 completeness
-[.] tasks
-[ ] tr forest
-[ ] services
+[x] tasks
+[x] tr forest
+[x] services
+[ ] lam scaleup - tower
+[ ] req - fus
 
 flows
 [ ] flow along edges, showing direction
 [ ] stop and start (opacity)
 [ ] sequence
 [ ] clock
+
 
 stages
 [ ] two stages
