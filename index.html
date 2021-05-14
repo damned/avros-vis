@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello, WebVR! • A-Frame</title>
+    <title>System Visualisation</title>
     <meta name="description" content="Hello, WebVR! • A-Frame">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="balloon-label.js"></script>
@@ -20,19 +20,22 @@
 
         <a-box id="nlb" balloon-label="nlb" color="#444" mixin="server" position="-0.25 0.025 0.7"></a-box>
 
-        <a-entity line="start: -0.25 0.025 0.7; end: 0.3 0.025 0.6"></a-entity>
-        <a-box id="age-1" color="#444" mixin="server" position="0.3 0.025 0.6"></a-box>
-        <a-entity line="start: -0.25 0.025 0.7; end: 0.3 0.025 0.8"></a-entity>
-        <a-box id="age-2" color="#444" mixin="server" position="0.3 0.025 0.8"></a-box>
+        <a-entity line="start: -0.25 0.025 0.7; end: 0.4 0.025 0.5"></a-entity>
+        <a-box id="age-1" color="#444" mixin="server" position="0.4 0.025 0.5"></a-box>
+        <a-entity line="start: -0.25 0.025 0.7; end: 0.4 0.025 0.6"></a-entity>
+        <a-box id="age-2" color="#444" mixin="server" position="0.4 0.025 0.6"></a-box>
 
-        <a-entity line="start: 0.3 0.025 0.6; end: 1 0.5 0.7"></a-entity>
-        <a-entity line="start: 0.3 0.025 0.8; end: 1 0.5 0.7"></a-entity>
-
+        <a-entity line="start: 0.2 0.025 0.4; end: 1 0.5 0.7"></a-entity>
+        <a-entity line="start: 0.2 0.025 0.5; end: 1 0.5 0.7"></a-entity>
         <a-box id="ag" balloon-label="ag" color="#444" mixin="server" position="1 0.5 0.7"></a-box>
         <a-entity line="start: 1 0.5 0.7; end: 1 0.5 0.1"></a-entity>
         <a-box id="lam" balloon-label="lam" color="#444" mixin="server" position="1 0.5 0.1"></a-box>
 
-        <a-entity line="start: 0.2 0 0.2; end: 1 0.5 0.1"></a-entity>
+        <a-entity id="lam-to-es" line="start: 0.2 0 0.2; end: 1 0.5 0.1"></a-entity>
+
+        <a-box id="trg" color="red"   mixin="server" position="0.2 0.025 0.7"></a-box>
+        <a-box id="reg" color="green" mixin="server" position="0.2 0.025 0.8"></a-box>
+        <a-box id="tog" color="blue"  mixin="server" position="0.2 0.025 0.9"></a-box>
 
         
         <a-box balloon-label="es" color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3">

@@ -1,3 +1,7 @@
+approach
+[ ] spike views manually
+[ ] move to test-drive for functionality
+
 completeness
 [ ] tasks
 [ ] tr forest
