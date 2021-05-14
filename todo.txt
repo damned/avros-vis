@@ -1,9 +1,12 @@
 completeness
-[ ] 
+[ ] tr forest
+[ ] tasks
 
 flows
 [ ] flow along edges, showing direction
-
+[ ] stop and start
+[ ] sequence
+[ ] clock
 
 stages
 [ ] two stages
@@ -11,6 +14,9 @@ stages
 
 
 details
+[ ] magnify glass
+[ ] doc lines
+[ ] doc parts
 [ ] switch been focus / scale
 [ ] occlude others
 
@@ -18,6 +24,7 @@ details
 interaction
 [ ] pull up/out
 [ ] drag around
+[ ] sleeves
 
 
 progression
