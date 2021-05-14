@@ -1,5 +1,8 @@
 /* globals AFRAME */
 AFRAME.registerComponent('balloon-label', {
+  schema: {
+    label: { type: "string" },
+  },
   init: function () {
     let pos = this.el.object3D.position
     let parent = this.el.parentNode
@@ -7,7 +10,7 @@ AFRAME.registerComponent('balloon-label', {
     
     let text = document.createElement('a-text')
     text.setAttribute('align', 'center')
-    text.setAttribute('value', this.data)
+    text.setAttribute('value', this.data.label)
     text.setAttribute('color', '#888')
     text.setAttribute('scale', '0.5 0.5')
     text.setAttribute('position', `${pos.x} ${pos.y + 0.5} ${pos.z}`)
