@@ -2,7 +2,7 @@
 AFRAME.registerComponent('balloon-label', {
   init: function () {
     let pos = this.el.object3D.position
-    let parent = this.el.object3D.parent.el
+    let parent = this.el.parentNode
     console.log('labelling element at: ' + JSON.stringify(pos))
     
     let text = document.createElement('a-text')
