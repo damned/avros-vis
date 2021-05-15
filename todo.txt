@@ -41,6 +41,7 @@ interaction
 [ ] pull up/out
 [ ] drag around
 [ ] sleeves
+[ ] fade / highlight - e.g. req/ing
 
 
 progression
