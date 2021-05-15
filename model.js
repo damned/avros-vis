@@ -1,10 +1,11 @@
 
-const propertyForClass = (styles, classname, propertyname) => {
-  styles.forEach(style => {
-    if (style.selector.class == classname) {
-      return style.declaration[propertyname]
-    }
-  })
+const propertyValueForClass = (styles, classname, propertyname) => {
+  let match = styles.find(style => style.selector.class == classname)
+  if (match !== undefined) {
+    let value = match.declaration[propertyname]
+    console.log('property value', value)
+    return value
+  }
   return null
 }
 
@@ -13,7 +14,7 @@ var Panel = function(name, base) {
   
   
   self.render = (styles) => {
-    let height = propertyForClass(styles, 'panel', 'height') || 0.1
+    let height = propertyValueForClass(styles, 'panel', 'height') || 0.1
     let halfHeight = height / 2
     let el = document.createElement('a-box')
     el.setAttribute('id', name)
@@ -32,9 +33,6 @@ var Panel = function(name, base) {
 var Board = function(name) {
   const self = {}
 
-  let halfHeight = 0.05
-  let height = halfHeight * 2
-  
   let children = []
   
   self.panel = (panelName) => {
@@ -43,17 +41,21 @@ var Board = function(name) {
     return panel
   }
   
-  const renderSelf = () => {
+  const renderSelf = (styles) => {
+    let height = propertyValueForClass(styles, 'board', 'height') || 0.1
+    let halfHeight = height / 2
+    self.halfHeight = halfHeight
+
     let el = document.createElement('a-box')
     el.setAttribute('id', name)
     el.setAttribute('class', 'board')
     el.setAttribute('color', 'blue')
-    el.setAttribute('height', height)
+    el.setAttribute('height', '' + height)
     return el    
   }
   
   self.render = (parent, styles) => {
-    self.el = renderSelf()
+    self.el = renderSelf(styles)
     children.forEach(child => {
       parent.appendChild(child.render(styles))
     })
@@ -61,7 +63,7 @@ var Board = function(name) {
   }
   
   self.position = () => self.el.object3D.position
-  self.top = () => self.position().y + halfHeight
+  self.top = () => self.position().y + self.halfHeight
   
   return self
 }

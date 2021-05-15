@@ -25,7 +25,7 @@ describe('model', () => {
   
   it('should add a rectangular board onto tabletop', (done) => {
     let board = model.board('first-board')
-    model.render(table)
+    model.render(table, [])
     
     afterTick(() => {
       let boardEl = select('#first-board')
@@ -41,7 +41,7 @@ describe('model', () => {
   it('should add a rectangular panel directly onto a board', (done) => {
     let board = model.board('board')
     let panel = board.panel('the-panel')
-    model.render(table)
+    model.render(table, [])
     
     afterTick(() => {
       let boardEl = select('#board')
