@@ -65,7 +65,7 @@ var Model = function() {
     return board
   }
   
-  self.render = (baseEl) => {
+  self.render = (baseEl, styles) => {
     baseEl.appendChild(board.render(baseEl))
   }
   

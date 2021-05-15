@@ -53,4 +53,27 @@ describe('model', () => {
       done()
     })
   })
+  
+  describe('rendering with style', () => {
+    it('should add a rectangular panel directly onto a board', (done) => {
+      let board = model.board('board')
+      let panel = board.panel('the-panel')
+      let styles = [
+        
+        
+      ]
+      model.render(table, styles)
+
+      afterTick(() => {
+        let boardEl = select('.board')
+        let panelEl = select('.panel')
+
+        expect(height(boardEl)).to.equal(0.2)
+        expect(height(panelEl)).to.equal(0.3)
+        expect(top(panelEl)).to.equal(top(boardEl) + height(panelEl))
+        done()
+      })
+    })
+    
+  })
 })
