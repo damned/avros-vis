@@ -6,13 +6,17 @@ completeness
 [x] tasks
 [x] tr forest
 [x] services
+[ ] req - tg
+[ ] tg
 [ ] lam scaleup - tower
-[ ] req - fus
+[ ] many tr trees
+[ ] azs
+
 
 flows
 [ ] flow along edges, showing direction
 [ ] stop and start (opacity)
-[ ] sequence
+[ ] daily sequence
 [ ] clock
 
 
@@ -36,10 +40,13 @@ interaction
 
 
 progression
-[ ] animate item position
+[ ] animate item position between stages
 
 
 privacy
 [x] shorts
 [ ] server render
 [ ] data map from param key
+
+pipelines
+[ ]
