@@ -1,19 +1,16 @@
 
-var ModelBuilder = function(foundationEl) {
+var Model = function(foundationEl) {
   let self = this
   
-  let builder = {}
+  let api = {}
   
-  builder.addBoard = function(name) {
+  api.board = function(name) {
     let board = document.createElement('a-box')
     board.setAttribute('id', name)
     board.setAttribute('height', 0.1)
     foundationEl.appendChild(board)
-    return builder
+    return api
   }
   
-  builder.build = function() {
-  }
-  
-  return builder
+  return api
 }
