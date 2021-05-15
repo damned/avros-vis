@@ -20,41 +20,51 @@ var Panel = function(name, base) {
 }
 
 var Board = function(name, parent) {
-  let self = {}
+  const self = {}
 
   let halfHeight = 0.05
   let height = halfHeight * 2
-
-  let el = document.createElement('a-box')
-  el.setAttribute('id', name)
-  el.setAttribute('color', 'blue')
-  el.setAttribute('height', height)
+  
+  let children = []
   
   self.panel = (panelName) => {
     let panel = Panel(panelName, self)
-    parent.appendChild(panel.el)
+    children.push(panel)
     return panel
   }
   
-  self.render = (parent) => {
-    
+  const renderSelf = () => {
+    let el = document.createElement('a-box')
+    el.setAttribute('id', name)
+    el.setAttribute('color', 'blue')
+    el.setAttribute('height', height)
+    return el    
   }
   
-  self.el = el
-  self.position = () => el.object3D.position
+  self.render = (parent) => {
+    self.el = renderSelf()
+    children.forEach(child => {
+      parent.appendChild(child.render())
+    })
+    return self.el
+  }
+  
+  self.position = () => self.el.object3D.position
   self.top = () => self.position().y + halfHeight
   
   return self
 }
 
-var Model = function(baseEl) {
+var Model = function() {
   let self = {}
   
-  self.board = function(name) {
+  self.board = (name) => {
     let board = Board(name, baseEl)
     baseEl.appendChild(board.el)
     return board
   }
+  
+  self.render = (baseEl)
   
   return self
 }
