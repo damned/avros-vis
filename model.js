@@ -1,7 +1,7 @@
 
 const propertyForClass = (styles, classname, propertyname) => {
   styles.forEach(style => {
-    if (style.selector == '.' + classname) {
+    if (style.selector.class == classname) {
       return style.declaration[propertyname]
     }
   })
