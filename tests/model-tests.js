@@ -5,10 +5,10 @@ var expect = chai.expect
 describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
   const shape = el => el.components['geometry'].data.primitive
-  const height = el => el.getAttribute('height')
+  const height = el => parseFloat(el.getAttribute('height'))
   const select = selector => document.querySelector(selector)
   const top = el => {
-    el.object3D.position.y + parseFloat(el.getAttribute('height')) / 2 
+    return parseFloat(el.object3D.position.y) + height(el)/ 2 
   }
 
   let table, builder
@@ -45,7 +45,7 @@ describe('model', () => {
       let panelEl = select('#the-panel')
 
       expect(shape(panelEl)).to.equal('box')
-      expect(height(panelEl)).to.equal('0.1')
+      expect(height(panelEl)).to.equal(0.1)
       expect(top(panelEl)).to.equal(top(boardEl) + height(panelEl))
       done()
     })

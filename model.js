@@ -1,43 +1,52 @@
 
-var Panel = function(name, parent) {
-  let api = {}
+var Panel = function(name, base) {
+  let self = {}
+  
+  let halfHeight = 0.05
+  let height = halfHeight * 2
   
   let el = document.createElement('a-box')
   el.setAttribute('id', name)
-  el.setAttribute('height', 0.1)
+  el.setAttribute('height', height)
+  let basePos = base.position()
+  el.setAttribute('position', `${basePos.x} ${base.top() + halfHeight} ${basePos.z}`)
 
-  api.el = el
+  self.el = el
   
-  return api
+  return self
 }
 
 var Board = function(name, parent) {
-  let api = {}
-  
+  let self = {}
+
+  let halfHeight = 0.05
+  let height = halfHeight * 2
+
   let el = document.createElement('a-box')
   el.setAttribute('id', name)
   el.setAttribute('height', 0.1)
   
-  api.panel = (panelName) => {
-    let panel = Panel(panelName)
+  self.panel = (panelName) => {
+    let panel = Panel(panelName, self)
     parent.appendChild(panel.el)
     return panel
   }
   
-  api.el = el
-
-  return api
+  self.el = el
+  self.position = () => el.object3D.position
+  self.top = () => self.position().y + halfHeight
+  
+  return self
 }
 
-var Model = function(foundationEl) {
-  let self = this
-  let api = {}
+var Model = function(baseEl) {
+  let self = {}
   
-  api.board = function(name) {
-    let board = Board(name, foundationEl)
-    foundationEl.appendChild(board.el)
+  self.board = function(name) {
+    let board = Board(name, baseEl)
+    baseEl.appendChild(board.el)
     return board
   }
   
-  return api
+  return self
 }
