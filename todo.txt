@@ -4,6 +4,10 @@ approach
 
 [ ] spike views manually
 [ ] move to test-drive for functionality
+ - [x] basic model boards / panels
+ - [ ] add onto existing entities
+ - [ ] start building out current model
+ - [ ] move to things and styles?
 
 completeness
 [x] tasks

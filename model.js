@@ -7,6 +7,7 @@ var Panel = function(name, base) {
   
   let el = document.createElement('a-box')
   el.setAttribute('id', name)
+  el.setAttribute('color', 'pink')
   el.setAttribute('height', height)
   let basePos = base.position()
   el.setAttribute('position', `${basePos.x} ${base.top() + halfHeight} ${basePos.z}`)
@@ -24,7 +25,8 @@ var Board = function(name, parent) {
 
   let el = document.createElement('a-box')
   el.setAttribute('id', name)
-  el.setAttribute('height', 0.1)
+  el.setAttribute('color', 'blue')
+  el.setAttribute('height', height)
   
   self.panel = (panelName) => {
     let panel = Panel(panelName, self)
