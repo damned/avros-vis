@@ -5,14 +5,16 @@ var Panel = function(name, base) {
   let halfHeight = 0.05
   let height = halfHeight * 2
   
-  let el = document.createElement('a-box')
-  el.setAttribute('id', name)
-  el.setAttribute('color', 'pink')
-  el.setAttribute('height', height)
-  let basePos = base.position()
-  el.setAttribute('position', `${basePos.x} ${base.top() + halfHeight} ${basePos.z}`)
-
-  self.el = el
+  self.render = () => {
+    let el = document.createElement('a-box')
+    el.setAttribute('id', name)
+    el.setAttribute('color', 'pink')
+    el.setAttribute('height', height)
+    let basePos = base.position()
+    el.setAttribute('position', `${basePos.x} ${base.top() + halfHeight} ${basePos.z}`)
+    self.el = el
+    return el
+  }
   
   return self
 }
@@ -32,6 +34,10 @@ var Board = function(name, parent) {
     let panel = Panel(panelName, self)
     parent.appendChild(panel.el)
     return panel
+  }
+  
+  self.render = (parent) => {
+    
   }
   
   self.el = el

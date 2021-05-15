@@ -1,9 +1,11 @@
+approach
+
 10 min
 
-approach
 [ ] spike views manually
 [ ] move to test-drive for functionality
  - [x] basic model boards / panels
+ - [ ] move to things and render with styles
  - [ ] add onto existing entities
  - [ ] start building out current model
  - [ ] move to things and styles?

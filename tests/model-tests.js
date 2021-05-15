@@ -11,11 +11,12 @@ describe('model', () => {
     return parseFloat(el.object3D.position.y) + height(el)/ 2 
   }
 
-  let table, builder
+  let model, table, builder
 
   beforeEach(() => {
     table = document.querySelector('#table')
     table.innerHTML = ''
+    model = Model()
   })
     
   let afterTick = handler => {
@@ -23,7 +24,8 @@ describe('model', () => {
   }
   
   it('should add a rectangular board onto tabletop', (done) => {
-    let board = Model(table).board('first-board')
+    let board = model.board('first-board')
+    model.render(table)
     
     afterTick(() => {
       let boardEl = select('#first-board')
@@ -37,8 +39,9 @@ describe('model', () => {
   })
 
   it('should add a rectangular panel directly onto a board', (done) => {
-    let board = Model(table).board('board')
+    let board = model.board('board')
     let panel = board.panel('the-panel')
+    model.render(table)
     
     afterTick(() => {
       let boardEl = select('#board')
