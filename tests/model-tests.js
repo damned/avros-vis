@@ -7,6 +7,9 @@ describe('model', () => {
   const shape = el => el.components['geometry'].data.primitive
   const height = el => el.getAttribute('height')
   const select = selector => document.querySelector(selector)
+  const top = el => {
+    el.object3D.position.y + parseFloat(el.getAttribute('height')) / 2 
+  }
 
   let table, builder
 

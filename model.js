@@ -2,6 +2,12 @@
 var Panel = function(name, parent) {
   let api = {}
   
+  let el = document.createElement('a-box')
+  el.setAttribute('id', name)
+  el.setAttribute('height', 0.1)
+
+  api.el = el
+  
   return api
 }
 
@@ -13,7 +19,9 @@ var Board = function(name, parent) {
   el.setAttribute('height', 0.1)
   
   api.panel = (panelName) => {
-    return Panel(panelName)
+    let panel = Panel(panelName)
+    parent.appendChild(panel.el)
+    return panel
   }
   
   api.el = el
