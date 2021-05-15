@@ -5,6 +5,8 @@ var expect = chai.expect
 describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
   const shape = el => el.components['geometry'].data.primitive
+  const height = el => el.getAttribute('height')
+  const select = selector => document.querySelector(selector)
 
   let table, builder
 
@@ -21,11 +23,12 @@ describe('model', () => {
     let board = Model(table).board('first-board')
     
     afterTick(() => {
-      let boardEl = document.querySelector('#first-board')
+      let boardEl = select('#first-board')
 
       expect(shape(boardEl)).to.equal('box')
       expect(boardEl.getAttribute('height')).to.equal('0.1')
-      expect(boardEl.parentNode) == table
+      expect(boardEl.parentNode).to.equal(table)
+      
       done()
     })
   })
@@ -35,12 +38,12 @@ describe('model', () => {
     let panel = board.panel('the-panel')
     
     afterTick(() => {
-      let boardEl = document.querySelector('#board')
-      let panelEl = document.querySelector('#the-panel')
+      let boardEl = select('#board')
+      let panelEl = select('#the-panel')
 
-      expect(shape(boardEl)).to.equal('box')
-      expect(boardEl.getAttribute('height')).to.equal('0.1')
-      expect(boardEl.parentNode) == table
+      expect(shape(panelEl)).to.equal('box')
+      expect(height(panelEl)).to.equal('0.1')
+      expect(top(panelEl)).to.equal(top(boardEl) + height(panelEl))
       done()
     })
   })
