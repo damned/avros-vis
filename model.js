@@ -19,7 +19,7 @@ var Panel = function(name, base) {
   return self
 }
 
-var Board = function(name, parent) {
+var Board = function(name) {
   const self = {}
 
   let halfHeight = 0.05
@@ -58,13 +58,16 @@ var Board = function(name, parent) {
 var Model = function() {
   let self = {}
   
+  let board
+  
   self.board = (name) => {
-    let board = Board(name, baseEl)
-    baseEl.appendChild(board.el)
+    board = Board(name)
     return board
   }
   
-  self.render = (baseEl)
+  self.render = (baseEl) => {
+    baseEl.appendChild(board.render(baseEl))
+  }
   
   return self
 }
