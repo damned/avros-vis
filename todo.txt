@@ -1,4 +1,7 @@
 approach
+
+10 min
+
 [ ] spike views manually
 [ ] move to test-drive for functionality
 
