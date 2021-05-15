@@ -30,7 +30,7 @@ var Panel = function(name, base) {
   return self
 }
 
-var Board = function(name) {
+var Board = function(name, type) {
   const self = {}
 
   let children = []
@@ -42,13 +42,13 @@ var Board = function(name) {
   }
   
   const renderSelf = (styles) => {
-    let height = propertyValueForClass(styles, 'board', 'height') || 0.1
+    let height = propertyValueForClass(styles, type, 'height') || 0.1
     let halfHeight = height / 2
     self.halfHeight = halfHeight
 
     let el = document.createElement('a-box')
     el.setAttribute('id', name)
-    el.setAttribute('class', 'board')
+    el.setAttribute('class', type)
     el.setAttribute('color', 'blue')
     el.setAttribute('height', '' + height)
     return el    
@@ -74,7 +74,7 @@ var Model = function() {
   let board
   
   self.board = (name) => {
-    board = Board(name)
+    board = Board(name, 'board')
     return board
   }
   
