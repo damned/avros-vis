@@ -59,8 +59,14 @@ describe('model', () => {
       let board = model.board('board')
       let panel = board.panel('the-panel')
       let styles = [
-        
-        
+        {
+          selector: { class: 'board' },
+          declaration: { height: 0.2 }
+        },
+        {
+          selector: { class: 'panel' },
+          declaration: { height: 0.3 }
+        }
       ]
       model.render(table, styles)
 
