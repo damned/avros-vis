@@ -1,8 +1,8 @@
-/* global AFRAME ModelBuilder */
+/* global AFRAME Model */
 var chai = chai || {}
 var expect = chai.expect
 
-describe('model builder', () => {
+describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
 
   let table, builder
@@ -17,13 +17,13 @@ describe('model builder', () => {
   }
   
   it('should add a rectangular board onto tabletop', (done) => {
-    builder = ModelBuilder(table).addBoard('first-board').build()
+    let board = Model(table).board('first-board')
     
     afterTick(() => {
-      let board = document.querySelector('#first-board')
+      let boardEl = document.querySelector('#first-board')
 
-      expect(board.getAttribute('height')).to.equal('0.1')
-      expect(board.object3D.parent.el) == table
+      expect(boardEl.getAttribute('height')).to.equal('0.1')
+      expect(boardEl.parentNode) == table
       done()
     })
   })
