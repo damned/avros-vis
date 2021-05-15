@@ -6,11 +6,15 @@ completeness
 [x] tasks
 [x] tr forest
 [x] services
-[ ] req - tg
+[ ] req - fus
 [ ] tg
 [ ] lam scaleup - tower
 [ ] many tr trees
 [ ] azs
+
+labelling
+[ ] rotate to viewer
+[ ] circulators
 
 
 flows
