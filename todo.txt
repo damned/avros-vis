@@ -1,12 +1,18 @@
-approach
+now
+
 
 10 min
+refac to things
 
+
+
+approach
 [ ] spike views manually
 [ ] move to test-drive for functionality
  - [x] basic model boards / panels
  - [x] move to things and render with styles
  - [ ] add onto existing entities
+ - [ ] connectors
  - [ ] start building out current model
  - [ ] move to things and styles?
 

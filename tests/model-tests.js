@@ -33,6 +33,7 @@ describe('model', () => {
       expect(shape(boardEl)).to.equal('box')
       expect(boardEl.getAttribute('height')).to.equal('0.1')
       expect(boardEl.parentNode).to.equal(table)
+      expect(top(boardEl)).to.equal(top(table) + height(boardEl))
       
       done()
     })
@@ -49,6 +50,7 @@ describe('model', () => {
 
       expect(shape(panelEl)).to.equal('box')
       expect(height(panelEl)).to.equal(0.1)
+      expect(panelEl.parentNode).to.equal(table)
       expect(top(panelEl)).to.equal(top(boardEl) + height(panelEl))
       done()
     })
