@@ -1,7 +1,7 @@
 /* global AFRAME boxes aframeUtils */
 var chai = chai || {}
 var expect = chai.expect
-let au = aframeUtils
+var au = aframeUtils
 
 describe('aframe utils', () => {
   const aframeContainer = document.getElementById('aframe-container')

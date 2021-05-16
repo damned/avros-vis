@@ -1,28 +1,29 @@
-/* global AFRAME THREE Model */
+/* global AFRAME THREE Model aframeUtils */
 var chai = chai || {}
 var expect = chai.expect
+var au = aframeUtils
 
 const TOLERANCE = 0.001
 
 describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
   const shape = el => el.components['geometry'].data.primitive
-  const bounds = el => {
-    let mesh = el.getObject3D('mesh')
-    let bbox =new THREE.Box3().setFromObject(mesh)
-    return bbox
-  }
+  const bounds = au.world.bounds
   const height = el => {
     let bbox = bounds(el)
     return bbox.max.y - bbox.min.y
   }
   const select = selector => document.querySelector(selector)
-  const top = el => bounds(el).max.y
-  const bottom = el => bounds(el).min.y
+  const top = au.world.top
+  const bottom = au.world.bottom
 
   let model, table, builder
 
   beforeEach(() => {
+    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;">' + 
+                                  '<a-box id="table" position="0 0.6 -1.2" color="darkgray" height="1">' + 
+                                '</a-scene>'
+
     table = document.querySelector('#table')
     table.innerHTML = ''
     model = Model()

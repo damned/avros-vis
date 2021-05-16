@@ -1,3 +1,4 @@
+/* global THREE */
 var aframeUtils = aframeUtils || {}
 
 aframeUtils.tick = fn => {
