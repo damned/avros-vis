@@ -10,14 +10,13 @@ describe('aframe utils', () => {
   let scene
   let inScene = (handler) => scene.addEventListener('renderstart', () => {
     handler(scene)
-    aframeContainer.removeChild(scene)
   })
   
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)
   let select = selector => document.querySelector(selector)
   
   beforeEach(() => {
-    aframeContainer.insertAdjacentHTML('afterbegin', '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>')
+    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
     scene = getScene()
   })
 
@@ -26,15 +25,63 @@ describe('aframe utils', () => {
     describe('top()', () => {
       it('should get the world y position of the top of a unit box at origin', (done) => {
         inScene(scene => {
-          addToScene('<a-box></a-box>')
+          addToScene('<a-box>')
           au.tick(() => {
-            expect(top(select('a-box'))).to.equal(0.5)
+            expect(au.world.top(select('a-box'))).to.equal(0.5)
             done()
           })
         })
       })
     
-    })
+      it('should get the top of a unit box at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-box position="0 2 0">')
+          au.tick(() => {
+            expect(au.world.top(select('a-box'))).to.equal(2.5)
+            done()
+          })
+        })
+      })
 
+      it('should get the top of a unit box at origin within an entity at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity position="0 3 -3"><a-box></a-entity>')
+          au.tick(() => {
+            expect(au.world.top(select('a-box'))).to.equal(3.5)
+            done()
+          })
+        })
+      })
+
+      it('should get the top of a half height box at origin within an entity at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
+          au.tick(() => {
+            expect(au.world.top(select('a-box'))).to.equal(3.25)
+            done()
+          })
+        })
+      })
+
+      it('should get the top of a unit box at origin within a scaled entity at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
+          au.tick(() => {
+            expect(au.world.top(select('a-box'))).to.equal(4)
+            done()
+          })
+        })
+      })
+
+      it('should get the top of a unit box at a non-zero height within an entity at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity position="0 3 -3"><a-box></a-entity>')
+          au.tick(() => {
+            expect(au.world.top(select('a-box'))).to.equal(3.5)
+            done()
+          })
+        })
+      })
+    })
   })
 })
