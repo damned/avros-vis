@@ -5,20 +5,20 @@ var expect = chai.expect
 describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
   const shape = el => el.components['geometry'].data.primitive
-  const height = el => {
-    let bbox = bounds(el)
-    return bbox.max.y - bbox.min.y
-  }
-  const select = selector => document.querySelector(selector)
   const bounds = el => {
     let mesh = el.getObject3D('mesh')
     let bbox =new THREE.Box3().setFromObject(mesh)
     console.log(JSON.stringify(bbox))
     return bbox
   }
+  const height = el => {
+    let bbox = bounds(el)
+    return bbox.max.y - bbox.min.y
+  }
+  const select = selector => document.querySelector(selector)
   const top = el => {
     let bbox = bounds(el)
-    return parseFloat(el.object3D.position.y) + height(el)/ 2 
+    return bbox.max.y
   }
 
   let model, table, builder
@@ -61,7 +61,7 @@ describe('model', () => {
       let panelEl = select('#the-panel')
 
       expect(shape(panelEl)).to.equal('box')
-      expect(height(panelEl)).to.equal(0.1)
+      expect(height(panelEl)).to.be.closeTo(0.1, 0.001)
       expect(panelEl.parentNode).to.equal(table)
       expect(top(panelEl)).to.equal(top(boardEl) + height(panelEl))
       done()
