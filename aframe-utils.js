@@ -4,7 +4,7 @@ var aframeUtils = aframeUtils || {}
 aframeUtils.tick = fn => {
   setTimeout(() => {
     fn()
-  }, 20)  
+  }, 0)  
 }
 aframeUtils.doubleTick = handler => aframeUtils.tick(() => {
   aframeUtils.tick(() => {
