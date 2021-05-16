@@ -16,7 +16,7 @@ var xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
 var Panel = function(name, base) {
   let self = {}  
   
-  self.render = (styles) => {
+  self.render = (parent, styles) => {
     let height = propertyValueForClass(styles, 'panel', 'height') || 0.1
     let halfHeight = height / 2
     console.log('half height', halfHeight)
@@ -28,6 +28,7 @@ var Panel = function(name, base) {
     let basePos = base.position()
     el.setAttribute('position', `${basePos.x} ${base.top() + halfHeight} ${basePos.z}`)
     self.el = el
+    parent.appendChild(el)
     return el
   }
   
@@ -67,14 +68,16 @@ var Board = function(name, type) {
   
   self.render = (parent, styles) => {
     self.el = renderSelf(parent, styles)
+    parent.appendChild(self.el)
+    
     children.forEach(child => {
-      parent.appendChild(child.render(styles))
+      child.render(parent, styles)
     })
     return self.el
   }
   
   self.position = () => self.renderedPosition
-  self.top = () => self.renderedPosition + self.halfHeight
+  self.top = () => self.renderedPosition.y + self.halfHeight
   
   return self
 }
@@ -90,7 +93,7 @@ var Model = function() {
   }
   
   self.render = (baseEl, styles) => {
-    baseEl.appendChild(board.render(baseEl, styles))
+    board.render(baseEl, styles)
   }
   
   return self

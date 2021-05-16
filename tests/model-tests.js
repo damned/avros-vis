@@ -29,7 +29,7 @@ describe('model', () => {
   let afterTick = au.tick
   let afterDoubleTick = au.doubleTick
   
-  xit('should add a rectangular board onto tabletop object', (done) => {
+  it('should add a rectangular board onto tabletop object', (done) => {
     table.addEventListener('loaded', () => {
       let board = model.board('first-board')
       model.render(table, [])
@@ -58,37 +58,39 @@ describe('model', () => {
       let panelEl = select('#the-panel')
 
       expect(shape(panelEl)).to.equal('box')
-      console.log(bounds(panelEl))      
+      console.log(bounds(panelEl))
       expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
       expect(panelEl.parentNode).to.equal(table)
       console.log(bounds(boardEl))
       console.log(bounds(panelEl))
-      // expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
+      expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
       done()
     })
   })
   
-  xdescribe('rendering with style', () => {
-    xit('should add a rectangular panel directly onto a board', (done) => {
-      let board = model.board('board')
-      let panel = board.panel('the-panel')
-      let styles = [
-        {
-          selector: { class: 'board' },
-          declaration: { height: 0.2 }
-        },
-        {
-          selector: { class: 'panel' },
-          declaration: { height: 0.3 }
-        }
-      ]
-      model.render(table, styles)
-
+  describe('rendering with style', () => {
+    it('should add a rectangular panel directly onto a board', (done) => {
+      table.addEventListener('loaded', () => {
+        let board = model.board('board')
+        let panel = board.panel('the-panel')
+        let styles = [
+          {
+            selector: { class: 'board' },
+            declaration: { height: 0.2 }
+          },
+          {
+            selector: { class: 'panel' },
+            declaration: { height: 0.3 }
+          }
+        ]
+        model.render(table, styles)
+      })
+      
       afterTick(() => {
         let boardEl = select('.board')
         let panelEl = select('.panel')
 
-        expect(height(boardEl)).to.equal(0.2)
+        expect(height(boardEl)).to.be.closeTo(0.2)
         expect(height(panelEl)).to.equal(0.3)
         expect(top(panelEl)).to.equal(top(boardEl) + height(panelEl))
         done()
