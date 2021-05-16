@@ -25,11 +25,11 @@ describe('model', () => {
     table.innerHTML = ''
     model = Model()
   })
-    
+      
   let afterTick = au.tick
   let afterDoubleTick = au.doubleTick
   
-  it('should add a rectangular board onto tabletop object', (done) => {
+  xit('should add a rectangular board onto tabletop object', (done) => {
     table.addEventListener('loaded', () => {
       let board = model.board('first-board')
       model.render(table, [])
@@ -47,7 +47,7 @@ describe('model', () => {
   })
 
   it('should add a rectangular panel directly onto a board', (done) => {
-    afterTick(() => {
+    table.addEventListener('loaded', () => {
       let board = model.board('board')
       let panel = board.panel('the-panel')
       model.render(table, [])
@@ -58,11 +58,12 @@ describe('model', () => {
       let panelEl = select('#the-panel')
 
       expect(shape(panelEl)).to.equal('box')
-      // expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
+      console.log(bounds(panelEl))      
+      expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
       expect(panelEl.parentNode).to.equal(table)
       console.log(bounds(boardEl))
       console.log(bounds(panelEl))
-      expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
+      // expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
       done()
     })
   })

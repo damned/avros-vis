@@ -4,7 +4,7 @@ var aframeUtils = aframeUtils || {}
 aframeUtils.tick = fn => {
   setTimeout(() => {
     fn()
-  }, 0)  
+  }, 50)  
 }
 aframeUtils.doubleTick = handler => aframeUtils.tick(() => {
   aframeUtils.tick(() => {
@@ -15,14 +15,10 @@ aframeUtils.afterCreation = aframeUtils.tick
 
 aframeUtils.world = {}
 aframeUtils.world.bounds = el => {
-  // let mesh = el.getObject3D('mesh')
-  // let bbox = new THREE.Box3().setFromObject(mesh)  
-
-  el.object3D.updateMatrix(); 
-  el.object3D.geometry.applyMatrix(el.object3D.matrix);
-  bbox = new THREE.Box3().setFromObject(el.object3D);
-
-  
+  let mesh = el.getObject3D('mesh')
+  mesh.updateMatrix(); 
+  mesh.geometry.applyMatrix4(mesh.matrix);
+  let bbox = new THREE.Box3().setFromObject(mesh);
   return bbox
 }
 aframeUtils.world.height = el => {
