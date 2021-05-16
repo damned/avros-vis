@@ -1,13 +1,23 @@
-/* global AFRAME Model */
+/* global AFRAME THREE Model */
 var chai = chai || {}
 var expect = chai.expect
 
 describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
   const shape = el => el.components['geometry'].data.primitive
-  const height = el => parseFloat(el.getAttribute('height'))
+  const height = el => {
+    let bbox = bounds(el)
+    return bbox.max.y = bbox.min.y
+  }
   const select = selector => document.querySelector(selector)
+  const bounds = el => {
+    let mesh = el.getObject3D('mesh')
+    let bbox =new THREE.Box3().setFromObject(mesh)
+    console.log(JSON.stringify(bbox))
+    return bbox
+  }
   const top = el => {
+    let bbox = bounds(el)
     return parseFloat(el.object3D.position.y) + height(el)/ 2 
   }
 
