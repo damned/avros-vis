@@ -11,7 +11,7 @@ aframeUtils.afterCreation = aframeUtils.tick
 aframeUtils.world = {}
 aframeUtils.world.bounds = el => {
   let mesh = el.getObject3D('mesh')
-  mesh.geometry.computeBoundingBox
+  mesh.geometry.computeBoundingBox()
   let bbox = new THREE.Box3().setFromObject(mesh)
   console.log(JSON.stringify(bbox))
   return bbox
