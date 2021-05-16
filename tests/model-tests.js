@@ -38,18 +38,18 @@ describe('model', () => {
     afterTick(() => {
       let boardEl = select('#first-board')
 
-      // expect(shape(boardEl)).to.equal('box')
-      // expect(boardEl.getAttribute('height')).to.equal('0.1')
-      // expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
-      // expect(boardEl.parentNode).to.equal(table)
+      expect(shape(boardEl)).to.equal('box')
+      expect(boardEl.getAttribute('height')).to.equal('0.1')
+      expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
+      expect(boardEl.parentNode).to.equal(table)
       
-      expect(bottom(boardEl)).to.equal(top(table))
+      expect(bottom(boardEl)).to.be.closeTo(top(table), 0.001)
       
       done()
     })
   })
 
-  xit('should add a rectangular panel directly onto a board', (done) => {
+  it('should add a rectangular panel directly onto a board', (done) => {
     let board = model.board('board')
     let panel = board.panel('the-panel')
     model.render(table, [])
