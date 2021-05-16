@@ -13,9 +13,8 @@ describe('aframe utils', () => {
     aframeContainer.removeChild(scene)
   })
   
-  let addToScene = html => {
-    scene.insertAdjacentHTML('afterbegin'html)
-  }
+  let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)
+  let select = selector => document.querySelector(selector)
   
   beforeEach(() => {
     aframeContainer.insertAdjacentHTML('afterbegin', '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>')
@@ -25,11 +24,11 @@ describe('aframe utils', () => {
   describe('world-space utils', () => {
 
     describe('top()', () => {
-      it('should get the world y position of the top of the element', (done) => {
+      it('should get the world y position of the top of a unit box at origin', (done) => {
         inScene(scene => {
-          
+          addToScene('<a-box></a-box>')
           au.tick(() => {
-            expect(scene.querySelector('a-box')).to.not.be.null
+            expect(top(select('a-box'))).to.equal(0.5)
             done()
           })
         })
