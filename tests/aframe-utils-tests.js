@@ -179,6 +179,26 @@ describe('aframe utils', () => {
         })
       })
 
+      it('should get the height of a unit box in a scaled entity', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity scale="1 3 1"><a-box></a-entity>')
+          au.tick(() => {
+            expect(au.world.height(select('a-box'))).to.closeTo(3, TOLERANCE)
+            done()
+          })
+        })
+      })
+
+      it('should get the height of a custom height box in a scaled entity', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity scale="1 4 1"><a-box height="0.5"></a-entity>')
+          au.tick(() => {
+            expect(au.world.height(select('a-box'))).to.closeTo(2, TOLERANCE)
+            done()
+          })
+        })
+      })
+
     })
   })
 })

@@ -17,6 +17,7 @@ var Panel = function(name, base) {
   self.render = (styles) => {
     let height = propertyValueForClass(styles, 'panel', 'height') || 0.1
     let halfHeight = height / 2
+    console.log('half height', halfHeight)
     let el = document.createElement('a-box')
     el.setAttribute('id', name)
     el.setAttribute('class', 'panel')
