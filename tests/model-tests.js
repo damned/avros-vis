@@ -9,10 +9,7 @@ describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
   const shape = el => el.components['geometry'].data.primitive
   const bounds = au.world.bounds
-  const height = el => {
-    let bbox = bounds(el)
-    return bbox.max.y - bbox.min.y
-  }
+  const height = au.world.height
   const select = selector => document.querySelector(selector)
   const top = au.world.top
   const bottom = au.world.bottom
