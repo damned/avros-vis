@@ -21,6 +21,11 @@ const heightOfEl = el => {
 }
 const topOfEl = el => boundsOfEl(el).max.y
 const bottomOfEl = el => boundsOfEl(el).min.y
+function afterCreation(fn) {
+  setTimeout(() => {
+    fn()
+  }, 0)  
+}
 
 
 var Panel = function(name, base) {
@@ -73,11 +78,11 @@ var Board = function(name, type) {
   
   self.render = (parent, styles) => {
     self.el = renderSelf(parent, styles)
-    setTimeout(() => {
-        children.forEach(child => {
-          parent.appendChild(child.render(styles))
-        })
-    }, 0)
+    afterCreation(() => {
+      children.forEach(child => {
+        parent.appendChild(child.render(styles))
+      })
+    })
     return self.el
   }
   

@@ -2,7 +2,7 @@
 var chai = chai || {}
 var expect = chai.expect
 
-xxxdescribe('starting a boxes scene', () => {
+describe('aframe utils', () => {
   const aframeContainer = document.getElementById('aframe-container')
 
   let getScene = () => aframeContainer.querySelector('a-scene')
@@ -13,7 +13,9 @@ xxxdescribe('starting a boxes scene', () => {
   })
   
   beforeEach(() => {
-    boxes.startScene('#aframe-container')
+    let newScene = document.createElement('a-scene')
+    newScene.innerHTML = 
+    aframeContainer.appendChild(newScene)
     scene = getScene()
   })
     
