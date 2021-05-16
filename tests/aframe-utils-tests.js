@@ -1,6 +1,7 @@
-/* global AFRAME boxes */
+/* global AFRAME boxes aframeUtils */
 var chai = chai || {}
 var expect = chai.expect
+let au = aframeUtils
 
 describe('aframe utils', () => {
   const aframeContainer = document.getElementById('aframe-container')
@@ -12,25 +13,29 @@ describe('aframe utils', () => {
     aframeContainer.removeChild(scene)
   })
   
+  let addToScene = html => {
+    scene.insertAdjacentHTML('afterbegin'html)
+  }
+  
   beforeEach(() => {
-    let newScene = document.createElement('a-scene')
-    newScene.innerHTML = 
-    aframeContainer.appendChild(newScene)
+    aframeContainer.insertAdjacentHTML('afterbegin', '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>')
     scene = getScene()
   })
+
+  describe('world-space utils', () => {
+
+    describe('top()', () => {
+      it('should get the world y position of the top of the element', (done) => {
+        inScene(scene => {
+          
+          au.tick(() => {
+            expect(scene.querySelector('a-box')).to.not.be.null
+            done()
+          })
+        })
+      })
     
-  it('should create a box', (done) => {
-    inScene(scene => {
-      expect(scene.querySelector('a-box')).to.not.be.null
-      done()
     })
-  })
-  
-  it('the box should be red', (done) => {
-    inScene(scene => {
-      let box = scene.querySelector('a-box')
-      expect(box.getAttribute('color')).to.equal('red')
-      done()
-    })
+
   })
 })
