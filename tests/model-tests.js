@@ -49,12 +49,14 @@ describe('model', () => {
     })
   })
 
-  xit('should add a rectangular panel directly onto a board', (done) => {
-    let board = model.board('board')
-    let panel = board.panel('the-panel')
-    model.render(table, [])
-    
+  it('should add a rectangular panel directly onto a board', (done) => {
     afterTick(() => {
+      let board = model.board('board')
+      let panel = board.panel('the-panel')
+      model.render(table, [])
+    })
+    
+    afterDoubleTick(() => {
       let boardEl = select('#board')
       let panelEl = select('#the-panel')
 
