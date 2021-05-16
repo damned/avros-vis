@@ -3,7 +3,7 @@ var chai = chai || {}
 var expect = chai.expect
 var au = aframeUtils
 
-const TOLERANCE = 0.001
+var TOLERANCE = 0.001
 
 describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
@@ -63,6 +63,7 @@ describe('model', () => {
       expect(shape(panelEl)).to.equal('box')
       expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
       expect(panelEl.parentNode).to.equal(table)
+      console.log(bounds(boardEl))
       console.log(bounds(panelEl))
       expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
       done()

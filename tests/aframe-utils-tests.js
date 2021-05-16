@@ -3,6 +3,8 @@ var chai = chai || {}
 var expect = chai.expect
 var au = aframeUtils
 
+var TOLERANCE = 0.001
+
 describe('aframe utils', () => {
   const aframeContainer = document.getElementById('aframe-container')
 
@@ -145,6 +147,38 @@ describe('aframe utils', () => {
         })
       })
     })
+    
+    describe('height()', () => {
+      it('should get the height of a unit box', (done) => {
+        inScene(scene => {
+          addToScene('<a-box>')
+          au.tick(() => {
+            expect(au.world.height(select('a-box'))).to.equal(1)
+            done()
+          })
+        })
+      })
 
+      it('should get the height of a custom-height box', (done) => {
+        inScene(scene => {
+          addToScene('<a-box height="0.6">')
+          au.tick(() => {
+            expect(au.world.height(select('a-box'))).to.closeTo(0.6, TOLERANCE)
+            done()
+          })
+        })
+      })
+
+      it('should get the height of a scaled custom-height box', (done) => {
+        inScene(scene => {
+          addToScene('<a-box height="0.6" scale="1 3 1">')
+          au.tick(() => {
+            expect(au.world.height(select('a-box'))).to.closeTo(1.8, TOLERANCE)
+            done()
+          })
+        })
+      })
+
+    })
   })
 })

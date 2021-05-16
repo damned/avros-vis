@@ -11,14 +11,8 @@ const propertyValueForClass = (styles, classname, propertyname) => {
 
 var au = aframeUtils
 
-const heightOfEl = el => {
-  let bbox = au.world.bounds(el)
-  return bbox.max.y - bbox.min.y
-}
-
 var Panel = function(name, base) {
-  let self = {}
-  
+  let self = {}  
   
   self.render = (styles) => {
     let height = propertyValueForClass(styles, 'panel', 'height') || 0.1
@@ -60,7 +54,7 @@ var Board = function(name, type) {
     el.setAttribute('color', 'blue')
     el.setAttribute('height', '' + height)
     
-    el.setAttribute('position', `0 ${heightOfEl(parent) / 2 + halfHeight} 0`)
+    el.setAttribute('position', `0 ${au.world.height(parent) / 2 + halfHeight} 0`)
     return el    
   }
   
