@@ -40,16 +40,14 @@ describe('model', () => {
     afterTick(() => {
       let boardEl = select('#first-board')
 
-      expect(shape(boardEl)).to.equal('box')
-      expect(boardEl.getAttribute('height')).to.equal('0.1')
-      expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
-      expect(boardEl.parentNode).to.equal(table)
-      console.log('bounds of board', bounds(boardEl))
-      setTimeout(() => {
-        console.log('bounds of board after 1s', bounds(boardEl))
+      afterTick(() => {
+        expect(shape(boardEl)).to.equal('box')
+        expect(boardEl.getAttribute('height')).to.equal('0.1')
+        expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
+        expect(boardEl.parentNode).to.equal(table)
         expect(bottom(boardEl)).to.be.closeTo(top(table), TOLERANCE)
         done()
-      }, 50)
+      })
     })
   })
 
