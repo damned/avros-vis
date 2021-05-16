@@ -58,11 +58,8 @@ describe('model', () => {
       let panelEl = select('#the-panel')
 
       expect(shape(panelEl)).to.equal('box')
-      console.log(bounds(panelEl))
       expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
       expect(panelEl.parentNode).to.equal(table)
-      console.log(bounds(boardEl))
-      console.log(bounds(panelEl))
       expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
       done()
     })
@@ -86,13 +83,13 @@ describe('model', () => {
         model.render(table, styles)
       })
       
-      afterTick(() => {
+      afterDoubleTick(() => {
         let boardEl = select('.board')
         let panelEl = select('.panel')
 
-        expect(height(boardEl)).to.be.closeTo(0.2)
-        expect(height(panelEl)).to.equal(0.3)
-        expect(top(panelEl)).to.equal(top(boardEl) + height(panelEl))
+        expect(height(boardEl)).to.be.closeTo(0.2, TOLERANCE)
+        expect(height(panelEl)).to.be.closeTo(0.3, TOLERANCE)
+        expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
         done()
       })
     })
