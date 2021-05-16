@@ -43,6 +43,8 @@ var Board = function(name, type) {
     return panel
   }
   
+  let renderedPosition
+  
   const renderSelf = (parent, styles) => {
     let height = propertyValueForClass(styles, type, 'height') || 0.1
     let halfHeight = height / 2
@@ -61,15 +63,13 @@ var Board = function(name, type) {
   
   self.render = (parent, styles) => {
     self.el = renderSelf(parent, styles)
-    au.afterCreation(() => {
-      children.forEach(child => {
-        parent.appendChild(child.render(styles))
-      })
+    children.forEach(child => {
+      parent.appendChild(child.render(styles))
     })
     return self.el
   }
   
-  self.position = () => self.el.object3D.position
+  self.position = () => renderedPosition
   self.top = () => au.world.top(self.el)
   
   return self
