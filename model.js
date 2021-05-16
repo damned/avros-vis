@@ -60,7 +60,7 @@ var Board = function(name, type) {
     el.setAttribute('color', 'blue')
     el.setAttribute('height', '' + height)
     
-    el.setAttribute('position', `0 ${heightOfEl(parent) / 2 + halfHeight} 0`)
+    el.setAttribute('position', `0 ${heightOfEl(parent) / 2 + halfHeight + 1} 0`)
     return el    
   }
   
