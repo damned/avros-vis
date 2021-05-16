@@ -30,6 +30,7 @@ describe('model', () => {
   })
     
   let afterTick = au.tick
+  let afterDoubleTick = au.doubleTick
   
   it('should add a rectangular board onto tabletop object', (done) => {
     afterTick(() => {
@@ -37,17 +38,14 @@ describe('model', () => {
       model.render(table, [])
     })
     
-    afterTick(() => {
+    afterDoubleTick(() => {
       let boardEl = select('#first-board')
-
-      afterTick(() => {
-        expect(shape(boardEl)).to.equal('box')
-        expect(boardEl.getAttribute('height')).to.equal('0.1')
-        expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
-        expect(boardEl.parentNode).to.equal(table)
-        expect(bottom(boardEl)).to.be.closeTo(top(table), TOLERANCE)
-        done()
-      })
+      expect(shape(boardEl)).to.equal('box')
+      expect(boardEl.getAttribute('height')).to.equal('0.1')
+      expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
+      expect(boardEl.parentNode).to.equal(table)
+      expect(bottom(boardEl)).to.be.closeTo(top(table), TOLERANCE)
+      done()
     })
   })
 

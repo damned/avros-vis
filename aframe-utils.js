@@ -4,8 +4,13 @@ var aframeUtils = aframeUtils || {}
 aframeUtils.tick = fn => {
   setTimeout(() => {
     fn()
-  }, 50)  
+  }, 20)  
 }
+aframeUtils.doubleTick = handler => aframeUtils.tick(() => {
+  aframeUtils.tick(() => {
+    handler()
+  })
+})
 aframeUtils.afterCreation = aframeUtils.tick
 
 aframeUtils.world = {}
