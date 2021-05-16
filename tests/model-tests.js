@@ -7,7 +7,7 @@ describe('model', () => {
   const shape = el => el.components['geometry'].data.primitive
   const height = el => {
     let bbox = bounds(el)
-    return bbox.max.y = bbox.min.y
+    return bbox.max.y - bbox.min.y
   }
   const select = selector => document.querySelector(selector)
   const bounds = el => {
@@ -33,7 +33,7 @@ describe('model', () => {
     setTimeout(handler, 0)
   }
   
-  it('should add a rectangular board onto tabletop', (done) => {
+  it('should add a rectangular board onto tabletop object', (done) => {
     let board = model.board('first-board')
     model.render(table, [])
     
@@ -42,8 +42,10 @@ describe('model', () => {
 
       expect(shape(boardEl)).to.equal('box')
       expect(boardEl.getAttribute('height')).to.equal('0.1')
+      expect(height(boardEl)).to.equal('0.1')
       expect(boardEl.parentNode).to.equal(table)
-      expect(top(boardEl)).to.equal(top(table) + height(boardEl))
+      
+      expect(bottom(boardEl)).to.equal(top(table))
       
       done()
     })
