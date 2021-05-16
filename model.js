@@ -9,6 +9,8 @@ const propertyValueForClass = (styles, classname, propertyname) => {
   return null
 }
 
+const topOfEl = self.position().y + self.halfHeight
+
 var Panel = function(name, base) {
   let self = {}
   
@@ -51,6 +53,7 @@ var Board = function(name, type) {
     el.setAttribute('class', type)
     el.setAttribute('color', 'blue')
     el.setAttribute('height', '' + height)
+    el.setAttribute('position', ``)
     return el    
   }
   
@@ -63,7 +66,7 @@ var Board = function(name, type) {
   }
   
   self.position = () => self.el.object3D.position
-  self.top = () => self.position().y + self.halfHeight
+  self.top = () => 
   
   return self
 }
