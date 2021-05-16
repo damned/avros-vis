@@ -2,13 +2,14 @@
 var chai = chai || {}
 var expect = chai.expect
 
+const TOLERANCE = 0.001
+
 describe('model', () => {
   const aframeContainer = document.getElementById('aframe-container')
   const shape = el => el.components['geometry'].data.primitive
   const bounds = el => {
     let mesh = el.getObject3D('mesh')
     let bbox =new THREE.Box3().setFromObject(mesh)
-    console.log(JSON.stringify(bbox))
     return bbox
   }
   const height = el => {
@@ -43,7 +44,7 @@ describe('model', () => {
       expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
       expect(boardEl.parentNode).to.equal(table)
       
-      expect(bottom(boardEl)).to.be.closeTo(top(table), 0.001)
+      expect(bottom(boardEl)).to.be.closeTo(top(table), TOLERANCE)
       
       done()
     })
@@ -59,10 +60,10 @@ describe('model', () => {
       let panelEl = select('#the-panel')
 
       expect(shape(panelEl)).to.equal('box')
-      expect(height(panelEl)).to.be.closeTo(0.1, 0.001)
+      expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
       expect(panelEl.parentNode).to.equal(table)
-      expect(top(panelEl)).to.equal(1)
-      // expect(top(panelEl)).to.equal(top(boardEl) + height(panelEl))
+      console.log(bounds(panelEl))
+      expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
       done()
     })
   })

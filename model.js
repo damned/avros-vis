@@ -73,9 +73,11 @@ var Board = function(name, type) {
   
   self.render = (parent, styles) => {
     self.el = renderSelf(parent, styles)
-    children.forEach(child => {
-      parent.appendChild(child.render(styles))
-    })
+    setTimeout(() => {
+      children.forEach(child => {
+        parent.appendChild(child.render(styles))
+      })
+    }, 0)
     return self.el
   }
   
