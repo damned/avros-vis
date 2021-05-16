@@ -19,3 +19,4 @@ aframeUtils.world.height = el => {
   return bbox.max.y - bbox.min.y
 }
 aframeUtils.world.top = el => aframeUtils.world.bounds(el).max.y
+aframeUtils.world.bottom = el => aframeUtils.world.bounds(el).min.y

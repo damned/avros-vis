@@ -75,13 +75,76 @@ describe('aframe utils', () => {
 
       it('should get the top of a unit box at a non-zero height within an entity at some height', (done) => {
         inScene(scene => {
-          addToScene('<a-entity position="0 3 -3"><a-box></a-entity>')
+          addToScene('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
           au.tick(() => {
-            expect(au.world.top(select('a-box'))).to.equal(3.5)
+            expect(au.world.top(select('a-box'))).to.equal(5.5)
             done()
           })
         })
       })
     })
+    
+    describe('bottom()', () => {
+      it('should get the world y position of the bottom of a unit box at origin', (done) => {
+        inScene(scene => {
+          addToScene('<a-box>')
+          au.tick(() => {
+            expect(au.world.bottom(select('a-box'))).to.equal(-0.5)
+            done()
+          })
+        })
+      })
+    
+      it('should get the bottom of a unit box at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-box position="0 2 0">')
+          au.tick(() => {
+            expect(au.world.bottom(select('a-box'))).to.equal(1.5)
+            done()
+          })
+        })
+      })
+
+      it('should get the bottom of a unit box at origin within an entity at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity position="0 3 -3"><a-box></a-entity>')
+          au.tick(() => {
+            expect(au.world.bottom(select('a-box'))).to.equal(2.5)
+            done()
+          })
+        })
+      })
+
+      it('should get the bottom of a half height box at origin within an entity at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
+          au.tick(() => {
+            expect(au.world.bottom(select('a-box'))).to.equal(2.75)
+            done()
+          })
+        })
+      })
+
+      it('should get the bottom of a unit box at origin within a scaled entity at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
+          au.tick(() => {
+            expect(au.world.bottom(select('a-box'))).to.equal(2)
+            done()
+          })
+        })
+      })
+
+      it('should get the bottom of a unit box at a non-zero height within an entity at some height', (done) => {
+        inScene(scene => {
+          addToScene('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
+          au.tick(() => {
+            expect(au.world.bottom(select('a-box'))).to.equal(4.5)
+            done()
+          })
+        })
+      })
+    })
+
   })
 })
