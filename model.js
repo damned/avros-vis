@@ -10,6 +10,8 @@ const propertyValueForClass = (styles, classname, propertyname) => {
 }
 
 var au = aframeUtils
+var xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
+
 
 var Panel = function(name, base) {
   let self = {}  
@@ -43,8 +45,6 @@ var Board = function(name, type) {
     return panel
   }
   
-  let renderedPosition
-  
   const renderSelf = (parent, styles) => {
     let height = propertyValueForClass(styles, type, 'height') || 0.1
     let halfHeight = height / 2
@@ -56,8 +56,12 @@ var Board = function(name, type) {
     el.setAttribute('class', type)
     el.setAttribute('color', 'blue')
     el.setAttribute('height', '' + height)
-    
-    el.setAttribute('position', `0 ${au.world.height(parent) / 2 + halfHeight} 0`)
+    self.renderedPosition = { 
+      x: 0,
+      y: au.world.height(parent) / 2 + halfHeight,
+      z: 0
+    }
+    el.setAttribute('position', xyzTriplet(self.renderedPosition))
     return el    
   }
   
@@ -69,8 +73,8 @@ var Board = function(name, type) {
     return self.el
   }
   
-  self.position = () => renderedPosition
-  self.top = () => au.world.top(self.el)
+  self.position = () => self.renderedPosition
+  self.top = () => self.renderedPosition + self.halfHeight
   
   return self
 }
