@@ -1,4 +1,4 @@
-/* global THREE */
+/* global THREE aframeUtils */
 const propertyValueForClass = (styles, classname, propertyname) => {
   let match = styles.find(style => style.selector.class == classname)
   if (match !== undefined) {
@@ -9,24 +9,12 @@ const propertyValueForClass = (styles, classname, propertyname) => {
   return null
 }
 
-const boundsOfEl = el => {
-  let mesh = el.getObject3D('mesh')
-  let bbox =new THREE.Box3().setFromObject(mesh)
-  console.log(JSON.stringify(bbox))
-  return bbox
-}
+var au = aframeUtils
+
 const heightOfEl = el => {
-  let bbox = boundsOfEl(el)
+  let bbox = au.world.bounds(el)
   return bbox.max.y - bbox.min.y
 }
-const topOfEl = el => boundsOfEl(el).max.y
-const bottomOfEl = el => boundsOfEl(el).min.y
-function afterCreation(fn) {
-  setTimeout(() => {
-    fn()
-  }, 0)  
-}
-
 
 var Panel = function(name, base) {
   let self = {}
@@ -78,7 +66,7 @@ var Board = function(name, type) {
   
   self.render = (parent, styles) => {
     self.el = renderSelf(parent, styles)
-    afterCreation(() => {
+    au.afterCreation(() => {
       children.forEach(child => {
         parent.appendChild(child.render(styles))
       })
@@ -87,7 +75,7 @@ var Board = function(name, type) {
   }
   
   self.position = () => self.el.object3D.position
-  self.top = () => topOfEl(self.el)
+  self.top = () => au.world.top(self.el)
   
   return self
 }

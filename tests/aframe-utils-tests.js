@@ -22,19 +22,8 @@ describe('aframe utils', () => {
 
   describe('world-space utils', () => {
 
-    beforeAll()
-    
     describe('top()', () => {
-      inScene(scene => {
-        addToScene('<a-box>')
-        au.tick(() => {
-          it('should get the world y position of the top of a unit box at origin', () => {
-            expect(au.world.top(select('a-box'))).to.equal(0.5)
-          })
-        })
-      })
-
-      xit('should get the world y position of the top of a unit box at origin', (done) => {
+      it('should get the world y position of the top of a unit box at origin', (done) => {
         inScene(scene => {
           addToScene('<a-box>')
           au.tick(() => {
@@ -44,7 +33,7 @@ describe('aframe utils', () => {
         })
       })
     
-      xit('should get the top of a unit box at some height', (done) => {
+      it('should get the top of a unit box at some height', (done) => {
         inScene(scene => {
           addToScene('<a-box position="0 2 0">')
           au.tick(() => {
@@ -54,7 +43,7 @@ describe('aframe utils', () => {
         })
       })
 
-      xit('should get the top of a unit box at origin within an entity at some height', (done) => {
+      it('should get the top of a unit box at origin within an entity at some height', (done) => {
         inScene(scene => {
           addToScene('<a-entity position="0 3 -3"><a-box></a-entity>')
           au.tick(() => {
@@ -64,7 +53,7 @@ describe('aframe utils', () => {
         })
       })
 
-      xit('should get the top of a half height box at origin within an entity at some height', (done) => {
+      it('should get the top of a half height box at origin within an entity at some height', (done) => {
         inScene(scene => {
           addToScene('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
           au.tick(() => {
@@ -74,7 +63,7 @@ describe('aframe utils', () => {
         })
       })
 
-      xit('should get the top of a unit box at origin within a scaled entity at some height', (done) => {
+      it('should get the top of a unit box at origin within a scaled entity at some height', (done) => {
         inScene(scene => {
           addToScene('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
           au.tick(() => {
@@ -84,7 +73,7 @@ describe('aframe utils', () => {
         })
       })
 
-      xit('should get the top of a unit box at a non-zero height within an entity at some height', (done) => {
+      it('should get the top of a unit box at a non-zero height within an entity at some height', (done) => {
         inScene(scene => {
           addToScene('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
           au.tick(() => {

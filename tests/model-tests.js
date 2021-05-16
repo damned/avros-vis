@@ -29,13 +29,13 @@ describe('model', () => {
     model = Model()
   })
     
-  let afterTick = handler => {
-    setTimeout(handler, 0)
-  }
+  let afterTick = au.tick
   
   it('should add a rectangular board onto tabletop object', (done) => {
-    let board = model.board('first-board')
-    model.render(table, [])
+    afterTick(() => {
+      let board = model.board('first-board')
+      model.render(table, [])
+    })
     
     afterTick(() => {
       let boardEl = select('#first-board')
@@ -51,7 +51,7 @@ describe('model', () => {
     })
   })
 
-  it('should add a rectangular panel directly onto a board', (done) => {
+  xit('should add a rectangular panel directly onto a board', (done) => {
     let board = model.board('board')
     let panel = board.panel('the-panel')
     model.render(table, [])
@@ -69,7 +69,7 @@ describe('model', () => {
     })
   })
   
-  describe('rendering with style', () => {
+  xdescribe('rendering with style', () => {
     xit('should add a rectangular panel directly onto a board', (done) => {
       let board = model.board('board')
       let panel = board.panel('the-panel')
