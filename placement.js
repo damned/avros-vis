@@ -22,8 +22,6 @@ AFRAME.registerComponent('placement', {
       
       let placeOn = () => {
         au.catching(() => {
-          
-          log('placeOn: host is loaded: ', host.hasLoaded)
           log('placeOn: on is loaded: ', on.hasLoaded)
 
           let on3d = on.object3D
@@ -67,10 +65,14 @@ AFRAME.registerComponent('placement', {
         }
       }
       
-      log('update: host is loaded: ', host.hasLoaded)
       log('update: on is loaded: ', on.hasLoaded)
 
-      on.addEventListener('loaded', placeOn)
+      if (on.hasLoaded) {
+        placeOn()
+      }
+      else {
+        on.addEventListener('loaded', placeOn)
+      }
     }
   }
 })
