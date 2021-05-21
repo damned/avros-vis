@@ -41,17 +41,17 @@ aframeUtils.catching = (fn) => {
 
 aframeUtils.log = function() {
   let self = arguments.callee
+  if (self.active == false) {
+    return;
+  }
   let args = [...arguments]
   if (args.length == 1) {
     let singleArgType = typeof(args[0])
     console.log('type of first log arg', singleArgType)
     if (singleArgType === 'function') {
-      
-      args = []
+      let lazyLogItems = args[0]()
+      args = Array.isArray(lazyLogItems) ? [...lazyLogItems] : [lazyLogItems]
     }
-  }
-  if (self.active == false) {
-    return;
   }
   self.logImpl.apply(this, args)
 }

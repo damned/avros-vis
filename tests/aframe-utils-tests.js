@@ -53,13 +53,26 @@ describe('aframe utils', () => {
           au.log('one', 'two')
           expect(fakeLog.getCalls().length).to.eql(1)
         })
-        it('should log the single return value of a passed function', () => {
+        it('should log the single return value of passed log function', () => {
           au.log(() => 'the thing actually logged')
           expect(fakeLog.getCalls()).to.eql([['the thing actually logged']])
         })
-        it('should log the items of the array return value of a passed function as individual log parameters', () => {
+        it('should log the items of the array return value of passed log function as individual log parameters', () => {
           au.log(() => ['one', 'two'])
           expect(fakeLog.getCalls()).to.eql([['one', 'two']])
+        })
+        it('should not log from the log function if logging is not active', () => {
+          au.log.active = false
+          au.log(() => 'should not be logged')
+          expect(fakeLog.getCalls().length).to.eql(1)
+        })
+        it('should not call the log function if logging is not active', () => {
+          let called = false
+          let logFn = () => {
+            called = true
+          }
+          au.log(logFn)
+          expect(called).to.be.false
         })
       })
     })
