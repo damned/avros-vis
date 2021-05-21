@@ -1,5 +1,6 @@
 /* globals AFRAME THREE aframeUtils */
 AFRAME.registerComponent('edge', {
+  multiple: true,
   schema: {
     from: { type: "selector" },
     to: { type: "selector" },
@@ -37,13 +38,15 @@ AFRAME.registerComponent('edge', {
 
           let otherRelativePos = vector(host, other)
 
+          let start = '0 0 0'
+          let end = '0 0 0'
           if (fromHere) {
-            host.setAttribute('line', `start: 0 0 0; end: ${au.xyzTriplet(otherRelativePos)}; color: ${color}`)
+            host.setAttribute('line__' + self.id, `start: 0 0 0; end: ${au.xyzTriplet(otherRelativePos)}; color: ${color}`)
             log(() => 'using to: setting end pos to ' + JSON.stringify(otherRelativePos))
           }
           else {
-            host.setAttribute('line', `start: ${au.xyzTriplet(otherRelativePos)}; end: 0 0 0; color: ${color}`)
-            log(() => 'using from: setting start pos to ' + JSON.stringify(otherRelativePos))
+            host.setAttribute('line__' + self.id, `start: ${au.xyzTriplet(otherRelativePos)}; end: 0 0 0; color: ${color}`)
+            log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           }
           justEdged = true
         })
