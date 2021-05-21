@@ -1,4 +1,4 @@
-/* globals AFRAME aframeUtils */
+/* globals AFRAME THREE aframeUtils */
 AFRAME.registerComponent('placement', {
   schema: {
     on: { type: "selector" }
@@ -11,9 +11,18 @@ AFRAME.registerComponent('placement', {
       let au = aframeUtils
       let on = self.data.on
       
-      let pos = host.object3D.position
+      let onPos = on.object3D.position
+      console.log('host is loaded: ', host.hasLoaded)
+      console.log('on is loaded: ', on.hasLoaded)
+
+      console.log('on pos: ', JSON.stringify(onPos))
       
-      pos.y = au.top(host) + au.height(self) / 2
+      
+      let onSize = new THREE.Box3().setFromObject(on)
+      let hostSize = new THREE.Box3().setFromObject(host)
+      
+      let pos = onPos.clone()
+      pos.y = onPos.y + (onSize.y / 2) + (hostSize.y / 2)
       
       host.setAttribute(au.xyzTriplet(pos))
       
