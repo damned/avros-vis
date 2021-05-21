@@ -1,4 +1,4 @@
-/* global THREE */
+/* global THREE arguments */
 var aframeUtils = aframeUtils || {}
 
 aframeUtils.tick = fn => {
@@ -37,4 +37,8 @@ aframeUtils.catching = (fn) => {
   } catch (e) {
     console.log("caught exception in catching", e);
   }
+}
+
+aframeUtils.log = () => {
+  console.log.apply(this, ...arguments)
 }
