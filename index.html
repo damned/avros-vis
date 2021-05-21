@@ -8,6 +8,7 @@
     <script src="aframe-utils.js"></script>
     <script src="balloon-label.js"></script>
     <script src="placement.js"></script>
+    <script src="edge.js"></script>
   </head>
   <body>
     <a-scene>
@@ -26,10 +27,8 @@
 
         <a-box id="nlb" placement="on: #sng" balloon-label="label: nlb" color="#444" mixin="srv"></a-box>
 
-        <a-entity line="start: -0.25 0.025 0.55; end: 0.4 0.025 0.5; color: red"></a-entity>
-        <a-box id="age-1" color="#444" mixin="srv" position="0.4 0.025 0.5"></a-box>
-        <a-entity line="start: -0.25 0.025 0.55; end: 0.4 0.025 0.6; color: pink"></a-entity>
-        <a-box id="age-2" color="#444" mixin="srv" position="0.4 0.025 0.6"></a-box>
+        <a-box id="age-1" edge="from: #nlb; color: pink" color="#444" mixin="srv" position="0.4 0.025 0.5"></a-box>
+        <a-box id="age-2" edge="from: #nlb; color: pink" color="#444" mixin="srv" position="0.4 0.025 0.6"></a-box>
 
         <a-entity line="start: 0.4 0.025 0.5; end: 1 0.5 0.7; color: pink"></a-entity>
         <a-entity line="start: 0.4 0.025 0.6; end: 1 0.5 0.7; color: pink"></a-entity>
