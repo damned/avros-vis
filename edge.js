@@ -25,7 +25,7 @@ AFRAME.registerComponent('edge', {
           log(() => ['from pos: ', JSON.stringify(fromPos)])
           log(() => ['host pos: ', JSON.stringify(fromPos)])
           
-          let fromRelativePos = hostPos.clone().sub(fromPos)
+          let fromRelativePos = fromPos.clone().sub(hostPos)
 
           host.setAttribute('line', `start: ${au.xyzTriplet(fromRelativePos)}; end: 0 0 0; color: ${color}`)
 

@@ -24,16 +24,19 @@ describe('edge component', () => {
   })
       
   it('should create a line from source to destination when using from property on destination', (done) => {
-    addToScene('<a-box id="start" color="green" position="-1 2 -2">')
-    source = select('#start')
-    addToScene('<a-box id="dest" edge="from: #start" position="1 1 -1">')
+    addToScene('<a-sphere id="source" radius="0.1" position="-1 2 -2">')
+    source = select('#source')
+    addToScene('<a-sphere id="dest" radius="0.1" edge="from: #source" position="1 1 -1">')
     dest = select('#dest')
     
     dest.addEventListener('edged', () => {
       let addedLine = dest.components.line
       expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
-      expect(addedLine.data.start).to.eql({x: 2, y: -1, z: 1})
+      expect(addedLine.data.start).to.eql({x: -2, y: 1, z: -1})
       done()
     })
+  })
+  
+  describe('when thing being placed on is already loaded', () => {
   })
 })
