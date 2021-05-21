@@ -5,6 +5,15 @@ var au = aframeUtils
 
 var TOLERANCE = 0.001
 
+let createFakeLog = function() {
+  let calls = []
+  let logFn = (...args) => {
+    calls.push(args)
+  }
+  logFn.getCalls = () => calls
+  return logFn
+}
+
 describe('aframe utils', () => {
 
   describe('general utils', () => {
@@ -15,14 +24,21 @@ describe('aframe utils', () => {
         })
       })
       describe('different ways of calling', () => {
-        before(() => {
-          au.log.logImpl = chai.spy()
+        let fakeLog
+        beforeEach(() => {
+          fakeLog = createFakeLog()
+          au.log.logImpl = fakeLog
         })
         after(() => {
           au.log.logImpl = console.log
         })
         it('should actually log for a single non-function argument', () => {
-          expect()
+          au.log('some string')
+          expect(fakeLog.getCalls()).to.eql([['some string']])
+        })
+        it('should actually log for multiple string arguments', () => {
+          au.log('some string', 'another string', 'third')
+          expect(fakeLog.getCalls()).to.eql([['some string', 'another string', 'third']])
         })
       })
     })
