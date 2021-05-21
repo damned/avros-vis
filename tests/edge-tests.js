@@ -5,34 +5,32 @@ var au = aframeUtils
 
 var TOLERANCE = 0.001
 
-describe('placement component', () => {
+describe('edge component', () => {
   const aframeContainer = document.getElementById('aframe-container')
   const select = selector => document.querySelector(selector)
   const top = au.world.top
   const bottom = au.world.bottom
   const pos = el => el.object3D.position
 
-  let scene, base, host
+  let scene, source, dest
 
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
   
   beforeEach(() => {
     aframeContainer.insertAdjacentHTML('afterbegin', 
         '<a-scene embedded style="height: 300px; width: 600px;">' + 
-          '<a-box id="base" position="0 0.6 -1.2" color="darkgray" height="1">' + 
         '</a-scene>')
 
     scene = select('a-scene')
-
-    base = document.querySelector('#base')
-    base.innerHTML = ''
   })
       
-  it('should place its host entity directly on top of its on base', (done) => {
-    addToScene('<a-box id="host" placement="on: #base">')
-    host = select('#host')
+  it('should create a line from source to destination when using from property on destination', (done) => {
+    addToScene('<a-box id="start" position="-1 2 -2">')
+    source = select('#start')
+    addToScene('<a-box id="dest" edge="from: #start" position="1 1 -1">')
+    dest = select('#dest')
     
-    host.addEventListener('placed', () => {
+    dest.addEventListener('edged', () => {
       expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
       expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
       expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
