@@ -14,12 +14,17 @@ describe('placement component', () => {
   const top = au.world.top
   const bottom = au.world.bottom
 
-  let entity, table
+  let scene, table, host
 
+  let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
+  
   beforeEach(() => {
-    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;">' + 
-                                  '<a-box id="table" position="0 0.6 -1.2" color="darkgray" height="1">' + 
-                                '</a-scene>'
+    frameContainer.insertAdjacentHTML('afterbegin', 
+        '<a-scene embedded style="height: 300px; width: 600px;">' + 
+          '<a-box id="table" position="0 0.6 -1.2" color="darkgray" height="1">' + 
+        '</a-scene>')
+
+    scene = select('a-scene')
 
     table = document.querySelector('#table')
     table.innerHTML = ''
@@ -28,19 +33,12 @@ describe('placement component', () => {
   let afterTick = au.tick
   let afterDoubleTick = au.doubleTick
   
-  it('should place its host entity', (done) => {
-    table.addEventListener('loaded', () => {
-      let board = model.board('first-board')
-      model.render(table, [])
-    })
+  it('should place its host entity directly on top of its on target', (done) => {
+    addToScene('<a-box id="host" placement="on: #table">')
+    host = select('#host')
     
-    afterDoubleTick(() => {
-      let boardEl = select('#first-board')
-      expect(shape(boardEl)).to.equal('box')
-      expect(boardEl.getAttribute('height')).to.equal('0.1')
-      expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
-      expect(boardEl.parentNode).to.equal(table)
-      expect(bottom(boardEl)).to.be.closeTo(top(table), TOLERANCE)
+    table.addEventListener('loaded', () => {
+      expect(bottom(host)).to.be.closeTo(top(table), TOLERANCE)
       done()
     })
   })
