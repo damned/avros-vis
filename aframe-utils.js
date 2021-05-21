@@ -40,10 +40,19 @@ aframeUtils.catching = (fn) => {
 }
 
 aframeUtils.log = function() {
+  let self = arguments.callee
   let args = [...arguments]
   if (args.length == 1) {
-    console.log('type of first log arg', typeof(args[0]))
+    let singleArgType = typeof(args[0])
+    console.log('type of first log arg', singleArgType)
+    if (singleArgType === 'function') {
+      
+      args = []
+    }
   }
-  arguments.callee.logImpl.apply(this, args)
+  if (self.active == false) {
+    return;
+  }
+  self.logImpl.apply(this, args)
 }
 aframeUtils.log.logImpl = console.log

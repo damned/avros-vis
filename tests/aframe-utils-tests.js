@@ -24,14 +24,16 @@ describe('aframe utils', () => {
           expect(au.log.logImpl).to.equal(console.log)        
         })
       })
-      describe('different ways of calling', () => {
+      describe('what logging is done', () => {
         let fakeLog
         beforeEach(() => {
           fakeLog = createFakeLog()
           au.log.logImpl = fakeLog
+          au.log.active = true
         })
         after(() => {
           au.log.logImpl = console.log
+          au.log.active = true
         })
         it('should actually log for a single non-function argument', () => {
           au.log('some string')
@@ -40,6 +42,24 @@ describe('aframe utils', () => {
         it('should actually log for multiple string arguments', () => {
           au.log('a string', 'another string', 'third')
           expect(fakeLog.getCalls()[0]).to.eql(['a string', 'another string', 'third'])
+        })
+        it('should not log static arguments if log not active', () => {
+          au.log.active = false
+          au.log('one', 'two')
+          expect(fakeLog.getCalls().length).to.eql(0)
+        })
+        it('should log if log is set active', () => {
+          au.log.active = true
+          au.log('one', 'two')
+          expect(fakeLog.getCalls().length).to.eql(1)
+        })
+        it('should log the single return value of a passed function', () => {
+          au.log(() => 'the thing actually logged')
+          expect(fakeLog.getCalls()).to.eql([['the thing actually logged']])
+        })
+        it('should log the items of the array return value of a passed function as individual log parameters', () => {
+          au.log(() => ['one', 'two'])
+          expect(fakeLog.getCalls()).to.eql([['one', 'two']])
         })
       })
     })
