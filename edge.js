@@ -1,7 +1,8 @@
 /* globals AFRAME THREE aframeUtils */
 AFRAME.registerComponent('edge', {
   schema: {
-    from: { type: "selector" }
+    from: { type: "selector" },
+    color: { type: "color", default: "blue" }
   },
   init: function () {
     let self = this
@@ -11,6 +12,7 @@ AFRAME.registerComponent('edge', {
     
     self.update = () => {
       let from = self.data.from
+      let color = self.data.color
       let justEdged = false
       let emitEdgedNext = false      
       
@@ -18,18 +20,16 @@ AFRAME.registerComponent('edge', {
         au.catching(() => {
           log('addLine: from is loaded: ', from.hasLoaded)
 
-          let fromPos = from3d.object3D.position
+          let fromPos = from.object3D.position
           let hostPos = host.object3D.position
           log(() => ['from pos: ', JSON.stringify(fromPos)])
           log(() => ['host pos: ', JSON.stringify(fromPos)])
+          
+          let fromRelativePos = hostPos.clone().sub(fromPos)
 
-          host.setAttribute('line', `start: ${au.xyzTriplet()}; end: ${au.}; color: red`)
+          host.setAttribute('line', `start: ${au.xyzTriplet(fromRelativePos)}; end: 0 0 0; color: ${color}`)
 
-          log(() => 'setting placement to ' + JSON.stringify(pos))
-
-          host.setAttribute('position', au.xyzTriplet(pos))
-
-          log(() => 'placement set to ' + JSON.stringify(pos))
+          log(() => 'using from: setting start pos to ' + JSON.stringify(fromRelativePos))
 
           justEdged = true
         })

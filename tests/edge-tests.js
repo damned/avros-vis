@@ -18,21 +18,21 @@ describe('edge component', () => {
   
   beforeEach(() => {
     aframeContainer.insertAdjacentHTML('afterbegin', 
-        '<a-scene embedded style="height: 300px; width: 600px;">' + 
-        '</a-scene>')
+        '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>')
 
     scene = select('a-scene')
   })
       
   it('should create a line from source to destination when using from property on destination', (done) => {
-    addToScene('<a-box id="start" position="-1 2 -2">')
+    addToScene('<a-box id="start" color="green" position="-1 2 -2">')
     source = select('#start')
     addToScene('<a-box id="dest" edge="from: #start" position="1 1 -1">')
     dest = select('#dest')
     
     dest.addEventListener('edged', () => {
       let addedLine = dest.components.line
-      expect(addedLine.data).to.eql('')
+      expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
+      expect(addedLine.data.start).to.eql({x: 2, y: -1, z: 1})
       done()
     })
   })
