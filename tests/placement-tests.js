@@ -19,7 +19,7 @@ describe('placement component', () => {
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
   
   beforeEach(() => {
-    frameContainer.insertAdjacentHTML('afterbegin', 
+    aframeContainer.insertAdjacentHTML('afterbegin', 
         '<a-scene embedded style="height: 300px; width: 600px;">' + 
           '<a-box id="table" position="0 0.6 -1.2" color="darkgray" height="1">' + 
         '</a-scene>')

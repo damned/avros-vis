@@ -10,7 +10,7 @@ const propertyValueForClass = (styles, classname, propertyname) => {
 }
 
 var au = aframeUtils
-var xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
+var xyzTriplet = aframeUtils.xyzTriplet
 
 
 var Panel = function(name, base) {

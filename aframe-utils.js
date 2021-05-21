@@ -27,3 +27,5 @@ aframeUtils.world.height = el => {
 }
 aframeUtils.world.top = el => aframeUtils.world.bounds(el).max.y
 aframeUtils.world.bottom = el => aframeUtils.world.bounds(el).min.y
+
+aframeUtils.xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
