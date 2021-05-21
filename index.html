@@ -28,17 +28,14 @@
 
         <a-box id="age-1" color="#444" mixin="srv" position="0.4 0.025 0.5"
                edge="from: #nlb; color: pink" 
-               edge__1="to: #ag; color: red" ></a-box>
+               edge__1="to: #ag; color: pink" ></a-box>
         <a-box id="age-2" color="#444" mixin="srv" position="0.4 0.025 0.6"
                edge="from: #nlb; color: pink" 
-               edge__1="to: #ag; color: red"></a-box>
+               edge__1="to: #ag; color: pink"></a-box>
 
         <a-entity edge="to: #nlb; color: pink" balloon-label="label: fus; scale: 0.6" geometry="primitive: octahedron; radius: 0.2" material="color: pink" position="-0.6 0.05 -1.4"></a-entity>
 
-        <a-entity line="start: 1 0.5 0.7; end: 1 0.5 0.1"></a-entity>
-        <a-box id="lam" balloon-label="label: lam" color="#444" mixin="srv" position="1 0.5 0.1"></a-box>
-
-        <a-entity id="lam-to-es" line="start: 0.2 0 0.2; end: 1 0.5 0.1"></a-entity>
+        <a-box id="lam" edge="from: #ag; color: pink" balloon-label="label: lam" color="#444" mixin="srv" position="1 0.5 0.1"></a-box>
 
         <a-box id="trg" color="red"   balloon-label="label: tr g" mixin="srv" position="0.1 0.025 0.7"
                line="start: 0 0 0; end: 0.1 0 -0.4; color: orange"></a-box>
@@ -48,7 +45,7 @@
                line="start: 0 0 0; end: -0.1 0 -0.6; color: orange"></a-box>
 
         
-        <a-box balloon-label="label: es" color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3">
+        <a-box edge="from: #lam; color: pink" balloon-label="label: es" color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3">
           <a-box color="#558" mixin="srv" position="-0.05 0.025 -0.1"></a-box>
           <a-box color="#558" mixin="srv" position="-0.05 0.025  0.0"></a-box>
           <a-box color="#558" mixin="srv" position="-0.05 0.025  0.1"></a-box>
