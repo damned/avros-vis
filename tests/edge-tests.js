@@ -59,10 +59,10 @@ describe('edge component', () => {
 
   describe('using to property on source', () => {
     it('should create a line from source to destination', (done) => {
-      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="-1 2 -2">')
-      source = select('#source')
       addToScene('<a-sphere id="dest" radius="0.1" position="1 1 -1">')
       dest = select('#dest')
+      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="-1 2 -2">')
+      source = select('#source')
 
       source.addEventListener('edged', () => {
         let addedLine = source.components.line

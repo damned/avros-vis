@@ -2,6 +2,7 @@
 AFRAME.registerComponent('edge', {
   schema: {
     from: { type: "selector" },
+    to: { type: "selector" },
     color: { type: "color", default: "blue" }
   },
   init: function () {
@@ -13,23 +14,28 @@ AFRAME.registerComponent('edge', {
     self.update = () => {
       let from = self.data.from
       let to = self.data.to
-      let fromHere = (from == undefined)
+      let fromHere = (from === null)
       let other = fromHere ? to : from
       
       let color = self.data.color
       let justEdged = false
       let emitEdgedNext = false      
       
+      let vector = (here, other) => {
+        let otherPos = other.object3D.position
+        let herePos = here.object3D.position
+        log(() => ['other pos: ', JSON.stringify(otherPos)])
+        log(() => ['here pos: ', JSON.stringify(herePos)])
+
+        return otherPos.clone().sub(herePos)
+      }
+      
+      
       let addLine = () => {
         au.catching(() => {
           log('addLine: other is loaded: ', other.hasLoaded)
 
-          let otherPos = other.object3D.position
-          let hostPos = host.object3D.position
-          log(() => ['other pos: ', JSON.stringify(otherPos)])
-          log(() => ['host pos: ', JSON.stringify(hostPos)])
-          
-          let otherRelativePos = otherPos.clone().sub(hostPos)
+          let otherRelativePos = vector(host, other)
 
           if (fromHere) {
             host.setAttribute('line', `start: 0 0 0; end: ${au.xyzTriplet(otherRelativePos)}; color: ${color}`)
