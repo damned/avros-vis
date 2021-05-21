@@ -23,8 +23,8 @@ AFRAME.registerComponent('placement', {
       let placeOn = () => {
         au.catching(() => {
           
-          log(() => ['placeOn: host is loaded: ', host.hasLoaded])
-          log(() => ['placeOn: on is loaded: ', on.hasLoaded])
+          log('placeOn: host is loaded: ', host.hasLoaded)
+          log('placeOn: on is loaded: ', on.hasLoaded)
 
           let on3d = on.object3D
           let onPos = on.object3D.position
@@ -39,10 +39,10 @@ AFRAME.registerComponent('placement', {
           log(() => ['host size: ', JSON.stringify(hostSize)])
 
           let pos = onPos.clone()
-          log(() => 'on pos y' + onPos.y)
-          log(() => 'on size y' + onSize.y)
+          log('on pos y', onPos.y)
+          log('on size y', onSize.y)
           let newY = onPos.y + (onSize.y / 2) + (hostSize.y / 2)
-          log(() => 'newY' + newY)
+          log('newY', newY)
           pos.setY(newY)
 
           log(() => 'setting placement to ' + JSON.stringify(pos))
@@ -67,8 +67,8 @@ AFRAME.registerComponent('placement', {
         }
       }
       
-      console.log('update: host is loaded: ', host.hasLoaded)
-      console.log('update: on is loaded: ', on.hasLoaded)
+      log('update: host is loaded: ', host.hasLoaded)
+      log('update: on is loaded: ', on.hasLoaded)
 
       on.addEventListener('loaded', placeOn)
     }

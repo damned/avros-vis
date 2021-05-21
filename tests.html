@@ -32,6 +32,8 @@
     <script class="mocha-init">
       mocha.setup('bdd');
       mocha.checkLeaks();
+      
+      aframeUtils.log.active = true
     </script>
 
     <script src="tests/placement-tests.js"></script>

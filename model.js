@@ -3,7 +3,7 @@ const propertyValueForClass = (styles, classname, propertyname) => {
   let match = styles.find(style => style.selector.class == classname)
   if (match !== undefined) {
     let value = match.declaration[propertyname]
-    console.log('property value', value)
+    au.log('property value', value)
     return value
   }
   return null
@@ -19,7 +19,7 @@ var Panel = function(name, base) {
   self.render = (parent, styles) => {
     let height = propertyValueForClass(styles, 'panel', 'height') || 0.1
     let halfHeight = height / 2
-    console.log('half height', halfHeight)
+    au.log('half height', halfHeight)
     let el = document.createElement('a-box')
     el.setAttribute('id', name)
     el.setAttribute('class', 'panel')

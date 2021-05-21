@@ -82,7 +82,7 @@ describe('aframe utils', () => {
       })
     })
   })
-  xdescribe('aframe scene related', () => {
+  describe('aframe scene related', () => {
     const aframeContainer = document.getElementById('aframe-container')
 
     let getScene = () => aframeContainer.querySelector('a-scene')
