@@ -20,7 +20,7 @@ completeness
 [x] tasks
 [x] tr forest
 [x] services
-[ ] req - fus
+[x] req - fus
 [ ] tg
 [ ] lam scaleup - tower
 [ ] many tr trees

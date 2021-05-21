@@ -14,7 +14,7 @@ describe('model', () => {
   const top = au.world.top
   const bottom = au.world.bottom
 
-  let model, table, builder
+  let model, table
 
   beforeEach(() => {
     aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;">' + 
