@@ -49,16 +49,16 @@ AFRAME.registerComponent('placement', {
         
       }
       
-      // self.tick = () => {
-      //   if (justPlaced) {
-      //     justPlaced = false
-      //     emitPlacedNext = true
-      //   }
-      //   else if (emitPlacedNext) {
-      //     emitPlacedNext = false
-      //     host.emit('placed')          
-      //   }
-      // }
+      self.tick = () => {
+        if (justPlaced) {
+          justPlaced = false
+          emitPlacedNext = true
+        }
+        else if (emitPlacedNext) {
+          emitPlacedNext = false
+          host.emit('placed')          
+        }
+      }
       
       console.log('update: host is loaded: ', host.hasLoaded)
       console.log('update: on is loaded: ', on.hasLoaded)

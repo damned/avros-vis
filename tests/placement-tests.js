@@ -39,6 +39,8 @@ describe('placement component', () => {
     
     host.addEventListener('placed', () => {
       expect(bottom(host)).to.be.closeTo(top(table), TOLERANCE)
+      expect(bottom(host)).to.be.closeTo(top(table), TOLERANCE)
+      expect(bottom(host)).to.be.closeTo(top(table), TOLERANCE)
       done()
     })
   })
