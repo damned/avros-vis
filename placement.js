@@ -23,33 +23,33 @@ AFRAME.registerComponent('placement', {
       let placeOn = () => {
         au.catching(() => {
           
-          log('placeOn: host is loaded: ', host.hasLoaded)
-          log('placeOn: on is loaded: ', on.hasLoaded)
+          log(() => ['placeOn: host is loaded: ', host.hasLoaded])
+          log(() => ['placeOn: on is loaded: ', on.hasLoaded])
 
           let on3d = on.object3D
           let onPos = on.object3D.position
           let host3d = host.object3D
-          log('on pos: ', JSON.stringify(onPos))
+          log(() => ['on pos: ', JSON.stringify(onPos)])
 
           let box = new THREE.Box3()
           let onSize = box.setFromObject(on3d).getSize(new THREE.Vector3())
           let hostSize = box.setFromObject(host3d).getSize(new THREE.Vector3())
 
-          log('on size: ', JSON.stringify(onSize))
-          log('host size: ', JSON.stringify(hostSize))
+          log(() => ['on size: ', JSON.stringify(onSize)])
+          log(() => ['host size: ', JSON.stringify(hostSize)])
 
           let pos = onPos.clone()
-          log('on pos y', onPos.y)
-          log('on size y', onSize.y)
+          log(() => 'on pos y' + onPos.y)
+          log(() => 'on size y' + onSize.y)
           let newY = onPos.y + (onSize.y / 2) + (hostSize.y / 2)
-          console.log('newY', newY)
+          log(() => 'newY' + newY)
           pos.setY(newY)
 
-          console.log('setting placement to ', JSON.stringify(pos))
+          log(() => 'setting placement to ' + JSON.stringify(pos))
 
           host.setAttribute('position', au.xyzTriplet(pos))
 
-          console.log('placement set to ', JSON.stringify(pos))
+          log(() => 'placement set to ' + JSON.stringify(pos))
 
           justPlaced = true
         })

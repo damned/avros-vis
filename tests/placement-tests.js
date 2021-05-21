@@ -13,6 +13,8 @@ describe('placement component', () => {
   const select = selector => document.querySelector(selector)
   const top = au.world.top
   const bottom = au.world.bottom
+  
+  au.log.
 
   let scene, table, host
 

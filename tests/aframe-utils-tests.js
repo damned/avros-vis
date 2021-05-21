@@ -8,7 +8,6 @@ var TOLERANCE = 0.001
 let createFakeLog = function() {
   let calls = []
   let logFn = (...args) => {
-    console.log('lf', JSON.stringify(args))
     calls.push(args)
   }
   logFn.getCalls = () => calls
@@ -16,6 +15,15 @@ let createFakeLog = function() {
 }
 
 describe('aframe utils', () => {
+  let priorLogActiveState, priorLogActiveImpl
+  before(() => {
+    priorLogActiveState = au.log.active
+    priorLogActiveImpl = au.log.logImpl
+  })
+  after(() => {
+    au.log.active = priorLogActiveState
+    au.log.logImpl = priorLogActiveImpl
+  })
 
   describe('general utils', () => {
     describe('log()', () => {
@@ -29,10 +37,6 @@ describe('aframe utils', () => {
         beforeEach(() => {
           fakeLog = createFakeLog()
           au.log.logImpl = fakeLog
-          au.log.active = true
-        })
-        after(() => {
-          au.log.logImpl = console.log
           au.log.active = true
         })
         it('should actually log for a single non-function argument', () => {
@@ -64,13 +68,14 @@ describe('aframe utils', () => {
         it('should not log from the log function if logging is not active', () => {
           au.log.active = false
           au.log(() => 'should not be logged')
-          expect(fakeLog.getCalls().length).to.eql(1)
+          expect(fakeLog.getCalls().length).to.eql(0)
         })
         it('should not call the log function if logging is not active', () => {
           let called = false
           let logFn = () => {
             called = true
           }
+          au.log.active = false
           au.log(logFn)
           expect(called).to.be.false
         })
