@@ -39,6 +39,7 @@ aframeUtils.catching = (fn) => {
   }
 }
 
+
 aframeUtils.log = function() {
   let self = arguments.callee
   if (self.active == false) {
@@ -55,3 +56,4 @@ aframeUtils.log = function() {
   self.logImpl.apply(this, args)
 }
 aframeUtils.log.logImpl = console.log
+aframeUtils.log.active = true

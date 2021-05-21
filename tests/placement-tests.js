@@ -13,6 +13,7 @@ describe('placement component', () => {
   const select = selector => document.querySelector(selector)
   const top = au.world.top
   const bottom = au.world.bottom
+  const pos = el => el.object3D.position
 
   let scene, table, host
 
@@ -33,15 +34,17 @@ describe('placement component', () => {
   let afterTick = au.tick
   let afterDoubleTick = au.doubleTick
   
-  it('should place its host entity directly on top of its on target', (done) => {
+  it('should place its host entity directly on top of its on base', (done) => {
     addToScene('<a-box id="host" placement="on: #table">')
     host = select('#host')
     
     host.addEventListener('placed', () => {
       expect(bottom(host)).to.be.closeTo(top(table), TOLERANCE)
-      expect(bottom(host)).to.be.closeTo(top(table), TOLERANCE)
-      expect(bottom(host)).to.be.closeTo(top(table), TOLERANCE)
+      expect(pos(host).x).to.be.closeTo(pos(table).x, TOLERANCE)
+      expect(pos(host).z).to.be.closeTo(pos(table).z, TOLERANCE)
       done()
     })
   })
+  
+  describe('when thing being placed on is already loaded')
 })
