@@ -6,31 +6,40 @@ AFRAME.registerComponent('placement', {
   init: function () {
     let self = this
     let host = self.el
+    let au = aframeUtils
     
     self.update = () => {
-      let au = aframeUtils
       let on = self.data.on
       let placed = false
       
       let placeOn = () => {
-        console.log('placeOn: host is loaded: ', host.hasLoaded)
-        console.log('placeOn: on is loaded: ', on.hasLoaded)
+        au.catching(() => {
+          
+          console.log('placeOn: host is loaded: ', host.hasLoaded)
+          console.log('placeOn: on is loaded: ', on.hasLoaded)
 
-        let onPos = on.object3D.position
-        console.log('on pos: ', JSON.stringify(onPos))
+          let on3d = on.object3D
+          let onPos = on.object3D.position
+          let host3d = host.object3D
+          console.log('on pos: ', JSON.stringify(onPos))
 
-        let onSize = new THREE.Box3().setFromObject(on)
-        let hostSize = new THREE.Box3().setFromObject(host)
+          let onSize = new THREE.Box3().setFromObject(on3d)
+          let hostSize = new THREE.Box3().setFromObject(host3d)
 
-        console.log('on size: ', JSON.stringify(onSize))
-        console.log('host size: ', JSON.stringify(hostSize))
+          console.log('on size: ', JSON.stringify(onSize))
+          console.log('host size: ', JSON.stringify(hostSize))
 
-        let pos = onPos.clone()
-        pos.y = onPos.y + (onSize.y / 2) + (hostSize.y / 2)
+          let pos = onPos.clone()
+          let newY = onPos.y + (onSize.y / 2) + (hostSize.y / 2)
+          console.log('newY', newY)
+          pos.setY(newY)
 
-        host.setAttribute(au.xyzTriplet(pos))
+          console.log('setting placement to ', JSON.stringify(pos))
 
-        console.log('placement set to ', pos)
+          host.setAttribute(au.xyzTriplet(pos))
+
+          console.log('placement set to ', JSON.stringify(pos))
+        })
         
       }
       

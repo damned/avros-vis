@@ -37,7 +37,7 @@ describe('placement component', () => {
     addToScene('<a-box id="host" placement="on: #table">')
     host = select('#host')
     
-    table.addEventListener('loaded', () => {
+    host.addEventListener('placed', () => {
       expect(bottom(host)).to.be.closeTo(top(table), TOLERANCE)
       done()
     })
