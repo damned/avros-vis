@@ -40,15 +40,10 @@ aframeUtils.catching = (fn) => {
 }
 
 aframeUtils.log = function() {
-  let args = Object.values(arguments)
-  if (args.length = 1) {
+  let args = [...arguments]
+  if (args.length == 1) {
     console.log('type of first log arg', typeof(args[0]))
   }
-  console.log('aulog arguments', JSON.stringify(arguments))
-  console.log('aulog arguments values', JSON.stringify(Object.values(arguments)))
-  console.log('aulog arguments[0]', arguments[0])
-  console.log('aulog arguments[1]', arguments[1])
-  console.log('aulog arrayed', JSON.stringify(args))
-  arguments.callee.logImpl.apply(this, ...args)
+  arguments.callee.logImpl.apply(this, args)
 }
 aframeUtils.log.logImpl = console.log

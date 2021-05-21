@@ -39,7 +39,7 @@ describe('aframe utils', () => {
         })
         it('should actually log for multiple string arguments', () => {
           au.log('a string', 'another string', 'third')
-          expect(fakeLog.getCalls()[0]).to.eql(['some string', 'another string', 'third'])
+          expect(fakeLog.getCalls()[0]).to.eql(['a string', 'another string', 'third'])
         })
       })
     })
