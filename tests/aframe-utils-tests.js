@@ -9,13 +9,25 @@ describe('aframe utils', () => {
 
   describe('general utils', () => {
     describe('log()', () => {
-      it('should use console.log by default as the actual logger', () => {
-        
+      describe('logging implementation defaults', () => {
+        it('should use console.log by default as the actual logger', () => {
+          expect(au.log.logImpl).to.equal(console.log)        
+        })
       })
-      it('should call the underlying logger for ')
+      describe('different ways of calling', () => {
+        before(() => {
+          au.log.logImpl = chai.spy()
+        })
+        after(() => {
+          au.log.logImpl = console.log
+        })
+        it('should actually log for a single non-function argument', () => {
+          expect()
+        })
+      })
     })
   })
-  describe('aframe scene related', () => {
+  xdescribe('aframe scene related', () => {
     const aframeContainer = document.getElementById('aframe-container')
 
     let getScene = () => aframeContainer.querySelector('a-scene')
