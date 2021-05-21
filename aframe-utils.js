@@ -39,10 +39,11 @@ aframeUtils.catching = (fn) => {
   }
 }
 
-aframeUtils.log = function() {
-  if (arguments.length = 1) {
-    console.log('type of first log arg', typeof(arguments[0]))
+aframeUtils.log = function(...args) {
+  if (args.length = 1) {
+    console.log('type of first log arg', typeof(args[0]))
   }
-  arguments.callee.logImpl.apply(this, arguments)
+  console.log('aulog', JSON.stringify(args))
+  arguments.callee.logImpl.apply(this, args)
 }
 aframeUtils.log.logImpl = console.log

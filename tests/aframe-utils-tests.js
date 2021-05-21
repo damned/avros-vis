@@ -8,6 +8,7 @@ var TOLERANCE = 0.001
 let createFakeLog = function() {
   let calls = []
   let logFn = (...args) => {
+    console.log('lf', JSON.stringify(args))
     calls.push(args)
   }
   logFn.getCalls = () => calls
@@ -37,8 +38,8 @@ describe('aframe utils', () => {
           expect(fakeLog.getCalls()).to.eql([['some string']])
         })
         it('should actually log for multiple string arguments', () => {
-          au.log('some string', 'another string', 'third')
-          expect(fakeLog.getCalls()).to.eql([['some string', 'another string', 'third']])
+          au.log('a string', 'another string', 'third')
+          expect(fakeLog.getCalls()[0]).to.eql(['some string', 'another string', 'third'])
         })
       })
     })
