@@ -41,13 +41,13 @@ AFRAME.registerComponent('edge', {
           let start = '0 0 0'
           let end = '0 0 0'
           if (fromHere) {
-            host.setAttribute('line__' + self.id, `start: 0 0 0; end: ${au.xyzTriplet(otherRelativePos)}; color: ${color}`)
-            log(() => 'using to: setting end pos to ' + JSON.stringify(otherRelativePos))
+            end = au.xyzTriplet(otherRelativePos)
           }
           else {
-            host.setAttribute('line__' + self.id, `start: ${au.xyzTriplet(otherRelativePos)}; end: 0 0 0; color: ${color}`)
-            log(() => 'setting start pos to ' + start + ' setting end to ' + end)
+            start = au.xyzTriplet(otherRelativePos)
           }
+          host.setAttribute('line__' + self.id, `start: ${start}; end: ${end}; color: ${color}`)
+          log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true
         })
         
