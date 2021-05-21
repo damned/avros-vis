@@ -12,25 +12,33 @@ AFRAME.registerComponent('edge', {
     
     self.update = () => {
       let from = self.data.from
+      let to = self.data.to
+      let fromHere = (from == undefined)
+      let other = fromHere ? to : from
+      
       let color = self.data.color
       let justEdged = false
       let emitEdgedNext = false      
       
       let addLine = () => {
         au.catching(() => {
-          log('addLine: from is loaded: ', from.hasLoaded)
+          log('addLine: other is loaded: ', other.hasLoaded)
 
-          let fromPos = from.object3D.position
+          let otherPos = other.object3D.position
           let hostPos = host.object3D.position
-          log(() => ['from pos: ', JSON.stringify(fromPos)])
-          log(() => ['host pos: ', JSON.stringify(fromPos)])
+          log(() => ['other pos: ', JSON.stringify(otherPos)])
+          log(() => ['host pos: ', JSON.stringify(hostPos)])
           
-          let fromRelativePos = fromPos.clone().sub(hostPos)
+          let otherRelativePos = otherPos.clone().sub(hostPos)
 
-          host.setAttribute('line', `start: ${au.xyzTriplet(fromRelativePos)}; end: 0 0 0; color: ${color}`)
-
-          log(() => 'using from: setting start pos to ' + JSON.stringify(fromRelativePos))
-
+          if (fromHere) {
+            host.setAttribute('line', `start: 0 0 0; end: ${au.xyzTriplet(otherRelativePos)}; color: ${color}`)
+            log(() => 'using to: setting end pos to ' + JSON.stringify(otherRelativePos))
+          }
+          else {
+            host.setAttribute('line', `start: ${au.xyzTriplet(otherRelativePos)}; end: 0 0 0; color: ${color}`)
+            log(() => 'using from: setting start pos to ' + JSON.stringify(otherRelativePos))
+          }
           justEdged = true
         })
         
@@ -47,13 +55,13 @@ AFRAME.registerComponent('edge', {
         }
       }
       
-      log('update: from is loaded: ', from.hasLoaded)
+      log('update: other is loaded: ', other.hasLoaded)
 
-      if (from.hasLoaded) {
+      if (other.hasLoaded) {
         addLine()
       }
       else {
-        from.addEventListener('loaded', addLine)
+        other.addEventListener('loaded', addLine)
       }
     }
   }
