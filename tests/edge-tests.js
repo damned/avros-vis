@@ -31,26 +31,9 @@ describe('edge component', () => {
     dest = select('#dest')
     
     dest.addEventListener('edged', () => {
-      expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
-      expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
-      expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
+      let addedLine = dest.components.line
+      expect(addedLine.data).to.eql('')
       done()
     })
-  })
-  
-  describe('when thing being placed on is already loaded', () => {
-    it('should place its host entity directly on top of its on base', (done) => {
-      base.addEventListener('loaded', () => {
-        addToScene('<a-box id="host" placement="on: #base">')
-        host = select('#host')
-
-        host.addEventListener('placed', () => {
-          expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
-          expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
-          expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
-          done()
-        })
-      })
-    })    
   })
 })
