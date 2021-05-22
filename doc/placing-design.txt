@@ -28,8 +28,26 @@ obviously from the basic manual spiking this has an obvious use.
 
 ## open issues / concerns / questions
 
-### 
+### supporting multiple tenants *on* a base
 
+#### two evenly sized things on a base
+
+<thing id="base">
+<thing id="a" placement="on: #base">
+<thing id="b" placement="on: #base">
+
+1. base area is split evenly into two xz areas 
+2. a and b are placed on the xz centres of their areas 
+3. each ten
+
+#### 
+
+
+
+#### resizing co-tenants to give more space for their tenants
+
+e.g. A and B share base, but there are a lot more tenants on B
+therefore more space could be allocated to B to give more even overall spacing
 
 
 ### size of icon vs space taken up
