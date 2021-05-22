@@ -14,6 +14,7 @@ approach
    - [x] single edge from
    - [x] single edge to
    - [x] multiple edges
+   - [ ] edges between spaces - scales and offsets
    - [ ] place multiple things on
    - [ ] multi-segment edges (squared)
    - [ ] reduce size of placed things to fit

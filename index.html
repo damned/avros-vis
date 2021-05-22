@@ -38,7 +38,7 @@
         <a-box id="lam" edge="from: #ag; color: pink" balloon-label="label: lam" color="#444" mixin="srv" position="1 0.5 0.1"></a-box>
 
         <a-box id="trg" color="red"  balloon-label="label: tr g" mixin="srv" position="0.1 0.025 0.7"
-               edge="to: #es; color: orange"></a-box>
+               edge="to: #es; color: orange" edge__2="to: #tr-display; color: orange"></a-box>
         <a-box id="reg" color="green" balloon-label="label: re g; y-offset: -0.1" mixin="srv" position="0.2 0.025 0.8"
                edge="to: #es; color: orange" edge__2="to: #rev; color: orange"></a-box>
         <a-box id="tog" color="blue"  balloon-label="label: to g; y-offset: -0.2" mixin="srv" position="0.3 0.025 0.9"
@@ -72,10 +72,7 @@
       </a-entity>
 
       <a-entity id="tool" balloon-label="label: tool; scale: 0.3" mixin="dbt" material="color: orange" position="-1 1.025 -0.05" scale="0.5 0.5 0.5"></a-entity>
-      <a-entity id="tog-to-tool" line="start: 0.15 1.025 -0.05; end: -1 1.025 -0.05; color: orange"></a-entity>
-
-      <a-cone balloon-label="label: rev; scale: 0.3" color="#444" position="1 1.025 -0.1" scale="0.1 0.1 0.1"></a-cone>
-      <a-entity id="reg-to-rev" line="start: 0.1 1.025 -0.1; end: 1 1.025 -0.1; color: orange"></a-entity>
+      <a-cone id="rev" balloon-label="label: rev; scale: 0.3" color="#444" position="1 1.025 -0.1" scale="0.1 0.1 0.1"></a-cone>
 
       
       <a-entity hand-controls="hand: left; handModelStyle: lowPoly"></a-entity>
