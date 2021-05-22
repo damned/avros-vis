@@ -1,9 +1,15 @@
-# A-Frame Project
+# Project Visualisation
 
-**[Subscribe to the A-Frame newsletter!](https://aframe.io/subscribe/)**
+Visualising a system in VR/AR in tabletop format.
+
+## Stack
 
 Built with [A-Frame](https://aframe.io), a web framework for building virtual reality experiences.
 
-Make WebVR with HTML and Entity-Component. Works on Vive, Rift, Quest, desktop, mobile platforms.
+## Development
 
-Click and drag on desktop. Open it on a smartphone and use the device motion sensors. Or [plug in a VR headset](https://aframe.io/docs/0.8.0/introduction/vr-headsets-and-webvr-browsers.html)!
+The project is a mix of manual spiking and some test-driven components.
+
+Tests can be run by visiting here:
+
+[https://avros-vis.glitch.me/tests.html]()

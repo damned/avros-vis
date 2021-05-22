@@ -1,0 +1,12 @@
+# design for placing objects
+
+## rationale to using components to handle placement and linking
+
+started moving to this as a reaction to trying to manage it all in higher level
+"model" builder / construction code, but the testing is a bit painful due to
+asynchronous concerns - having to wait for things to be loaded, rendered and known
+both in layout and in asserting on the end state in tests.
+
+moving to components allows higher level code to be tested independently as
+annotating entities correctly, and lower level components can be tested with more
+focus 
