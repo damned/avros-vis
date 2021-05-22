@@ -30,7 +30,7 @@ describe('edge component', () => {
       dest = select('#dest')
 
       dest.addEventListener('edged', () => {
-        let addedLine = dest.components.line__undefined
+        let addedLine = dest.components.line
         expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.start).to.eql({x: -2, y: 1, z: -1})
         done()
@@ -47,7 +47,7 @@ describe('edge component', () => {
           dest = select('#dest')
 
           dest.addEventListener('edged', () => {
-            let addedLine = dest.components.line__undefined
+            let addedLine = dest.components.line
             expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
             expect(addedLine.data.start).to.eql({x: 1, y: 2, z: 0})
             done()
@@ -65,7 +65,7 @@ describe('edge component', () => {
       source = select('#source')
 
       source.addEventListener('edged', () => {
-        let addedLine = source.components.line__undefined
+        let addedLine = source.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.end).to.eql({x: 2, y: -1, z: 1})
         done()
@@ -86,7 +86,7 @@ describe('edge component', () => {
       source.addEventListener('edged', () => {
         edgeCreatedCount += 1
         if (edgeCreatedCount < 2) return
-        let addedLine1 = source.components.line__undefined
+        let addedLine1 = source.components.line
         let addedLine2 = source.components.line__2
         expect(addedLine1.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine2.data.start).to.eql({x: 0, y: 0, z: 0})

@@ -31,6 +31,7 @@ AFRAME.registerComponent('edge', {
         return otherPos.clone().sub(herePos)
       }
       
+      let createLineName = () => (self.id ? 'line__' + self.id : 'line')
       
       let addLine = () => {
         au.catching(() => {
@@ -46,7 +47,7 @@ AFRAME.registerComponent('edge', {
           else {
             start = au.xyzTriplet(otherRelativePos)
           }
-          host.setAttribute('line__' + self.id, `start: ${start}; end: ${end}; color: ${color}`)
+          host.setAttribute(createLineName(), `start: ${start}; end: ${end}; color: ${color}`)
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true
         })
