@@ -15,9 +15,10 @@ approach
    - [x] place single thing on
    - [x] single edge from
    - [x] single edge to
-   - [ ] multiple edges
-   - [ ] multi-segment edges (squared)
+   - [x] multiple edges
    - [ ] place multiple things on
+   - [ ] multi-segment edges (squared)
+   - [ ] reduce size of placed things to fit
  - [ ] add onto existing entities
  - [ ] connectors
  - [ ] start building out current model
