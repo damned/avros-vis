@@ -14,10 +14,45 @@ focus on them doing the right thing in dynamic situations.
 this also fits with an a-frame ethos of using components and more generally with
 a reasonably clear separation of concerns
 
+
 ## what should components look like / do?
 
 have added a couple of obvious ones off the bat without an overall end design in sight:
 
 1. *placement* - placing something *on* something else
 
-obviously from the basic manual spiking this has an obvious use.  
+obviously from the basic manual spiking this has an obvious use.
+
+2. *edge* - on component from/to attributes specify edge to another thing
+
+
+## open issues / concerns / questions
+
+### size of icon vs space taken up
+
+e.g. put a server in a network, the network would probably have a lot of space - potentially
+containing a small number of servers, but an auto-scaled server represented as a cube would
+be relatively massive.
+
+specifying width and depth limits is somewhat the aim (maybe works more for margins) but
+would be simpler to work with a single height constraint - this also helps layers to be 
+more practically stackable.
+
+so maybe specify a max-height in a layer for consistency - maybe keep consistent between
+subsequent layers (unless specifc override) to help with more consistency as more layers
+added
+
+
+### that gives a thought - detail opens up into upper layers
+
+chimes well with the uppermost layers been most unobscured as you go into detail
+
+there would naturally want to be some idea of expansion in those views, so x/z limits of
+stacking would maybe want to be relaxed
+
+
+### doman vs view vs display graphs - transformations all the way down
+
+how much to fully embrace each level as a graph?
+
+how does this 
