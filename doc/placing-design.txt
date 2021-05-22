@@ -38,7 +38,13 @@ obviously from the basic manual spiking this has an obvious use.
 
 1. base area is split evenly into two xz areas 
 2. a and b are placed on the xz centres of their areas 
-3. each ten
+3. each tenant gets a bounding xz rectangle from the base that they should not extend outside
+  (base to provide margin? perhaps preferably from tenants themselves?)
+4. maximum h is decided by?
+
+more detail
+
+1. 
 
 #### 
 
