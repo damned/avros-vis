@@ -98,7 +98,7 @@ describe('edge component', () => {
   })
   
   describe('edges from entities not at default scale', () => {
-    it('should create a line that compensates for scale from a source at origin', (done) => {
+    it('should create a line on source that compensates for scale from itself at origin', (done) => {
       addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
       dest = select('#dest')
       addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
@@ -112,10 +112,24 @@ describe('edge component', () => {
       })
     })
 
-    it('should create a line that compensates for scale from a source at origin', (done) => {
+    it('should create a line on source that compensates for scale to itself at origin', (done) => {
       addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
       dest = select('#dest')
-      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
+      addToScene('<a-sphere id="source" edge="from: #dest" radius="0.1" position="-1 -1 -1" scale="0.5 0.5 0.5">')
+      source = select('#source')
+
+      source.addEventListener('edged', () => {
+        let addedLine = source.components.line
+        expect(addedLine.data.start).to.eql({x: 4, y: 4, z: 4})
+        expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
+        done()
+      })
+    })
+
+    it('should create edge to a entity nested in a scaled space', (done) => {
+      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
+      dest = select('#dest')
+      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="0 0 0">')
       source = select('#source')
 
       source.addEventListener('edged', () => {
@@ -125,6 +139,7 @@ describe('edge component', () => {
         done()
       })
     })
+
   })  
 
 })
