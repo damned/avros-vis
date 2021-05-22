@@ -127,15 +127,15 @@ describe('edge component', () => {
     })
 
     it('should create edge to a entity nested in a scaled space', (done) => {
-      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
+      addToScene('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="dest" radius="0.1" position="1 1 1"></a-entity>')
       dest = select('#dest')
-      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="0 0 0">')
+      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="1 1 1">')
       source = select('#source')
 
       source.addEventListener('edged', () => {
         let addedLine = source.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.end).to.eql({x: 2, y: 2, z: 2})
+        expect(addedLine.data.end).to.eql({x: 4, y: 3, z: 3})
         done()
       })
     })

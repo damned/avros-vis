@@ -28,8 +28,18 @@ AFRAME.registerComponent('edge', {
         au.catching(() => {
           log('addLine: other is loaded: ', other.hasLoaded)
 
-          host.object3D.updateMatrixWorld()
-          let vectorToOther = host.object3D.worldToLocal(other.object3D.position.clone())
+          let other3d = other.object3D
+          let host3d = host.object3D
+          
+          other3d.updateMatrixWorld()
+          
+          let otherLocalPos = other3d.position.clone()
+          log('other local pos', otherLocalPos)
+          let otherWorldPos = other3d.localToWorld(otherLocalPos)
+          log('other world pos', otherWorldPos)
+
+          host3d.updateMatrixWorld()
+          let vectorToOther = host3d.worldToLocal(otherLocalPos)
 
           let start = '0 0 0'
           let end = '0 0 0'
