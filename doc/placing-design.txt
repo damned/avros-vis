@@ -44,7 +44,11 @@ obviously from the basic manual spiking this has an obvious use.
 
 more detail
 
-1. 
+1. a is placed on base
+2. a ensures it is within xz bounds
+3. b comes to be placed on base
+4. has to ask base where it should be placed, as who better than the base to know who's on it?
+5. the base isn't really a component
 
 #### 
 
