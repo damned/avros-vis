@@ -111,6 +111,20 @@ describe('edge component', () => {
         done()
       })
     })
+
+    it('should create a line that compensates for scale from a source at origin', (done) => {
+      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
+      dest = select('#dest')
+      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
+      source = select('#source')
+
+      source.addEventListener('edged', () => {
+        let addedLine = source.components.line
+        expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
+        expect(addedLine.data.end).to.eql({x: 2, y: 2, z: 2})
+        done()
+      })
+    })
   })  
 
 })
