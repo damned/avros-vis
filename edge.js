@@ -37,11 +37,14 @@ AFRAME.registerComponent('edge', {
         au.catching(() => {
           log('addLine: other is loaded: ', other.hasLoaded)
 
-          let worldVectorToOther = vector(host, other)
-          log(() => ['worldVectorToOther', worldVectorToOther])
-          log(() => ['host world matrix', host.object3D.matrixWorld, host.object3D.matrixWorldNeedsUpdate])
-          let vectorToOther = host.object3D.worldToLocal(worldVectorToOther)
-          log(() => ['vectorToOther', vectorToOther])
+          let vectorToOther = vector(host, other)
+
+          // let worldVectorToOther = vector(host, other)
+          // log(() => ['worldVectorToOther', worldVectorToOther])
+          // log('host world matrix', host.object3D.matrixWorld, host.object3D.matrixWorldNeedsUpdate)
+          // log(() => ['host world scale', host.object3D.getWorldScale(new THREE.Vector3())])
+          // let vectorToOther = host.object3D.worldToLocal(worldVectorToOther)
+          // log(() => ['vectorToOther', vectorToOther])
 
           let start = '0 0 0'
           let end = '0 0 0'
