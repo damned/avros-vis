@@ -74,18 +74,24 @@ describe('edge component', () => {
   })
 
   describe('using multiple edges', () => {
-    it('should create a line from source to destination', (done) => {
-      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 -1">')
+    it('should create a line from source to two destinations', (done) => {
+      addToScene('<a-sphere id="dest" radius="0.1" position="0 1 -1">')
       dest = select('#dest')
       addToScene('<a-sphere id="dest2" radius="0.1" position="1 1 -1">')
       let dest2 = select('#dest2')
-      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="-1 2 -2">')
+      addToScene('<a-sphere id="source" edge="to: #dest" edge__2="to: #dest2" radius="0.1" position="-1 2 -2">')
       source = select('#source')
 
+      let edgeCreatedCount = 0
       source.addEventListener('edged', () => {
-        let addedLine = source.components.line__undefined
-        expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.end).to.eql({x: 2, y: -1, z: 1})
+        edgeCreatedCount += 1
+        if (edgeCreatedCount < 2) return
+        let addedLine1 = source.components.line__undefined
+        let addedLine2 = source.components.line__2
+        expect(addedLine1.data.start).to.eql({x: 0, y: 0, z: 0})
+        expect(addedLine2.data.start).to.eql({x: 0, y: 0, z: 0})
+        expect(addedLine1.data.end).to.eql({x: 1, y: -1, z: 1})
+        expect(addedLine2.data.end).to.eql({x: 2, y: -1, z: 1})
         done()
       })
     })
