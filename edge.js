@@ -38,7 +38,9 @@ AFRAME.registerComponent('edge', {
           other3d.getWorldPosition(otherWorldPos)
           log('other local pos', other3d.position)
           log('other world pos', otherWorldPos)
-          log('transformed ', otherWorldPos)
+          let transformedLocal = other3d.position.clone()
+          log('transformed local to world', other3d.localToWorld(transformedLocal))
+          log('other id', other.id)
 
           host3d.updateMatrixWorld()
           let vectorToOther = host3d.worldToLocal(otherWorldPos)
