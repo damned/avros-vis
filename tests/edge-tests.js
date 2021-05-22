@@ -107,7 +107,7 @@ describe('edge component', () => {
       source.addEventListener('edged', () => {
         let addedLine = source.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.end).to.eql({x: 2, y: -1, z: 1})
+        expect(addedLine.data.end).to.eql({x: 2, y: 2, z: 2})
         done()
       })
     })

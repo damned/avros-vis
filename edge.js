@@ -37,15 +37,19 @@ AFRAME.registerComponent('edge', {
         au.catching(() => {
           log('addLine: other is loaded: ', other.hasLoaded)
 
-          let otherRelativePos = vector(host, other)
+          let worldVectorToOther = vector(host, other)
+          log(() => ['worldVectorToOther', worldVectorToOther])
+          log(() => ['host world matrix', host.object3D.matrixWorld, host.object3D.matrixWorldNeedsUpdate])
+          let vectorToOther = host.object3D.worldToLocal(worldVectorToOther)
+          log(() => ['vectorToOther', vectorToOther])
 
           let start = '0 0 0'
           let end = '0 0 0'
           if (fromHere) {
-            end = au.xyzTriplet(otherRelativePos)
+            end = au.xyzTriplet(vectorToOther)
           }
           else {
-            start = au.xyzTriplet(otherRelativePos)
+            start = au.xyzTriplet(vectorToOther)
           }
           host.setAttribute(createLineName(), `start: ${start}; end: ${end}; color: ${color}`)
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
