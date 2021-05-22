@@ -28,6 +28,10 @@ obviously from the basic manual spiking this has an obvious use.
 
 ## open issues / concerns / questions
 
+### 
+
+
+
 ### size of icon vs space taken up
 
 e.g. put a server in a network, the network would probably have a lot of space - potentially
@@ -55,4 +59,6 @@ stacking would maybe want to be relaxed
 
 how much to fully embrace each level as a graph?
 
-how does this 
+what does this mean for interactivity and dynamic behaviour?
+
+
