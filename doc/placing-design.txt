@@ -9,4 +9,15 @@ both in layout and in asserting on the end state in tests.
 
 moving to components allows higher level code to be tested independently as
 annotating entities correctly, and lower level components can be tested with more
-focus 
+focus on them doing the right thing in dynamic situations.
+
+this also fits with an a-frame ethos of using components and more generally with
+a reasonably clear separation of concerns
+
+## what should components look like / do?
+
+have added a couple of obvious ones off the bat without an overall end design in sight:
+
+1. *placement* - placing something *on* something else
+
+obviously from the basic manual spiking this has an obvious use.  
