@@ -22,29 +22,14 @@ AFRAME.registerComponent('edge', {
       let justEdged = false
       let emitEdgedNext = false      
       
-      let vector = (here, other) => {
-        let otherPos = other.object3D.position
-        let herePos = here.object3D.position
-        log(() => ['other pos: ', JSON.stringify(otherPos)])
-        log(() => ['here pos: ', JSON.stringify(herePos)])
-
-        return otherPos.clone().sub(herePos)
-      }
-      
       let createLineName = () => (self.id ? 'line__' + self.id : 'line')
       
       let addLine = () => {
         au.catching(() => {
           log('addLine: other is loaded: ', other.hasLoaded)
 
-          let vectorToOther = vector(host, other)
-
-          // let worldVectorToOther = vector(host, other)
-          // log(() => ['worldVectorToOther', worldVectorToOther])
-          // log('host world matrix', host.object3D.matrixWorld, host.object3D.matrixWorldNeedsUpdate)
-          // log(() => ['host world scale', host.object3D.getWorldScale(new THREE.Vector3())])
-          // let vectorToOther = host.object3D.worldToLocal(worldVectorToOther)
-          // log(() => ['vectorToOther', vectorToOther])
+          host.object3D.updateMatrixWorld()
+          let vectorToOther = host.object3D.worldToLocal(other.object3D.position.clone())
 
           let start = '0 0 0'
           let end = '0 0 0'
