@@ -48,10 +48,7 @@ more detail
 2. a ensures it is within xz bounds
 3. b comes to be placed on base
 4. has to ask base where it should be placed, as who better than the base to know who's on it?
-5. the base isn't really a component
-
-#### 
-
+5. not sure the base part is really a component?
 
 
 #### resizing co-tenants to give more space for their tenants

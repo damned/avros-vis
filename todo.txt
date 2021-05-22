@@ -12,9 +12,9 @@ approach
  - [x] basic model boards / panels
  - [x] move to things and render with styles
  - [ ] move to low level components to allow simpler testing / construction at model level
-   - [ ] place single thing on
-   - [ ] single edge from
-   - [ ] single edge to
+   - [x] place single thing on
+   - [x] single edge from
+   - [x] single edge to
    - [ ] multiple edges
    - [ ] multi-segment edges (squared)
    - [ ] place multiple things on
