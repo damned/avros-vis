@@ -17,7 +17,14 @@ describe('edge component', () => {
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
   let resetSceneBeforeEach = true
   
+  before(() => {
+    console.log('outer before')
+    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+    scene = select('a-scene')
+  })
+  
   beforeEach(() => {
+    console.log('outer beforeeach')
     if (resetSceneBeforeEach) {
       aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
     }
@@ -110,15 +117,13 @@ describe('edge component', () => {
     })
 
     before(() => {
+      console.log('inner before')
+      resetSceneBeforeEach = false      
       bulkSetups[0]()
     })
     
-    beforeEach(() => {
-      resetSceneBeforeEach = false      
-    })
-    
     after(() => {
-      resetSceneBeforeEach = false
+      resetSceneBeforeEach = true
     })
     
     it('should create a line on source that compensates for scale from itself at origin', (done) => {
