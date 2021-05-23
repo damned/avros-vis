@@ -16,7 +16,8 @@ approach
    - [x] single edge to
    - [x] multiple edges
    - [x] edges between spaces - scales and offsets
-   - [ ] split setup / it trial
+   - [.] split setup / it trial - didn't really need as yet - can generally set resetSceneBeforeEach to false
+         as setup of each test overrides previous, but should use reset true when changing...
    - [ ] place multiple things on
    - [ ] multi-segment edges (squared)
    - [ ] reduce size of placed things to fit
