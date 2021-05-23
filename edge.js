@@ -31,15 +31,20 @@ AFRAME.registerComponent('edge', {
           let other3d = other.object3D
           let host3d = host.object3D
           
-          log('other world matrix', other3d.matrixWorld)          
+          log('addLine: other parent is loaded: ', other3d?.parent?.el?.hasLoaded)
+          
+          
+          log('other world matrix now', JSON.stringify(other3d.matrixWorld))
+          log('other world matrix', other3d.matrixWorld)
           other3d.updateWorldMatrix(true, false)
           other3d.updateMatrixWorld()
           let otherWorldPos = new THREE.Vector3()
           other3d.getWorldPosition(otherWorldPos)
+          log('other local pos now', JSON.stringify(other3d.position))
           log('other local pos', other3d.position)
-          log('other world pos', otherWorldPos)
+          log('other world pos', JSON.stringify(otherWorldPos))
           let transformedLocal = other3d.position.clone()
-          log('transformed local to world', other3d.localToWorld(transformedLocal))
+          log('transformed local to world', JSON.stringify(other3d.localToWorld(transformedLocal)))
           log('other id', other.id)
 
           host3d.updateMatrixWorld()
