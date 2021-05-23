@@ -138,6 +138,10 @@ describe('aframe utils', () => {
     
     describe('world-space utils', () => {
 
+      
+      // NB don't think have validate world deep ancestors and scale at this point...
+      
+      
       let subject
       describe('top()', () => {
         it('should get the world y position of the top of a unit box at origin', (done) => {
