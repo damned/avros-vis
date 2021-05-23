@@ -38,7 +38,7 @@ describe('model', () => {
   let afterTick = au.tick
   let afterDoubleTick = au.doubleTick
   
-  xit('should add a rectangular board onto tabletop object', (done) => {
+  it('should add a rectangular board onto tabletop object', (done) => {
     table.addEventListener('loaded', () => {
       let board = model.board('first-board')
       model.render(scene, table, [])
@@ -55,7 +55,7 @@ describe('model', () => {
     })
   })
 
-  xit('should add a rectangular panel directly onto a board', (done) => {
+  it('should add a rectangular panel directly onto a board', (done) => {
     table.addEventListener('loaded', () => {
       let board = model.board('board')
       let panel = board.panel('the-panel')
@@ -106,7 +106,7 @@ describe('model', () => {
 
   
   describe('rendering with style', () => {
-    xit('should add a rectangular panel directly onto a board', (done) => {
+    it('should add a rectangular panel directly onto a board', (done) => {
       table.addEventListener('loaded', () => {
         let board = model.board('board')
         let panel = board.panel('the-panel')

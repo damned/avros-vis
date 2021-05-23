@@ -16,9 +16,11 @@ approach
    - [x] single edge to
    - [x] multiple edges
    - [x] edges between spaces - scales and offsets
-   - [.] split setup / it trial - didn't really need as yet - can generally set resetSceneBeforeEach to false
+   - [-] split setup / it trial - didn't really need as yet - can generally set resetSceneBeforeEach to false
          as setup of each test overrides previous, but should use reset true when changing...
-   - [ ] place multiple things on
+   - [.] place multiple things on, centred
+   - [ ] place on across scaled entities
+   - [ ] place multiple things on, constraining x and z
    - [ ] multi-segment edges (squared)
    - [ ] reduce size of placed things to fit
  - [ ] refactor model to use placement components
