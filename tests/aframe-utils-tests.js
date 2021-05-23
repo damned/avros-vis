@@ -141,7 +141,7 @@ describe('aframe utils', () => {
       describe('top()', () => {
         it('should get the world y position of the top of a unit box at origin', (done) => {
           inScene(scene => {
-            addToScene('<a-box>')
+            addToScene('<a-box>', 'a-box')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(0.5)
               done()
