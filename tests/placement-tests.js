@@ -49,13 +49,22 @@ describe('placement component', () => {
   })
   
   describe('being placed upon a non-default space base', () => {
-    it('should place the host entity on top of the base', () => {
-        scene.innerHTML = '<a-entity>' + 
-                            '<a-box id="base" position="0 0.6 -1.2" color="darkgray" height="1">' +
-                          '</a-entity>'
-    
-        base = document.querySelector('#base')
+    it('should place the host entity on top of the base', done => {
+      scene.innerHTML = '<a-entity position="1 1 1" scale="2 2 2">' + 
+                          '<a-box id="trans-base" position="3 3 -3" color="darkgray" height="1">' +
+                        '</a-entity>'
 
+      base = document.querySelector('#trans-base')
+
+      addToScene('<a-box id="placed" placement="on: #trans-base">')
+      let placed = select('#placed')
+
+      placed.addEventListener('placed', () => {
+        expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
+        expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
+        expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
+        done()
+      })
     })
   })
   
