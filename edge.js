@@ -37,11 +37,12 @@ AFRAME.registerComponent('edge', {
 
           let other3d = other.object3D
           let host3d = host.object3D
+
+          log('other id', other.id)
           
-          log('addLine: other parent is loaded: ', other3d?.parent?.el?.hasLoaded)
-          log('addLine: other parent matrix: ', JSON.stringify(other3d?.parent?.matrix))
-          log('addLine: other parent world matrix: ', JSON.stringify(other3d?.parent?.matrixWorld))
-          
+          log(() => 'addLine: other parent is loaded: ' + other3d?.parent?.el?.hasLoaded)
+          log(() => 'addLine: other parent matrix: ' + JSON.stringify(other3d?.parent?.matrix))
+          log(() => 'addLine: other parent world matrix: ' + JSON.stringify(other3d?.parent?.matrixWorld))
           
           log(() => 'other world matrix now ' + JSON.stringify(other3d.matrixWorld))
           log(() => 'other world matrix ' + other3d.matrixWorld)
@@ -52,12 +53,8 @@ AFRAME.registerComponent('edge', {
           log(() => 'other local pos ' + other3d.position)
           log(() => 'other world pos now ' + JSON.stringify(otherWorldPos))
                     
-          log('other id', other.id)
-
           log(() => 'host local pos now ' + JSON.stringify(host3d.position))
           log(() => 'host local pos ' + host3d.position)
-          // log(() => 'host world pos now ' + JSON.stringify(host3d.getWorldPosition(new THREE.Vector3())))
-                    
 
           host3d.updateWorldMatrix(true, false)
           let vectorToOther = host3d.worldToLocal(otherWorldPos)

@@ -15,7 +15,7 @@ approach
    - [x] single edge from
    - [x] single edge to
    - [x] multiple edges
-   - [ ] edges between spaces - scales and offsets
+   - [x] edges between spaces - scales and offsets
    - [ ] split setup / it trial
    - [ ] place multiple things on
    - [ ] multi-segment edges (squared)

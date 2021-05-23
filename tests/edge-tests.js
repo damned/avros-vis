@@ -15,9 +15,12 @@ describe('edge component', () => {
   let scene, source, dest
 
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
+  let resetSceneBeforeEach = true
   
   beforeEach(() => {
-    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+    if (resetSceneBeforeEach) {
+      aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+    }
 
     scene = select('a-scene')
   })
@@ -98,11 +101,20 @@ describe('edge component', () => {
   })
   
   describe('edges from entities not at default scale', () => {
-    it('should create a line on source that compensates for scale from itself at origin', (done) => {
+    let bulketups = []
+    let setup = fn => setups.push(fn)
+    
+//     before(setups.forEach(setupFn => setupFn()))
+    
+    bulkSetup(() => {
       addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
       dest = select('#dest')
       addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
-      source = select('#source')
+      source = select('#source')      
+    })
+    
+    
+    it('should create a line on source that compensates for scale from itself at origin', (done) => {
 
       source.addEventListener('edged', () => {
         let addedLine = source.components.line
