@@ -9,15 +9,19 @@ AFRAME.registerComponent('placement', {
     let au = aframeUtils
     let log = aframeUtils.log
     
-    const PlacementBase = (el) => {
-      let placedOns = []
-      let base = {
-        addPlacedOn: (placed) => {
-          
+    const PlacementBase = (baseEl) => {
+      let placedOnHosts = []
+      let instance = {
+        placeOn: (placedHost) => {
+          placedOnHosts.push(placedHost)
+          let count = placedOnHosts.length + 1
+          placedOnHosts.forEach(() => {
+            
+          })
         }
       }
-      el.placementBase = base
-      return base
+      baseEl.placementBase = instance
+      return instance
     }
     
     self.update = () => {
@@ -31,7 +35,8 @@ AFRAME.registerComponent('placement', {
           log('on id: ', on.id)
           log('host id: ', host.id)
           
-          let placementBase = on.placementBase || PlacementBase(on)
+          let base = on.placementBase || PlacementBase(on)
+          let allOn = base.placeOn(host)
 
           let on3d = on.object3D
           let onPos = on.object3D.position
