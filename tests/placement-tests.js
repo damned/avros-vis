@@ -17,7 +17,7 @@ describe('placement component', () => {
 
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
   
-  let resetSceneBeforeEach = false
+  let resetSceneBeforeEach = true
 
   let recreateScene = () => {
     if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
@@ -60,9 +60,9 @@ describe('placement component', () => {
       let placed = select('#placed')
 
       placed.addEventListener('placed', () => {
-        expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
-        expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
-        expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
+        expect(pos(placed).x).to.be.closeTo(7, TOLERANCE)
+        expect(pos(placed).y).to.be.closeTo(8.5, TOLERANCE)
+        expect(pos(placed).z).to.be.closeTo(-5, TOLERANCE)
         done()
       })
     })
