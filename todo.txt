@@ -1,6 +1,7 @@
 now
 
-10 min
+20 min
+all tdd
 refac to things
 
 
@@ -15,6 +16,7 @@ approach
    - [x] single edge to
    - [x] multiple edges
    - [ ] edges between spaces - scales and offsets
+   - [ ] split setup / it trial
    - [ ] place multiple things on
    - [ ] multi-segment edges (squared)
    - [ ] reduce size of placed things to fit
@@ -76,3 +78,6 @@ privacy
 
 pipelines
 [ ]
+
+testing
+[ ] if split setup/it works, focus on related entities after failure

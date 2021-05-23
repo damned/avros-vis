@@ -135,11 +135,28 @@ describe('edge component', () => {
       source.addEventListener('edged', () => {
         let addedLine = source.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.end).to.eql({x: 4, y: 3, z: 3})
+        expect(addedLine.data.end).to.eql({x: 4, y: 2, z: 2})
         done()
       })
     })
 
   })  
 
+  describe('edges with space offsets', () => {
+    it('should create edge on a source entity in an offset space', (done) => {
+      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
+      dest = select('#dest')
+      addToScene('<a-entity position="2 0 0" scale="3 3 3">' + 
+                   '<a-sphere id="source" edge="to: #dest" radius="0.1" position="1 1 1">' + 
+                 '</-a-entity>')
+      source = select('#source')
+
+      source.addEventListener('edged', () => {
+        let addedLine = source.components.line
+        expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
+        expect(addedLine.data.end).to.eql({x: -4, y: -2, z: -2})
+        done()
+      })
+    })
+  })
 })

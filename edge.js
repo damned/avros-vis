@@ -84,7 +84,7 @@ AFRAME.registerComponent('edge', {
         addLine()
       }
       else {
-        other.addEventListener('loaded', addLine)
+        au.earliestAncestor(other).addEventListener('loaded', addLine)
       }
     }
   }
