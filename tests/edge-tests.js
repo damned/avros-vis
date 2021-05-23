@@ -101,20 +101,29 @@ describe('edge component', () => {
   })
   
   describe('edges from entities not at default scale', () => {
-    let bulketups = []
-    let setup = fn => setups.push(fn)
-    
-//     before(setups.forEach(setupFn => setupFn()))
-    
-    bulkSetup(() => {
-      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
-      dest = select('#dest')
-      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
-      source = select('#source')      
+    let bulkSetups = []
+    let bulkSetup = (title, fn) => bulkSetups.push(fn)
+        
+    bulkSetup('setup 1', () => {
+      addToScene('<a-sphere id="destx" radius="0.1" position="1 1 1">')
+      addToScene('<a-sphere id="sourcex" edge="to: #destx" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
+    })
+
+    before(() => {
+      bulkSetups[0]()
     })
     
+    beforeEach(() => {
+      resetSceneBeforeEach = false      
+    })
+    
+    after(() => {
+      resetSceneBeforeEach = false
+    })
     
     it('should create a line on source that compensates for scale from itself at origin', (done) => {
+      dest = select('#destx')
+      source = select('#sourcex')      
 
       source.addEventListener('edged', () => {
         let addedLine = source.components.line
