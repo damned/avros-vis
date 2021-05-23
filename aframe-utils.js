@@ -18,8 +18,12 @@ aframeUtils.doubleTick = handler => aframeUtils.tick(() => {
 aframeUtils.world = {}
 
 aframeUtils.world.bounds = el => {
+  let log = aframeUtils.log
   let mesh = el.getObject3D('mesh')
-  mesh.updateMatrix(); 
+  log(() => 'el' + JSON.stringify(mesh.matrix))
+  log(() => 'mesh matrix' + JSON.stringify(mesh.matrix))
+  log(() => 'mesh world matrix' + JSON.stringify(mesh.matrixWorld))
+  mesh.updateMatrix();
   mesh.geometry.applyMatrix4(mesh.matrix);
   let bbox = new THREE.Box3().setFromObject(mesh);
   return bbox

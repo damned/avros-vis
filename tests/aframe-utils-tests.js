@@ -138,12 +138,13 @@ describe('aframe utils', () => {
     
     describe('world-space utils', () => {
 
+      let subject
       describe('top()', () => {
         it('should get the world y position of the top of a unit box at origin', (done) => {
           inScene(scene => {
-            addToScene('<a-box>', 'a-box')
-            au.tick(() => {
-              expect(au.world.top(select('a-box'))).to.equal(0.5)
+            subject = addToScene('<a-box id="top-origin"></a-box>', '#top-origin')
+            subject.addEventListener('loaded', () => {
+              expect(au.world.top(subject)).to.equal(0.5)
               done()
             })
           })
@@ -151,9 +152,9 @@ describe('aframe utils', () => {
 
         it('should get the top of a unit box at some height', (done) => {
           inScene(scene => {
-            addToScene('<a-box position="0 2 0">')
-            au.tick(() => {
-              expect(au.world.top(select('a-box'))).to.equal(2.5)
+            subject = addToScene('<a-box id="top-high" position="0 2 0"><a-box>', '#top-high')
+            subject.addEventListener('loaded', () => {
+              expect(au.world.top(subject)).to.equal(2.5)
               done()
             })
           })
