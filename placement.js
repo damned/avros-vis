@@ -38,7 +38,7 @@ AFRAME.registerComponent('placement', {
           self.updatePlacement = (placeIndex, placeTotalCount) => {
             log('placed id and count', placeIndex, placeTotalCount)
             let base3d = baseHost.object3D
-            log(() => ['base parent hasLoaded: ', base3d.parent.el.hasLoaded])
+            log(() => ['base parent hasLoaded: ', base3d?.parent?.el?.hasLoaded])
             let basePos = base3d.getWorldPosition(new THREE.Vector3())
             let host3d = host.object3D
             log(() => ['base world pos: ', JSON.stringify(basePos)])
@@ -89,7 +89,8 @@ AFRAME.registerComponent('placement', {
         }
       }
       
-      log('update: on is loaded: ', baseHost.hasLoaded)
+      log('update: baseHost is loaded: ', baseHost.hasLoaded)
+      log('update: baseHost progenitor is loaded: ', au.earliestAncestor(baseHost).hasLoaded)
 
       if (au.earliestAncestor(baseHost).hasLoaded) {
         placeOn()
