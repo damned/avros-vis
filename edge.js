@@ -18,6 +18,10 @@ AFRAME.registerComponent('edge', {
       let fromHere = (from === null)
       let other = fromHere ? to : from
       
+      let otherProgenitor = au.earliestAncestor(other)
+      let hostProgenitor = au.earliestAncestor(host)
+
+      
       let color = self.data.color
       let justEdged = false
       let emitEdgedNext = false      
@@ -84,17 +88,31 @@ AFRAME.registerComponent('edge', {
       log('update: other is loaded: ', other.hasLoaded)
 
       let onceWorldPositionsAreResolvable = (fn) => {
-        let otherResolvable = au.earliestAncestor
-        if (other.hasLoaded && host.hasLoaded) {
-          fn()
+        let runAlready = false
+        let doIfFullyLoaded = (fn) => {
+          if (otherProgenitor.hasLoaded && hostProgenitor.hasLoaded) {
+            if (!runAlready) {
+              runAlready = true
+              fn()
+            }
+            return true
+          }
+          return false
         }
-        else if (other.hasLoaded) {
-          au.earliestAncestor(host).addEventListener('loaded', fn)
+        
+        if (doIfFullyLoaded()) {
+          // done
         }
-        else if (host.hasLoaded) {
-          au.earliestAncestor(other).addEventListener('loaded', fn)
+        else if (otherProgenitor.hasLoaded) {
+          hostProgenitor.addEventListener('loaded', fn)
         }
-        else throw "i can't handle it"
+        else if (hostProgenitor.hasLoaded) {
+          otherProgenitor.addEventListener('loaded', fn)
+        }
+        else {
+          hostProgenitor.addEventListener('loaded', () => doIfFullyLoaded(fn))
+          otherProgenitor.addEventListener('loaded', () => doIfFullyLoaded(fn))
+        }
       }
       
       onceWorldPositionsAreResolvable(addLine)
