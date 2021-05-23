@@ -16,22 +16,16 @@ describe('model', () => {
 
   let model, table, scene
 
-  let resetSceneBeforeEach = true
+  let resetSceneBeforeEach = false
 
   let recreateScene = () => {
-    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+    if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
+      aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+    }
     scene = select('a-scene')
   }
   
-  before(() => {
-    recreateScene()
-  })
-  
-  beforeEach(() => {
-    if (resetSceneBeforeEach) {
-      recreateScene()
-    }
-  })
+  beforeEach(recreateScene)
 
   beforeEach(() => {
     scene.innerHTML = '<a-box id="table" position="0 0.6 -1.2" color="darkgray" height="1"></a-box>'

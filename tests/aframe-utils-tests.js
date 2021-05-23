@@ -85,11 +85,19 @@ describe('aframe utils', () => {
   describe('aframe scene related', () => {
     const aframeContainer = document.getElementById('aframe-container')
 
-    let getScene = () => aframeContainer.querySelector('a-scene')
     let scene
-    let inScene = (handler) => scene.addEventListener('renderstart', () => {
-      handler(scene)
-    })
+    let inScene = (handler) => {
+      if (scene.renderStarted) {
+        handler(scene)
+      }
+      else {
+        scene.addEventListener('renderstart', () => {
+          handler(scene)
+        })
+      }
+    }
+    
+    let resetSceneBeforeEach = false
 
     let select = selector => document.querySelector(selector)
     let addToScene = (html, selector) => {
@@ -100,11 +108,15 @@ describe('aframe utils', () => {
       return undefined
     }
 
-    beforeEach(() => {
-      aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
-      scene = getScene()
-    })
+    let recreateScene = () => {
+      if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
+        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+      }
+      scene = select('a-scene')
+    }
 
+    beforeEach(recreateScene)
+    
     describe('earliestAncestor()', () => {
       it('should return itself if no scene parent', done => {
         inScene(scene => {
