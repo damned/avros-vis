@@ -14,7 +14,7 @@ var au = aframeUtils
 var Panel = function(name, base) {
   let self = {}  
   
-  self.render = (base, styles) => {
+  self.render = (parent, base, styles) => {
     let height = propertyValueForClass(styles, 'panel', 'height') || 0.1
     let halfHeight = height / 2
     au.log('half height', halfHeight)
@@ -25,7 +25,7 @@ var Panel = function(name, base) {
     el.setAttribute('height', height)
     el.setAttribute('placement', `on: #${base.id()}`)
     self.el = el
-    base.el.parentNode.appendChild(el)
+    parent.appendChild(el)
     return el
   }
   
@@ -57,12 +57,12 @@ var Board = function(name, type) {
     return el
   }
   
-  self.render = (base, styles) => {
+  self.render = (parent, base, styles) => {
     self.el = renderSelf(base, styles)
-    base.sceneEl.appendChild(self.el)
+    parent.appendChild(self.el)
     
     children.forEach(child => {
-      child.render(self, styles)
+      child.render(parent, self, styles)
     })
     return self.el
   }
@@ -82,8 +82,8 @@ var Model = function() {
     return board
   }
   
-  self.render = (baseEl, styles) => {
-    board.render(baseEl, styles)
+  self.render = (parentEl, baseEl, styles) => {
+    board.render(parentEl, baseEl, styles)
   }
   
   return self
