@@ -91,7 +91,13 @@ describe('aframe utils', () => {
       handler(scene)
     })
 
-    let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)
+    let addToScene = (html, selector) => {
+      scene.insertAdjacentHTML('afterbegin', html)
+      if (selector) {
+        return select(selector)
+      }
+      return undefined
+    }
     let select = selector => document.querySelector(selector)
 
     beforeEach(() => {
@@ -100,15 +106,19 @@ describe('aframe utils', () => {
     })
 
     describe('earliestAncestor()', () => {
-      it('should return itself if no scene parent', done => {
-          inScene(scene => {
-            addToScene('<a-box id="target">')
-            let target = select('#target')
-            au.tick(() => {
-              expect(au.earliestAncestor).to.equal(target)
-              done()
-            })
-          })
+      it('should return itself if no scene parent', () => {
+        inScene(scene => {
+          let target = addToScene('<a-box id="target">', '#target')
+          expect(au.earliestAncestor(target)).to.equal(target)
+        })
+      })
+      it('should return parent if one ancestor', () => {
+        inScene(scene => {
+          addToScene('<a-box id="parent">'
+                   +   '<a-box id="target"><>'
+                   + '</a-box>')
+          expect(au.earliestAncestor(select('#target'))).to.equal(select('#parent'))
+        })
       })
     })
     

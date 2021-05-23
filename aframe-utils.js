@@ -6,14 +6,17 @@ aframeUtils.tick = fn => {
     fn()
   }, 50)  
 }
+aframeUtils.afterCreation = aframeUtils.tick
+
 aframeUtils.doubleTick = handler => aframeUtils.tick(() => {
   aframeUtils.tick(() => {
     handler()
   })
 })
-aframeUtils.afterCreation = aframeUtils.tick
+
 
 aframeUtils.world = {}
+
 aframeUtils.world.bounds = el => {
   let mesh = el.getObject3D('mesh')
   mesh.updateMatrix(); 
@@ -21,12 +24,16 @@ aframeUtils.world.bounds = el => {
   let bbox = new THREE.Box3().setFromObject(mesh);
   return bbox
 }
+
 aframeUtils.world.height = el => {
   let bbox = aframeUtils.world.bounds(el)
   return bbox.max.y - bbox.min.y
 }
+
 aframeUtils.world.top = el => aframeUtils.world.bounds(el).max.y
+
 aframeUtils.world.bottom = el => aframeUtils.world.bounds(el).min.y
+
 
 aframeUtils.xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
 
@@ -57,3 +64,7 @@ aframeUtils.log = function() {
 }
 aframeUtils.log.logImpl = console.log
 aframeUtils.log.active = true
+
+aframeUtils.earliestAncestor = (el) => {
+  return el
+}
