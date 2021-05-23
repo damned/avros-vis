@@ -15,7 +15,7 @@ describe('edge component', () => {
   let scene, source, dest
 
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
-  let resetSceneBeforeEach = false   // trying out not re-creating scene - seems to work ok
+  let resetSceneBeforeEach = true   // trying out not re-creating scene - seems to work ok
                                      // ... id clashes are overridden by latest added
                                      // and speed is better
                                      // but not as independent and if not developed with

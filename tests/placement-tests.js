@@ -16,6 +16,24 @@ describe('placement component', () => {
 
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
   
+  let resetSceneBeforeEach = true
+
+  let recreateScene = () => {
+    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+    scene = select('a-scene')
+  }
+  
+  before(() => {
+    recreateScene()
+  })
+  
+  beforeEach(() => {
+    if (resetSceneBeforeEach) {
+      recreateScene()
+    }
+  })
+
+
   beforeEach(() => {
     aframeContainer.innerHTML =
         '<a-scene embedded style="height: 300px; width: 600px;">' + 

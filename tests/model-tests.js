@@ -14,12 +14,27 @@ describe('model', () => {
   const top = au.world.top
   const bottom = au.world.bottom
 
-  let model, table
+  let model, table, scene
+
+  let resetSceneBeforeEach = true
+
+  let recreateScene = () => {
+    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+    scene = select('a-scene')
+  }
+  
+  before(() => {
+    recreateScene()
+  })
+  
+  beforeEach(() => {
+    if (resetSceneBeforeEach) {
+      recreateScene()
+    }
+  })
 
   beforeEach(() => {
-    aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;">' + 
-                                  '<a-box id="table" position="0 0.6 -1.2" color="darkgray" height="1">' + 
-                                '</a-scene>'
+    scene.innerHTML = '<a-box id="table" position="0 0.6 -1.2" color="darkgray" height="1"></a-box>'
 
     table = document.querySelector('#table')
     table.innerHTML = ''
