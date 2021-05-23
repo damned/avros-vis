@@ -12,6 +12,17 @@ AFRAME.registerComponent('edge', {
     let au = aframeUtils
     let log = aframeUtils.log
     
+     let worldVector = (here, other) => {
+        let otherPos = other.object3D.position
+        let herePos = here.object3D.position
+        log(() => ['other pos: ', JSON.stringify(otherPos)])
+        log(() => ['here pos: ', JSON.stringify(herePos)])
+
+        return otherPos.clone().sub(herePos)
+      }
+      
+    
+    
     self.update = () => {
       let from = self.data.from
       let to = self.data.to
@@ -43,21 +54,23 @@ AFRAME.registerComponent('edge', {
           log('addLine: other parent world matrix: ', JSON.stringify(other3d?.parent?.matrixWorld))
           
           
-          log('other world matrix now', JSON.stringify(other3d.matrixWorld))
-          log('other world matrix', other3d.matrixWorld)
-          other3d.updateWorldMatrix(true, false)
-          other3d.updateMatrixWorld()
-          let otherWorldPos = new THREE.Vector3()
-          other3d.getWorldPosition(otherWorldPos)
-          log('other local pos now', JSON.stringify(other3d.position))
-          log('other local pos', other3d.position)
-          log('other world pos', JSON.stringify(otherWorldPos))
-          let transformedLocal = other3d.position.clone()
-          log('transformed local to world', JSON.stringify(other3d.localToWorld(transformedLocal)))
+          log(() => 'other world matrix now ' + JSON.stringify(other3d.matrixWorld))
+          log(() => 'other world matrix ' + other3d.matrixWorld)
+          let otherWorldPos = other3d.getWorldPosition(new THREE.Vector3())
+          
+          log(() => 'other local pos now ' + JSON.stringify(other3d.position))
+          log(() => 'other local pos ' + other3d.position)
+          log(() => 'other world pos ' + JSON.stringify(otherWorldPos))
+          
+          let hostWorldPos = host3d.getWorldPosition(new THREE.Vector3())
+          log(() => 'host world pos ' + JSON.stringify(hostWorldPos))
+
+          let worldVectorToOther = hostWorldPos.sub(otherWorldPos)
+          
           log('other id', other.id)
 
           host3d.updateMatrixWorld()
-          let vectorToOther = host3d.worldToLocal(otherWorldPos)
+          let vectorToOther = host3d.worldToLocal(worldVectorToOther)
 
           let start = '0 0 0'
           let end = '0 0 0'
@@ -91,7 +104,7 @@ AFRAME.registerComponent('edge', {
         let runAlready = false
         let doIfFullyLoaded = (fn) => {
           if (otherProgenitor.hasLoaded && hostProgenitor.hasLoaded) {
-            if (!runAlready) {
+            if (runAlready === false) {
               runAlready = true
               fn()
             }
@@ -100,7 +113,7 @@ AFRAME.registerComponent('edge', {
           return false
         }
         
-        if (doIfFullyLoaded()) {
+        if (doIfFullyLoaded(fn)) {
           // done
         }
         else if (otherProgenitor.hasLoaded) {
