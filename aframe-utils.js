@@ -20,7 +20,10 @@ aframeUtils.world = {}
 aframeUtils.world.bounds = el => {
   let log = aframeUtils.log
   let mesh = el.getObject3D('mesh')
-  log(() => 'el' + JSON.stringify(mesh.matrix))
+  log(() => 'el loaded ' + el.hasLoaded)
+  log(() => 'el position ' + JSON.stringify(el.getAttribute('position')))
+  log(() => 'el object3d matrix ' + JSON.stringify(el.object3D.matrix))
+  log(() => 'el object3d world matrix ' + JSON.stringify(el.object3D.matrixWorld))
   log(() => 'mesh matrix' + JSON.stringify(mesh.matrix))
   log(() => 'mesh world matrix' + JSON.stringify(mesh.matrixWorld))
   mesh.updateMatrix();

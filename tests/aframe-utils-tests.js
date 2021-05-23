@@ -153,7 +153,7 @@ describe('aframe utils', () => {
         it('should get the top of a unit box at some height', (done) => {
           inScene(scene => {
             subject = addToScene('<a-box id="top-high" position="0 2 0"><a-box>', '#top-high')
-            subject.addEventListener('loaded', () => {
+            subject.addEventListener('play', () => {
               expect(au.world.top(subject)).to.equal(2.5)
               done()
             })
