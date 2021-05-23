@@ -28,7 +28,7 @@ describe('model', () => {
   beforeEach(recreateScene)
 
   beforeEach(() => {
-    scene.innerHTML = '<a-box id="table" position="0 0.6 -1.2" color="red" height="1"></a-box>'
+    scene.innerHTML = '<a-box id="table" position="0 0.6 -1.2" color="darkgray" height="1"></a-box>'
 
     table = document.querySelector('#table')
     table.innerHTML = ''
@@ -38,7 +38,7 @@ describe('model', () => {
   let afterTick = au.tick
   let afterDoubleTick = au.doubleTick
   
-  xit('should add a rectangular board onto tabletop object', (done) => {
+  it('should add a rectangular board onto tabletop object', (done) => {
     table.addEventListener('loaded', () => {
       let board = model.board('first-board')
       model.render(table, [])
@@ -74,7 +74,7 @@ describe('model', () => {
     })
   })
   
-  xdescribe('rendering with style', () => {
+  describe('rendering with style', () => {
     it('should add a rectangular panel directly onto a board', (done) => {
       table.addEventListener('loaded', () => {
         let board = model.board('board')
