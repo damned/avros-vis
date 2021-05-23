@@ -48,6 +48,17 @@ describe('placement component', () => {
     })
   })
   
+  describe('being placed upon a non-default space base', () => {
+    it('should place the host entity on top of the base', () => {
+        scene.innerHTML = '<a-entity>' + 
+                            '<a-box id="base" position="0 0.6 -1.2" color="darkgray" height="1">' +
+                          '</a-entity>'
+    
+        base = document.querySelector('#base')
+
+    })
+  })
+  
   describe('when thing being placed on is already loaded', () => {
     it('should place its host entity directly on top of its on base', (done) => {
       base.addEventListener('loaded', () => {
