@@ -66,5 +66,10 @@ aframeUtils.log.logImpl = console.log
 aframeUtils.log.active = true
 
 aframeUtils.earliestAncestor = (el) => {
-  return el
+  let earliest = el
+  while (earliest.parentNode) {
+    console.log(earliest.parentNode.tagName)
+    earliest = earliest.parentNode
+  }
+  return earliest
 }
