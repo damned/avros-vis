@@ -14,15 +14,11 @@ AFRAME.registerComponent('placement', {
       let justPlaced = false
       let emitPlacedNext = false
       
-      let sizeOf = el => {
-        
-        // return box.getSize(new THREE.Vector3())
-      }
-      
-      
       let placeOn = () => {
         au.catching(() => {
           log('placeOn: on is loaded: ', on.hasLoaded)
+          log('on id: ', on.id)
+          log('host id: ', host.id)
 
           let on3d = on.object3D
           let onPos = on.object3D.position
