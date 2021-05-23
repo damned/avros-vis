@@ -78,6 +78,9 @@ describe('model', () => {
   let widthOf = au.world.width
     
   it('should add two panels onto a square board by even split left and right i.e. vary in x', (done) => {
+    
+    // overarching test for sharing placement on something
+    
     table.addEventListener('loaded', () => {
       let board = model.board('board')
       let panel = board.panel('panel1')
@@ -94,6 +97,7 @@ describe('model', () => {
       expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
       expect(panelEl.parentNode).to.equal(scene)
       expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
+
       expect(xOf(panelEl)).to.be.closeTo(xOf(table) - widthOf(table) / 4, TOLERANCE)
       expect(xOf(panel2El)).to.be.closeTo(xOf(table) + widthOf(table) / 4, TOLERANCE)
       done()

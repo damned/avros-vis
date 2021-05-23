@@ -10,6 +10,7 @@ describe('placement component', () => {
   const select = selector => document.querySelector(selector)
   const top = au.world.top
   const bottom = au.world.bottom
+  const width = au.world.width
   const pos = el => el.object3D.position
 
   let scene, base, host
@@ -61,5 +62,24 @@ describe('placement component', () => {
         })
       })
     })    
+  })
+  
+  describe('placing multiple entities on a square base', () => {
+    it('should position two placed entities along x axis of base in centre of equal halves', done => {
+      addToScene('<a-box id="host1" placement="on: #base">')
+      addToScene('<a-box id="host2" placement="on: #base">')
+      host = select('#host1')      
+      let host2 = select('#host2')      
+      
+      host2.addEventListener('placed', () => {
+        expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
+        expect(pos(host2).z).to.be.closeTo(pos(base).z, TOLERANCE)
+
+        expect(pos(host).x).to.be.closeTo(pos(base).x - width(base) / 4, TOLERANCE)
+        expect(pos(host2).x).to.be.closeTo(pos(base).x  + width(base) / 4, TOLERANCE)
+
+        done()
+      })
+    })
   })
 })
