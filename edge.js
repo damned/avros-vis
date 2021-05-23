@@ -26,7 +26,10 @@ AFRAME.registerComponent('edge', {
       
       let addLine = () => {
         au.catching(() => {
+          log('addLine: host is loaded: ', host.hasLoaded)
           log('addLine: other is loaded: ', other.hasLoaded)
+          log(() => 'addLine: host earliest ancestor is loaded: ' + au.earliestAncestor(host).hasLoaded)
+          log(() => 'addLine: other earliest ancestor is loaded: ' + au.earliestAncestor(other).hasLoaded)
 
           let other3d = other.object3D
           let host3d = host.object3D
@@ -80,12 +83,21 @@ AFRAME.registerComponent('edge', {
       
       log('update: other is loaded: ', other.hasLoaded)
 
-      if (other.hasLoaded) {
-        addLine()
+      let onceWorldPositionsAreResolvable = (fn) => {
+        let otherResolvable = au.earliestAncestor
+        if (other.hasLoaded && host.hasLoaded) {
+          fn()
+        }
+        else if (other.hasLoaded) {
+          au.earliestAncestor(host).addEventListener('loaded', fn)
+        }
+        else if (host.hasLoaded) {
+          au.earliestAncestor(other).addEventListener('loaded', fn)
+        }
+        else throw "i can't handle it"
       }
-      else {
-        au.earliestAncestor(other).addEventListener('loaded', addLine)
-      }
+      
+      onceWorldPositionsAreResolvable(addLine)
     }
   }
 })
