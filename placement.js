@@ -10,13 +10,13 @@ AFRAME.registerComponent('placement', {
     let log = aframeUtils.log
     
     const PlacementBase = (baseEl) => {
-      let placedOnHosts = []
+      let onPlacements = []
       let instance = {
-        placeOn: (placedHost) => {
-          placedOnHosts.push(placedHost)
-          let count = placedOnHosts.length + 1
-          placedOnHosts.forEach(() => {
-            
+        placeOn: (placement) => {
+          onPlacements.push(placement)
+          let count = onPlacements.length + 1
+          onPlacements.forEach((placementComponent, i) => {
+            placementComponent.updatePlacement(i, count)
           })
         }
       }
@@ -25,43 +25,47 @@ AFRAME.registerComponent('placement', {
     }
     
     self.update = () => {
-      let on = self.data.on
+      let baseHost = self.data.on
       let justPlaced = false
       let emitPlacedNext = false
       
       let placeOn = () => {
         au.catching(() => {
-          log('placeOn: on is loaded: ', on.hasLoaded)
-          log('on id: ', on.id)
+          log('placeOn: on is loaded: ', baseHost.hasLoaded)
+          log('on id: ', baseHost.id)
           log('host id: ', host.id)
           
-          let base = on.placementBase || PlacementBase(on)
-          let allOn = base.placeOn(host)
+          self.updatePlacement = (placeIndex, placeTotalCount) => {
+            let on3d = baseHost.object3D
+            let onPos = baseHost.object3D.position
+            let host3d = host.object3D
+            log(() => ['on pos: ', JSON.stringify(onPos)])
 
-          let on3d = on.object3D
-          let onPos = on.object3D.position
-          let host3d = host.object3D
-          log(() => ['on pos: ', JSON.stringify(onPos)])
+            let box = new THREE.Box3()
+            let onSize = box.setFromObject(on3d).getSize(new THREE.Vector3())
+            let hostSize = box.setFromObject(host3d).getSize(new THREE.Vector3())
 
-          let box = new THREE.Box3()
-          let onSize = box.setFromObject(on3d).getSize(new THREE.Vector3())
-          let hostSize = box.setFromObject(host3d).getSize(new THREE.Vector3())
+            log(() => ['on size: ', JSON.stringify(onSize)])
+            log(() => ['host size: ', JSON.stringify(hostSize)])
 
-          log(() => ['on size: ', JSON.stringify(onSize)])
-          log(() => ['host size: ', JSON.stringify(hostSize)])
+            let pos = onPos.clone()
+            log('on pos y', onPos.y)
+            log('on size y', onSize.y)
+            let newY = onPos.y + (onSize.y / 2) + (hostSize.y / 2)
+            log('newY', newY)
+            pos.setY(newY)
+            
+            
+            
+            log(() => 'setting placement to ' + JSON.stringify(pos))
 
-          let pos = onPos.clone()
-          log('on pos y', onPos.y)
-          log('on size y', onSize.y)
-          let newY = onPos.y + (onSize.y / 2) + (hostSize.y / 2)
-          log('newY', newY)
-          pos.setY(newY)
+            host.setAttribute('position', au.xyzTriplet(pos))
 
-          log(() => 'setting placement to ' + JSON.stringify(pos))
+            log(() => 'placement set to ' + JSON.stringify(pos))
+          }
 
-          host.setAttribute('position', au.xyzTriplet(pos))
-
-          log(() => 'placement set to ' + JSON.stringify(pos))
+          let base = baseHost.placementBase || PlacementBase(baseHost)
+          base.placeOn(self)
 
           justPlaced = true
         })
@@ -78,13 +82,13 @@ AFRAME.registerComponent('placement', {
         }
       }
       
-      log('update: on is loaded: ', on.hasLoaded)
+      log('update: on is loaded: ', baseHost.hasLoaded)
 
-      if (on.hasLoaded) {
+      if (baseHost.hasLoaded) {
         placeOn()
       }
       else {
-        on.addEventListener('loaded', placeOn)
+        baseHost.addEventListener('loaded', placeOn)
       }
     }
   }
