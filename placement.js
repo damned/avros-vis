@@ -14,7 +14,7 @@ AFRAME.registerComponent('placement', {
       let instance = {
         placeOn: (placement) => {
           onPlacements.push(placement)
-          let count = onPlacements.length + 1
+          let count = onPlacements.length
           onPlacements.forEach((placementComponent, i) => {
             placementComponent.updatePlacement(i, count)
           })
@@ -31,32 +31,37 @@ AFRAME.registerComponent('placement', {
       
       let placeOn = () => {
         au.catching(() => {
-          log('placeOn: on is loaded: ', baseHost.hasLoaded)
-          log('on id: ', baseHost.id)
+          log('placeOn: baseHost is loaded: ', baseHost.hasLoaded)
+          log('baseHost id: ', baseHost.id)
           log('host id: ', host.id)
           
           self.updatePlacement = (placeIndex, placeTotalCount) => {
-            let on3d = baseHost.object3D
-            let onPos = baseHost.object3D.position
+            log('placed id and count', placeIndex, placeTotalCount)
+            let base3d = baseHost.object3D
+            let basePos = baseHost.object3D.position
             let host3d = host.object3D
-            log(() => ['on pos: ', JSON.stringify(onPos)])
+            log(() => ['base pos: ', JSON.stringify(basePos)])
 
             let box = new THREE.Box3()
-            let onSize = box.setFromObject(on3d).getSize(new THREE.Vector3())
+            let baseSize = box.setFromObject(base3d).getSize(new THREE.Vector3())
             let hostSize = box.setFromObject(host3d).getSize(new THREE.Vector3())
 
-            log(() => ['on size: ', JSON.stringify(onSize)])
+            log(() => ['base size: ', JSON.stringify(baseSize)])
             log(() => ['host size: ', JSON.stringify(hostSize)])
 
-            let pos = onPos.clone()
-            log('on pos y', onPos.y)
-            log('on size y', onSize.y)
-            let newY = onPos.y + (onSize.y / 2) + (hostSize.y / 2)
+            let pos = basePos.clone()
+            log('base pos y', basePos.y)
+            log('base size y', basePos.y)
+            let newY = basePos.y + (baseSize.y / 2) + (hostSize.y / 2)
             log('newY', newY)
             pos.setY(newY)
             
-            
-            
+            let placedWidth = baseSize.x / placeTotalCount
+            let placedHalfWidth = placedWidth / 2
+            let baseLeft = basePos.x - (baseSize.x / 2)
+            let x = baseLeft + placedHalfWidth + (placedWidth * placeIndex)
+            pos.setX(x)
+                        
             log(() => 'setting placement to ' + JSON.stringify(pos))
 
             host.setAttribute('position', au.xyzTriplet(pos))
