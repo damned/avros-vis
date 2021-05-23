@@ -12,17 +12,6 @@ AFRAME.registerComponent('edge', {
     let au = aframeUtils
     let log = aframeUtils.log
     
-     let worldVector = (here, other) => {
-        let otherPos = other.object3D.position
-        let herePos = here.object3D.position
-        log(() => ['other pos: ', JSON.stringify(otherPos)])
-        log(() => ['here pos: ', JSON.stringify(herePos)])
-
-        return otherPos.clone().sub(herePos)
-      }
-      
-    
-    
     self.update = () => {
       let from = self.data.from
       let to = self.data.to
@@ -56,21 +45,22 @@ AFRAME.registerComponent('edge', {
           
           log(() => 'other world matrix now ' + JSON.stringify(other3d.matrixWorld))
           log(() => 'other world matrix ' + other3d.matrixWorld)
+          other3d.updateWorldMatrix(true, false)
           let otherWorldPos = other3d.getWorldPosition(new THREE.Vector3())
           
           log(() => 'other local pos now ' + JSON.stringify(other3d.position))
           log(() => 'other local pos ' + other3d.position)
-          log(() => 'other world pos ' + JSON.stringify(otherWorldPos))
-          
-          let hostWorldPos = host3d.getWorldPosition(new THREE.Vector3())
-          log(() => 'host world pos ' + JSON.stringify(hostWorldPos))
-
-          let worldVectorToOther = hostWorldPos.sub(otherWorldPos)
-          
+          log(() => 'other world pos now ' + JSON.stringify(otherWorldPos))
+                    
           log('other id', other.id)
 
-          host3d.updateMatrixWorld()
-          let vectorToOther = host3d.worldToLocal(worldVectorToOther)
+          log(() => 'host local pos now ' + JSON.stringify(host3d.position))
+          log(() => 'host local pos ' + host3d.position)
+          // log(() => 'host world pos now ' + JSON.stringify(host3d.getWorldPosition(new THREE.Vector3())))
+                    
+
+          host3d.updateWorldMatrix(true, false)
+          let vectorToOther = host3d.worldToLocal(otherWorldPos)
 
           let start = '0 0 0'
           let end = '0 0 0'
