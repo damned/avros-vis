@@ -21,6 +21,7 @@ approach
    - [ ] place multiple things on
    - [ ] multi-segment edges (squared)
    - [ ] reduce size of placed things to fit
+ - [ ] refactor model to use placement components
  - [ ] add onto existing entities
  - [ ] connectors
  - [ ] start building out current model
@@ -37,6 +38,7 @@ completeness
 [ ] azs
 
 labelling
+[ ] icons
 [ ] rotate to viewer
 [ ] circulators
 

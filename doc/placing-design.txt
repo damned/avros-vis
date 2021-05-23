@@ -25,6 +25,7 @@ obviously from the basic manual spiking this has an obvious use.
 
 2. *edge* - on component from/to attributes specify edge to another thing
 
+initially just for single straight line edges, could be extended.
 
 ## open issues / concerns / questions
 

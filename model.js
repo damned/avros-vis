@@ -25,8 +25,7 @@ var Panel = function(name, base) {
     el.setAttribute('class', 'panel')
     el.setAttribute('color', 'pink')
     el.setAttribute('height', height)
-    let basePos = base.position()
-    el.setAttribute('position', `${basePos.x} ${base.top() + halfHeight} ${basePos.z}`)
+    el.setAttribute('placement', `on: #${base.id()}`)
     self.el = el
     parent.appendChild(el)
     return el
@@ -76,6 +75,7 @@ var Board = function(name, type) {
     return self.el
   }
   
+  self.id = () => self.el.id
   self.position = () => self.renderedPosition
   self.top = () => self.renderedPosition.y + self.halfHeight
   

@@ -101,7 +101,29 @@ describe('model', () => {
         expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
         done()
       })
+    })    
+  })
+  
+  xit('should add two panels onto a square board by even split left and right i.e. vary in x', (done) => {
+    table.addEventListener('loaded', () => {
+      let board = model.board('board')
+      let panel = board.panel('panel1')
+      let panel2 = board.panel('panel2')
+      model.render(table, [])
     })
     
+    afterDoubleTick(() => {
+      let boardEl = select('#board')
+      let panelEl = select('#panel1')
+      let panel2El = select('#panel2')
+
+      expect(shape(panelEl)).to.equal('box')
+      expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
+      expect(panelEl.parentNode).to.equal(table)
+      expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
+      done()
+    })
   })
+  
+
 })
