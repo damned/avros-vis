@@ -67,8 +67,7 @@ aframeUtils.log.active = true
 
 aframeUtils.earliestAncestor = (el) => {
   let earliest = el
-  while (earliest.parentNode) {
-    console.log(earliest.parentNode.tagName)
+  while (earliest.parentNode && earliest.parentNode.tagName !== 'A-SCENE') {
     earliest = earliest.parentNode
   }
   return earliest
