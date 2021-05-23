@@ -15,21 +15,27 @@ describe('edge component', () => {
   let scene, source, dest
 
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
-  let resetSceneBeforeEach = false
-  
-  before(() => {
-    console.log('outer before')
+  let resetSceneBeforeEach = false   // trying out not re-creating scene - seems to work ok
+                                     // ... id clashes are overridden by latest added
+                                     // and speed is better
+                                     // but not as independent and if not developed with
+                                     // reset for each scene, definitely runs a risk of cross-contamination
+
+  let recreateScene = () => {
     aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
     scene = select('a-scene')
+  }
+  
+  before(() => {
+    recreateScene()
+    console.log('outer before')
   })
   
   beforeEach(() => {
     console.log('outer beforeeach')
     if (resetSceneBeforeEach) {
-      aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+      recreateScene()
     }
-
-    scene = select('a-scene')
   })
   
   describe('using from property on destination', () => {
