@@ -15,7 +15,7 @@ describe('edge component', () => {
   let scene, source, dest
 
   let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
-  let resetSceneBeforeEach = true
+  let resetSceneBeforeEach = false
   
   before(() => {
     console.log('outer before')
@@ -108,25 +108,10 @@ describe('edge component', () => {
   })
   
   describe('edges from entities not at default scale', () => {
-    let bulkSetups = []
-    let bulkSetup = (title, fn) => bulkSetups.push(fn)
-        
-    bulkSetup('setup 1', () => {
-      addToScene('<a-sphere id="destx" radius="0.1" position="1 1 1">')
-      addToScene('<a-sphere id="sourcex" edge="to: #destx" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
-    })
-
-    before(() => {
-      console.log('inner before')
-      resetSceneBeforeEach = false      
-      bulkSetups[0]()
-    })
-    
-    after(() => {
-      resetSceneBeforeEach = true
-    })
     
     it('should create a line on source that compensates for scale from itself at origin', (done) => {
+      addToScene('<a-sphere id="destx" radius="0.1" position="1 1 1">')
+      addToScene('<a-sphere id="sourcex" edge="to: #destx" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
       dest = select('#destx')
       source = select('#sourcex')      
 
