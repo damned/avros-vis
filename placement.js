@@ -9,6 +9,17 @@ AFRAME.registerComponent('placement', {
     let au = aframeUtils
     let log = aframeUtils.log
     
+    const PlacementBase = (el) => {
+      let placedOns = []
+      let base = {
+        addPlacedOn: (placed) => {
+          
+        }
+      }
+      el.placementBase = base
+      return base
+    }
+    
     self.update = () => {
       let on = self.data.on
       let justPlaced = false
@@ -19,6 +30,8 @@ AFRAME.registerComponent('placement', {
           log('placeOn: on is loaded: ', on.hasLoaded)
           log('on id: ', on.id)
           log('host id: ', host.id)
+          
+          let placementBase = on.placementBase || PlacementBase(on)
 
           let on3d = on.object3D
           let onPos = on.object3D.position
@@ -47,7 +60,6 @@ AFRAME.registerComponent('placement', {
 
           justPlaced = true
         })
-        
       }
       
       self.tick = () => {
