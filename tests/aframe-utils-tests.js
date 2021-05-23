@@ -99,6 +99,19 @@ describe('aframe utils', () => {
       scene = getScene()
     })
 
+    describe('earliestAncestor()', () => {
+      it('should return itself if no scene parent', done => {
+          inScene(scene => {
+            addToScene('<a-box id="target">')
+            let target = select('#target')
+            au.tick(() => {
+              expect(au.earliestAncestor).to.equal(target)
+              done()
+            })
+          })
+      })
+    })
+    
     describe('world-space utils', () => {
 
       describe('top()', () => {

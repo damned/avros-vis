@@ -32,6 +32,8 @@ AFRAME.registerComponent('edge', {
           let host3d = host.object3D
           
           log('addLine: other parent is loaded: ', other3d?.parent?.el?.hasLoaded)
+          log('addLine: other parent matrix: ', JSON.stringify(other3d?.parent?.matrix))
+          log('addLine: other parent world matrix: ', JSON.stringify(other3d?.parent?.matrixWorld))
           
           
           log('other world matrix now', JSON.stringify(other3d.matrixWorld))
