@@ -49,7 +49,7 @@ describe('model', () => {
       expect(shape(boardEl)).to.equal('box')
       expect(boardEl.getAttribute('height')).to.equal('0.1')
       expect(height(boardEl)).to.be.closeTo(0.1, 0.01)
-      expect(boardEl.parentNode).to.equal(table)
+      expect(boardEl.parentNode).to.equal(scene)
       expect(bottom(boardEl)).to.be.closeTo(top(table), TOLERANCE)
       done()
     })
@@ -68,7 +68,7 @@ describe('model', () => {
 
       expect(shape(panelEl)).to.equal('box')
       expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
-      expect(panelEl.parentNode).to.equal(table)
+      expect(panelEl.parentNode).to.equal(scene)
       expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
       done()
     })
@@ -104,7 +104,7 @@ describe('model', () => {
     })    
   })
   
-  xit('should add two panels onto a square board by even split left and right i.e. vary in x', (done) => {
+  it('should add two panels onto a square board by even split left and right i.e. vary in x', (done) => {
     table.addEventListener('loaded', () => {
       let board = model.board('board')
       let panel = board.panel('panel1')
@@ -119,7 +119,7 @@ describe('model', () => {
 
       expect(shape(panelEl)).to.equal('box')
       expect(height(panelEl)).to.be.closeTo(0.1, TOLERANCE)
-      expect(panelEl.parentNode).to.equal(table)
+      expect(panelEl.parentNode).to.equal(scene)
       expect(bottom(panelEl)).to.be.closeTo(top(boardEl), TOLERANCE)
       done()
     })
