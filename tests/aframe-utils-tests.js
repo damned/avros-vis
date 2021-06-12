@@ -153,7 +153,7 @@ describe('aframe utils', () => {
       
       describe('anchorPoint()', () => {
         
-        let addWorldBox = (name, pos, color) => addToScene(`<a-box id="anchor-${name}" position="${pos}" material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
+        let addWorldBox = (name, pos, color) => addToScene(`<a-box id="anchor-${name}" balloon-label="label: ${name}; y-offset: 0.5" position="${pos}" material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
         
         
         describe('getting the centre anchor point of objects by using 50 percent for each anchor point axis', () => {
@@ -177,20 +177,20 @@ describe('aframe utils', () => {
                     
         })
 
-        describe('getting the top middle anchor point of objects by using 50 percent for xy and 100 percent for z denoting top limit', () => {
+        describe('getting the top middle anchor point of objects by using 50 percent for xz and 100 percent for y denoting top limit', () => {
                     
           let topMiddleAnchor = {
             x: 50,
-            y: 50,
-            z: 100
+            y: 100,
+            z: 50
           }
           
           it('should find top middle anchor point of a simple positioned unit box', (done) => {
             inScene(scene => {
-              subject = addWorldBox('simple-centre', '2 3 -1', 'orange')
+              subject = addWorldBox('simple-top-middle', '2 2 -1', 'yellow')
               subject.addEventListener('loaded', () => {
-                let anchor = withMark(au.world.anchorPoint(centreAnchor, subject))
-                expect(anchor).to.eql(vec3(3, 2, -1))
+                let anchor = withMark(au.world.anchorPoint(topMiddleAnchor, subject))
+                expect(anchor).to.eql(vec3(2, 2.5, -1))
                 done()
               })
             })
