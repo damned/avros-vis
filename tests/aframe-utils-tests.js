@@ -121,7 +121,7 @@ describe('aframe utils', () => {
       if (!testRoot) {
         testRoot = addToScene(`<a-entity id="anchor-test-${name}">`, `#anchor-test-${name}`)
         testRoot.makeViewable = () => {
-          testRoot.setAttribute('position', '0 1 -0.5')
+          testRoot.setAttribute('position', '0 1 0')
           testRoot.setAttribute('scale', '0.2 0.2 0.2')
         }
         testRoot.addHtml = (html, selector) => {
@@ -171,17 +171,14 @@ describe('aframe utils', () => {
       describe('anchorPoint()', () => {
         let anchorTestRoot
         
-        beforeEach(() => {
-          anchorTestRoot = ensureTestRootExists(anchorTestRoot, 'anchor')
-        })
+        beforeEach(() => anchorTestRoot = ensureTestRootExists(anchorTestRoot, 'anchor'))
         
         after(() => anchorTestRoot.makeViewable())
-        
         let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
         let addWorldBox = (name, pos, color, boxSize = 0.5) => anchorTestRoot.addHtml(`<a-box id="anchor-${name}"` 
                                                                + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
-                                                               + ` balloon-label="label: ${name}; y-offset: 0.3" position="${pos}"` 
+                                                               + ` balloon-label="label: ${name}" position="${pos}"` 
                                                                + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
         
         
@@ -249,8 +246,31 @@ describe('aframe utils', () => {
               })
             })
           })
-                    
         })
+        
+
+        describe('getting the bottom far left anchor point by using 0 percent anchors on each axis', () => {
+                    
+          let bottomLeftFarAnchor = {
+            x: 0,
+            y: 0,
+            z: 0
+          }
+          
+          it('should find top middle anchor point of a simple positioned unit box', (done) => {
+            inScene(scene => {
+              subject = addWorldBox('simple-bottom-middle', '1 2 -1', 'blue', '0.5')
+              subject.addEventListener('loaded', () => {
+                let anchor = withMark(au.world.anchorPoint(bottomFarLeft, subject))
+                expect(anchor.x).to.be.closeTo(0.75, TOLERANCE)
+                expect(anchor.y).to.be.closeTo(1.75, TOLERANCE)
+                expect(anchor.z).to.be.closeTo(-1.25, TOLERANCE)
+                done()
+              })
+            })
+          })
+        })
+      
       })
       
       
