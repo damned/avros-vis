@@ -139,10 +139,33 @@ describe('aframe utils', () => {
     describe('world-space utils', () => {
 
       
-      // NB don't think have validate world deep ancestors and scale at this point...
+      // NB don't think have validated world deep ancestors and scale at this point...
       
       
       let subject
+      
+      describe('anchorPoint()', () => {
+        describe('getting the centre anchor point of objects', () => {
+          
+          let centreAnchorPointPercentages = {
+            x: 50,
+            y: 50,
+            z: 50
+          }
+          
+          it('should find centre anchor point of an object', (done) => {
+            inScene(scene => {
+              subject = addToScene('<a-box id="anchor-centre-simple"></a-box>', '#top-origin')
+              subject.addEventListener('loaded', () => {
+                expect(au.world.top(subject)).to.equal(0.5)
+                done()
+              })
+            })
+          })
+        })
+      })
+      
+      
       describe('top()', () => {
         it('should get the world y position of the top of a unit box at origin', (done) => {
           inScene(scene => {
