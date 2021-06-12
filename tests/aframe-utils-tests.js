@@ -1,4 +1,4 @@
-/* global AFRAME boxes aframeUtils */
+/* global AFRAME THREE boxes aframeUtils */
 var chai = chai || {}
 var expect = chai.expect
 var au = aframeUtils
@@ -107,6 +107,10 @@ describe('aframe utils', () => {
       }
       return undefined
     }
+    
+    let withMark = vector3 => {
+      addToScene(`<a-sphere radius="0.02" color="red" position="{au.xyzTriplet(vector3)}"></a-sphere>`)
+    }
 
     let recreateScene = () => {
       if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
@@ -145,9 +149,9 @@ describe('aframe utils', () => {
       let subject
       
       describe('anchorPoint()', () => {
-        describe('getting the centre anchor point of objects', () => {
+        describe('getting the centre anchor point of objects by using 50 percent for each anchor point axis', () => {
           
-          let centreAnchorPointPercentages = {
+          let centreAnchor = {
             x: 50,
             y: 50,
             z: 50
@@ -155,9 +159,10 @@ describe('aframe utils', () => {
           
           it('should find centre anchor point of an object', (done) => {
             inScene(scene => {
-              subject = addToScene('<a-box id="anchor-centre-simple"></a-box>', '#top-origin')
+              subject = addToScene('<a-box id="anchor-centre-simple" position="3 2 -1" color="orange" opacity="0.2"></a-box>', '#anchor-centre-simple')
               subject.addEventListener('loaded', () => {
-                expect(au.world.top(subject)).to.equal(0.5)
+                let anchor = withMark(au.world.anchorPoint(centreAnchor, subject))
+                expect(anchor).to.eql(new THREE.Vector3(3, 2, -1))
                 done()
               })
             })
