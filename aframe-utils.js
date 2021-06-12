@@ -46,7 +46,10 @@ aframeUtils.world.top = el => aframeUtils.world.bounds(el).max.y
 aframeUtils.world.bottom = el => aframeUtils.world.bounds(el).min.y
 
 aframeUtils.world.anchorPoint = (anchorPercentagesSpec, el) => {
-  return el.object3D.position
+  let bounds = aframeUtils.world.bounds(el)
+  let anchor = new THREE.Vector3().copy(el.object3D.position)
+  let y = bounds.min.y +
+  return anchor
 }
 
 aframeUtils.xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
