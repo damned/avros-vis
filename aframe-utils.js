@@ -45,6 +45,9 @@ aframeUtils.world.top = el => aframeUtils.world.bounds(el).max.y
 
 aframeUtils.world.bottom = el => aframeUtils.world.bounds(el).min.y
 
+aframeUtils.world.anchorPoint = (anchorPercentagesSpec, el) => {
+  return el.object3D.position
+}
 
 aframeUtils.xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
 

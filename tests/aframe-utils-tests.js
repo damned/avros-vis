@@ -109,7 +109,10 @@ describe('aframe utils', () => {
     }
     
     let withMark = vector3 => {
-      addToScene(`<a-sphere radius="0.02" color="red" position="{au.xyzTriplet(vector3)}"></a-sphere>`)
+      let markPos = au.xyzTriplet(vector3)
+      console.log('mark pos', markPos)
+      addToScene(`<a-sphere radius="0.1" color="red" position="{markPos}"></a-sphere>`)
+      return vector3
     }
 
     let recreateScene = () => {
@@ -159,7 +162,7 @@ describe('aframe utils', () => {
           
           it('should find centre anchor point of an object', (done) => {
             inScene(scene => {
-              subject = addToScene('<a-box id="anchor-centre-simple" position="3 2 -1" color="orange" opacity="0.2"></a-box>', '#anchor-centre-simple')
+              subject = addToScene('<a-box id="anchor-centre-simple" position="3 2 -1" material="color: orange; transparent: true; opacity: 0.1"></a-box>', '#anchor-centre-simple')
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(centreAnchor, subject))
                 expect(anchor).to.eql(new THREE.Vector3(3, 2, -1))
