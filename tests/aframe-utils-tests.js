@@ -108,13 +108,6 @@ describe('aframe utils', () => {
       return undefined
     }
     
-    let withMark = vector3 => {
-      let markPos = au.xyzTriplet(vector3)
-      console.log('mark pos', markPos)
-      addToScene(`<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
-      return vector3
-    }
-
     let recreateScene = () => {
       if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
         aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
@@ -123,6 +116,13 @@ describe('aframe utils', () => {
     }
 
     beforeEach(recreateScene)
+    
+    let ensureTestRootExists = (testRoot, 'anchor')
+          if (!anchorTestsRoot) {
+            anchorTestsRoot = addToScene('<a-entity id="anchor-test-root">', '#anchor-test-root')
+          }
+
+    
     
     describe('earliestAncestor()', () => {
       it('should return itself if no scene parent', done => {
@@ -154,11 +154,12 @@ describe('aframe utils', () => {
         let anchorTestsRoot
         
         beforeEach(() => {
-          anchorTestsRoot = addToScene('<a-entity id="anchor-test-root">', '#anchor-test-root')
+          anchorTestRoot = ensureTestRootExists(anchorTestsRoot, 'anchor')
         })
         
         after(() => {
-          anchorTestsRoot.
+          anchorTestsRoot.setAttribute('position', '0 1 -0.5')
+          anchorTestsRoot.setAttribute('scale', '0.2 0.2 0.2')
         })
         
         let addToTestsRoot = (html, selector) => {
@@ -169,6 +170,12 @@ describe('aframe utils', () => {
           return undefined
         }
 
+        let withMark = vector3 => {
+          let markPos = au.xyzTriplet(vector3)
+          console.log('mark pos', markPos)
+          addToTestsRoot(`<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
+          return vector3
+        }
         
         let addWorldBox = (name, pos, color, boxSize = 0.5) => addToTestsRoot(`<a-box id="anchor-${name}"` 
                                                                + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
