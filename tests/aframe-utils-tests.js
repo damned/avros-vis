@@ -144,7 +144,6 @@ describe('aframe utils', () => {
     })
     
     describe('world-space utils', () => {
-
       
       // NB don't think have validated world deep ancestors and scale at this point...
       
@@ -152,7 +151,26 @@ describe('aframe utils', () => {
       let subject
       
       describe('anchorPoint()', () => {
-        let addWorldBox = (name, pos, color, boxSize = 0.5) => addToScene(`<a-box id="anchor-${name}"` 
+        let anchorTestsRoot
+        
+        beforeEach(() => {
+          anchorTestsRoot = addToScene('<a-entity id="anchor-test-root">', '#anchor-test-root')
+        })
+        
+        after(() => {
+          anchorTestsRoot.
+        })
+        
+        let addToTestsRoot = (html, selector) => {
+          anchorTestsRoot.insertAdjacentHTML('afterbegin', html)
+          if (selector) {
+            return select(selector)
+          }
+          return undefined
+        }
+
+        
+        let addWorldBox = (name, pos, color, boxSize = 0.5) => addToTestsRoot(`<a-box id="anchor-${name}"` 
                                                                + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
                                                                + ` balloon-label="label: ${name}; y-offset: 0.3" position="${pos}"` 
                                                                + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
