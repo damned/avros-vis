@@ -124,6 +124,20 @@ describe('aframe utils', () => {
           testRoot.setAttribute('position', '0 1 -0.5')
           testRoot.setAttribute('scale', '0.2 0.2 0.2')
         }
+        testRoot.addHtml = (html, selector) => {
+          testRoot.insertAdjacentHTML('afterbegin', html)
+          if (selector) {
+            return select(selector)
+          }
+          return undefined
+        }
+        testRoot.withMark = vector3 => {
+          let markPos = au.xyzTriplet(vector3)
+          console.log('mark pos', markPos)
+          testRoot.addHtml(`<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
+          return vector3
+        }
+
       }
       return testRoot
     }
@@ -161,26 +175,11 @@ describe('aframe utils', () => {
           anchorTestRoot = ensureTestRootExists(anchorTestRoot, 'anchor')
         })
         
-        after(() => {
-          anchorTestRoot.makeViewable()
-        })
+        after(() => anchorTestRoot.makeViewable())
         
-        let addToTestRoot = (html, selector) => {
-          anchorTestRoot.insertAdjacentHTML('afterbegin', html)
-          if (selector) {
-            return select(selector)
-          }
-          return undefined
-        }
-
-        let withMark = vector3 => {
-          let markPos = au.xyzTriplet(vector3)
-          console.log('mark pos', markPos)
-          addToTestRoot(`<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
-          return vector3
-        }
+        let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
-        let addWorldBox = (name, pos, color, boxSize = 0.5) => addToTestRoot(`<a-box id="anchor-${name}"` 
+        let addWorldBox = (name, pos, color, boxSize = 0.5) => anchorTestRoot.addHtml(`<a-box id="anchor-${name}"` 
                                                                + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
                                                                + ` balloon-label="label: ${name}; y-offset: 0.3" position="${pos}"` 
                                                                + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
