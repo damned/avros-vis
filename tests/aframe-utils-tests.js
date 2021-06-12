@@ -261,10 +261,32 @@ describe('aframe utils', () => {
             inScene(scene => {
               subject = addWorldBox('simple-bottom-middle', '1 2 -1', 'blue', '0.5')
               subject.addEventListener('loaded', () => {
-                let anchor = withMark(au.world.anchorPoint(bottomFarLeft, subject))
+                let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                 expect(anchor.x).to.be.closeTo(0.75, TOLERANCE)
                 expect(anchor.y).to.be.closeTo(1.75, TOLERANCE)
                 expect(anchor.z).to.be.closeTo(-1.25, TOLERANCE)
+                done()
+              })
+            })
+          })
+        })
+      
+        describe('getting the anchor point on top face and half way from middle to left edge', () => {
+                    
+          let bottomLeftFarAnchor = {
+            x: 25,
+            y: 100,
+            z: 50
+          }
+          
+          it('should find top middle anchor point of a simple positioned unit box', (done) => {
+            inScene(scene => {
+              subject = addWorldBox('simple-bottom-middle', '1 1 -1', 'maroon', '0.4')
+              subject.addEventListener('loaded', () => {
+                let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
+                expect(anchor.x).to.be.closeTo(0.9, TOLERANCE)
+                expect(anchor.y).to.be.closeTo(1.2, TOLERANCE)
+                expect(anchor.z).to.be.closeTo(-1, TOLERANCE)
                 done()
               })
             })

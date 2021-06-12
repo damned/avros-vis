@@ -46,17 +46,16 @@ aframeUtils.world.top = el => aframeUtils.world.bounds(el).max.y
 aframeUtils.world.bottom = el => aframeUtils.world.bounds(el).min.y
 
 aframeUtils.world.anchorPoint = (anchorPercentagesSpec, el) => {
-  let anchor = new THREE.Vector3().copy(el.object3D.position)
+  let position = el.object3D.position
 
-  
   let box = new THREE.Box3()
   let size = box.setFromObject(el.object3D).getSize(new THREE.Vector3())
 
-  let height = size.y
+  let axisOffset = axis => (anchorPercentagesSpec[axis] - 50) * size[axis] / 100
   
-  let anchorYOffset = (anchorPercentagesSpec.y - 50) * height / 100
-  
-  anchor.setY(anchor.y + anchorYOffset)
+  let anchor = new THREE.Vector3(position.x + axisOffset('x'),
+                                 position.y + axisOffset('y'),
+                                 position.z + axisOffset('z'))
   return anchor
 }
 
