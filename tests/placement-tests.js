@@ -86,8 +86,8 @@ describe('placement component', () => {
   
   describe('placing multiple entities on a square base', () => {
     it('should position two placed entities along x axis of base in centre of equal halves', done => {
-      addToScene('<a-box id="host1" color="blue" placement="on: #base">')
       addToScene('<a-box id="host2" color="yellow" placement="on: #base">')
+      addToScene('<a-box id="host1" color="blue" placement="on: #base">')
       host = select('#host1')      
       let host2 = select('#host2')      
       
