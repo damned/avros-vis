@@ -54,7 +54,7 @@ aframeUtils.world.anchorPoint = (anchorPercentagesSpec, el) => {
 
   let height = size.y
   
-  let anchorYOffset = (anchorPercentagesSpec - 50) * height / 100
+  let anchorYOffset = (anchorPercentagesSpec.y - 50) * height / 100
   anchor.setY(anchor.y + anchorYOffset)
   return anchor
 }

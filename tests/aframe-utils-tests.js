@@ -152,13 +152,13 @@ describe('aframe utils', () => {
       let subject
       
       describe('anchorPoint()', () => {
-        let testBoxSize = 0.4
-        let addWorldBox = (name, pos, color) => addToScene(`<a-box id="anchor-${name}" width="${testBoxSize}" height="${testBoxSize}" depth="${testBoxSize}"` 
-                                                           + ` balloon-label="label: ${name}; y-offset: 0.3" position="${pos}"` 
-                                                           + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
+        let addWorldBox = (name, pos, color, boxSize = 0.5) => addToScene(`<a-box id="anchor-${name}"` 
+                                                               + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
+                                                               + ` balloon-label="label: ${name}; y-offset: 0.3" position="${pos}"` 
+                                                               + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
         
         
-        describe('getting the centre anchor point of objects by using 50 percent for each anchor point axis', () => {
+        describe('getting the centre anchor point of `objects by using 50 percent for each anchor point axis', () => {
                     
           let centreAnchor = {
             x: 50,
@@ -189,10 +189,12 @@ describe('aframe utils', () => {
           
           it('should find top middle anchor point of a simple positioned unit box', (done) => {
             inScene(scene => {
-              subject = addWorldBox('simple-top-middle', '2 2 -1', 'yellow')
+              subject = addWorldBox('simple-top-middle', '2 2 -1', 'yellow', '0.4')
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(topMiddleAnchor, subject))
-                expect(anchor).to.eql(vec3(2, 2.5, -1))
+                expect(anchor.x).to.eql(2)
+                expect(anchor.y).to.be.closeTo(2.2, TOLERANCE)
+                expect(anchor.z).to.eql(-1)
                 done()
               })
             })
