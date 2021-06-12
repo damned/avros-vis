@@ -125,17 +125,10 @@ describe('aframe utils', () => {
           testRoot.setAttribute('position', '0 1 0')
           testRoot.setAttribute('scale', '0.2 0.2 0.2')
         }
-        testRoot.addHtml = (html, selector) => {
-          testRoot.insertAdjacentHTML('afterbegin', html)
-          if (selector) {
-            return select(selector)
-          }
-          return undefined
-        }
         testRoot.withMark = vector3 => {
           let markPos = au.xyzTriplet(vector3)
           console.log('mark pos', markPos)
-          testRoot.addHtml(`<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
+          addHtmlTo(testRoot, `<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
           return vector3
         }
 
@@ -177,13 +170,17 @@ describe('aframe utils', () => {
         after(() => anchorTestRoot.makeViewable())
         let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
-        let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
+        let addTestBoxTo = (root, name, pos, color, options, attributes) => {
           let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
-          return anchorTestRoot.addHtml(`<a-box id="anchor-${name}"` 
+          return addHtmlTo(root, `<a-box id="anchor-${name}"` 
                                        + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
                                        + ` balloon-label="label: ${name}" position="${pos}"`
                                        + extraAttributes
                                        + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
+        }
+        
+        let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
+          return addTestBoxTo(anchorTestRoot, name, pos, color, options, attributes)
         }
         
         
@@ -278,7 +275,7 @@ describe('aframe utils', () => {
         
           it('should find the anchor point on a scaled box', (done) => {
             inScene(scene => {
-              subject = addWorldBox('simple-bottom-left-far', '0 2 -1', 'lightblue', { boxSize: 1 }, { scale: '0.4 0.4 0.4' })
+              subject = addWorldBox('scaled-bottom-left-far', '0 2 -1', 'lightblue', { boxSize: 1 }, { scale: '0.4 0.4 0.4' })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                 expect(anchor.x).to.be.closeTo(-0.2, TOLERANCE)
@@ -288,6 +285,20 @@ describe('aframe utils', () => {
               })
             })
           })
+          
+          it('should find the anchor point on an un-scaled box in a scaled entity', (done) => {
+            inScene(scene => {
+              let scaledParent = addHtmlTo(anchorTestRoot, '<>', '#scaled-blf-parent')
+              subject = addTestBoxTo(scaledParent, 'scaled-child-blf', '-1 0 0', 'lightblue', { boxSize: 1 }, { scale: '0.4 0.4 0.4' })
+              subject.addEventListener('loaded', () => {
+                let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
+                expect(anchor.x).to.be.closeTo(-0.2, TOLERANCE)
+                expect(anchor.y).to.be.closeTo(1.8, TOLERANCE)
+                expect(anchor.z).to.be.closeTo(-1.2, TOLERANCE)
+                done()
+              })
+            })
+          })          
         
         })
       
