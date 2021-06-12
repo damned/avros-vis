@@ -52,8 +52,8 @@ AFRAME.registerComponent('placement', {
             log(() => ['host size: ', JSON.stringify(hostSize)])
 
             host3d.updateWorldMatrix(true, false)
-            let pos = host3d.worldToLocal(basePos)
-            log('base pos y', basePos.y)
+            let pos = basePos //host3d.worldToLocal(basePos)
+            log('base pos y in host local coords', basePos.y)
             log('base size y', baseSize.y)
             let newY = basePos.y + (baseSize.y / 2) + (hostSize.y / 2)
             log('newY', newY)
