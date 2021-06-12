@@ -117,13 +117,17 @@ describe('aframe utils', () => {
 
     beforeEach(recreateScene)
     
-    let ensureTestRootExists = (testRoot, 'anchor')
-          if (!anchorTestsRoot) {
-            anchorTestsRoot = addToScene('<a-entity id="anchor-test-root">', '#anchor-test-root')
-          }
+    let ensureTestRootExists = (testRoot, name) => {      
+      if (!testRoot) {
+        testRoot = addToScene(`<a-entity id="anchor-test-${name}">`, `#anchor-test-${name}`)
+        testRoot.makeViewable = () => {
+          testRoot.setAttribute('position', '0 1 -0.5')
+          testRoot.setAttribute('scale', '0.2 0.2 0.2')
+        }
+      }
+      return testRoot
+    }
 
-    
-    
     describe('earliestAncestor()', () => {
       it('should return itself if no scene parent', done => {
         inScene(scene => {
@@ -151,19 +155,18 @@ describe('aframe utils', () => {
       let subject
       
       describe('anchorPoint()', () => {
-        let anchorTestsRoot
+        let anchorTestRoot
         
         beforeEach(() => {
-          anchorTestRoot = ensureTestRootExists(anchorTestsRoot, 'anchor')
+          anchorTestRoot = ensureTestRootExists(anchorTestRoot, 'anchor')
         })
         
         after(() => {
-          anchorTestsRoot.setAttribute('position', '0 1 -0.5')
-          anchorTestsRoot.setAttribute('scale', '0.2 0.2 0.2')
+          anchorTestRoot.makeViewable()
         })
         
-        let addToTestsRoot = (html, selector) => {
-          anchorTestsRoot.insertAdjacentHTML('afterbegin', html)
+        let addToTestRoot = (html, selector) => {
+          anchorTestRoot.insertAdjacentHTML('afterbegin', html)
           if (selector) {
             return select(selector)
           }
@@ -173,11 +176,11 @@ describe('aframe utils', () => {
         let withMark = vector3 => {
           let markPos = au.xyzTriplet(vector3)
           console.log('mark pos', markPos)
-          addToTestsRoot(`<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
+          addToTestRoot(`<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
           return vector3
         }
         
-        let addWorldBox = (name, pos, color, boxSize = 0.5) => addToTestsRoot(`<a-box id="anchor-${name}"` 
+        let addWorldBox = (name, pos, color, boxSize = 0.5) => addToTestRoot(`<a-box id="anchor-${name}"` 
                                                                + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
                                                                + ` balloon-label="label: ${name}; y-offset: 0.3" position="${pos}"` 
                                                                + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
