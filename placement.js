@@ -37,6 +37,7 @@ AFRAME.registerComponent('placement', {
           
           self.updatePlacement = (placeIndex, placeTotalCount) => {
             log('placed id and count', placeIndex, placeTotalCount)
+            log('host id: ', host.id)
             let base3d = baseHost.object3D
             log(() => ['base parent hasLoaded: ', base3d?.parent?.el?.hasLoaded])
             let basePos = base3d.getWorldPosition(new THREE.Vector3())
@@ -53,7 +54,7 @@ AFRAME.registerComponent('placement', {
             host3d.updateWorldMatrix(true, false)
             let pos = host3d.worldToLocal(basePos)
             log('base pos y', basePos.y)
-            log('base size y', basePos.y)
+            log('base size y', baseSize.y)
             let newY = basePos.y + (baseSize.y / 2) + (hostSize.y / 2)
             log('newY', newY)
             pos.setY(newY)
