@@ -100,13 +100,14 @@ describe('aframe utils', () => {
     let resetSceneBeforeEach = false
 
     let select = selector => document.querySelector(selector)
-    let addToScene = (html, selector) => {
-      scene.insertAdjacentHTML('afterbegin', html)
+    let addHtmlTo = (root, html, selector) => {
+      root.insertAdjacentHTML('afterbegin', html)
       if (selector) {
         return select(selector)
       }
       return undefined
     }
+    let addToScene = (html, selector) => addHtmlTo(scene, html, selector)
     
     let recreateScene = () => {
       if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
@@ -176,10 +177,10 @@ describe('aframe utils', () => {
         after(() => anchorTestRoot.makeViewable())
         let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
-        let addWorldBox = (name, pos, color, boxSize = 0.5, attributes = {}) => {
+        let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
           let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
           return anchorTestRoot.addHtml(`<a-box id="anchor-${name}"` 
-                                       + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
+                                       + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
                                        + ` balloon-label="label: ${name}" position="${pos}"`
                                        + extraAttributes
                                        + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
@@ -217,7 +218,7 @@ describe('aframe utils', () => {
           
           it('should find point on a simple positioned box', (done) => {
             inScene(scene => {
-              subject = addWorldBox('simple-top-middle', '2 2 -1', 'yellow', '0.4')
+              subject = addWorldBox('simple-top-middle', '2 2 -1', 'yellow', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(topMiddleAnchor, subject))
                 expect(anchor.x).to.eql(2)
@@ -240,7 +241,7 @@ describe('aframe utils', () => {
           
           it('should find point on a simple positioned box', (done) => {
             inScene(scene => {
-              subject = addWorldBox('simple-bottom-middle', '2 1 -1', 'green', '0.6')
+              subject = addWorldBox('simple-bottom-middle', '2 1 -1', 'green', { boxSize: 0.6 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomMiddleAnchor, subject))
                 expect(anchor.x).to.eql(2)
@@ -263,7 +264,7 @@ describe('aframe utils', () => {
           
           it('should find the point on a simple positioned box', (done) => {
             inScene(scene => {
-              subject = addWorldBox('simple-bottom-left-far', '1 2 -1', 'blue', '0.5')
+              subject = addWorldBox('simple-bottom-left-far', '1 2 -1', 'blue', { boxSize: 0.5 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                 expect(anchor.x).to.be.closeTo(0.75, TOLERANCE)
@@ -277,7 +278,7 @@ describe('aframe utils', () => {
         
           it('should find the anchor point on a scaled box', (done) => {
             inScene(scene => {
-              subject = addWorldBox('simple-bottom-left-far', '0 2 -1', 'lightblue', '1', { scale: '0.4 0.4 0.4' })
+              subject = addWorldBox('simple-bottom-left-far', '0 2 -1', 'lightblue', { boxSize: 1 }, { scale: '0.4 0.4 0.4' })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                 expect(anchor.x).to.be.closeTo(-0.2, TOLERANCE)
@@ -300,7 +301,7 @@ describe('aframe utils', () => {
           
           it('should find point on a simple positioned box', (done) => {
             inScene(scene => {
-              subject = addWorldBox('simple-top-half-left', '1 1 -1', 'maroon', '0.4')
+              subject = addWorldBox('simple-top-half-left', '1 1 -1', 'maroon', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                 expect(anchor.x).to.be.closeTo(0.9, TOLERANCE)
