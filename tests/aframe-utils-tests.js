@@ -111,7 +111,7 @@ describe('aframe utils', () => {
     let withMark = vector3 => {
       let markPos = au.xyzTriplet(vector3)
       console.log('mark pos', markPos)
-      addToScene(`<a-sphere radius="0.1" color="red" position="{markPos}"></a-sphere>`)
+      addToScene(`<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
       return vector3
     }
 
@@ -148,28 +148,54 @@ describe('aframe utils', () => {
       
       // NB don't think have validated world deep ancestors and scale at this point...
       
-      
+      let vec3 = (x, y, z) => new THREE.Vector3(x, y, z)
       let subject
       
       describe('anchorPoint()', () => {
+        
+        let addWorldBox = (name, pos, color) => addToScene(`<a-box id="anchor-${name}" position="${pos}" material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
+        
+        
         describe('getting the centre anchor point of objects by using 50 percent for each anchor point axis', () => {
-          
+                    
           let centreAnchor = {
             x: 50,
             y: 50,
             z: 50
           }
           
-          it('should find centre anchor point of an object', (done) => {
+          it('should find centre anchor point of a simple positioned unit box', (done) => {
             inScene(scene => {
-              subject = addToScene('<a-box id="anchor-centre-simple" position="3 2 -1" material="color: orange; transparent: true; opacity: 0.1"></a-box>', '#anchor-centre-simple')
+              subject = addWorldBox('simple-centre', '3 2 -1', 'orange')
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(centreAnchor, subject))
-                expect(anchor).to.eql(new THREE.Vector3(3, 2, -1))
+                expect(anchor).to.eql(vec3(3, 2, -1))
                 done()
               })
             })
           })
+                    
+        })
+
+        describe('getting the top middle anchor point of objects by using 50 percent for xy and 100 percent for z denoting top limit', () => {
+                    
+          let topMiddleAnchor = {
+            x: 50,
+            y: 50,
+            z: 100
+          }
+          
+          it('should find top middle anchor point of a simple positioned unit box', (done) => {
+            inScene(scene => {
+              subject = addWorldBox('simple-centre', '2 3 -1', 'orange')
+              subject.addEventListener('loaded', () => {
+                let anchor = withMark(au.world.anchorPoint(centreAnchor, subject))
+                expect(anchor).to.eql(vec3(3, 2, -1))
+                done()
+              })
+            })
+          })
+                    
         })
       })
       
