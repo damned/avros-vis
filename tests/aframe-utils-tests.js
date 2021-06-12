@@ -288,12 +288,13 @@ describe('aframe utils', () => {
           
           it('should find the anchor point on an un-scaled box in a scaled entity', (done) => {
             inScene(scene => {
-              let scaledParent = addHtmlTo(anchorTestRoot, '<>', '#scaled-blf-parent')
-              subject = addTestBoxTo(scaledParent, 'scaled-child-blf', '-1 0 0', 'lightblue', { boxSize: 1 }, { scale: '0.4 0.4 0.4' })
+              let scaledParent = addHtmlTo(anchorTestRoot, '<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">',
+                                           '#scaled-blf-parent')
+              subject = addTestBoxTo(scaledParent, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
-                expect(anchor.x).to.be.closeTo(-0.2, TOLERANCE)
-                expect(anchor.y).to.be.closeTo(1.8, TOLERANCE)
+                expect(anchor.x).to.be.closeTo(-1.6, TOLERANCE)
+                expect(anchor.y).to.be.closeTo(1.2, TOLERANCE)
                 expect(anchor.z).to.be.closeTo(-1.2, TOLERANCE)
                 done()
               })
