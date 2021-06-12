@@ -176,10 +176,14 @@ describe('aframe utils', () => {
         after(() => anchorTestRoot.makeViewable())
         let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
-        let addWorldBox = (name, pos, color, boxSize = 0.5) => anchorTestRoot.addHtml(`<a-box id="anchor-${name}"` 
-                                                               + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
-                                                               + ` balloon-label="label: ${name}" position="${pos}"` 
-                                                               + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
+        let addWorldBox = (name, pos, color, boxSize = 0.5, attributes = {}) => {
+          let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
+          return anchorTestRoot.addHtml(`<a-box id="anchor-${name}"` 
+                                       + ` width="${boxSize}" height="${boxSize}" depth="${boxSize}"` 
+                                       + ` balloon-label="label: ${name}" position="${pos}"`
+                                       + extraAttributes
+                                       + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
+        }
         
         
         describe('getting the centre anchor point of `objects by using 50 percent for each anchor point axis', () => {
@@ -271,7 +275,7 @@ describe('aframe utils', () => {
           })
 
         
-          it('should find the point on a scaled box', (done) => {
+          it('should find the anchor point on a scaled box', (done) => {
             inScene(scene => {
               subject = addWorldBox('simple-bottom-left-far', '0 2 -1', 'lightblue', '1', { scale: '0.4 0.4 0.4' })
               subject.addEventListener('loaded', () => {
