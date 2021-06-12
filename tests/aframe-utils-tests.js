@@ -174,7 +174,7 @@ describe('aframe utils', () => {
           let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
           return addHtmlTo(root, `<a-box id="anchor-${name}"` 
                                        + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
-                                       + ` balloon-label="label: ${name}" position="${pos}"`
+                                       + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
                                        + extraAttributes
                                        + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
         }
@@ -294,9 +294,9 @@ describe('aframe utils', () => {
                 subject = addTestBoxTo(scaledParent, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
                 subject.addEventListener('loaded', () => {
                   let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
-                  expect(anchor.y).to.be.closeTo(1.4, TOLERANCE)
                   expect(anchor.x).to.be.closeTo(-1.6, TOLERANCE)
-                  expect(anchor.z).to.be.closeTo(-1.2, TOLERANCE)
+                  expect(anchor.y).to.be.closeTo(1.2, TOLERANCE)
+                  expect(anchor.z).to.be.closeTo(-1.6, TOLERANCE)
                   done()
                 })
               })
