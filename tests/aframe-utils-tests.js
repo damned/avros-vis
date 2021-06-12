@@ -201,6 +201,29 @@ describe('aframe utils', () => {
           })
                     
         })
+
+        describe('getting the bottom middle anchor point of objects by using 50 percent for xz and 0 percent for y denoting bottom limit', () => {
+                    
+          let bottomMiddleAnchor = {
+            x: 50,
+            y: 0,
+            z: 50
+          }
+          
+          it('should find top middle anchor point of a simple positioned unit box', (done) => {
+            inScene(scene => {
+              subject = addWorldBox('simple-bottom-middle', '2 1 -1', 'green', '0.6')
+              subject.addEventListener('loaded', () => {
+                let anchor = withMark(au.world.anchorPoint(bottomMiddleAnchor, subject))
+                expect(anchor.x).to.eql(2)
+                expect(anchor.y).to.be.closeTo(0.7, TOLERANCE)
+                expect(anchor.z).to.eql(-1)
+                done()
+              })
+            })
+          })
+                    
+        })
       })
       
       
