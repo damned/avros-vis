@@ -1,5 +1,9 @@
 var aframeTestScene = function() {
-  let scene = {}
-  let sceneEl = document.querySelector('a-scene')
+  const scene = {}
+  const aframeContainer = document.getElementById('aframe-container')
+  let sceneEl = aframeContainer.querySelector('a-scene')
+  if (!sceneEl) {
+    
+  }
   return scene
 }
