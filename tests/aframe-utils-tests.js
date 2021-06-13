@@ -342,28 +342,38 @@ describe('aframe utils', () => {
           expect(() => au.world.placeByAnchor({x: 50, y: 0, z: 49})).to.throw(Error, /only support ANCHOR_BOTTOM_MIDDLE/)
         })
 
-        it('should support placement by bottom middle anchor', () => {
-          expect(() => au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE)).not.to.throw()
-        })
-
         it('should not yet support placement by anchor points other than on bottom', () => {
           expect(() => au.world.placeByAnchor({x: 50, y: 100, z: 50})).to.throw(Error, /only support ANCHOR_BOTTOM_MIDDLE/)
         })
 
-        
-        it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
-          inScene(scene => {
-            let target = withMark(vec3(1, 1, 1))
-            subject = addWorldBox('simple-anchor-placement', '1 1 -1', 'lightgreen', { boxSize: 0.4 })
-            subject.addEventListener('loaded', () => {
-              let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
-              expect(anchor.x).to.be.closeTo(0.9, TOLERANCE)
-              expect(anchor.y).to.be.closeTo(1.2, TOLERANCE)
-              expect(anchor.z).to.be.closeTo(-1, TOLERANCE)
-              done()
+        describe('needing a scene', () => {
+          let anchorPlacementRoot
+
+          beforeEach(() => anchorPlacementRoot = ensureTestRootExists(anchorPlacementRoot, 'anchor-placement'))
+
+          after(() => anchorPlacementRoot.makeViewable())
+
+          let withMark = vector3 => anchorPlacementRoot.withMark(vector3)
+
+          let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
+            return addTestBoxTo(anchorPlacementRoot, anchorPlacementRoot.prefix, name, pos, color, options, attributes)
+          }
+          
+          it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
+            inScene(scene => {
+              let target = withMark(vec3(1, 1, 1))
+              subject = addWorldBox('simple-anchor-placement', '0 0 0', 'lightgreen', { boxSize: 0.4 })
+              subject.addEventListener('loaded', () => {
+                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
+                let position = subject.object3D.position
+                expect(position.x).to.be.closeTo(1, TOLERANCE)
+                expect(position.y).to.be.closeTo(1.2, TOLERANCE)
+                expect(position.z).to.be.closeTo(1, TOLERANCE)
+                done()
+              })
             })
           })
-        })
+        })          
       })
       
       describe('top()', () => {
