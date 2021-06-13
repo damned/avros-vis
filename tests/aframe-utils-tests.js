@@ -330,16 +330,16 @@ describe('aframe utils', () => {
       })
       
       describe('placeByAnchor()', () => {
-        it('should define central bottom anchor as 50% in xz and 0% in y', (done) => {
+        it('should define central bottom anchor as 50% in xz and 0% in y', () => {
           expect(au.ANCHOR_BOTTOM_MIDDLE).to.eql({x: 50, y: 0, z: 50})
         })
         
-        it('should not yet support placement by non-central anchor points', (done) => {
-          expect(() => au.world.placeByAnchor({x: 0, y: 0, z: 50})).to.throw(Error, /Only support central-bottom anchor/)
-          expect(() => au.world.placeByAnchor({x: 50, y: 0, z: 49})).to.throw(Error, /Only support central-bottom anchor/)
+        it('should not yet support placement by anchor points not in horizontal middle', () => {
+          expect(() => au.world.placeByAnchor({x: 0, y: 0, z: 50})).to.throw(Error, /only support ANCHOR_BOTTOM_MIDDLE/)
+          expect(() => au.world.placeByAnchor({x: 50, y: 0, z: 49})).to.throw(Error, /only support ANCHOR_BOTTOM_MIDDLE/)
         })
 
-        it('should not yet support placement by anchor points other than on bottom', (done) => {
+        xit('should not yet support placement by anchor points other than on bottom', (done) => {
 
         })
 
