@@ -51,14 +51,21 @@ aframeUtils.world.placeByAnchor = (anchorSpec, el, position) => {
   if (anchorSpec != aframeUtils.ANCHOR_BOTTOM_MIDDLE) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }
-  el.object3D.
+  let y = position.y + aframeUtils.getEntitySize(el).y / 2
+  el.object3D.position.set(position.x, 
+                           y, 
+                           position.z)
+}
+
+aframeUtils.getEntitySize = el => {
+  let box = new THREE.Box3()
+  return box.setFromObject(el.object3D).getSize(new THREE.Vector3())
 }
 
 aframeUtils.world.anchorPoint = (anchorSpec, el) => {
   let position = el.object3D.getWorldPosition(new THREE.Vector3())
 
-  let box = new THREE.Box3()
-  let size = box.setFromObject(el.object3D).getSize(new THREE.Vector3())
+  let size = aframeUtils.getEntitySize(el)
 
   let axisOffset = axis => (anchorSpec[axis] - 50) * size[axis] / 100
   
