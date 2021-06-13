@@ -120,11 +120,12 @@ describe('aframe utils', () => {
     
     let ensureTestRootExists = (testRoot, prefix) => {      
       if (!testRoot) {
-        testRoot = addToScene(`<a-entity id="anchor-test-root">`, `#anchor-test-${name}`)
+        testRoot = addToScene(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)
         testRoot.makeViewable = () => {
           testRoot.setAttribute('position', '0 1 0')
           testRoot.setAttribute('scale', '0.2 0.2 0.2')
         }
+        testRoot.prefix = prefix
         testRoot.withMark = vector3 => {
           let markPos = au.xyzTriplet(vector3)
           console.log('mark pos', markPos)
@@ -134,6 +135,16 @@ describe('aframe utils', () => {
 
       }
       return testRoot
+    }
+
+    let addTestBoxTo = (root, prefix, name, pos, color, options, attributes) => {
+      let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
+      let testBoxId = `${prefix}-${name}`
+      return addHtmlTo(root, `<a-box id="${testBoxId}"` 
+                                   + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
+                                   + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
+                                   + extraAttributes
+                                   + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#${testBoxId}`)
     }
 
     describe('earliestAncestor()', () => {
@@ -164,25 +175,15 @@ describe('aframe utils', () => {
       
       describe('anchorPoint()', () => {
         let anchorTestRoot
-        const anchorTestPrefix = 'anchor'
         
         beforeEach(() => anchorTestRoot = ensureTestRootExists(anchorTestRoot, 'anchor'))
         
-        after(() => anchorTestRoot.makeViewable())
+        // after(() => anchorTestRoot.makeViewable())
         
         let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
-        let addTestBoxTo = (root, prefix, name, pos, color, options, attributes) => {
-          let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
-          return addHtmlTo(root, `<a-box id="${prefix}-${name}"` 
-                                       + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
-                                       + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
-                                       + extraAttributes
-                                       + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#anchor-${name}`)
-        }
-        
         let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
-          return addTestBoxTo(anchorTestRoot, 'anchor', name, pos, color, options, attributes)
+          return addTestBoxTo(anchorTestRoot, anchorTestRoot.prefix, name, pos, color, options, attributes)
         }
         
         
@@ -293,7 +294,7 @@ describe('aframe utils', () => {
               let scaledParent = addHtmlTo(anchorTestRoot, '<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">',
                                            '#scaled-blf-parent')
               scaledParent.addEventListener('loaded', () => {
-                subject = addTestBoxTo(scaledParent, 'anchor-', 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
+                subject = addTestBoxTo(scaledParent, anchorTestRoot.prefix, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
                 subject.addEventListener('loaded', () => {
                   let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                   expect(anchor.x).to.be.closeTo(-1.6, TOLERANCE)
@@ -345,14 +346,15 @@ describe('aframe utils', () => {
           expect(() => au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE)).not.to.throw()
         })
 
-        it('should not yet support placement by anchor points other than on bottom', (done) => {
+        it('should not yet support placement by anchor points other than on bottom', () => {
           expect(() => au.world.placeByAnchor({x: 50, y: 100, z: 50})).to.throw(Error, /only support ANCHOR_BOTTOM_MIDDLE/)
         })
 
+        
         it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
           inScene(scene => {
             let target = withMark(vec3(1, 1, 1))
-            subject = addWorldBox('simple-top-half-left', '1 1 -1', 'maroon', { boxSize: 0.4 })
+            subject = addWorldBox('simple-anchor-placement', '1 1 -1', 'lightgreen', { boxSize: 0.4 })
             subject.addEventListener('loaded', () => {
               let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
               expect(anchor.x).to.be.closeTo(0.9, TOLERANCE)
