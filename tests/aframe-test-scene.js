@@ -1,16 +1,15 @@
-var aframeTestScene = function() {
+var aframeTestScene = function(resetBeforeEach = false) {
   const aframeContainer = document.getElementById('aframe-container')
   let sceneEl = aframeContainer.querySelector('a-scene')
 
-  const scene = {}
-  
-  scene.recreate = () => {
-    if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
-      aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+  const scene = {
+    recreate: () => {
+      if (resetBeforeEach || aframeContainer.querySelector('a-scene') === null) {
+        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+      }
+      sceneEl = select('a-scene')
     }
-    sceneEl = select('a-scene')
   }
-
 
   if (!sceneEl) {
     scene.recreate()
@@ -28,7 +27,6 @@ var aframeTestScene = function() {
     }
   }
 
-  let resetSceneBeforeEach = false
 
   let select = selector => document.querySelector(selector)
   let addHtmlTo = (root, html, selector) => {
