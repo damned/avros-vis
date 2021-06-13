@@ -48,7 +48,9 @@ aframeUtils.world.bottom = el => aframeUtils.world.bounds(el).min.y
 aframeUtils.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
 
 aframeUtils.world.placeByAnchor = (anchorSpec, el) => {
-  throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE')
+  if (anchorSpec != aframeUtils.ANCHOR_BOTTOM_MIDDLE) {
+    throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
+  }
 }
 
 aframeUtils.world.anchorPoint = (anchorSpec, el) => {

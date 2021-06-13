@@ -118,9 +118,9 @@ describe('aframe utils', () => {
 
     beforeEach(recreateScene)
     
-    let ensureTestRootExists = (testRoot, name) => {      
+    let ensureTestRootExists = (testRoot, prefix) => {      
       if (!testRoot) {
-        testRoot = addToScene(`<a-entity id="anchor-test-${name}">`, `#anchor-test-${name}`)
+        testRoot = addToScene(`<a-entity id="anchor-test-root">`, `#anchor-test-${name}`)
         testRoot.makeViewable = () => {
           testRoot.setAttribute('position', '0 1 0')
           testRoot.setAttribute('scale', '0.2 0.2 0.2')
@@ -164,15 +164,17 @@ describe('aframe utils', () => {
       
       describe('anchorPoint()', () => {
         let anchorTestRoot
+        const anchorTestPrefix = 'anchor'
         
         beforeEach(() => anchorTestRoot = ensureTestRootExists(anchorTestRoot, 'anchor'))
         
         after(() => anchorTestRoot.makeViewable())
+        
         let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
-        let addTestBoxTo = (root, name, pos, color, options, attributes) => {
+        let addTestBoxTo = (root, prefix, name, pos, color, options, attributes) => {
           let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
-          return addHtmlTo(root, `<a-box id="anchor-${name}"` 
+          return addHtmlTo(root, `<a-box id="${prefix}-${name}"` 
                                        + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
                                        + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
                                        + extraAttributes
@@ -180,7 +182,7 @@ describe('aframe utils', () => {
         }
         
         let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
-          return addTestBoxTo(anchorTestRoot, name, pos, color, options, attributes)
+          return addTestBoxTo(anchorTestRoot, 'anchor', name, pos, color, options, attributes)
         }
         
         
@@ -291,7 +293,7 @@ describe('aframe utils', () => {
               let scaledParent = addHtmlTo(anchorTestRoot, '<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">',
                                            '#scaled-blf-parent')
               scaledParent.addEventListener('loaded', () => {
-                subject = addTestBoxTo(scaledParent, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
+                subject = addTestBoxTo(scaledParent, 'anchor-', 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
                 subject.addEventListener('loaded', () => {
                   let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                   expect(anchor.x).to.be.closeTo(-1.6, TOLERANCE)
@@ -339,22 +341,27 @@ describe('aframe utils', () => {
           expect(() => au.world.placeByAnchor({x: 50, y: 0, z: 49})).to.throw(Error, /only support ANCHOR_BOTTOM_MIDDLE/)
         })
 
-        xit('should not yet support placement by anchor points other than on bottom', (done) => {
-
+        it('should support placement by bottom middle anchor', () => {
+          expect(() => au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE)).not.to.throw()
         })
 
-        // it('should find point on a simple positioned box', (done) => {
-        //   inScene(scene => {
-        //     subject = addWorldBox('simple-top-half-left', '1 1 -1', 'maroon', { boxSize: 0.4 })
-        //     subject.addEventListener('loaded', () => {
-        //       let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
-        //       expect(anchor.x).to.be.closeTo(0.9, TOLERANCE)
-        //       expect(anchor.y).to.be.closeTo(1.2, TOLERANCE)
-        //       expect(anchor.z).to.be.closeTo(-1, TOLERANCE)
-        //       done()
-        //     })
-        //   })
-        // })
+        it('should not yet support placement by anchor points other than on bottom', (done) => {
+          expect(() => au.world.placeByAnchor({x: 50, y: 100, z: 50})).to.throw(Error, /only support ANCHOR_BOTTOM_MIDDLE/)
+        })
+
+        it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
+          inScene(scene => {
+            let target = withMark(vec3(1, 1, 1))
+            subject = addWorldBox('simple-top-half-left', '1 1 -1', 'maroon', { boxSize: 0.4 })
+            subject.addEventListener('loaded', () => {
+              let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
+              expect(anchor.x).to.be.closeTo(0.9, TOLERANCE)
+              expect(anchor.y).to.be.closeTo(1.2, TOLERANCE)
+              expect(anchor.z).to.be.closeTo(-1, TOLERANCE)
+              done()
+            })
+          })
+        })
       })
       
       describe('top()', () => {
