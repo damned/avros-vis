@@ -329,6 +329,28 @@ describe('aframe utils', () => {
 
       })
       
+      describe('placeByAnchor()', () => {
+        it('should not yet support placement by non-central anchor points', (done) => {
+
+        })
+
+        it('should not yet support placement by anchor points other than on bottom', (done) => {
+
+        })
+
+        // it('should find point on a simple positioned box', (done) => {
+        //   inScene(scene => {
+        //     subject = addWorldBox('simple-top-half-left', '1 1 -1', 'maroon', { boxSize: 0.4 })
+        //     subject.addEventListener('loaded', () => {
+        //       let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
+        //       expect(anchor.x).to.be.closeTo(0.9, TOLERANCE)
+        //       expect(anchor.y).to.be.closeTo(1.2, TOLERANCE)
+        //       expect(anchor.z).to.be.closeTo(-1, TOLERANCE)
+        //       done()
+        //     })
+        //   })
+        // })
+      })
       
       describe('top()', () => {
         it('should get the world y position of the top of a unit box at origin', (done) => {
