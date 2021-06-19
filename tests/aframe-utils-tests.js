@@ -88,20 +88,6 @@ describe('aframe utils', () => {
 
     const testScene = aframeTestScene()
 
-    let scene
-    let inScene = (handler) => {
-      if (scene.renderStarted) {
-        handler(scene)
-      }
-      else {
-        scene.addEventListener('renderstart', () => {
-          handler(scene)
-        })
-      }
-    }
-    
-    let resetSceneBeforeEach = false
-
     let select = selector => document.querySelector(selector)
     let addHtmlTo = (root, html, selector) => {
       root.insertAdjacentHTML('afterbegin', html)
@@ -110,20 +96,12 @@ describe('aframe utils', () => {
       }
       return undefined
     }
-    let addToScene = (html, selector) => addHtmlTo(scene, html, selector)
     
-    let recreateScene = () => {
-      if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
-        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
-      }
-      scene = select('a-scene')
-    }
-
-    beforeEach(testScene.reset())
+    beforeEach(testScene.reset)
     
     let ensureTestRootExists = (testRoot, prefix) => {      
       if (!testRoot) {
-        testRoot = addToScene(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)
+        testRoot = testScene.addHtml(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)
         testRoot.makeViewable = () => {
           testRoot.setAttribute('position', '0 1 0')
           testRoot.setAttribute('scale', '0.2 0.2 0.2')
@@ -132,7 +110,7 @@ describe('aframe utils', () => {
         testRoot.withMark = vector3 => {
           let markPos = au.xyzTriplet(vector3)
           console.log('mark pos', markPos)
-          addHtmlTo(testRoot, `<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
+          testScene.addHtmlTo(testRoot, `<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
           return vector3
         }
 
@@ -143,7 +121,7 @@ describe('aframe utils', () => {
     let addTestBoxTo = (root, prefix, name, pos, color, options, attributes) => {
       let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
       let testBoxId = `${prefix}-${name}`
-      return addHtmlTo(root, `<a-box id="${testBoxId}"` 
+      return testScene.addHtmlTo(root, `<a-box id="${testBoxId}"` 
                                    + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
                                    + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
                                    + extraAttributes
@@ -295,7 +273,7 @@ describe('aframe utils', () => {
           
           it('should find the anchor point on an un-scaled box in a scaled entity', (done) => {
             testScene.within(scene => {
-              let scaledParent = addHtmlTo(anchorTestRoot, '<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">',
+              let scaledParent = testScene.addHtmlTo(anchorTestRoot, '<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">',
                                            '#scaled-blf-parent')
               scaledParent.addEventListener('loaded', () => {
                 subject = addTestBoxTo(scaledParent, anchorTestRoot.prefix, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
