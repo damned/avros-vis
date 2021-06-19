@@ -1,4 +1,7 @@
+/* global aframeUtils */
+
 var aframeTestScene = function(recreateOnReset = false) {
+  const au = aframeUtils
   const aframeContainer = document.getElementById('aframe-container')
   let sceneEl = aframeContainer.querySelector('a-scene')
   let select = selector => document.querySelector(selector)
@@ -30,6 +33,37 @@ var aframeTestScene = function(recreateOnReset = false) {
     addHtml: (html, selector) => scene.addHtmlTo(sceneEl, html, selector)
   }
   scene.inScene = scene.within
+  
+  
+  let roots = {}
+  
+  function Root(prefix) {
+    let rootEl = scene.addHtml(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)
+    const root = {
+      el: rootEl,
+      makeViewable: () => {
+        rootEl.setAttribute('position', '0 1 0')
+        rootEl.setAttribute('scale', '0.2 0.2 0.2')
+      },
+      prefix: prefix,
+      withMark: vector3 => {
+        let markPos = au.xyzTriplet(vector3)
+        console.log('mark pos', markPos)
+        scene.addHtmlTo(rootEl, `<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
+        return vector3
+      }
+    }
+    
+    return root
+  }
+  
+  scene.addRoot = (prefix) => {
+    if (!roots[prefix]) {
+      roots[prefix] = Root(prefix)
+    }
+    return roots[prefix]
+  }
+
 
   scene.reset()
 
