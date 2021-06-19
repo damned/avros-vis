@@ -40,6 +40,7 @@ var aframeTestScene = function(recreateOnReset = false) {
   function Root(prefix) {
     let rootEl = scene.addHtml(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)
     const root = {
+      addHtml: (html, selector) => scene.addHtmlTo(rootEl, html, selector),
       el: rootEl,
       makeViewable: () => {
         rootEl.setAttribute('position', '0 1 0')

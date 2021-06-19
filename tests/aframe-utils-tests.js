@@ -111,14 +111,22 @@ describe('aframe utils', () => {
       return testRoot
     }
 
-    let addTestBoxTo = (root, prefix, name, pos, color, options, attributes) => {
-      let extraAttributes = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
+    let testBoxHtml = (id, name, pos, color, options, extraAttributes) => {
+      let attributes = Object.assign({}, extraAttributes)
+      let attribString = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
+      return `<a-box id="${id}"` 
+               + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
+               + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
+               + attribString
+               + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`
+    }
+    
+    let addTestBoxTo = (root, prefix, name, pos, color, options, extraAttributes) => {
       let testBoxId = `${prefix}-${name}`
-      return testScene.addHtmlTo(root, `<a-box id="${testBoxId}"` 
-                                   + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
-                                   + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
-                                   + extraAttributes
-                                   + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`, `#${testBoxId}`)
+
+      let html = testBoxHtml(testBoxId, name, pos, color, options, extraAttributes)      
+      
+      return testScene.addHtmlTo(root, html, '#' + testBoxId)
     }
 
     describe('earliestAncestor()', () => {
@@ -157,8 +165,8 @@ describe('aframe utils', () => {
         
         let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
-        let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
-          return addTestBoxTo(anchorTestRoot, anchorTestRoot.prefix, name, pos, color, options, attributes)
+        let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, extraAttributes = {}) => {
+          return addTestBoxTo(anchorTestRoot, anchorTestRoot.prefix, name, pos, color, options, extraAttributes)
         }
         
         
@@ -330,9 +338,8 @@ describe('aframe utils', () => {
 
           let withMark = vector3 => anchorPlacementRoot.withMark(vector3)
 
-          let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
-            return addTestBoxTo(anchorPlacementRoot.el
-                                , anchorPlacementRoot.prefix, name, pos, color, options, attributes)
+          let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, extraAttributes = {}) => {
+            return addTestBoxTo(anchorPlacementRoot.el, anchorPlacementRoot.prefix, name, pos, color, options, extraAttributes)
           }
           
           it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
