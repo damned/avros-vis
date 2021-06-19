@@ -1,4 +1,4 @@
-/* global AFRAME THREE boxes aframeUtils aframeTestScene */
+/* global AFRAME THREE boxes aframeUtils */
 var chai = chai || {}
 var expect = chai.expect
 var au = aframeUtils
@@ -82,11 +82,8 @@ describe('aframe utils', () => {
       })
     })
   })
-  
   describe('aframe scene related', () => {
     const aframeContainer = document.getElementById('aframe-container')
-
-    const testScene = aframeTestScene()
 
     let scene
     let inScene = (handler) => {
