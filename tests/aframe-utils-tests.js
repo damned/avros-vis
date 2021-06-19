@@ -119,7 +119,7 @@ describe('aframe utils', () => {
       scene = select('a-scene')
     }
 
-    beforeEach(recreateScene)
+    beforeEach(testScene.reset())
     
     let ensureTestRootExists = (testRoot, prefix) => {      
       if (!testRoot) {
@@ -151,18 +151,19 @@ describe('aframe utils', () => {
     }
 
     describe('earliestAncestor()', () => {
+      
       it('should return itself if no scene parent', done => {
-        inScene(scene => {
-          let target = addToScene('<a-box id="target">', '#target')
+        testScene.within(scene => {
+          let target = testScene.addHtml('<a-box id="target">', '#target')
           expect(au.earliestAncestor(target)).to.equal(target)
           done()
         })
       })
       it('should return parent if one ancestor', done => {
-        inScene(scene => {
-          addToScene('<a-box id="parent">'
-                   +   '<a-box id="target"></a-box>'
-                   + '</a-box>')
+        testScene.within(scene => {
+          testScene.addHtml('<a-box id="parent">'
+                          +   '<a-box id="target"></a-box>'
+                          + '</a-box>')
           expect(au.earliestAncestor(select('#target'))).to.equal(select('#parent'))
           done()
         })
@@ -382,7 +383,7 @@ describe('aframe utils', () => {
       describe('top()', () => {
         it('should get the world y position of the top of a unit box at origin', (done) => {
           testScene.within(scene => {
-            subject = addToScene('<a-box id="top-origin"></a-box>', '#top-origin')
+            subject = testScene.addHtml('<a-box id="top-origin"></a-box>', '#top-origin')
             subject.addEventListener('loaded', () => {
               expect(au.world.top(subject)).to.equal(0.5)
               done()
@@ -392,7 +393,7 @@ describe('aframe utils', () => {
 
         it('should get the top of a unit box at some height', (done) => {
           testScene.within(scene => {
-            subject = addToScene('<a-box id="top-high" position="0 2 0"><a-box>', '#top-high')
+            subject = testScene.addHtml('<a-box id="top-high" position="0 2 0"><a-box>', '#top-high')
             au.tick(() => {
               expect(au.world.top(subject)).to.equal(2.5)
               done()
@@ -402,7 +403,7 @@ describe('aframe utils', () => {
 
         it('should get the top of a unit box at origin within an entity at some height', (done) => {
           testScene.within(scene => {
-            addToScene('<a-entity position="0 3 -3"><a-box></a-entity>')
+            testScene.addHtml('<a-entity position="0 3 -3"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(3.5)
               done()
@@ -411,8 +412,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the top of a half height box at origin within an entity at some height', (done) => {
-          inScene(scene => {
-            addToScene('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(3.25)
               done()
@@ -422,7 +423,7 @@ describe('aframe utils', () => {
 
         it('should get the top of a unit box at origin within a scaled entity at some height', (done) => {
           testScene.within(scene => {
-            addToScene('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
+            testScene.addHtml('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(4)
               done()
@@ -431,8 +432,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the top of a unit box at a non-zero height within an entity at some height', (done) => {
-          inScene(scene => {
-            addToScene('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(5.5)
               done()
@@ -443,8 +444,8 @@ describe('aframe utils', () => {
 
       describe('bottom()', () => {
         it('should get the world y position of the bottom of a unit box at origin', (done) => {
-          inScene(scene => {
-            addToScene('<a-box>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-box>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(-0.5)
               done()
@@ -453,8 +454,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the bottom of a unit box at some height', (done) => {
-          inScene(scene => {
-            addToScene('<a-box position="0 2 0">')
+          testScene.within(scene => {
+            testScene.addHtml('<a-box position="0 2 0">')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(1.5)
               done()
@@ -463,8 +464,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the bottom of a unit box at origin within an entity at some height', (done) => {
-          inScene(scene => {
-            addToScene('<a-entity position="0 3 -3"><a-box></a-entity>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-entity position="0 3 -3"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(2.5)
               done()
@@ -473,8 +474,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the bottom of a half height box at origin within an entity at some height', (done) => {
-          inScene(scene => {
-            addToScene('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(2.75)
               done()
@@ -483,8 +484,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the bottom of a unit box at origin within a scaled entity at some height', (done) => {
-          inScene(scene => {
-            addToScene('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(2)
               done()
@@ -493,8 +494,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the bottom of a unit box at a non-zero height within an entity at some height', (done) => {
-          inScene(scene => {
-            addToScene('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(4.5)
               done()
@@ -505,8 +506,8 @@ describe('aframe utils', () => {
 
       describe('height()', () => {
         it('should get the height of a unit box', (done) => {
-          inScene(scene => {
-            addToScene('<a-box>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-box>')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.equal(1)
               done()
@@ -515,8 +516,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the height of a custom-height box', (done) => {
-          inScene(scene => {
-            addToScene('<a-box height="0.6">')
+          testScene.within(scene => {
+            testScene.addHtml('<a-box height="0.6">')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.closeTo(0.6, TOLERANCE)
               done()
@@ -525,8 +526,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the height of a scaled custom-height box', (done) => {
-          inScene(scene => {
-            addToScene('<a-box height="0.6" scale="1 3 1">')
+          testScene.within(scene => {
+            testScene.addHtml('<a-box height="0.6" scale="1 3 1">')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.closeTo(1.8, TOLERANCE)
               done()
@@ -535,8 +536,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the height of a unit box in a scaled entity', (done) => {
-          inScene(scene => {
-            addToScene('<a-entity scale="1 3 1"><a-box></a-entity>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-entity scale="1 3 1"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.closeTo(3, TOLERANCE)
               done()
@@ -545,8 +546,8 @@ describe('aframe utils', () => {
         })
 
         it('should get the height of a custom height box in a scaled entity', (done) => {
-          inScene(scene => {
-            addToScene('<a-entity scale="1 4 1"><a-box height="0.5"></a-entity>')
+          testScene.within(scene => {
+            testScene.addHtml('<a-entity scale="1 4 1"><a-box height="0.5"></a-entity>')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.closeTo(2, TOLERANCE)
               done()
