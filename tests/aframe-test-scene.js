@@ -56,15 +56,23 @@ var aframeTestScene = function(recreateOnReset = false) {
       }
     }
 
+
+    let attributeHtml = (properties) => {
+      return Object.keys(properties).map(key => `${key}: ${properties[key]}`).join('; ')
+    }
+    
+    let attributeValue = (value) => {
+      if (typeof(value) == 'object') {
+        return attributeHtml(value)
+      }
+      return value
+    }
+    
     let entityHtml = (entity, attributes) => {
-      let attribString = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
+      let attribString = Object.keys(attributes).map(key => `${key}="${attributeValue(attributes[key])}"`).join(' ')
       return '<' + entity + ' ' + attribString + '></' + entity + '>'
     }
 
-    let attributeHtml = (props) => {
-      let properties = Object.keys(props).map(key => `${key}="${attributes[key]}"`)
-      return properties.join('; ')
-    }
     
     let testBoxHtml = (id, name, pos, color, options, extraAttributes) => {
       let attributes = Object.assign({
@@ -72,8 +80,15 @@ var aframeTestScene = function(recreateOnReset = false) {
         depth: options.boxSize,
         width: options.boxSize,
         height: options.boxSize,
-        'balloon-label': `label: ${name}; y-offset: ${options.boxSize - 0.5}`,
-        material: `color: ${color}; transparent: true; opacity: 0.3`,
+        'balloon-label': { 
+          label: name, 
+          'y-offset': options.boxSize - 0.5
+        },
+        material: {
+          color: color, 
+          transparent: true, 
+          opacity: 0.3
+        },
         position: pos
       }, extraAttributes)
       
