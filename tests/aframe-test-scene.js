@@ -23,8 +23,8 @@ var aframeTestScene = function(recreateOnReset = false) {
         })
       }
     },
-    addHtmlTo: (root, html, selector) => {
-      root.insertAdjacentHTML('afterbegin', html)
+    addHtmlTo: (parent, html, selector) => {
+      parent.insertAdjacentHTML('afterbegin', html)
       if (selector) {
         return select(selector)
       }
@@ -53,6 +53,32 @@ var aframeTestScene = function(recreateOnReset = false) {
         scene.addHtmlTo(rootEl, `<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
         return vector3
       }
+    }
+    
+    let testBoxHtml = (id, name, pos, color, options, extraAttributes) => {
+      let attributes = Object.assign({}, extraAttributes)
+      let attribString = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
+      return `<a-box id="${id}"` 
+               + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
+               + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
+               + attribString
+               + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`
+    }
+    
+    root.addTestBox = (name, pos, color, options, extraAttributes) => {
+      let testBoxId = `${prefix}-${name}`
+
+      let html = testBoxHtml(testBoxId, name, pos, color, options, extraAttributes)      
+      
+      return root.addHtml(html, '#' + testBoxId)
+    }
+    
+    root.addTestBoxTo = (parent, name, pos, color, options, extraAttributes) => {
+      let testBoxId = `${prefix}-${name}`
+
+      let html = testBoxHtml(testBoxId, name, pos, color, options, extraAttributes)      
+      
+      return root.addHtmlTo(parent, html, '#' + testBoxId)
     }
     
     return root

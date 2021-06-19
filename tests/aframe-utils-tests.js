@@ -159,14 +159,14 @@ describe('aframe utils', () => {
       describe('anchorPoint()', () => {
         let anchorTestRoot
         
-        beforeEach(() => anchorTestRoot = ensureTestRootExists(anchorTestRoot, 'anchor'))
+        beforeEach(() => anchorTestRoot = testScene.addRoot('anchor'))
         
         // after(() => anchorTestRoot.makeViewable())
         
         let withMark = vector3 => anchorTestRoot.withMark(vector3)
         
         let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, extraAttributes = {}) => {
-          return addTestBoxTo(anchorTestRoot, anchorTestRoot.prefix, name, pos, color, options, extraAttributes)
+          return anchorTestRoot.addTestBox(name, pos, color, options, extraAttributes)
         }
         
         
@@ -274,8 +274,7 @@ describe('aframe utils', () => {
           
           it('should find the anchor point on an un-scaled box in a scaled entity', (done) => {
             testScene.within(scene => {
-              let scaledParent = testScene.addHtmlTo(anchorTestRoot, '<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">',
-                                           '#scaled-blf-parent')
+              let scaledParent = anchorTestRoot.addHtml('<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">', '#scaled-blf-parent')
               scaledParent.addEventListener('loaded', () => {
                 subject = addTestBoxTo(scaledParent, anchorTestRoot.prefix, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
                 subject.addEventListener('loaded', () => {
@@ -339,7 +338,7 @@ describe('aframe utils', () => {
           let withMark = vector3 => anchorPlacementRoot.withMark(vector3)
 
           let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, extraAttributes = {}) => {
-            return addTestBoxTo(anchorPlacementRoot.el, anchorPlacementRoot.prefix, name, pos, color, options, extraAttributes)
+            return anchorPlacementRoot.addTestBox(name, pos, color, options, extraAttributes)
           }
           
           it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
