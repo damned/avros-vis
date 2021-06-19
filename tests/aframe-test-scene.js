@@ -55,15 +55,29 @@ var aframeTestScene = function(recreateOnReset = false) {
         return vector3
       }
     }
+
+    let entityHtml = (entity, attributes) => {
+      let attribString = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
+      return '<' + entity + ' ' + attribString + '></' + entity + '>'
+    }
+
+    let attributeHtml = (props) => {
+      let properties = Object.keys(props).map(key => `${key}="${attributes[key]}"`)
+      return properties.join('; ')
+    }
     
     let testBoxHtml = (id, name, pos, color, options, extraAttributes) => {
-      let attributes = Object.assign({}, extraAttributes)
-      let attribString = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
-      return `<a-box id="${id}"` 
-               + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
-               + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
-               + attribString
-               + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`
+      let attributes = Object.assign({
+        id: id,
+        depth: options.boxSize,
+        width: options.boxSize,
+        height: options.boxSize,
+        'balloon-label': `label: ${name}; y-offset: ${options.boxSize - 0.5}`,
+        material: `color: ${color}; transparent: true; opacity: 0.3`,
+        position: pos
+      }, extraAttributes)
+      
+      return entityHtml('a-box', attributes)
     }
     
     root.addTestBoxTo = (parent, name, pos, color, options, extraAttributes) => {
