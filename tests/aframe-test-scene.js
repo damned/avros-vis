@@ -5,13 +5,10 @@ var aframeTestScene = function(recreateOnReset = false) {
 
   const scene = {
     reset: () => {
-      console.log('called reset...')
       if (recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
         aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
       }
-      console.log('before slect in reset...')
       sceneEl = select('a-scene')
-      console.log('finished reset...')
     },
     within: (handler) => {
       if (sceneEl.renderStarted) {
