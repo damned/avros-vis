@@ -47,7 +47,9 @@
     
     <script class="mocha-exec">
       mocha.run();
-      setInterval(() => location.reload(), 10 * 1000)
+      if (location.search.includes('refresh=true')) {
+        setInterval(() => location.reload(), 10 * 1000)        
+      }
     </script>
   </body>
 </html>

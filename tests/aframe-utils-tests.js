@@ -331,7 +331,8 @@ describe('aframe utils', () => {
           let withMark = vector3 => anchorPlacementRoot.withMark(vector3)
 
           let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, attributes = {}) => {
-            return addTestBoxTo(anchorPlacementRoot.el, anchorPlacementRoot.prefix, name, pos, color, options, attributes)
+            return addTestBoxTo(anchorPlacementRoot.el
+                                , anchorPlacementRoot.prefix, name, pos, color, options, attributes)
           }
           
           it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
