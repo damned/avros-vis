@@ -92,43 +92,6 @@ describe('aframe utils', () => {
 
     beforeEach(testScene.reset)
     
-    let ensureTestRootExists = (testRoot, prefix) => {      
-      if (!testRoot) {
-        testRoot = testScene.addHtml(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)
-        testRoot.makeViewable = () => {
-          testRoot.setAttribute('position', '0 1 0')
-          testRoot.setAttribute('scale', '0.2 0.2 0.2')
-        }
-        testRoot.prefix = prefix
-        testRoot.withMark = vector3 => {
-          let markPos = au.xyzTriplet(vector3)
-          console.log('mark pos', markPos)
-          testScene.addHtmlTo(testRoot, `<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
-          return vector3
-        }
-
-      }
-      return testRoot
-    }
-
-    let testBoxHtml = (id, name, pos, color, options, extraAttributes) => {
-      let attributes = Object.assign({}, extraAttributes)
-      let attribString = Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(' ')
-      return `<a-box id="${id}"` 
-               + ` width="${options.boxSize}" height="${options.boxSize}" depth="${options.boxSize}"` 
-               + ` balloon-label="label: ${name}; y-offset: ${options.boxSize - 0.5}" position="${pos}"`
-               + attribString
-               + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`
-    }
-    
-    let addTestBoxTo = (root, prefix, name, pos, color, options, extraAttributes) => {
-      let testBoxId = `${prefix}-${name}`
-
-      let html = testBoxHtml(testBoxId, name, pos, color, options, extraAttributes)      
-      
-      return testScene.addHtmlTo(root, html, '#' + testBoxId)
-    }
-
     describe('earliestAncestor()', () => {
       
       it('should return itself if no scene parent', done => {
@@ -274,9 +237,12 @@ describe('aframe utils', () => {
           
           it('should find the anchor point on an un-scaled box in a scaled entity', (done) => {
             testScene.within(scene => {
+              
+              // reify -> testroot.addEntity(id, pos, scale) ...
               let scaledParent = anchorTestRoot.addHtml('<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">', '#scaled-blf-parent')
               scaledParent.addEventListener('loaded', () => {
-                subject = addTestBoxTo(scaledParent, anchorTestRoot.prefix, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
+                // scaledParent.addtextbox(...)
+                subject = anchorTestRoot.addTestBoxTo(scaledParent, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
                 subject.addEventListener('loaded', () => {
                   let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                   expect(anchor.x).to.be.closeTo(-1.6, TOLERANCE)

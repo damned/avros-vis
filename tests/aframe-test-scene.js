@@ -41,6 +41,7 @@ var aframeTestScene = function(recreateOnReset = false) {
     let rootEl = scene.addHtml(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)
     const root = {
       addHtml: (html, selector) => scene.addHtmlTo(rootEl, html, selector),
+      addHtmlTo: (parent, html, selector) => scene.addHtmlTo(parent, html, selector),
       el: rootEl,
       makeViewable: () => {
         rootEl.setAttribute('position', '0 1 0')
@@ -65,20 +66,16 @@ var aframeTestScene = function(recreateOnReset = false) {
                + ` material="color: ${color}; transparent: true; opacity: 0.3"></a-box>`
     }
     
-    root.addTestBox = (name, pos, color, options, extraAttributes) => {
-      let testBoxId = `${prefix}-${name}`
-
-      let html = testBoxHtml(testBoxId, name, pos, color, options, extraAttributes)      
-      
-      return root.addHtml(html, '#' + testBoxId)
-    }
-    
     root.addTestBoxTo = (parent, name, pos, color, options, extraAttributes) => {
       let testBoxId = `${prefix}-${name}`
 
       let html = testBoxHtml(testBoxId, name, pos, color, options, extraAttributes)      
       
       return root.addHtmlTo(parent, html, '#' + testBoxId)
+    }
+    
+    root.addTestBox = (name, pos, color, options, extraAttributes) => {
+      return root.addTestBoxTo(rootEl, name, pos, color, options, extraAttributes)
     }
     
     return root
