@@ -199,7 +199,7 @@ describe('aframe utils', () => {
           }
           
           it('should find anchor point on a simple positioned box', (done) => {
-            inScene(scene => {
+            testScene.within(scene => {
               subject = addWorldBox('simple-centre', '3 2 -1', 'orange')
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(centreAnchor, subject))
@@ -220,7 +220,7 @@ describe('aframe utils', () => {
           }
           
           it('should find point on a simple positioned box', (done) => {
-            inScene(scene => {
+            testScene.within(scene => {
               subject = addWorldBox('simple-top-middle', '2 2 -1', 'yellow', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(topMiddleAnchor, subject))
@@ -243,7 +243,7 @@ describe('aframe utils', () => {
           }
           
           it('should find point on a simple positioned box', (done) => {
-            inScene(scene => {
+            testScene.within(scene => {
               subject = addWorldBox('simple-bottom-middle', '2 1 -1', 'green', { boxSize: 0.6 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomMiddleAnchor, subject))
@@ -266,7 +266,7 @@ describe('aframe utils', () => {
           }
           
           it('should find the point on a simple positioned box', (done) => {
-            inScene(scene => {
+            testScene.within(scene => {
               subject = addWorldBox('simple-bottom-left-far', '1 2 -1', 'blue', { boxSize: 0.5 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
@@ -280,7 +280,7 @@ describe('aframe utils', () => {
 
         
           it('should find the anchor point on a scaled box', (done) => {
-            inScene(scene => {
+            testScene.within(scene => {
               subject = addWorldBox('scaled-bottom-left-far', '0 2 -1', 'lightblue', { boxSize: 1 }, { scale: '0.4 0.4 0.4' })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
@@ -293,7 +293,7 @@ describe('aframe utils', () => {
           })
           
           it('should find the anchor point on an un-scaled box in a scaled entity', (done) => {
-            inScene(scene => {
+            testScene.within(scene => {
               let scaledParent = addHtmlTo(anchorTestRoot, '<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">',
                                            '#scaled-blf-parent')
               scaledParent.addEventListener('loaded', () => {
@@ -320,7 +320,7 @@ describe('aframe utils', () => {
           }
           
           it('should find point on a simple positioned box', (done) => {
-            inScene(scene => {
+            testScene.within(scene => {
               subject = addWorldBox('simple-top-half-left', '1 1 -1', 'maroon', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
@@ -363,7 +363,7 @@ describe('aframe utils', () => {
           }
           
           it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
-            inScene(scene => {
+            testScene.within(scene => {
               let target = withMark(vec3(1, 1, 1))
               subject = addWorldBox('simple-anchor-placement', '0 0 0', 'lightgreen', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
@@ -381,7 +381,7 @@ describe('aframe utils', () => {
       
       describe('top()', () => {
         it('should get the world y position of the top of a unit box at origin', (done) => {
-          inScene(scene => {
+          testScene.within(scene => {
             subject = addToScene('<a-box id="top-origin"></a-box>', '#top-origin')
             subject.addEventListener('loaded', () => {
               expect(au.world.top(subject)).to.equal(0.5)
@@ -391,7 +391,7 @@ describe('aframe utils', () => {
         })
 
         it('should get the top of a unit box at some height', (done) => {
-          inScene(scene => {
+          testScene.within(scene => {
             subject = addToScene('<a-box id="top-high" position="0 2 0"><a-box>', '#top-high')
             au.tick(() => {
               expect(au.world.top(subject)).to.equal(2.5)
@@ -401,7 +401,7 @@ describe('aframe utils', () => {
         })
 
         it('should get the top of a unit box at origin within an entity at some height', (done) => {
-          inScene(scene => {
+          testScene.within(scene => {
             addToScene('<a-entity position="0 3 -3"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(3.5)
@@ -421,7 +421,7 @@ describe('aframe utils', () => {
         })
 
         it('should get the top of a unit box at origin within a scaled entity at some height', (done) => {
-          inScene(scene => {
+          testScene.within(scene => {
             addToScene('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(4)
