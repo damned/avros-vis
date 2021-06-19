@@ -15,6 +15,8 @@ let createFakeLog = function() {
 }
 
 describe('aframe utils', () => {
+  let select = selector => document.querySelector(selector)    
+  
   let priorLogActiveState, priorLogActiveImpl
   before(() => {
     priorLogActiveState = au.log.active
@@ -88,15 +90,6 @@ describe('aframe utils', () => {
 
     const testScene = aframeTestScene()
 
-    let select = selector => document.querySelector(selector)
-    let addHtmlTo = (root, html, selector) => {
-      root.insertAdjacentHTML('afterbegin', html)
-      if (selector) {
-        return select(selector)
-      }
-      return undefined
-    }
-    
     beforeEach(testScene.reset)
     
     let ensureTestRootExists = (testRoot, prefix) => {      
