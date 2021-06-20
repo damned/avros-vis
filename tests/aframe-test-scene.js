@@ -47,6 +47,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         rootEl.setAttribute('scale', '0.2 0.2 0.2')
       },
       prefix: prefix,
+      select: selector => rootEl.querySelector(selector),
       withMark: vector3 => {
         let markPos = au.xyzTriplet(vector3)
         console.log('mark pos', markPos)

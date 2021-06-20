@@ -25,7 +25,7 @@ describe('balloon-label component', () => {
   it('should place the label directly above the host entity, by default 0.5 above origin', (done) => {
     host = root.addHtml('<a-box id="host" height="0.1" balloon-label="label: oof">', '#host')    
     au.onceLoaded(host, () => {
-      au.onceLoaded(select('a-text'), label => {
+      au.onceLoaded(root.select('a-text'), label => {
         expect(pos(label).x).to.be.closeTo(pos(host).x, TOLERANCE)
         expect(pos(label).z).to.be.closeTo(pos(host).z, TOLERANCE)
         expect(pos(label).y).to.be.closeTo(pos(host).y + 0.5, TOLERANCE)
@@ -37,7 +37,7 @@ describe('balloon-label component', () => {
   it('should place the label directly above the host entity, by specified offset above origin plus 0.5', (done) => {
     host = root.addHtml('<a-box id="host" height="0.1" balloon-label="label: oof; y-offset: 0.7">', '#host')    
     au.onceLoaded(host, () => {
-      au.onceLoaded(select('a-text'), label => {
+      au.onceLoaded(root.select('a-text'), label => {
         expect(pos(label).x).to.be.closeTo(pos(host).x, TOLERANCE)
         expect(pos(label).z).to.be.closeTo(pos(host).z, TOLERANCE)
         expect(pos(label).y).to.be.closeTo(pos(host).y + 0.7 + 0.5, TOLERANCE)
