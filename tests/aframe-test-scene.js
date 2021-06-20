@@ -5,11 +5,13 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   const aframeContainer = document.getElementById('aframe-container')
   let sceneEl = aframeContainer.querySelector('a-scene')
   let select = selector => document.querySelector(selector)
+  let roots = {}
 
   const scene = {
     reset: () => {
       if (options.recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
         aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+        roots = {}
       }
       sceneEl = select('a-scene')
     },
@@ -33,9 +35,6 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     addHtml: (html, selector) => scene.addHtmlTo(sceneEl, html, selector)
   }
   scene.inScene = scene.within
-  
-  
-  let roots = {}
   
   function Root(prefix) {
     let rootEl = scene.addHtml(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)

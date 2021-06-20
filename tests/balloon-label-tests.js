@@ -7,7 +7,7 @@ var TOLERANCE = 0.001
 
 describe('balloon-label component', () => {
   const scene = aframeTestScene({recreateOnReset: true})
-  const root = scene.addRoot('balloon-label')
+  let root
 
   const select = selector => document.querySelector(selector)
 //   const top = au.world.top
@@ -16,9 +16,11 @@ describe('balloon-label component', () => {
   const pos = el => el.object3D.position
 
   let host
-  
-  beforeEach(() => scene.reset())
 
+  beforeEach(() => scene.reset())
+  beforeEach(() => {
+    root = scene.addRoot('balloon-label')
+  })
       
   it('should place the label directly above the host entity, by default 0.5 above origin', (done) => {
     host = root.addHtml('<a-box id="host" height="0.1" balloon-label="label: oof">', '#host')    
@@ -38,7 +40,7 @@ describe('balloon-label component', () => {
       au.onceLoaded(select('a-text'), label => {
         expect(pos(label).x).to.be.closeTo(pos(host).x, TOLERANCE)
         expect(pos(label).z).to.be.closeTo(pos(host).z, TOLERANCE)
-        expect(pos(label).y).to.be.closeTo(pos(host).y + 0.5 + 0.7, TOLERANCE)
+        expect(pos(label).y).to.be.closeTo(pos(host).y + 0.7 + 0.5, TOLERANCE)
         done()
       })
     })
