@@ -6,7 +6,7 @@ var au = aframeUtils
 var TOLERANCE = 0.001
 
 describe('balloon-label component', () => {
-  const scene = aframeTestScene()
+  const scene = aframeTestScene({recreateOnReset: true})
   const root = scene.addRoot('balloon-label')
 
   const select = selector => document.querySelector(selector)
@@ -20,14 +20,27 @@ describe('balloon-label component', () => {
   beforeEach(() => scene.reset())
 
       
-  it('should place the label directly above the host entity', (done) => {
-    host = root.addHtml('<a-box id="host" balloon-label="label: oof; y-offset: 1">', '#host')    
-    host.addEventListener('loaded', () => {
-      let label = select('a-text')
-      expect(pos(label).x).to.be.closeTo(pos(host).x, TOLERANCE)
-      expect(pos(label).z).to.be.closeTo(pos(host).z, TOLERANCE)
-      expect(pos(label).y).to.be.closeTo(pos(label).y, TOLERANCE)
-      done()
+  it('should place the label directly above the host entity, by default 0.5 above origin', (done) => {
+    host = root.addHtml('<a-box id="host" height="0.1" balloon-label="label: oof">', '#host')    
+    au.onceLoaded(host, () => {
+      au.onceLoaded(select('a-text'), label => {
+        expect(pos(label).x).to.be.closeTo(pos(host).x, TOLERANCE)
+        expect(pos(label).z).to.be.closeTo(pos(host).z, TOLERANCE)
+        expect(pos(label).y).to.be.closeTo(pos(host).y + 0.5, TOLERANCE)
+        done()
+      })
+    })
+  })
+  
+  it('should place the label directly above the host entity, by specified offset above origin plus 0.5', (done) => {
+    host = root.addHtml('<a-box id="host" height="0.1" balloon-label="label: oof; y-offset: 0.7">', '#host')    
+    au.onceLoaded(host, () => {
+      au.onceLoaded(select('a-text'), label => {
+        expect(pos(label).x).to.be.closeTo(pos(host).x, TOLERANCE)
+        expect(pos(label).z).to.be.closeTo(pos(host).z, TOLERANCE)
+        expect(pos(label).y).to.be.closeTo(pos(host).y + 0.5 + 0.7, TOLERANCE)
+        done()
+      })
     })
   })
   

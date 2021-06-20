@@ -112,3 +112,14 @@ aframeUtils.earliestAncestor = (el) => {
   }
   return earliest
 }
+
+aframeUtils.onceLoaded = (entity, handler) => {
+  if (entity.hasLoaded) {
+    handler(entity)
+  }
+  else {
+    entity.addEventListener('loaded', () => {
+      handler(entity) 
+    })
+  }
+}
