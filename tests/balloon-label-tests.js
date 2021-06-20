@@ -52,14 +52,13 @@ describe('balloon-label component', () => {
     host = root.addHtml('<a-box id="host" height="0.1" balloon-label="label: boff">', '#host')    
     au.onceLoaded(host, () => {
       au.onceLoaded(root.select('a-text'), label => {
-        
-        pos(host).set(1, 2, 3)
-        label.addEventListener('balloonlabel.moved', () => {
+        host.addEventListener('balloonlabel.moved', () => {
           expect(pos(label).x).to.be.closeTo(1, TOLERANCE)
           expect(pos(label).z).to.be.closeTo(3, TOLERANCE)
           expect(pos(label).y).to.be.closeTo(2 + 0.5, TOLERANCE)
           done()
         })        
+        pos(host).set(1, 2, 3)
       })
     })
   })

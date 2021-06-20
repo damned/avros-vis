@@ -24,5 +24,9 @@ AFRAME.registerComponent('balloon-label', {
     let line = document.createElement('a-entity')
     line.setAttribute('line', `opacity: 0.3; start: ${pos.x} ${labelY} ${pos.z}; end: ${pos.x} ${pos.y} ${pos.z}`)
     parent.appendChild(line)
+    
+    this.el.addEventListener('componentchanged', function (evt) {
+      this.el.emit('balloonlabel.moved', { description: 'Entity has moved to ' + pos });
+    });
   }
 })
