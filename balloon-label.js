@@ -21,22 +21,23 @@ AFRAME.registerComponent('balloon-label', {
     })
     
     let text = document.createElement('a-text')
-    let hostPosSpec = au.xyzTriplet(calcLabelPos(hostPos))
+    let labelPosSpec = au.xyzTriplet(calcLabelPos(hostPos))
     text.setAttribute('align', 'center')
     text.setAttribute('value', this.data.label)
     text.setAttribute('color', '#888')
     text.setAttribute('scale', `${this.data.scale} ${this.data.scale}`)
-    text.setAttribute('position', hostPosSpec)
+    text.setAttribute('position', labelPosSpec)
     parent.appendChild(text)
     
     let line = document.createElement('a-entity')
-    line.setAttribute('line', `opacity: 0.3; start: ${hostPosSpec}; end: ${au.xyzTriplet(hostPos)}`)
+    line.setAttribute('line', `opacity: 0.3; start: ${labelPosSpec}; end: ${au.xyzTriplet(hostPos)}`)
     parent.appendChild(line)
 
     let updateLabelPos = (newHostPos) => {
       let newLabelPos = calcLabelPos(newHostPos)
       text.object3D.position.set(newLabelPos.x, newLabelPos.y, newLabelPos.z)
-      line.
+      line.setAttribute('line', 'start', newLabelPos)
+      line.setAttribute('line', 'end', au.xyzTriplet(newHostPos))
       this.el.emit('balloonlabel.moved', { description: 'Entity has moved to ' + newHostPos})      
     }
     
