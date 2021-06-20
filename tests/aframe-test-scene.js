@@ -1,6 +1,6 @@
 /* global aframeUtils */
 
-var aframeTestScene = function(recreateOnReset = false) {
+var aframeTestScene = function(options = {recreateOnReset: false}) {
   const au = aframeUtils
   const aframeContainer = document.getElementById('aframe-container')
   let sceneEl = aframeContainer.querySelector('a-scene')
@@ -8,7 +8,7 @@ var aframeTestScene = function(recreateOnReset = false) {
 
   const scene = {
     reset: () => {
-      if (recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
+      if (options.recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
         aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
       }
       sceneEl = select('a-scene')
