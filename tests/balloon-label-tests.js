@@ -34,7 +34,7 @@ describe('balloon-label component', () => {
   it('should place the label directly above the host entity, by specified offset above origin plus 0.5', (done) => {
     root = scene.addRoot('static-offset-label')
 
-    host = root.addHtml('<a-box id="host" height="0.1" balloon-label="label: ouch; y-offset: 0.7">', '#host')    
+    host = root.addHtml('<a-box id="host" height="0.1" balloon-label="label: ouch; y-offset: 0.7" position="2">', '#host')    
     
     au.onceLoaded(host, () => {
       au.onceLoaded(root.select('a-text'), label => {

@@ -9,7 +9,7 @@ AFRAME.registerComponent('balloon-label', {
     const au = aframeUtils
     let hostPos = this.el.object3D.position
     let lastHostPos = new THREE.Vector3()
-    hostPos.copy(lastHostPos)
+    lastHostPos.copy(hostPos)
     let parent = this.el.parentNode
     console.log('labelling element at: ' + JSON.stringify(hostPos))
     
@@ -32,13 +32,21 @@ AFRAME.registerComponent('balloon-label', {
     let line = document.createElement('a-entity')
     line.setAttribute('line', `opacity: 0.3; start: ${hostPosSpec}; end: ${au.xyzTriplet(hostPos)}`)
     parent.appendChild(line)
+
+    let updateLabelPos = (newHostPos) => {
+      let newLabelPos = calcLabelPos(newHostPos)
+      text.object3D.position.set(newLabelPos.x, newLabelPos.y, newLabelPos.z)
+      line.
+      this.el.emit('balloonlabel.moved', { description: 'Entity has moved to ' + newHostPos})      
+    }
     
-    this.tick = () => {
+    
+    this.tick = AFRAME.utils.throttleTick(() => {
       let newHostPos = this.el.object3D.position
       if (!lastHostPos.equals(newHostPos)) {
-        this.el.emit('balloonlabel.moved', { description: 'Entity has moved to ' + newHostPos })
-        newHostPos.copy(lastHostPos)
+        updateLabelPos(newHostPos)
+        lastHostPos.copy(newHostPos)
       }
-    }
+    }, 100)
   }
 })
