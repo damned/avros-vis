@@ -142,3 +142,8 @@ au.entityHtml = (entity, attributes) => {
   }).join(' ')
   return '<' + entity + ' ' + attribString + '></' + entity + '>'
 }
+
+au.addHtmlTo = (parent, tag) => {
+  parent.insertAdjacentHTML(au.entityHtml(tag))
+  return parent.children
+}

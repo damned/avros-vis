@@ -83,9 +83,15 @@ describe('aframe utils a.k.a. au', () => {
       })
     })
     describe('addHtmlTo', () => {
-      it('returns a new tag added to the parent', () => {
+      it('returns a new tag added to the parent, as its last child', () => {
         let parent = document.querySelector('body')
-        au.addHtmlTo()
+        let created = au.addHtmlTo(parent, 'footer')
+        
+        expect(created.parentNode).to.equal(parent)
+        expect(created.innerHTML).to.equal('<footer></footer>')
+        
+        let lastChild = parent.children[parent.children.length - 1]
+        expect(lastChild).to.equal(created)
       })
     })
   })
