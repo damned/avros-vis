@@ -52,10 +52,15 @@ au.world.placeByAnchor = (anchorSpec, el, position) => {
   if (anchorSpec != au.ANCHOR_BOTTOM_MIDDLE) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }
-  let y = position.y + au.getEntitySize(el).y / 2
-  el.object3D.position.set(position.x, 
-                           y, 
-                           position.z)
+  
+  let targetPos = new THREE.Vector3(position.x, 
+                                    position.y + au.getEntitySize(el).y / 2, 
+                                    position.z)
+  
+  el.object3D.parent.updateWorldMatrix(true, false)
+  el.object3D.parent.worldToLocal(targetPos)
+  
+  el.object3D.position.copy(targetPos)
 }
 
 au.getEntitySize = el => {

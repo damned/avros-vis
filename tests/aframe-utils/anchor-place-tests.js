@@ -224,12 +224,12 @@ describe('aframe utils a.k.a. au', () => {
             
             let scaledParent = anchorPlacementRoot.addHtml('<a-entity id="scaled-place-parent" position="2 2 2" scale="0.4 0.4 0.4">', '#scaled-place-parent')
             scaledParent.addEventListener('loaded', () => {
-              subject = anchorTestRoot.addTestBoxTo(scaledParent, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
+              subject = anchorPlacementRoot.addTestBoxTo(scaledParent, 'scaled-place-child', '-2 1 -1', 'yellow', { boxSize: 1 }, {})
               subject.addEventListener('loaded', () => {
-                let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
-                expect(anchor.x).to.be.closeTo(-1.6, TOLERANCE)
-                expect(anchor.y).to.be.closeTo(1.2, TOLERANCE)
-                expect(anchor.z).to.be.closeTo(-1.6, TOLERANCE)
+                let position = subject.object3D.getWorldPosition()
+                expect(position.x).to.be.closeTo(2, TOLERANCE)
+                expect(position.y).to.be.closeTo(1.2, TOLERANCE)
+                expect(position.z).to.be.closeTo(-1, TOLERANCE)
                 done()
               })              
             })
