@@ -19,8 +19,8 @@ approach
    - [-] split setup / it trial - didn't really need as yet - can generally set resetSceneBeforeEach to false
          as setup of each test overrides previous, but should use reset true when changing...
    - [x] place multiple things on, centred - unspecified order
-   - [.] factor out functions to get positions of one object relative to another, regardless of components etc.
-     - [ ] include visual debug
+   - [x] factor out functions to get positions of one object relative to another, regardless of components etc.
+     - [x] include visual debug
    - [.] place on across scaled entities
    - [ ] place multiple things on, constraining x and z
    - [ ] multi-segment edges (squared)

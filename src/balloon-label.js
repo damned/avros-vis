@@ -28,12 +28,11 @@ AFRAME.registerComponent('balloon-label', {
       value: this.data.label
     })
     
-    let line = document.createElement('a-entity')
-    line.setAttribute('line', `opacity: 0.3; start: ${labelPosSpec}; end: ${au.xyzTriplet(hostPos)}`)
-    parent.appendChild(line)
-    au.entity(parent, 'a-entity', { 
+    let line = au.entity(parent, 'a-entity', { 
       line: {
-        opacity: 0.3
+        opacity: 0.3,
+        start: labelPosSpec,
+        end: au.xyzTriplet(hostPos)
       }
     })
 
