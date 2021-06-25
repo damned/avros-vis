@@ -83,15 +83,37 @@ describe('aframe utils a.k.a. au', () => {
       })
     })
     describe('addHtmlTo', () => {
-      it('returns a new tag added to the parent, as its last child', () => {
-        let parent = document.querySelector('body')
+      let parent = document.querySelector('body')
+      it('returns a new tag added to the parent', () => {
         let created = au.addHtmlTo(parent, 'footer')
         
         expect(created.parentNode).to.equal(parent)
-        expect(created.innerHTML).to.equal('<footer></footer>')
+        expect(created.outerHTML).to.equal('<footer></footer>')
+      })
+
+      it('adds the added element as last child of the parent', () => {
+        let created = au.addHtmlTo(parent, 'p')
         
         let lastChild = parent.children[parent.children.length - 1]
         expect(lastChild).to.equal(created)
+      })
+
+      it('adds an attribute if passed', () => {
+        let created = au.addHtmlTo(parent, 'p', {bob: 'foobar'})
+        
+        expect(created.outerHTML).to.equal('<p bob="foobar"></p>')
+      })
+
+      it('adds multiple attributes if passed', () => {
+        let created = au.addHtmlTo(parent, 'p', {bob: 'foobar', sue: 'blue'})
+        
+        expect(created.outerHTML).to.equal('<p bob="foobar" sue="blue"></p>')
+      })
+
+      it('adds attributes', () => {
+        let created = au.addHtmlTo(parent, 'p', {bob: 'foobar', sue: 'blue'})
+        
+        expect(created.outerHTML).to.equal('<p bob="foobar" sue="blue"></p>')
       })
     })
   })

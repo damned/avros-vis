@@ -143,7 +143,7 @@ au.entityHtml = (entity, attributes) => {
   return '<' + entity + ' ' + attribString + '></' + entity + '>'
 }
 
-au.addHtmlTo = (parent, tag) => {
-  parent.insertAdjacentHTML(au.entityHtml(tag))
-  return parent.children
+au.addHtmlTo = (parent, tag, attributes = {}) => {
+  parent.insertAdjacentHTML('beforeend', au.entityHtml(tag, attributes))
+  return parent.children[parent.children.length - 1]
 }
