@@ -82,38 +82,38 @@ describe('aframe utils a.k.a. au', () => {
         })
       })
     })
-    describe('addHtmlTo', () => {
+    describe('addEntityTo', () => {
       let parent = document.querySelector('body')
       it('returns a new tag added to the parent', () => {
-        let created = au.addHtmlTo(parent, 'footer')
+        let created = au.addEntityTo(parent, 'footer')
         
         expect(created.parentNode).to.equal(parent)
         expect(created.outerHTML).to.equal('<footer></footer>')
       })
 
       it('adds the added element as last child of the parent', () => {
-        let created = au.addHtmlTo(parent, 'p')
+        let created = au.addEntityTo(parent, 'p')
         
         let lastChild = parent.children[parent.children.length - 1]
         expect(lastChild).to.equal(created)
       })
 
       it('adds an attribute if passed', () => {
-        let created = au.addHtmlTo(parent, 'p', {bob: 'foobar'})
+        let created = au.addEntityTo(parent, 'p', {bob: 'foobar'})
         
         expect(created.outerHTML).to.equal('<p bob="foobar"></p>')
       })
 
       it('adds multiple attributes if passed', () => {
-        let created = au.addHtmlTo(parent, 'p', {bob: 'foobar', sue: 'blue'})
+        let created = au.addEntityTo(parent, 'p', {bob: 'foobar', sue: 'blue'})
         
         expect(created.outerHTML).to.equal('<p bob="foobar" sue="blue"></p>')
       })
 
-      it('adds attributes', () => {
-        let created = au.addHtmlTo(parent, 'p', {bob: 'foobar', sue: 'blue'})
+      it('adds attributes with object values with css-style formatting', () => {
+        let created = au.addEntityTo(parent, 'p', {bob: {a: 'a-value', 'bee-key': 'bee-value'}})
         
-        expect(created.outerHTML).to.equal('<p bob="foobar" sue="blue"></p>')
+        expect(created.outerHTML).to.equal('<p bob="a: a-value; bee-key: bee-value"></p>')
       })
     })
   })

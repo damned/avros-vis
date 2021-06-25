@@ -19,18 +19,23 @@ AFRAME.registerComponent('balloon-label', {
       z: hostPos.z
     })
     
-    let text = document.createElement('a-text')
     let labelPosSpec = au.xyzTriplet(calcLabelPos(hostPos))
-    text.setAttribute('align', 'center')
-    text.setAttribute('value', this.data.label)
-    text.setAttribute('color', '#888')
-    text.setAttribute('scale', `${this.data.scale} ${this.data.scale}`)
-    text.setAttribute('position', labelPosSpec)
-    parent.appendChild(text)
+    let text = au.entity(parent, 'a-text', {
+      align: 'center',
+      color: '#888',
+      position: labelPosSpec,
+      scale: `${this.data.scale} ${this.data.scale}`,
+      value: this.data.label
+    })
     
     let line = document.createElement('a-entity')
     line.setAttribute('line', `opacity: 0.3; start: ${labelPosSpec}; end: ${au.xyzTriplet(hostPos)}`)
     parent.appendChild(line)
+    au.entity(parent, 'a-entity', { 
+      line: {
+        opacity: 0.3
+      }
+    })
 
     let updateLabelPos = (newHostPos) => {
       let newLabelPos = calcLabelPos(newHostPos)
