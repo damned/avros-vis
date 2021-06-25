@@ -226,7 +226,8 @@ describe('aframe utils a.k.a. au', () => {
             scaledParent.addEventListener('loaded', () => {
               subject = anchorPlacementRoot.addTestBoxTo(scaledParent, 'scaled-place-child', '-2 1 -1', 'yellow', { boxSize: 1 }, {})
               subject.addEventListener('loaded', () => {
-                let position = subject.object3D.getWorldPosition()
+                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
+                let position = subject.object3D.getWorldPosition(new THREE.Vector3())
                 expect(position.x).to.be.closeTo(2, TOLERANCE)
                 expect(position.y).to.be.closeTo(1.2, TOLERANCE)
                 expect(position.z).to.be.closeTo(-1, TOLERANCE)
