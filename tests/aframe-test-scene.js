@@ -54,18 +54,6 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         return vector3
       }
     }
-
-
-    let attributeHtml = (properties) => {
-      return Object.keys(properties).map(key => `${key}: ${properties[key]}`).join('; ')
-    }
-    
-    let attributeValue = (value) => {
-      if (typeof(value) == 'object') {
-        return attributeHtml(value)
-      }
-      return value
-    }
     
     let testBoxHtml = (id, name, pos, color, options, extraAttributes) => {
       let attributes = Object.assign({

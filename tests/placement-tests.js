@@ -1,7 +1,6 @@
-/* global AFRAME THREE aframeUtils */
+/* global AFRAME THREE au */
 var chai = chai || {}
 var expect = chai.expect
-var au = aframeUtils
 
 var TOLERANCE = 0.001
 

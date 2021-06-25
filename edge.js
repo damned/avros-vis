@@ -1,4 +1,4 @@
-/* globals AFRAME THREE aframeUtils */
+/* globals AFRAME THREE au */
 AFRAME.registerComponent('edge', {
   multiple: true,
   schema: {
@@ -9,8 +9,7 @@ AFRAME.registerComponent('edge', {
   init: function () {
     let self = this
     let host = self.el
-    let au = aframeUtils
-    let log = aframeUtils.log
+    let log = au.log
     
     self.update = () => {
       let from = self.data.from

@@ -125,3 +125,20 @@ au.onceLoaded = (entity, handler) => {
   }
 }
 
+au.attributeHtml = (properties) => {
+  return Object.keys(properties).map(key => `${key}: ${properties[key]}`).join('; ')
+}
+
+au.attributeValue = (value) => {
+  if (typeof(value) == 'object') {
+    return au.attributeHtml(value)
+  }
+  return value
+}
+
+au.entityHtml = (entity, attributes) => {
+  let attribString = Object.keys(attributes).map(key => {
+    return `${key}="${au.attributeValue(attributes[key])}"`
+  }).join(' ')
+  return '<' + entity + ' ' + attribString + '></' + entity + '>'
+}

@@ -1,4 +1,4 @@
-/* globals AFRAME THREE aframeUtils */
+/* globals AFRAME THREE au */
 AFRAME.registerComponent('placement', {
   schema: {
     on: { type: "selector" }
@@ -6,8 +6,7 @@ AFRAME.registerComponent('placement', {
   init: function () {
     let self = this
     let host = self.el
-    let au = aframeUtils
-    let log = aframeUtils.log
+    let log = au.log
     
     const PlacementBase = (baseEl) => {
       let onPlacements = []
