@@ -13,7 +13,7 @@ let createFakeLog = function() {
   return logFn
 }
 
-describe('aframe utils', () => {
+describe('aframe utils a.k.a. au', () => {
   let select = selector => document.querySelector(selector)    
   
   let priorLogActiveState, priorLogActiveImpl
@@ -80,6 +80,12 @@ describe('aframe utils', () => {
           au.log(logFn)
           expect(called).to.be.false
         })
+      })
+    })
+    describe('addHtmlTo', () => {
+      it('returns a new tag added to the parent', () => {
+        let parent = document.querySelector('body')
+        au.addHtmlTo()
       })
     })
   })
