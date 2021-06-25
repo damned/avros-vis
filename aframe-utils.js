@@ -1,24 +1,25 @@
 /* global THREE arguments */
 var aframeUtils = aframeUtils || {}
+var au = aframeUtils
 
-aframeUtils.tick = fn => {
+au.tick = fn => {
   setTimeout(() => {
     fn()
   }, 50)  
 }
-aframeUtils.afterCreation = aframeUtils.tick
+au.afterCreation = au.tick
 
-aframeUtils.doubleTick = handler => aframeUtils.tick(() => {
-  aframeUtils.tick(() => {
+au.doubleTick = handler => au.tick(() => {
+  au.tick(() => {
     handler()
   })
 })
 
 
-aframeUtils.world = {}
+au.world = {}
 
-aframeUtils.world.bounds = el => {
-  let log = aframeUtils.log
+au.world.bounds = el => {
+  let log = au.log
   let mesh = el.getObject3D('mesh')
   log(() => 'el loaded ' + el.hasLoaded)
   log(() => 'el position ' + JSON.stringify(el.getAttribute('position')))
@@ -32,40 +33,40 @@ aframeUtils.world.bounds = el => {
   return bbox
 }
 
-aframeUtils.world.height = el => {
-  let bbox = aframeUtils.world.bounds(el)
+au.world.height = el => {
+  let bbox = au.world.bounds(el)
   return bbox.max.y - bbox.min.y
 }
-aframeUtils.world.width = el => {
-  let bbox = aframeUtils.world.bounds(el)
+au.world.width = el => {
+  let bbox = au.world.bounds(el)
   return bbox.max.x - bbox.min.x
 }
 
-aframeUtils.world.top = el => aframeUtils.world.bounds(el).max.y
+au.world.top = el => au.world.bounds(el).max.y
 
-aframeUtils.world.bottom = el => aframeUtils.world.bounds(el).min.y
+au.world.bottom = el => au.world.bounds(el).min.y
 
-aframeUtils.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
+au.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
 
-aframeUtils.world.placeByAnchor = (anchorSpec, el, position) => {
-  if (anchorSpec != aframeUtils.ANCHOR_BOTTOM_MIDDLE) {
+au.world.placeByAnchor = (anchorSpec, el, position) => {
+  if (anchorSpec != au.ANCHOR_BOTTOM_MIDDLE) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }
-  let y = position.y + aframeUtils.getEntitySize(el).y / 2
+  let y = position.y + au.getEntitySize(el).y / 2
   el.object3D.position.set(position.x, 
                            y, 
                            position.z)
 }
 
-aframeUtils.getEntitySize = el => {
+au.getEntitySize = el => {
   let box = new THREE.Box3()
   return box.setFromObject(el.object3D).getSize(new THREE.Vector3())
 }
 
-aframeUtils.world.anchorPoint = (anchorSpec, el) => {
+au.world.anchorPoint = (anchorSpec, el) => {
   let position = el.object3D.getWorldPosition(new THREE.Vector3())
 
-  let size = aframeUtils.getEntitySize(el)
+  let size = au.getEntitySize(el)
 
   let axisOffset = axis => (anchorSpec[axis] - 50) * size[axis] / 100
   
@@ -75,10 +76,10 @@ aframeUtils.world.anchorPoint = (anchorSpec, el) => {
   return anchor
 }
 
-aframeUtils.xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
+au.xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
 
 
-aframeUtils.catching = (fn) => {
+au.catching = (fn) => {
   try {
     fn();
   } catch (e) {
@@ -87,7 +88,7 @@ aframeUtils.catching = (fn) => {
 }
 
 
-aframeUtils.log = function() {
+au.log = function() {
   let self = arguments.callee
   if (self.active == false) {
     return;
@@ -102,10 +103,10 @@ aframeUtils.log = function() {
   }
   self.logImpl.apply(this, args)
 }
-aframeUtils.log.logImpl = console.log
-aframeUtils.log.active = true
+au.log.logImpl = console.log
+au.log.active = true
 
-aframeUtils.earliestAncestor = (el) => {
+au.earliestAncestor = (el) => {
   let earliest = el
   while (earliest.parentNode && earliest.parentNode.tagName !== 'A-SCENE') {
     earliest = earliest.parentNode
@@ -113,7 +114,7 @@ aframeUtils.earliestAncestor = (el) => {
   return earliest
 }
 
-aframeUtils.onceLoaded = (entity, handler) => {
+au.onceLoaded = (entity, handler) => {
   if (entity.hasLoaded) {
     handler(entity)
   }
@@ -123,3 +124,4 @@ aframeUtils.onceLoaded = (entity, handler) => {
     })
   }
 }
+

@@ -1,4 +1,4 @@
-/* globals AFRAME THREE aframeUtils */
+/* globals AFRAME THREE au */
 AFRAME.registerComponent('balloon-label', {
   schema: {
     label: { type: "string" },
@@ -6,7 +6,6 @@ AFRAME.registerComponent('balloon-label', {
     yOffset: { type: "number", default: 0 }
   },
   init: function () {
-    const au = aframeUtils
     let hostPos = this.el.object3D.position
     let lastHostPos = new THREE.Vector3()
     lastHostPos.copy(hostPos)

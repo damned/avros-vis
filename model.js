@@ -1,4 +1,4 @@
-/* global THREE aframeUtils */
+/* global THREE au */
 const propertyValueForClass = (styles, classname, propertyname) => {
   let match = styles.find(style => style.selector.class == classname)
   if (match !== undefined) {
@@ -8,8 +8,6 @@ const propertyValueForClass = (styles, classname, propertyname) => {
   }
   return null
 }
-
-var au = aframeUtils
 
 var Panel = function(name, base) {
   let self = {}  

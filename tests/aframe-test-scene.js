@@ -1,7 +1,6 @@
-/* global aframeUtils */
+/* global au */
 
 var aframeTestScene = function(options = {recreateOnReset: false}) {
-  const au = aframeUtils
   const aframeContainer = document.getElementById('aframe-container')
   let sceneEl = aframeContainer.querySelector('a-scene')
   let select = selector => document.querySelector(selector)
@@ -68,12 +67,6 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       return value
     }
     
-    let entityHtml = (entity, attributes) => {
-      let attribString = Object.keys(attributes).map(key => `${key}="${attributeValue(attributes[key])}"`).join(' ')
-      return '<' + entity + ' ' + attribString + '></' + entity + '>'
-    }
-
-    
     let testBoxHtml = (id, name, pos, color, options, extraAttributes) => {
       let attributes = Object.assign({
         id: id,
@@ -92,7 +85,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         position: pos
       }, extraAttributes)
       
-      return entityHtml('a-box', attributes)
+      return au.entityHtml('a-box', attributes)
     }
     
     root.addTestBoxTo = (parent, name, pos, color, options, extraAttributes) => {
