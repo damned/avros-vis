@@ -119,24 +119,22 @@ describe('aframe utils a.k.a. au', () => {
   })
   
   describe('aframe scene related', () => {
-    const aframeContainer = document.getElementById('aframe-container')
+    const scene = aframeTestScene()
 
-    const testScene = aframeTestScene()
-
-    beforeEach(testScene.reset)
+    beforeEach(scene.reset)
     
     describe('earliestAncestor()', () => {
       
       it('should return itself if no scene parent', done => {
-        testScene.within(scene => {
-          let target = testScene.addHtml('<a-box id="target">', '#target')
+        scene.within(() => {
+          let target = scene.addHtml('<a-box id="target">', '#target')
           expect(au.earliestAncestor(target)).to.equal(target)
           done()
         })
       })
       it('should return parent if one ancestor', done => {
-        testScene.within(scene => {
-          testScene.addHtml('<a-box id="parent">'
+        scene.within(() => {
+          scene.addHtml('<a-box id="parent">'
                           +   '<a-box id="target"></a-box>'
                           + '</a-box>')
           expect(au.earliestAncestor(select('#target'))).to.equal(select('#parent'))
@@ -155,7 +153,7 @@ describe('aframe utils a.k.a. au', () => {
       describe('anchorPoint()', () => {
         let anchorTestRoot
         
-        beforeEach(() => anchorTestRoot = testScene.addRoot('anchor'))
+        beforeEach(() => anchorTestRoot = scene.addRoot('anchor'))
         
         // after(() => anchorTestRoot.makeViewable())
         
@@ -175,7 +173,7 @@ describe('aframe utils a.k.a. au', () => {
           }
           
           it('should find anchor point on a simple positioned box', (done) => {
-            testScene.within(scene => {
+            scene.within(() => {
               subject = addWorldBox('simple-centre', '3 2 -1', 'orange')
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(centreAnchor, subject))
@@ -196,7 +194,7 @@ describe('aframe utils a.k.a. au', () => {
           }
           
           it('should find point on a simple positioned box', (done) => {
-            testScene.within(scene => {
+            scene.within(() => {
               subject = addWorldBox('simple-top-middle', '2 2 -1', 'yellow', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(topMiddleAnchor, subject))
@@ -219,7 +217,7 @@ describe('aframe utils a.k.a. au', () => {
           }
           
           it('should find point on a simple positioned box', (done) => {
-            testScene.within(scene => {
+            scene.within(() => {
               subject = addWorldBox('simple-bottom-middle', '2 1 -1', 'green', { boxSize: 0.6 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomMiddleAnchor, subject))
@@ -242,7 +240,7 @@ describe('aframe utils a.k.a. au', () => {
           }
           
           it('should find the point on a simple positioned box', (done) => {
-            testScene.within(scene => {
+            scene.within(() => {
               subject = addWorldBox('simple-bottom-left-far', '1 2 -1', 'blue', { boxSize: 0.5 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
@@ -256,7 +254,7 @@ describe('aframe utils a.k.a. au', () => {
 
         
           it('should find the anchor point on a scaled box', (done) => {
-            testScene.within(scene => {
+            scene.within(() => {
               subject = addWorldBox('scaled-bottom-left-far', '0 2 -1', 'lightblue', { boxSize: 1 }, { scale: '0.4 0.4 0.4' })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
@@ -269,7 +267,7 @@ describe('aframe utils a.k.a. au', () => {
           })
           
           it('should find the anchor point on an un-scaled box in a scaled entity', (done) => {
-            testScene.within(scene => {
+            scene.within(() => {
               
               // reify -> testroot.addEntity(id, pos, scale) ...
               let scaledParent = anchorTestRoot.addHtml('<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">', '#scaled-blf-parent')
@@ -298,7 +296,7 @@ describe('aframe utils a.k.a. au', () => {
           }
           
           it('should find point on a simple positioned box', (done) => {
-            testScene.within(scene => {
+            scene.within(() => {
               subject = addWorldBox('simple-top-half-left', '1 1 -1', 'maroon', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
@@ -330,7 +328,7 @@ describe('aframe utils a.k.a. au', () => {
         describe('needing a scene', () => {
           let anchorPlacementRoot
 
-          beforeEach(() => anchorPlacementRoot = testScene.addRoot('anchor-placement'))
+          beforeEach(() => anchorPlacementRoot = scene.addRoot('anchor-placement'))
 
           after(() => anchorPlacementRoot.makeViewable())
 
@@ -341,7 +339,7 @@ describe('aframe utils a.k.a. au', () => {
           }
           
           it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
-            testScene.within(scene => {
+            scene.within(() => {
               let target = withMark(vec3(1, 1, 1))
               subject = addWorldBox('simple-anchor-placement', '0 0 0', 'lightgreen', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
@@ -354,13 +352,19 @@ describe('aframe utils a.k.a. au', () => {
               })
             })
           })
+          
+          it('should place box within a scaled parent by bottom-middle anchor', done => {
+            scene.within(() => {
+              let target = withMark(vec3(2, 1, -1))              
+            })
+          })
         })          
       })
       
       describe('top()', () => {
         it('should get the world y position of the top of a unit box at origin', (done) => {
-          testScene.within(scene => {
-            subject = testScene.addHtml('<a-box id="top-origin"></a-box>', '#top-origin')
+          scene.within(() => {
+            subject = scene.addHtml('<a-box id="top-origin"></a-box>', '#top-origin')
             subject.addEventListener('loaded', () => {
               expect(au.world.top(subject)).to.equal(0.5)
               done()
@@ -369,8 +373,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the top of a unit box at some height', (done) => {
-          testScene.within(scene => {
-            subject = testScene.addHtml('<a-box id="top-high" position="0 2 0"><a-box>', '#top-high')
+          scene.within(() => {
+            subject = scene.addHtml('<a-box id="top-high" position="0 2 0"><a-box>', '#top-high')
             au.tick(() => {
               expect(au.world.top(subject)).to.equal(2.5)
               done()
@@ -379,8 +383,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the top of a unit box at origin within an entity at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity position="0 3 -3"><a-box></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity position="0 3 -3"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(3.5)
               done()
@@ -389,8 +393,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the top of a half height box at origin within an entity at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(3.25)
               done()
@@ -399,8 +403,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the top of a unit box at origin within a scaled entity at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(4)
               done()
@@ -409,8 +413,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the top of a unit box at a non-zero height within an entity at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
             au.tick(() => {
               expect(au.world.top(select('a-box'))).to.equal(5.5)
               done()
@@ -421,8 +425,8 @@ describe('aframe utils a.k.a. au', () => {
 
       describe('bottom()', () => {
         it('should get the world y position of the bottom of a unit box at origin', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-box>')
+          scene.within(() => {
+            scene.addHtml('<a-box>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(-0.5)
               done()
@@ -431,8 +435,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the bottom of a unit box at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-box position="0 2 0">')
+          scene.within(() => {
+            scene.addHtml('<a-box position="0 2 0">')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(1.5)
               done()
@@ -441,8 +445,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the bottom of a unit box at origin within an entity at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity position="0 3 -3"><a-box></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity position="0 3 -3"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(2.5)
               done()
@@ -451,8 +455,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the bottom of a half height box at origin within an entity at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity position="0 3 -3"><a-box height="0.5"></a-entity>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(2.75)
               done()
@@ -461,8 +465,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the bottom of a unit box at origin within a scaled entity at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity position="0 3 -3" scale="2 2 2"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(2)
               done()
@@ -471,8 +475,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the bottom of a unit box at a non-zero height within an entity at some height', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity position="0 3 -3"><a-box position="2 2 2"></a-entity>')
             au.tick(() => {
               expect(au.world.bottom(select('a-box'))).to.equal(4.5)
               done()
@@ -483,8 +487,8 @@ describe('aframe utils a.k.a. au', () => {
 
       describe('height()', () => {
         it('should get the height of a unit box', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-box>')
+          scene.within(() => {
+            scene.addHtml('<a-box>')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.equal(1)
               done()
@@ -493,8 +497,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the height of a custom-height box', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-box height="0.6">')
+          scene.within(() => {
+            scene.addHtml('<a-box height="0.6">')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.closeTo(0.6, TOLERANCE)
               done()
@@ -503,8 +507,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the height of a scaled custom-height box', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-box height="0.6" scale="1 3 1">')
+          scene.within(() => {
+            scene.addHtml('<a-box height="0.6" scale="1 3 1">')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.closeTo(1.8, TOLERANCE)
               done()
@@ -513,8 +517,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the height of a unit box in a scaled entity', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity scale="1 3 1"><a-box></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity scale="1 3 1"><a-box></a-entity>')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.closeTo(3, TOLERANCE)
               done()
@@ -523,8 +527,8 @@ describe('aframe utils a.k.a. au', () => {
         })
 
         it('should get the height of a custom height box in a scaled entity', (done) => {
-          testScene.within(scene => {
-            testScene.addHtml('<a-entity scale="1 4 1"><a-box height="0.5"></a-entity>')
+          scene.within(() => {
+            scene.addHtml('<a-entity scale="1 4 1"><a-box height="0.5"></a-entity>')
             au.tick(() => {
               expect(au.world.height(select('a-box'))).to.closeTo(2, TOLERANCE)
               done()
