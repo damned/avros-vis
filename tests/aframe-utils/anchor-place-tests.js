@@ -249,15 +249,18 @@ describe('aframe utils a.k.a. au', () => {
         })
         
         describe('with size constraints', () => {
-          it('does not yet support y constraints', (done) => {
-            au.entity()
+          it('does not yet support y constraints', () => {
+            expect(() => au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, {}, {}, {y: 1})).to.throw(Error, /sizeConstraints not supported/)
           })
-          it('should.... test size constraints', (done) => {
+          it('does not yet support z constraints', () => {
+            expect(() => au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, {}, {}, {z: 1})).to.throw(Error, /sizeConstraints not supported/)
+          })
+          it('supports world space size constraints in x', (done) => {
             scene.within(() => {
               
               let target = withMark(vec3(1, 1, 1))
               
-              subject = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 0.4 })
+              subject = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 1 })
               subject.addEventListener('loaded', () => {
                 done()
               })

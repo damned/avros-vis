@@ -59,6 +59,10 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }
   
+  if (sizeConstraints) {
+    throw Error('sizeConstraints not supported')
+  }
+  
   let worldScale = el.object3D.getWorldScale(new THREE.Vector3()) // implicit world matrix update
   let worldHeight = au.getEntitySize(el).y * worldScale.y
   
