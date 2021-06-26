@@ -124,20 +124,29 @@ describe('placement component', () => {
         })
       })
     })
-    it('should position and size two placed entities along x axis of base in centre of equal halves', done => {
-      let base2 = au.entity(scene, 'a-box', { id: 'base3', color: 'pink', position: '-2 0 -2' })
-      au.onceLoaded(base2, () => {
+    it('should position and size four entities evenly over the four quarters of their base', done => {
+      let base3 = au.entity(scene, 'a-box', { id: 'base3', color: 'pink', position: '-2 0 -2' })
+      au.onceLoaded(base3, () => {
         host = au.entity(scene, 'a-box', { color: 'blue', placement: {on: '#base3', constrain: true}})
         let host2 = au.entity(scene, 'a-box', { color: 'yellow', placement: {on: '#base3', constrain: true}})
         let host3 = au.entity(scene, 'a-box', { color: 'red', placement: {on: '#base3', constrain: true}})
         let host4 = au.entity(scene, 'a-box', { color: 'green', placement: {on: '#base3', constrain: true}})
 
         host2.addEventListener('placed', () => {
-          expect(pos(host).z).to.be.closeTo(pos(base2).z, TOLERANCE, 'host 1 z')
-          expect(pos(host2).z).to.be.closeTo(pos(base2).z, TOLERANCE, 'host 2 z')
+          
+          
+          /// pfff .... this is getting harder to write, i want some sort of visual language for these asserts i think...
+          //  z
+          //  3.
+          //  2.BBBB
+          //  1.BBBB
+          //  0.BBBB
+          
+          expect(pos(host).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 1 z')
+          expect(pos(host2).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 2 z')
 
-          expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base2).x - width(base) / 4, TOLERANCE, 'host 1 x')
-          expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base2).x  + width(base) / 4, TOLERANCE, 'host 2 x')
+          expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base3).x - width(base) / 4, TOLERANCE, 'host 1 x')
+          expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base3).x  + width(base) / 4, TOLERANCE, 'host 2 x')
 
           expect(au.getEntitySize(host).x).to.equal(0.5)
           expect(au.getEntitySize(host2).x).to.equal(0.5)

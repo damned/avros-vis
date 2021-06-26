@@ -2,7 +2,8 @@
 AFRAME.registerComponent('placement', {
   schema: {
     on: { type: 'selector' },
-    constrain: { type: 'boolean', default: false }
+    constrain: { type: 'boolean', default: false },
+    sized: { type: 'boolean', default: true } /// TODO make synonym of constrain, but default true
   },
   init: function () {
     let self = this
@@ -16,9 +17,18 @@ AFRAME.registerComponent('placement', {
           onPlacements.push(placement)
           let count = onPlacements.length
           let split = calcAreaXZSplit({ x: 1, z: 1 }, count)
+          let ix = 0
+          let iz = 0
           
           onPlacements.forEach((placementComponent, i) => {
-            placementComponent.updatePlacement(i, count, split)
+            placementComponent.updatePlacement(i, count, split, ix, iz)
+            if (ix < split.counts.x - 1) {
+              ix += 1
+            }
+            else {
+              iz += 1
+              ix = 0
+            }
           })
         }
       }
@@ -51,9 +61,9 @@ AFRAME.registerComponent('placement', {
             
             
             let targetPos = au.world.anchorPoint({
-              x: calcCentrePercent(placeIndex, split.counts.x),
+              x: calcCentrePercent(ix, split.counts.x),
               y: 100, 
-              z: 50
+              z: calcCentrePercent(iz, split.counts.z)
             }, baseHost)
             
             log(() => 'setting placement to ' + JSON.stringify(targetPos))
