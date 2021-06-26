@@ -54,6 +54,20 @@ au.getEntitySize = el => { // local space
 au.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
 au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED = JSON.stringify(au.ANCHOR_BOTTOM_MIDDLE)
 
+const _au_resizeToConstraints = (object3d, sizeConstraints, localSize, worldScale) => {
+  if (sizeConstraints) {
+    let currentSizeInX = localSize.x * worldScale.x
+    if (currentSizeInX != sizeConstraints.x) {
+      let scaleChangeFactor = sizeConstraints.x / currentSizeInX
+      au.log('updating local scale for x constraint, scale factor: ', scaleChangeFactor)
+      au.log('before scale change, worldScale: ', worldScale)
+      object3d.scale.multiplyScalar(scaleChangeFactor)
+      object3d.getWorldScale(worldScale) // implicit world matrix update
+      au.log('updated scale for x constraint, updated worldScale: ', worldScale)
+    }
+  }
+}
+
 au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   if (JSON.stringify(anchorSpec) != au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
@@ -65,20 +79,11 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
     }
   }
   
+  let object3d = el.object3D
   let localSize = au.getEntitySize(el)
-  let worldScale = el.object3D.getWorldScale(new THREE.Vector3()) // implicit world matrix update
+  let worldScale = object3d.getWorldScale(new THREE.Vector3()) // implicit world matrix update
   
-  if (sizeConstraints) {
-    let currentSizeInX = localSize.x * worldScale.x
-    if (currentSizeInX != sizeConstraints.x) {
-      let scaleChangeFactor = sizeConstraints.x / currentSizeInX
-      au.log('updating local scale for x constraint, scale factor: ', scaleChangeFactor)
-      au.log('before scale change, worldScale: ', worldScale)
-      el.object3D.scale.multiplyScalar(scaleChangeFactor)
-      el.object3D.getWorldScale(worldScale) // implicit world matrix update
-      au.log('updated scale for x constraint, updated worldScale: ', worldScale)
-    }
-  }
+  _au_resizeToConstraints(object3d, sizeConstraints, localSize, worldScale) 
   
   let worldHeight = localSize.y * worldScale.y
   
@@ -87,10 +92,10 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
                                     position.z)
     
   au.log('targetPos world', targetPos)
-  el.object3D.parent.worldToLocal(targetPos)  
+  object3d.parent.worldToLocal(targetPos)  
   au.log('targetPos local', targetPos)
   
-  el.object3D.position.copy(targetPos)
+  object3d.position.copy(targetPos)
 }
 
 au.world.anchorPoint = (anchorSpec, el) => {

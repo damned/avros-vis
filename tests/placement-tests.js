@@ -101,4 +101,24 @@ describe('placement component', () => {
       })
     })
   })
+
+  describe('placing and sizing multiple entities on a square base', () => {
+    it('should position and size two placed entities along x axis of base in centre of equal halves', done => {
+      au.entity(scene, 'a-box', { id: "base2", color: "brown", position: '-2 0 -1' })
+      addToScene('<a-box id="host1" color="blue" placement="on: #base2">')
+      addToScene('<a-box id="host2" color="yellow" placement="on: #base2">')
+      host = select('#host1')      
+      let host2 = select('#host2')      
+      
+      host2.addEventListener('placed', () => {
+        expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE, 'host 1 z')
+        expect(pos(host2).z).to.be.closeTo(pos(base).z, TOLERANCE, 'host 2 z')
+
+        expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base).x - width(base) / 4, TOLERANCE, 'host 1 x')
+        expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base).x  + width(base) / 4, TOLERANCE, 'host 2 x')
+
+        done()
+      })
+    })
+  })
 })
