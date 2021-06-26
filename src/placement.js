@@ -29,6 +29,14 @@ AFRAME.registerComponent('placement', {
       let justPlaced = false
       let emitPlacedNext = false
       
+      
+      const getXZPartitionCounts = () => {
+        return {
+          
+        }
+      }
+      
+      
       let placeOn = () => {
         au.catching(() => {
           log('placeOn: baseHost is loaded: ', baseHost.hasLoaded)
@@ -46,6 +54,8 @@ AFRAME.registerComponent('placement', {
             log('host id: ', host.id)
             log(() => ['base parent hasLoaded: ', baseHost.parentNode?.hasLoaded])
 
+            
+            
             let targetPos = au.world.anchorPoint({
               x: calcPercentX(placeIndex, placeTotalCount), 
               y: 100, 
