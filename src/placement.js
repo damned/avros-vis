@@ -53,6 +53,7 @@ AFRAME.registerComponent('placement', {
             }, baseHost)
             
             log(() => 'setting placement to ' + JSON.stringify(targetPos))
+            log('constrain', self.data.constrain)
             if (self.data.constrain) {
               au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos, {x: 0.5})
             }
