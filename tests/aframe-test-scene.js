@@ -47,10 +47,10 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       },
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
-      withMark: vector3 => {
+      withMark: (vector3, color = 'red') => {
         let markPos = au.xyzTriplet(vector3)
         console.log('mark pos', markPos)
-        scene.addHtmlTo(rootEl, `<a-sphere radius="0.02" color="red" position="${markPos}"></a-sphere>`)
+        au.entity(rootEl, 'a-sphere', { radius: 0.02, color: color, position: markPos})
         return vector3
       }
     }

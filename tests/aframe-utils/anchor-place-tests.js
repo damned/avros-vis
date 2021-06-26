@@ -196,7 +196,7 @@ describe('aframe utils a.k.a. au', () => {
 
         after(() => root.makeViewable())
 
-        let withMark = vector3 => root.withMark(vector3)
+        let withMark = (vector3, color) => root.withMark(vector3, color)
 
         let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, extraAttributes = {}) => {
           return root.addTestBox(name, pos, color, options, extraAttributes)
@@ -230,7 +230,7 @@ describe('aframe utils a.k.a. au', () => {
 
           it('should place box within a scaled parent by bottom-middle anchor', done => {
             scene.within(() => {
-              let target = withMark(vec3(2, 1, -1))
+              let target = withMark(vec3(1, 1, -1))
 
               let scaledParent = root.addHtml('<a-entity id="scaled-place-parent" position="2 2 2" scale="0.4 0.4 0.4">', '#scaled-place-parent')
               scaledParent.addEventListener('loaded', () => {
@@ -238,7 +238,7 @@ describe('aframe utils a.k.a. au', () => {
                 subject.addEventListener('loaded', () => {
                   au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
                   let position = subject.object3D.getWorldPosition(new THREE.Vector3())
-                  expect(position.x).to.be.closeTo(2, TOLERANCE)
+                  expect(position.x).to.be.closeTo(1, TOLERANCE)
                   expect(position.y).to.be.closeTo(1.2, TOLERANCE)
                   expect(position.z).to.be.closeTo(-1, TOLERANCE)
                   done()
@@ -260,7 +260,7 @@ describe('aframe utils a.k.a. au', () => {
           it('constrains a unit cube to world space size constraints in x', (done) => {
             scene.within(() => {
               
-              let target = withMark(vec3(2, 1, -1))
+              let target = withMark(vec3(2, 1, -1), 's')
               
               subject = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 1 })
               subject.addEventListener('loaded', () => {
