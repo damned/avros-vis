@@ -58,8 +58,6 @@ AFRAME.registerComponent('placement', {
             log('host id: ', host.id)
             log(() => ['base parent hasLoaded: ', baseHost.parentNode?.hasLoaded])
             
-            
-            
             let targetPos = au.world.anchorPoint({
               x: calcCentrePercent(ix, split.counts.x),
               y: 100, 
