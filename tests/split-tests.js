@@ -54,14 +54,37 @@ describe('calcAreaXZSplit', () => {
       }, splitInfo(split))
     })
     
+    it('should split into 3 by 3 when split in 9', () => {
+      let split = calcAreaXZSplit({ x: 3, z: 3 }, 9)
+      expect(split).to.eql({
+        counts: {x: 3, z: 3},
+        sizes: {x: 1, z: 1}
+      }, splitInfo(split))
+    })
   })
  
   describe('splitting rectangles', () => {
-    it('should split a 2x3 rectangle on the longer axis first, to give a squarer sub-areas', () => {
+    it('should split a 2x3 rectangle on the longer axis first, to give squarer sub-areas', () => {
       let split = calcAreaXZSplit({ x: 2, z: 3 }, 2)      
       expect(split).to.eql({
         counts: {x: 1, z: 2},
         sizes: {x: 2, z: 1.5}
+      }, splitInfo(split))
+    })
+
+    it('should split a 2x3 rectangle by 5 into even squares', () => {
+      let split = calcAreaXZSplit({ x: 2, z: 3 }, 5)      
+      expect(split).to.eql({
+        counts: {x: 2, z: 3},
+        sizes: {x: 1, z: 1}
+      }, splitInfo(split))
+    })
+
+    it('should split a 4x1 rectangle by 5 all along one axis', () => {
+      let split = calcAreaXZSplit({ x: 4, z: 1 }, 5)      
+      expect(split).to.eql({
+        counts: {x: 5, z: 1},
+        sizes: {x: 0.8, z: 1}
       }, splitInfo(split))
     })
   })

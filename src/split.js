@@ -1,7 +1,7 @@
 const calcAreaXZSplit = (size, totalSplits) => {
   let nx = 1, nz = 1, product = 1
   while (product < totalSplits) {
-    if (nx > nz) {
+    if (nx * size.z > nz * size.x) {
       nz += 1      
     }
     else {
