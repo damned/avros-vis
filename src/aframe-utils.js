@@ -54,7 +54,7 @@ au.getEntitySize = el => { // local space
 au.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
 au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED = JSON.stringify(au.ANCHOR_BOTTOM_MIDDLE)
 
-au.world.placeByAnchor = (anchorSpec, el, position, constraints) => {
+au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   if (JSON.stringify(anchorSpec) != au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }

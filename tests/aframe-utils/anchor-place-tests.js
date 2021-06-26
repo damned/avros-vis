@@ -191,21 +191,20 @@ describe('aframe utils a.k.a. au', () => {
       })
 
       describe('needing a scene', () => {
-        let anchorPlacementRoot
+        let root
+        beforeEach(() => root = scene.addRoot('anchor-placement'))
 
-        beforeEach(() => anchorPlacementRoot = scene.addRoot('anchor-placement'))
+        after(() => root.makeViewable())
 
-        after(() => anchorPlacementRoot.makeViewable())
-
-        let withMark = vector3 => anchorPlacementRoot.withMark(vector3)
+        let withMark = vector3 => root.withMark(vector3)
 
         let addWorldBox = (name, pos, color, options = {boxSize: 0.5}, extraAttributes = {}) => {
-          return anchorPlacementRoot.addTestBox(name, pos, color, options, extraAttributes)
+          return root.addTestBox(name, pos, color, options, extraAttributes)
         }
 
         it('should allow anchor bottom middle using values not the constant', (done) => {
           scene.within(() => {
-            subject = addWorldBox('check-place-by-anchor-args', { boxSize: 0.4 })
+            subject = addWorldBox('check-place-by-anchor-args')
             subject.addEventListener('loaded', () => {
               au.world.placeByAnchor({x: 50, y: 0, z: 50}, subject, vec3(1, 0, 0))
               done()
@@ -213,36 +212,55 @@ describe('aframe utils a.k.a. au', () => {
           })
         })
 
-        it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
-          scene.within(() => {
-            let target = withMark(vec3(1, 1, 1))
-            subject = addWorldBox('simple-anchor-placement', '0 0 0', 'lightgreen', { boxSize: 0.4 })
-            subject.addEventListener('loaded', () => {
-              au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
-              let position = subject.object3D.position
-              expect(position.x).to.be.closeTo(1, TOLERANCE)
-              expect(position.y).to.be.closeTo(1.2, TOLERANCE)
-              expect(position.z).to.be.closeTo(1, TOLERANCE)
-              done()
+        describe('without size constraints', () => {
+          it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
+            scene.within(() => {
+              let target = withMark(vec3(1, 1, 1))
+              subject = addWorldBox('simple-anchor-placement', '0 0 0', 'lightgreen', { boxSize: 0.4 })
+              subject.addEventListener('loaded', () => {
+                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
+                let position = subject.object3D.position
+                expect(position.x).to.be.closeTo(1, TOLERANCE)
+                expect(position.y).to.be.closeTo(1.2, TOLERANCE)
+                expect(position.z).to.be.closeTo(1, TOLERANCE)
+                done()
+              })
+            })
+          })
+
+          it('should place box within a scaled parent by bottom-middle anchor', done => {
+            scene.within(() => {
+              let target = withMark(vec3(2, 1, -1))
+
+              let scaledParent = root.addHtml('<a-entity id="scaled-place-parent" position="2 2 2" scale="0.4 0.4 0.4">', '#scaled-place-parent')
+              scaledParent.addEventListener('loaded', () => {
+                subject = root.addTestBoxTo(scaledParent, 'scaled-place-child', '-2 1 -1', 'yellow', { boxSize: 1 }, {})
+                subject.addEventListener('loaded', () => {
+                  au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
+                  let position = subject.object3D.getWorldPosition(new THREE.Vector3())
+                  expect(position.x).to.be.closeTo(2, TOLERANCE)
+                  expect(position.y).to.be.closeTo(1.2, TOLERANCE)
+                  expect(position.z).to.be.closeTo(-1, TOLERANCE)
+                  done()
+                })              
+              })
             })
           })
         })
-
-        it('should place box within a scaled parent by bottom-middle anchor', done => {
-          scene.within(() => {
-            let target = withMark(vec3(2, 1, -1))
-            
-            let scaledParent = anchorPlacementRoot.addHtml('<a-entity id="scaled-place-parent" position="2 2 2" scale="0.4 0.4 0.4">', '#scaled-place-parent')
-            scaledParent.addEventListener('loaded', () => {
-              subject = anchorPlacementRoot.addTestBoxTo(scaledParent, 'scaled-place-child', '-2 1 -1', 'yellow', { boxSize: 1 }, {})
+        
+        describe('with size constraints', () => {
+          it('does not yet support y constraints', (done) => {
+            au.entity()
+          })
+          it('should.... test size constraints', (done) => {
+            scene.within(() => {
+              
+              let target = withMark(vec3(1, 1, 1))
+              
+              subject = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 0.4 })
               subject.addEventListener('loaded', () => {
-                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
-                let position = subject.object3D.getWorldPosition(new THREE.Vector3())
-                expect(position.x).to.be.closeTo(2, TOLERANCE)
-                expect(position.y).to.be.closeTo(1.2, TOLERANCE)
-                expect(position.z).to.be.closeTo(-1, TOLERANCE)
                 done()
-              })              
+              })
             })
           })
         })
