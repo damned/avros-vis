@@ -1,7 +1,8 @@
 /* globals AFRAME THREE au */
 AFRAME.registerComponent('placement', {
   schema: {
-    on: { type: "selector" }
+    on: { type: 'selector' },
+    constrain: { type: 'boolean', default: false }
   },
   init: function () {
     let self = this
@@ -52,7 +53,12 @@ AFRAME.registerComponent('placement', {
             }, baseHost)
             
             log(() => 'setting placement to ' + JSON.stringify(targetPos))
-            au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)
+            if (self.data.constrain) {
+              au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos, {x: 0.5})
+            }
+            else {
+              au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)              
+            }
           }
 
           let base = baseHost.placementBase || PlacementBase(baseHost)
