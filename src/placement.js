@@ -15,8 +15,10 @@ AFRAME.registerComponent('placement', {
         placeOn: (placement) => {
           onPlacements.push(placement)
           let count = onPlacements.length
+          let split = calcAreaXZSplit({ x: 1, z: 1 }, count)
+          
           onPlacements.forEach((placementComponent, i) => {
-            placementComponent.updatePlacement(i, count)
+            placementComponent.updatePlacement(i, count, split)
           })
         }
       }
@@ -35,21 +37,21 @@ AFRAME.registerComponent('placement', {
           log('baseHost id: ', baseHost.id)
           log('host id: ', host.id)
           
-          const calcPercentX = (placeIndex, placeTotalCount) => {
-            let placeWidth = 100 / placeTotalCount
+          const calcCentrePercent = (index, total) => {
+            let placeWidth = 100 / total
             let halfPlaceWidth = placeWidth / 2
-            return halfPlaceWidth + placeWidth * placeIndex
+            return halfPlaceWidth + placeWidth * index
           }
           
-          self.updatePlacement = (placeIndex, placeTotalCount) => {
+          self.updatePlacement = (placeIndex, placeTotalCount, split, ix, iz) => {
             log('placed id and count', placeIndex, placeTotalCount)
             log('host id: ', host.id)
             log(() => ['base parent hasLoaded: ', baseHost.parentNode?.hasLoaded])
-
-            let split = calcAreaXZSplit({ x: 1, z: 1 }, placeTotalCount)
+            
+            
             
             let targetPos = au.world.anchorPoint({
-              x: calcPercentX(placeIndex, placeTotalCount), 
+              x: calcCentrePercent(placeIndex, split.counts.x),
               y: 100, 
               z: 50
             }, baseHost)

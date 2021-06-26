@@ -127,12 +127,10 @@ describe('placement component', () => {
     it('should position and size two placed entities along x axis of base in centre of equal halves', done => {
       let base2 = au.entity(scene, 'a-box', { id: 'base3', color: 'pink', position: '-2 0 -2' })
       au.onceLoaded(base2, () => {
-        host = au.entity(scene, 'a-box id="host1" color="blue" placement="on: #base3; constrain: true">')
-        addToScene('<a-box id="host2" color="yellow" placement="on: #base3; constrain: true">')
-        addToScene('<a-box id="host3" color="red" placement="on: #base3; constrain: true">')
-        addToScene('<a-box id="host4" color="green" placement="on: #base3; constrain: true">')
-        host = select('#host1')
-        let host2 = select('#host2')
+        host = au.entity(scene, 'a-box', { color: 'blue', placement: {on: '#base3', constrain: true}})
+        let host2 = au.entity(scene, 'a-box', { color: 'yellow', placement: {on: '#base3', constrain: true}})
+        let host3 = au.entity(scene, 'a-box', { color: 'red', placement: {on: '#base3', constrain: true}})
+        let host4 = au.entity(scene, 'a-box', { color: 'green', placement: {on: '#base3', constrain: true}})
 
         host2.addEventListener('placed', () => {
           expect(pos(host).z).to.be.closeTo(pos(base2).z, TOLERANCE, 'host 1 z')
