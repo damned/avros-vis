@@ -36,6 +36,13 @@ AFRAME.registerComponent('placement', {
           
           self.updatePlacement = (placeIndex, placeTotalCount) => {
             log('placed id and count', placeIndex, placeTotalCount)
+            
+            if (placeTotalCount == 1) {
+              let targetPos = au.world.anchorPoint({x:50, y:100, z:50}, baseHost)
+              au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)
+              return
+            }
+            
             log('host id: ', host.id)
             let base3d = baseHost.object3D
             log(() => ['base parent hasLoaded: ', base3d?.parent?.el?.hasLoaded])
