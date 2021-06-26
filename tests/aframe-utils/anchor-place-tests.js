@@ -204,7 +204,7 @@ describe('aframe utils a.k.a. au', () => {
 
         it('should allow anchor bottom middle using values not the constant', (done) => {
           scene.within(() => {
-            subject = addWorldBox('check-place-by-anchor-args')
+            subject = addWorldBox('check-place-by-anchor-args', '4 4 4', 'beige')
             subject.addEventListener('loaded', () => {
               au.world.placeByAnchor({x: 50, y: 0, z: 50}, subject, vec3(1, 0, 0))
               done()

@@ -59,10 +59,10 @@ const _au_resizeToConstraints = (object3d, sizeConstraints, worldSize, worldScal
     if (worldSize.x != sizeConstraints.x) {
       let scaleChangeFactor = sizeConstraints.x / worldSize.x
       au.log('updating local scale for x constraint, scale factor: ', scaleChangeFactor)
-      au.log('before scale change, worldScale: ', worldScale)
+      au.log('before scale change, worldScale: ', JSON.stringify(worldScale))
       object3d.scale.multiplyScalar(scaleChangeFactor)
       object3d.getWorldScale(worldScale) // implicit world matrix update
-      au.log('updated scale for x constraint, updated worldScale: ', worldScale)
+      au.log('updated scale for x constraint, updated worldScale: ', JSON.stringify(worldScale))
     }
   }
 }
@@ -84,6 +84,8 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   au.log('world size', worldSize)
   
   _au_resizeToConstraints(object3d, sizeConstraints, worldSize, worldScale) 
+  
+  worldSize = au.getEntitySize(el)
   
   let targetPos = new THREE.Vector3(position.x, 
                                     position.y + worldSize.y / 2, 
