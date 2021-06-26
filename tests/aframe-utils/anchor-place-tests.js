@@ -269,6 +269,7 @@ describe('aframe utils a.k.a. au', () => {
               subject = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 1 })
               subject.addEventListener('loaded', () => {
                 au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target, {x: 0.5})
+                expect(au.world.anch)
                 done()
               })
             })
