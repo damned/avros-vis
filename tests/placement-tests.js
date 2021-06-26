@@ -137,11 +137,17 @@ describe('placement component', () => {
           
           /// pfff .... this is getting harder to write, i want some sort of visual language for these asserts i think...
           //  z
-          //  3.
-          //  2.BBBB
-          //  1.BBBB
-          //  0.BBBB
-          
+          // 3\CCDD   
+          //   BBBB   
+          //   BBBB   
+          //   BBBB   
+          //  O    \4x
+          //
+          //  or even better, just some static a-frame elements that the actors should match?
+          //
+          //  these can then be placed in for comparison in the test root when failure, for comparison:
+          //   'looks like this, but should look like this:'
+          //
           expect(pos(host).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 1 z')
           expect(pos(host2).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 2 z')
 
