@@ -28,15 +28,20 @@ AFRAME.registerComponent('placement', {
       let baseHost = self.data.on
       let justPlaced = false
       let emitPlacedNext = false
-      
-      
-      const getXZPartitionCounts = () => {
+
+      const getAreaXZSplit = (size, totalSplits) => {
         return {
-          
+          counts: {
+            x: totalSplits,
+            z: 1
+          },
+          sizes: {
+            x: size.x / totalSplits,
+            z: size.z
+          }
         }
       }
-      
-      
+
       let placeOn = () => {
         au.catching(() => {
           log('placeOn: baseHost is loaded: ', baseHost.hasLoaded)
@@ -54,7 +59,7 @@ AFRAME.registerComponent('placement', {
             log('host id: ', host.id)
             log(() => ['base parent hasLoaded: ', baseHost.parentNode?.hasLoaded])
 
-            
+            let split = getAreaXZSplit({ x: 1, z: 1 }, placeTotalCount)
             
             let targetPos = au.world.anchorPoint({
               x: calcPercentX(placeIndex, placeTotalCount), 
@@ -65,7 +70,7 @@ AFRAME.registerComponent('placement', {
             log(() => 'setting placement to ' + JSON.stringify(targetPos))
             log('constrain', self.data.constrain)
             if (self.data.constrain) {
-              au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos, {x: 0.5})
+              au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos, {x: split.sizes.x})
             }
             else {
               au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)              
