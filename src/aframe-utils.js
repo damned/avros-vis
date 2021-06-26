@@ -66,6 +66,11 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   }
   
   let worldScale = el.object3D.getWorldScale(new THREE.Vector3()) // implicit world matrix update
+  
+  if (sizeConstraints) {
+    
+  }
+  
   let worldHeight = au.getEntitySize(el).y * worldScale.y
   
   let targetPos = new THREE.Vector3(position.x, 
