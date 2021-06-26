@@ -46,10 +46,15 @@ au.world.top = el => au.world.bounds(el).max.y
 
 au.world.bottom = el => au.world.bounds(el).min.y
 
+au.getEntitySize = el => { // local space
+  let box = new THREE.Box3()
+  return box.setFromObject(el.object3D).getSize(new THREE.Vector3())
+}
+
 au.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
 au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED = JSON.stringify(au.ANCHOR_BOTTOM_MIDDLE)
 
-au.world.placeByAnchor = (anchorSpec, el, position) => {
+au.world.placeByAnchor = (anchorSpec, el, position, constraints) => {
   if (JSON.stringify(anchorSpec) != au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }
@@ -66,11 +71,6 @@ au.world.placeByAnchor = (anchorSpec, el, position) => {
   au.log('targetPos local', targetPos)
   
   el.object3D.position.copy(targetPos)
-}
-
-au.getEntitySize = el => {
-  let box = new THREE.Box3()
-  return box.setFromObject(el.object3D).getSize(new THREE.Vector3())
 }
 
 au.world.anchorPoint = (anchorSpec, el) => {

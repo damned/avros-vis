@@ -34,52 +34,25 @@ AFRAME.registerComponent('placement', {
           log('baseHost id: ', baseHost.id)
           log('host id: ', host.id)
           
+          const calcPercentX = (placeIndex, placeTotalCount) => {
+            let placeWidth = 100 / placeTotalCount
+            let halfPlaceWidth = placeWidth / 2
+            return halfPlaceWidth + placeWidth * placeIndex
+          }
+          
           self.updatePlacement = (placeIndex, placeTotalCount) => {
             log('placed id and count', placeIndex, placeTotalCount)
-            
-            if (placeTotalCount == 1) {
-              let fullWidth = 100
-              let placeWidth = fullWidth / placeTotalCount
-              let halfPlaceWidth = placeWidth / 2
-              let xPercent = hallf
-              let targetPos = au.world.anchorPoint({x:50, y:100, z:50}, baseHost)
-              au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)
-              return
-            }
-            
             log('host id: ', host.id)
-            let base3d = baseHost.object3D
-            log(() => ['base parent hasLoaded: ', base3d?.parent?.el?.hasLoaded])
-            let basePos = base3d.getWorldPosition(new THREE.Vector3())
-            let host3d = host.object3D
-            log(() => ['base world pos: ', JSON.stringify(basePos)])
+            log(() => ['base parent hasLoaded: ', baseHost.parentNode?.hasLoaded])
 
-            let box = new THREE.Box3()
-            let baseSize = box.setFromObject(base3d).getSize(new THREE.Vector3())
-            let hostSize = box.setFromObject(host3d).getSize(new THREE.Vector3())
-
-            log(() => ['base size: ', JSON.stringify(baseSize)])
-            log(() => ['host size: ', JSON.stringify(hostSize)])
-
-            host3d.updateWorldMatrix(true, false)
-            let pos = new THREE.Vector3().copy(basePos); // might need to transofrm this for space host3d[.parent?].worldToLocal(basePos) 
-            log('base pos y in host local coords', basePos.y)
-            log('base size y', baseSize.y)
-            let newY = basePos.y + (baseSize.y / 2) + (hostSize.y / 2)
-            log('newY', newY)
-            pos.setY(newY)
+            let targetPos = au.world.anchorPoint({
+              x: calcPercentX(placeIndex, placeTotalCount), 
+              y: 100, 
+              z: 50
+            }, baseHost)
             
-            let placedWidth = baseSize.x / placeTotalCount
-            let placedHalfWidth = placedWidth / 2
-            let baseLeft = basePos.x - (baseSize.x / 2)
-            let x = baseLeft + placedHalfWidth + (placedWidth * placeIndex)
-            pos.setX(x)
-                        
-            log(() => 'setting placement to ' + JSON.stringify(pos))
-
-            host.setAttribute('position', au.xyzTriplet(pos))
-
-            log(() => 'placement set to ' + JSON.stringify(pos))
+            log(() => 'setting placement to ' + JSON.stringify(targetPos))
+            au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)
           }
 
           let base = baseHost.placementBase || PlacementBase(baseHost)
