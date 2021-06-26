@@ -24,7 +24,6 @@ approach
    - [x] place on across scaled entities
    - [.] place multiple things on, constraining x and z
    - [ ] multi-segment edges (squared)
-   - [ ] reduce size of placed things to fit
    - [ ] place on multiple entities - specify order
  - [ ] refactor model to use placement components
  - [ ] add onto existing entities
