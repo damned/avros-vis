@@ -1,4 +1,4 @@
-/* global THREE arguments */
+/* global THREE arguments _ */
 var aframeUtils = aframeUtils || {}
 var au = aframeUtils
 
@@ -60,8 +60,9 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   }
   
   if (sizeConstraints) {
-    if (Object.keys(sizeConstraints) != ['x'])
-      throw Error('sizeConstraints not supported - only supported in x')
+    if (!_.isEqual(_.keys(sizeConstraints), ['x'])) {
+      throw Error('sizeConstraints not supported - only supported in x')      
+    }
   }
   
   let worldScale = el.object3D.getWorldScale(new THREE.Vector3()) // implicit world matrix update
