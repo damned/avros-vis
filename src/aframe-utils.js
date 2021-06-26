@@ -46,7 +46,7 @@ au.world.top = el => au.world.bounds(el).max.y
 
 au.world.bottom = el => au.world.bounds(el).min.y
 
-au.getEntitySize = el => { // local space
+au.getEntitySize = el => { // world space if world transforms up to date
   let box = new THREE.Box3()
   return box.setFromObject(el.object3D).getSize(new THREE.Vector3())
 }
@@ -54,11 +54,10 @@ au.getEntitySize = el => { // local space
 au.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
 au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED = JSON.stringify(au.ANCHOR_BOTTOM_MIDDLE)
 
-const _au_resizeToConstraints = (object3d, sizeConstraints, localSize, worldScale) => {
+const _au_resizeToConstraints = (object3d, sizeConstraints, worldSize, worldScale) => {
   if (sizeConstraints) {
-    let currentSizeInX = localSize.x * worldScale.x
-    if (currentSizeInX != sizeConstraints.x) {
-      let scaleChangeFactor = sizeConstraints.x / currentSizeInX
+    if (worldSize.x != sizeConstraints.x) {
+      let scaleChangeFactor = sizeConstraints.x / worldSize.x
       au.log('updating local scale for x constraint, scale factor: ', scaleChangeFactor)
       au.log('before scale change, worldScale: ', worldScale)
       object3d.scale.multiplyScalar(scaleChangeFactor)
@@ -80,15 +79,14 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   }
   
   let object3d = el.object3D
-  let localSize = au.getEntitySize(el)
   let worldScale = object3d.getWorldScale(new THREE.Vector3()) // implicit world matrix update
+  let worldSize = au.getEntitySize(el)
+  au.log('world size', worldSize)
   
-  _au_resizeToConstraints(object3d, sizeConstraints, localSize, worldScale) 
-  
-  let worldHeight = localSize.y * worldScale.y
+  _au_resizeToConstraints(object3d, sizeConstraints, worldSize, worldScale) 
   
   let targetPos = new THREE.Vector3(position.x, 
-                                    position.y + worldHeight / 2, 
+                                    position.y + worldSize.y / 2, 
                                     position.z)
     
   au.log('targetPos world', targetPos)
