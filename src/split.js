@@ -1,17 +1,22 @@
 const calcAreaXZSplit = (size, totalSplits) => {
   let nx = 1, nz = 1, product = 1
   while (product < totalSplits) {
-    nx += 1
+    if (nx > nz) {
+      nz += 1      
+    }
+    else {
+      nx += 1
+    }
     product = nx * nz
   }
   return {
     counts: {
-      x: totalSplits,
-      z: 1
+      x: nx,
+      z: nz
     },
     sizes: {
-      x: size.x / totalSplits,
-      z: size.z
+      x: size.x / nx,
+      z: size.z / nz
     }
   }
 }
