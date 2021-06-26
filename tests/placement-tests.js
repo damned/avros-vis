@@ -115,9 +115,11 @@ describe('placement component', () => {
           expect(pos(host).z).to.be.closeTo(pos(base2).z, TOLERANCE, 'host 1 z')
           expect(pos(host2).z).to.be.closeTo(pos(base2).z, TOLERANCE, 'host 2 z')
 
-          expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base).x - width(base) / 4, TOLERANCE, 'host 1 x')
-          expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base).x  + width(base) / 4, TOLERANCE, 'host 2 x')
+          expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base2).x - width(base) / 4, TOLERANCE, 'host 1 x')
+          expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base2).x  + width(base) / 4, TOLERANCE, 'host 2 x')
 
+          expect(au.getEntitySize(host).x).to.equal(0.5)
+          expect(au.getEntitySize(host2).x).to.equal(0.5)
           done()
         })
       })
