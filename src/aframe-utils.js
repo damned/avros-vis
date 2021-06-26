@@ -60,7 +60,8 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   }
   
   if (sizeConstraints) {
-    throw Error('sizeConstraints not supported')
+    if (Object.keys(sizeConstraints) != ['x'])
+      throw Error('sizeConstraints not supported - only supported in x')
   }
   
   let worldScale = el.object3D.getWorldScale(new THREE.Vector3()) // implicit world matrix update
