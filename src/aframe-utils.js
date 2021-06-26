@@ -68,8 +68,14 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   let localSize = au.getEntitySize(el)
   let worldScale = el.object3D.getWorldScale(new THREE.Vector3()) // implicit world matrix update
   
-  if (sizeConstraints.x) {
-    localSize.x
+  if (sizeConstraints) {
+    let currentSizeInX = localSize.x * worldScale
+    if (currentSizeInX != sizeConstraints.x) {
+      // au.log('updating local scale for x constraint, worldScale: ', worldScale)
+      // el.object3D.scale.multiplyScalar(sizeConstraints.x / currentSizeInX)
+      // worldScale = el.object3D.getWorldScale(worldScale) // implicit world matrix update
+      // au.log('updated scale for x constraint, updated worldScale: ', worldScale)
+    }
   }
   
   let worldHeight = localSize.y * worldScale.y
