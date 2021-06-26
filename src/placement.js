@@ -38,6 +38,10 @@ AFRAME.registerComponent('placement', {
             log('placed id and count', placeIndex, placeTotalCount)
             
             if (placeTotalCount == 1) {
+              let fullWidth = 100
+              let placeWidth = fullWidth / placeTotalCount
+              let halfPlaceWidth = placeWidth / 2
+              let xPercent = hallf
               let targetPos = au.world.anchorPoint({x:50, y:100, z:50}, baseHost)
               au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)
               return

@@ -203,6 +203,16 @@ describe('aframe utils a.k.a. au', () => {
           return anchorPlacementRoot.addTestBox(name, pos, color, options, extraAttributes)
         }
 
+        it('should allow anchor bottom middle using values not the constant', (done) => {
+          scene.within(() => {
+            subject = addWorldBox('check-place-by-anchor-args', { boxSize: 0.4 })
+            subject.addEventListener('loaded', () => {
+              au.world.placeByAnchor({x: 50, y: 0, z: 50}, subject, vec3(1, 0, 0))
+              done()
+            })
+          })
+        })
+
         it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
           scene.within(() => {
             let target = withMark(vec3(1, 1, 1))

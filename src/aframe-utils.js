@@ -47,9 +47,10 @@ au.world.top = el => au.world.bounds(el).max.y
 au.world.bottom = el => au.world.bounds(el).min.y
 
 au.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
+au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED = JSON.stringify(au.ANCHOR_BOTTOM_MIDDLE)
 
 au.world.placeByAnchor = (anchorSpec, el, position) => {
-  if (anchorSpec != au.ANCHOR_BOTTOM_MIDDLE) {
+  if (JSON.stringify(anchorSpec) != au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }
   
