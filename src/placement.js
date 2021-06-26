@@ -1,4 +1,4 @@
-/* globals AFRAME THREE au */
+/* globals AFRAME THREE au calcAreaXZSplit */
 AFRAME.registerComponent('placement', {
   schema: {
     on: { type: 'selector' },
@@ -29,19 +29,6 @@ AFRAME.registerComponent('placement', {
       let justPlaced = false
       let emitPlacedNext = false
 
-      const getAreaXZSplit = (size, totalSplits) => {
-        return {
-          counts: {
-            x: totalSplits,
-            z: 1
-          },
-          sizes: {
-            x: size.x / totalSplits,
-            z: size.z
-          }
-        }
-      }
-
       let placeOn = () => {
         au.catching(() => {
           log('placeOn: baseHost is loaded: ', baseHost.hasLoaded)
@@ -59,7 +46,7 @@ AFRAME.registerComponent('placement', {
             log('host id: ', host.id)
             log(() => ['base parent hasLoaded: ', baseHost.parentNode?.hasLoaded])
 
-            let split = getAreaXZSplit({ x: 1, z: 1 }, placeTotalCount)
+            let split = calcAreaXZSplit({ x: 1, z: 1 }, placeTotalCount)
             
             let targetPos = au.world.anchorPoint({
               x: calcPercentX(placeIndex, placeTotalCount), 
