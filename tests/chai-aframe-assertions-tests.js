@@ -1,6 +1,5 @@
-var chai = require('chai')
-  // , aframeAssertions = require('./chai-aframe-assertions')
-  , expect = chai.expect;
+import chai
+import expect from chai
 
 // chai.use(aframeAssertions);
 
