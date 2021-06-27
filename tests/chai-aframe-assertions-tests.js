@@ -24,7 +24,7 @@ describe('chai aframe assertions', () => {
     beforeEach(() => scene = aframeTestScene())
     beforeEach(() => scene.reset())
     
-    describe('occupying', () => {
+    describe('occupy', () => {
       beforeEach(() => root = scene.addRoot())
       it('should pass if two boxes occupy the same space', done => {
         scene.within(() => {
@@ -38,7 +38,7 @@ describe('chai aframe assertions', () => {
         })
       })
 
-      it('should fail if two boxes do not occupy the same space as they are at different positions', done => {
+      it('should fail if two boxes are at different positions', done => {
         scene.within(() => {
           let aBox = root.entity('a-box')
           let anotherBox = root.entity('a-box', { position: '1 0 0' })
@@ -65,6 +65,21 @@ describe('chai aframe assertions', () => {
           })
         })
       })
+
+      it('should fail if two boxes are at the same position but have different sizes due to scale', done => {
+        scene.within(() => {
+          let aBox = root.entity('a-box')
+          let anotherBox = root.entity('a-box', { scale: '2 2 2' })
+
+          au.onceLoaded(anotherBox, () => {
+            expect(() => {
+              expect(aBox).to.occupy(anotherBox)
+            }).to.throw(Error, /expected entity to occupy same space as comparison entity.*size.*1 1 1.*2 2 2/)
+            done()
+          })
+        })
+      })
+
     })
   })
 })
