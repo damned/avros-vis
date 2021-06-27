@@ -1,4 +1,4 @@
-module.exports = function (chai, utils) {
+export default function (chai, utils) {
   var Assertion = chai.Assertion;
 
   // your helpers here
