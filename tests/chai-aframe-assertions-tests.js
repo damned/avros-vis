@@ -94,6 +94,38 @@ describe('chai aframe assertions', () => {
             })
           })
         })
+        
+        it('should pass if two boxes occupy the same space as two other boxes', done => {
+          scene.within(() => {
+            let boxes = [
+              root.entity('a-box'),
+              root.entity('a-box'),
+              root.entity('a-box'),
+              root.entity('a-box')
+            ]
+
+            au.onceLoaded(boxes[3], () => {
+              expect(boxes.slice(0, 2)).to.occupy(boxes.slice(2, 4))
+              done()
+            })
+          })
+        })
+
+        it('should fail if two boxes occupy the same space as two other boxes', done => {
+          scene.within(() => {
+            let boxes = [
+              root.entity('a-box'),
+              root.entity('a-box'),
+              root.entity('a-box'),
+              root.entity('a-box')
+            ]
+
+            au.onceLoaded(boxes[3], () => {
+              expect(boxes.slice(0, 2)).to.occupy(boxes.slice(2, 4))
+              done()
+            })
+          })
+        })
       })
     })
   })

@@ -18,23 +18,21 @@ var aframeAssertions = function () {
     Assertion.addMethod('occupy', function(rawExpected, msg) {
       let self = this
       let rawActual = self._obj
-      
-      
+
       let actual, expected
-      if (typeof(rawActual) === 'array') {
+      if (Array.isArray(rawActual)) {
         actual = rawActual[0]
       }
       else {
         actual = rawActual
       }
-      if (typeof(rawExpected) == 'array') {
+      if (Array.isArray(rawExpected)) {
         expected = rawExpected[0]
       }
       else {
         expected = rawExpected
       }
-      
-      
+
       let actualPosition = getPosition(actual)
       let expectedPosition = getPosition(expected)
       
