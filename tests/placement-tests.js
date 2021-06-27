@@ -148,13 +148,14 @@ describe('placement component', () => {
           //  these can then be placed in for comparison in the test root when failure, for comparison:
           //   'looks like this, but should look like this:'
           //
-          au.shadow(base3)
-          au.expecting(builda => [
+          let expecting = [
             builda.box({ at: '-2.25 0.75 -2.25', scale: 0.5 }),
             builda.box({ at: '-1.75 0.75 -2.25', scale: 0.5 }),
             builda.box({ at: '-2.25 0.75 -1.75', scale: 0.5 }),
             builda.box({ at: '-1.75 0.75 -1.75', scale: 0.5 }),
-          ])
+          ]
+          guides.add(base3)
+          guides.expecting()
           expect(pos(host).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 1 z')
           expect(pos(host2).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 2 z')
 

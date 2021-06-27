@@ -11,7 +11,8 @@ approach
  - [x] test scene with optional scene clean/recreate vs re-use
  - [x] using independent world-space test roots, allowing for post-test move for review (makeViewable())
  - [ ] add chai expectation(s) for matching entities under test to expected entities
- - [ ] extract au.creator lib based on au.addEntityTo for cheapest creation syntax
+ - [ ] extract au.creata lib based on au.addEntityTo for cheapest creation syntax
+   - [ ] possible syntax: builda.box({ at: '-2.25 0.75 -2.25', scale: 0.5 }).and.one.with({xz:'1 0'}) - needs single element and array duality
  - [ ] add a like/butWith/but.with for replicating entities with slight changes
  - [ ] extract squash lib
  - [ ] auto-generation of test root offsets (pre / post test?) with defaulted optional bounds
