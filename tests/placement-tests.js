@@ -1,35 +1,29 @@
-/* global AFRAME THREE au */
+/* global AFRAME THREE au aframeTestScene */
 var chai = chai || {}
 var expect = chai.expect
 
 var TOLERANCE = 0.001
 
 describe('placement component', () => {
-  const aframeContainer = document.getElementById('aframe-container')
+  const scene = aframeTestScene()
   const select = selector => document.querySelector(selector)
   const top = au.world.top
   const bottom = au.world.bottom
   const width = au.world.width
   const pos = el => el.object3D.position
 
-  let scene, base, host
+  let base, host, root
 
-  let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
-  
-  let resetSceneBeforeEach = true
 
-  let recreateScene = () => {
-    if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
-      aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
-    }
-    scene = select('a-scene')
-  }
-  
-  beforeEach(recreateScene)
+  beforeEach(() => scene.reset())
+
+  beforeEach(() => {
+    root = scene.addRoot()
+  })
 
 
   beforeEach(() => {
-    scene.innerHTML = '<a-box id="base" position="0 0.6 -1.2" color="darkgray" height="1">'
+    scene. = '<a-box id="base" position="0 0.6 -1.2" color="darkgray" height="1">'
     
     base = document.querySelector('#base')
     base.innerHTML = ''
