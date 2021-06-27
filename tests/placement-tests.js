@@ -138,12 +138,11 @@ describe('placement component', () => {
 
         host4.addEventListener('placed', () => {
           let placements = [
-            root.markBox({ position: '-2.25 0.75 -2.25', scale: 0.5 }),
-            root.markBox({ position: '-1.75 0.75 -2.25', scale: 0.5 }),
-            root.markBox({ position: '-2.25 0.75 -1.75', scale: 0.5 }),
-            root.markBox({ position: '-1.75 0.75 -1.75', scale: 0.5 }),
+            root.markBox({ position: '-2.25 0.75 -2.25', scale: '0.5 0.5 0.5' }),
+            root.markBox({ position: '-1.75 0.75 -2.25', scale: '0.5 0.5 0.5' }),
+            root.markBox({ position: '-2.25 0.75 -1.75', scale: '0.5 0.5 0.5' }),
+            root.markBox({ position: '-1.75 0.75 -1.75', scale: '0.5 0.5 0.5' }),
           ]
-          root.mark(base) // -> root|scene.mark
           
           expect([ host, host2, host3, host4 ]).to.be.occupying(placements)
           

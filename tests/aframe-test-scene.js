@@ -36,7 +36,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   scene.inScene = scene.within
   
   function Root(prefix) {
-    let rootEl = scene.addHtml(`<a-entity id="${prefix}-test-root">`, `#${prefix}-test-root`)
+    let rootEl = au.entity(sceneEl, 'a-entity', { id: `${prefix}-test-root`})
     const root = {
       addHtml: (html, selector) => scene.addHtmlTo(rootEl, html, selector),
       addHtmlTo: (parent, html, selector) => scene.addHtmlTo(parent, html, selector),
@@ -111,7 +111,25 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     root.testBox = (name, attributes = {}) => {
       return root.testBoxIn(rootEl, name, attributes)
     }
+    
+    let _markRootEl
+    const markRoot = () => {
+      if (_markRootEl === undefined) {
+        _markRootEl = au.entity(sceneEl, 'a-entity', { id: `${prefix}-test-mark-root`})
+      }
+      return _markRootEl
+    }
 
+    root.markBox = attributes => {
+      let defaults = {
+        material: {
+          wireframe: true
+        },
+      }
+      let merged = Object.assign(defaults, { id: root.id(name) }, attributes)
+      return au.entity(markRoot(), 'a-box', merged)
+    }
+    
     root.entity = (entity, attributes) => {
       return au.entity(rootEl, entity, attributes)
     }
