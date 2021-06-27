@@ -1,4 +1,4 @@
-/* global AFRAME THREE au aframeTestScene */
+/* global AFRAME THREE au aframeTestScene aframeAssertions */
 var chai = chai || {}
 var expect = chai.expect
 
@@ -132,6 +132,12 @@ describe('placement component', () => {
         color: 'pink',
         position: '-2 0 -2'
       })
+      let placements = [
+        root.markBox({ position: '-2.25 0.75 -2.25', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '-1.75 0.75 -2.25', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '-2.25 0.75 -1.75', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '-1.75 0.75 -1.75', scale: '0.5 0.5 0.5' }),
+      ]
       au.onceLoaded(base, () => {
         host =      root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})
         let host2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true }})
@@ -139,15 +145,7 @@ describe('placement component', () => {
         let host4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
 
         host4.addEventListener('placed', () => {
-          let placements = [
-            root.markBox({ position: '-2.25 0.75 -2.25', scale: '0.5 0.5 0.5' }),
-            root.markBox({ position: '-1.75 0.75 -2.25', scale: '0.5 0.5 0.5' }),
-            root.markBox({ position: '-2.25 0.75 -1.75', scale: '0.5 0.5 0.5' }),
-            root.markBox({ position: '-1.75 0.75 -1.75', scale: '0.5 0.5 0.5' }),
-          ]
-          
           expect([ host, host2, host3, host4 ]).to.occupy(placements)
-          
           done()
         })
       })
