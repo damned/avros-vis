@@ -26,60 +26,75 @@ describe('chai aframe assertions', () => {
     
     describe('occupy', () => {
       beforeEach(() => root = scene.addRoot())
-      it('should pass if two boxes occupy the same space', done => {
-        scene.within(() => {
-          let aBox = root.entity('a-box')
-          let anotherBox = root.entity('a-box')
+      
+      describe('for single entities', () => {
+        it('should pass if two boxes occupy the same space', done => {
+          scene.within(() => {
+            let aBox = root.entity('a-box')
+            let anotherBox = root.entity('a-box')
 
-          au.onceLoaded(anotherBox, () => {
-            expect(aBox).to.occupy(anotherBox)
-            done()
-          })
-        })
-      })
-
-      it('should fail if two boxes are at different positions', done => {
-        scene.within(() => {
-          let aBox = root.entity('a-box')
-          let anotherBox = root.entity('a-box', { position: '1 0 0' })
-
-          au.onceLoaded(anotherBox, () => {
-            expect(() => {
+            au.onceLoaded(anotherBox, () => {
               expect(aBox).to.occupy(anotherBox)
-            }).to.throw(Error, /expected entity to occupy same space as comparison entity.*position.*0 0 0.*1 0 0/)
-            done()
+              done()
+            })
+          })
+        })
+
+        it('should fail if two boxes are at different positions', done => {
+          scene.within(() => {
+            let aBox = root.entity('a-box')
+            let anotherBox = root.entity('a-box', { position: '1 0 0' })
+
+            au.onceLoaded(anotherBox, () => {
+              expect(() => {
+                expect(aBox).to.occupy(anotherBox)
+              }).to.throw(Error, /expected entity to occupy same space as comparison entity.*position.*0 0 0.*1 0 0/)
+              done()
+            })
+          })
+        })
+
+        it('should fail if two boxes occupy the same space when they are NOT expected to', done => {
+          scene.within(() => {
+            let aBox = root.entity('a-box')
+            let anotherBox = root.entity('a-box')
+
+            au.onceLoaded(anotherBox, () => {
+              expect(() => {
+                expect(aBox).not.to.occupy(anotherBox)
+              }).to.throw(Error, /expected entity not to occupy same space as comparison entity/)
+              done()
+            })
+          })
+        })
+
+        it('should fail if two boxes are at the same position but have different sizes due to scale', done => {
+          scene.within(() => {
+            let aBox = root.entity('a-box')
+            let anotherBox = root.entity('a-box', { scale: '2 2 2' })
+
+            au.onceLoaded(anotherBox, () => {
+              expect(() => {
+                expect(aBox).to.occupy(anotherBox)
+              }).to.throw(Error, /expected entity to occupy same space as comparison entity.*size.*1 1 1.*2 2 2/)
+              done()
+            })
           })
         })
       })
+      describe('for multiple entities', () => {
+        it('should pass if two boxes occupy the same space', done => {
+          scene.within(() => {
+            let aBox = root.entity('a-box')
+            let anotherBox = root.entity('a-box')
 
-      it('should fail if two boxes occupy the same space when they are NOT expected to', done => {
-        scene.within(() => {
-          let aBox = root.entity('a-box')
-          let anotherBox = root.entity('a-box')
-
-          au.onceLoaded(anotherBox, () => {
-            expect(() => {
-              expect(aBox).not.to.occupy(anotherBox)
-            }).to.throw(Error, /expected entity not to occupy same space as comparison entity/)
-            done()
+            au.onceLoaded(anotherBox, () => {
+              expect([aBox]).to.occupy([anotherBox])
+              done()
+            })
           })
         })
       })
-
-      it('should fail if two boxes are at the same position but have different sizes due to scale', done => {
-        scene.within(() => {
-          let aBox = root.entity('a-box')
-          let anotherBox = root.entity('a-box', { scale: '2 2 2' })
-
-          au.onceLoaded(anotherBox, () => {
-            expect(() => {
-              expect(aBox).to.occupy(anotherBox)
-            }).to.throw(Error, /expected entity to occupy same space as comparison entity.*size.*1 1 1.*2 2 2/)
-            done()
-          })
-        })
-      })
-
     })
   })
 })
