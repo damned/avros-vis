@@ -1,6 +1,9 @@
-var aframeAssertions = function (chai, utils) {
-  var Assertion = chai.Assertion;
+var aframeAssertions = function () {
+  return function (chai, utils) {
+    var Assertion = chai.Assertion;
 
-  // your helpers here
-  
-};
+    Assertion.addMethod('occupy', () => {
+      alert('bob')
+    })
+  }
+}

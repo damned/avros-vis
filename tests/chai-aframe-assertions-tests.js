@@ -2,11 +2,20 @@
 var chai = chai || {}
 var expect = chai.expect
 
-// chai.use(aframeAssertions);
+chai.use(aframeAssertions());
 
 describe('chai aframe assertions', () => {
-  it('should run a test at all', () => {
-    expect(true).to.be.true
+  describe('basic mocha and chai understanding', () => {
+    it('allows a passing test to be green', () => {
+      expect(true).to.be.true
+    })
+
+    it('allows for only a failing test being green if we are testing for failing assertion', () => {
+      expect(() => {
+        expect(true).to.be.true
+      }).to.throw(Error)
+    })
+
   })
   
   describe('in scene', () => {
@@ -21,8 +30,9 @@ describe('chai aframe assertions', () => {
         let aBox = root.entity('a-box')
         let anotherBox = root.entity('a-box')
         
-        expect(aBox).to.be.occupying(anotherBox)
+        expect(aBox).to.occupy(anotherBox)
       })
+
     })
   })
 })
