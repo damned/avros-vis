@@ -132,7 +132,7 @@ describe('placement component', () => {
         color: 'pink',
         position: '-2 0 -2'
       })
-      let placements = [
+      let targets = [
         root.markBox({ position: '-2.25 0.75 -2.25', scale: '0.5 0.5 0.5' }),
         root.markBox({ position: '-1.75 0.75 -2.25', scale: '0.5 0.5 0.5' }),
         root.markBox({ position: '-2.25 0.75 -1.75', scale: '0.5 0.5 0.5' }),
@@ -145,7 +145,7 @@ describe('placement component', () => {
         let host4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
 
         host4.addEventListener('placed', () => {
-          expect([ host, host2, host3, host4 ]).to.occupy(placements)
+          expect([ host, host2, host3, host4 ]).to.occupy(targets)
           done()
         })
       })
