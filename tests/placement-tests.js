@@ -14,24 +14,18 @@ describe('placement component', () => {
 
   let base, host, root
 
-
   beforeEach(() => scene.reset())
 
   beforeEach(() => {
     root = scene.addRoot()
   })
 
-
   beforeEach(() => {
-    scene. = '<a-box id="base" position="0 0.6 -1.2" color="darkgray" height="1">'
-    
-    base = document.querySelector('#base')
-    base.innerHTML = ''
+    base = root.addTestBox('base', '0 0.6 -1.2', 'darkgray', {boxSize: 1})
   })
       
   it('should place its host entity directly on top of its on base', (done) => {
-    addToScene('<a-box id="host" placement="on: #base">')
-    host = select('#host')
+    host = root.entity('a-box', { placement: {on: '#' + base.id }})
     
     host.addEventListener('placed', () => {
       expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
@@ -43,6 +37,11 @@ describe('placement component', () => {
   
   describe('being placed upon a non-default space base', () => {
     it('should place the host entity on top of the base', done => {
+      let scaledParent = root.entity('a-entity', { 
+        position: '1 1 1', 
+        scale: '2 2 2'
+      })
+      base = au.entity(scaledParent, )
       scene.innerHTML = '<a-entity position="1 1 1" scale="2 2 2">' + 
                           '<a-box id="trans-base" position="3 3 -3" color="darkgray" height="1">' +
                         '</a-entity>'

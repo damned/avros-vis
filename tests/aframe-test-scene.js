@@ -88,10 +88,19 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       return root.addTestBoxTo(rootEl, name, pos, color, options, extraAttributes)
     }
     
+    root.entity = (entity, attributes) => {
+      return au.entity(rootEl, entity, attributes)
+    }
+    
     return root
   }
   
   scene.addRoot = (prefix) => {
+    const randomId = () => 'root' + Math.random().toString(36).substring(7)
+    if (!prefix) {
+      prefix = randomId()
+    }
+    
     if (!roots[prefix]) {
       roots[prefix] = Root(prefix)
     }
