@@ -10,8 +10,9 @@ approach
 [.] aggressively improve test infrastructure
  - [x] test scene with optional scene clean/recreate vs re-use
  - [x] using independent world-space test roots, allowing for post-test move for review (makeViewable())
- - [ ] add mocha expectations for matching 
+ - [ ] add chai expectation(s) for matching entities under test to expected entities
  - [ ] extract au.creator lib based on au.addEntityTo for cheapest creation syntax
+ - [ ] add a like/butWith/but.with for replicating entities with slight changes
  - [ ] extract squash lib
  - [ ] auto-generation of test root offsets (pre / post test?) with defaulted optional bounds
  - [ ] lay out tests for review
