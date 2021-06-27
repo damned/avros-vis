@@ -133,37 +133,17 @@ describe('placement component', () => {
         let host4 = au.entity(scene, 'a-box', { color: 'green', placement: {on: '#base3', constrain: true}})
 
         host2.addEventListener('placed', () => {
-          
-          
-          /// pfff .... this is getting harder to write, i want some sort of visual language for these asserts i think...
-          //  z
-          // 3\CCDD   
-          //   BBBB   
-          //   BBBB   
-          //   BBBB   
-          //  O    \4x
-          //
-          //  or even better, just some static a-frame elements that the actors should match?
-          //
-          //  these can then be placed in for comparison in the test root when failure, for comparison:
-          //   'looks like this, but should look like this:'
-          //
-          let expecting = [
-            builda.box({ at: '-2.25 0.75 -2.25', scale: 0.5 }),
-            builda.box({ at: '-1.75 0.75 -2.25', scale: 0.5 }),
-            builda.box({ at: '-2.25 0.75 -1.75', scale: 0.5 }),
-            builda.box({ at: '-1.75 0.75 -1.75', scale: 0.5 }),
+          let placements = [
+            scene.box({ position: '-2.25 0.75 -2.25', scale: 0.5 }),
+            scene.box({ position: '-1.75 0.75 -2.25', scale: 0.5 }),
+            scene.box({ position: '-2.25 0.75 -1.75', scale: 0.5 }),
+            scene.box({ position: '-1.75 0.75 -1.75', scale: 0.5 }),
           ]
-          guides.add(base3)
-          guides.expecting()
-          expect(pos(host).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 1 z')
-          expect(pos(host2).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 2 z')
-
-          expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base3).x - width(base) / 4, TOLERANCE, 'host 1 x')
-          expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base3).x  + width(base) / 4, TOLERANCE, 'host 2 x')
-
-          expect(au.getEntitySize(host).x).to.equal(0.5)
-          expect(au.getEntitySize(host2).x).to.equal(0.5)
+          au.mark(base3) // -> root|scene.mark
+          au.mark(placements)
+          
+          expect([ host, host2, host3, host4 ]).to.be.occupying(placements)
+          
           done()
         })
       })
