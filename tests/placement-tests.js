@@ -126,22 +126,24 @@ describe('placement component', () => {
     })
 
     it('should position and size four entities evenly over the four quarters of their base', done => {
-      let base3 = au.entity(scene, 'a-box', { id: 'base3', color: 'pink', position: '-2 0 -2' })
-      au.onceLoaded(base3, () => {
-        host = au.entity(scene, 'a-box', { color: 'blue', placement: {on: '#base3', constrain: true}})
-        let host2 = au.entity(scene, 'a-box', { color: 'yellow', placement: {on: '#base3', constrain: true}})
-        let host3 = au.entity(scene, 'a-box', { color: 'red', placement: {on: '#base3', constrain: true}})
-        let host4 = au.entity(scene, 'a-box', { color: 'green', placement: {on: '#base3', constrain: true}})
+      base = root.testBox({ 
+        color: 'pink',
+        position: '-2 0 -2'
+      })
+      au.onceLoaded(base, () => {
+        host =      root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})
+        let host2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true }})
+        let host3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true }})
+        let host4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
 
-        host2.addEventListener('placed', () => {
+        host4.addEventListener('placed', () => {
           let placements = [
-            scene.box({ position: '-2.25 0.75 -2.25', scale: 0.5 }),
-            scene.box({ position: '-1.75 0.75 -2.25', scale: 0.5 }),
-            scene.box({ position: '-2.25 0.75 -1.75', scale: 0.5 }),
-            scene.box({ position: '-1.75 0.75 -1.75', scale: 0.5 }),
+            root.markBox({ position: '-2.25 0.75 -2.25', scale: 0.5 }),
+            root.markBox({ position: '-1.75 0.75 -2.25', scale: 0.5 }),
+            root.markBox({ position: '-2.25 0.75 -1.75', scale: 0.5 }),
+            root.markBox({ position: '-1.75 0.75 -1.75', scale: 0.5 }),
           ]
-          au.mark(base3) // -> root|scene.mark
-          au.mark(placements)
+          root.mark(base) // -> root|scene.mark
           
           expect([ host, host2, host3, host4 ]).to.be.occupying(placements)
           
