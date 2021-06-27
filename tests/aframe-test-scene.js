@@ -61,7 +61,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         depth: options.boxSize,
         width: options.boxSize,
         height: options.boxSize,
-        'balloon-label': { 
+        'balloon-label': {
           label: name, 
           'y-offset': options.boxSize - 0.5
         },
@@ -92,6 +92,22 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       return root.addTestBoxTo(rootEl, name, pos, color, options, extraAttributes)
     }
         
+    root.testBox = (name, attributes = {}) => {
+      let defaults = {
+        'balloon-label': {
+          label: name, 
+          'y-offset': options.boxSize - 0.5
+        },
+        material: {
+          color: attributes.color | 'mauve',
+          transparent: true, 
+          opacity: 0.3
+        },
+      }
+      let merged = Object.assign(defaults, { id: root.id(name) }, attributes)
+      return au.entity(rootEl, 'a-box', merged)
+    }
+
     root.entity = (entity, attributes) => {
       return au.entity(rootEl, entity, attributes)
     }

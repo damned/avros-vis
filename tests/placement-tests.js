@@ -21,7 +21,7 @@ describe('placement component', () => {
   })
 
   it('should place its host entity directly on top of its on base', (done) => {
-    base = root.addTestBox('base', '0 0 ', 'darkgray', {boxSize: 1})
+    base = root.testBox('base', '0 0 0', 'darkgray', {boxSize: 1})
     host = root.entity('a-box', { placement: {on: '#' + base.id }})
     
     host.addEventListener('placed', () => {
