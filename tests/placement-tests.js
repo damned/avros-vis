@@ -148,7 +148,10 @@ describe('placement component', () => {
           //  these can then be placed in for comparison in the test root when failure, for comparison:
           //   'looks like this, but should look like this:'
           //
-          let 
+          au.shadow(base3)
+          au.expecting(builda => [
+            builda.local.box({ at: '-2 0.5 -2', sized: })
+          ])
           expect(pos(host).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 1 z')
           expect(pos(host2).z).to.be.closeTo(pos(base3).z, TOLERANCE, 'host 2 z')
 
