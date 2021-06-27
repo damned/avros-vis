@@ -73,10 +73,14 @@ describe('placement component', () => {
   describe('placing multiple entities on a square base', () => {
     it('should position two placed entities along x axis of base in centre of equal halves', done => {
       base = root.testBox('base')
-      host = root.entity('a-box', { placement: { on: '#' + base.id }})
-      addToScene('<a-box id="host1" color="blue" placement="on: #base">')
-      addToScene('<a-box id="host2" color="yellow" placement="on: #base">')
-      let host2 = select('#host2')      
+      host = root.entity('a-box', {
+        color: 'blue', 
+        placement: { on: '#' + base.id }
+      })
+      let host2 = root.entity('a-box', {
+        color: 'yellow', 
+        placement: { on: '#' + base.id }
+      })
       
       host2.addEventListener('placed', () => {
         expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE, 'host 1 z')
@@ -92,19 +96,27 @@ describe('placement component', () => {
 
   describe('placing and sizing multiple entities on a square base', () => {
     it('should position and size two placed entities along x axis of base in centre of equal halves', done => {
-      let base2 = au.entity(scene, 'a-box', { id: "base2", color: "brown", position: '-2 0 -1' })
-      au.onceLoaded(base2, () => {
-        addToScene('<a-box id="host1" color="blue" placement="on: #base2; constrain: true">')
-        addToScene('<a-box id="host2" color="yellow" placement="on: #base2; constrain: true">')
-        host = select('#host1')      
-        let host2 = select('#host2')      
+      base = root.testBox('base', {
+        color: "brown", 
+        position: '-2 0 -1'
+      })
+      
+      au.onceLoaded(base, () => {
+        host = root.entity('a-box', {
+          color: 'blue', 
+          placement: { on: '#' + base.id, constrain: true }
+        })
+        let host2 = root.entity('a-box', {
+          color: 'yellow', 
+          placement: { on: '#' + base.id, constrain: true }
+        })
 
         host2.addEventListener('placed', () => {
-          expect(pos(host).z).to.be.closeTo(pos(base2).z, TOLERANCE, 'host 1 z')
-          expect(pos(host2).z).to.be.closeTo(pos(base2).z, TOLERANCE, 'host 2 z')
+          expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE, 'host 1 z')
+          expect(pos(host2).z).to.be.closeTo(pos(base).z, TOLERANCE, 'host 2 z')
 
-          expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base2).x - width(base) / 4, TOLERANCE, 'host 1 x')
-          expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base2).x  + width(base) / 4, TOLERANCE, 'host 2 x')
+          expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base).x - width(base) / 4, TOLERANCE, 'host 1 x')
+          expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base).x  + width(base) / 4, TOLERANCE, 'host 2 x')
 
           expect(au.getEntitySize(host).x).to.equal(0.5)
           expect(au.getEntitySize(host2).x).to.equal(0.5)
@@ -112,6 +124,7 @@ describe('placement component', () => {
         })
       })
     })
+
     it('should position and size four entities evenly over the four quarters of their base', done => {
       let base3 = au.entity(scene, 'a-box', { id: 'base3', color: 'pink', position: '-2 0 -2' })
       au.onceLoaded(base3, () => {
