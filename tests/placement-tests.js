@@ -21,8 +21,8 @@ describe('placement component', () => {
   })
 
   it('should place its host entity directly on top of its on base', (done) => {
-    base = root.testBox('base', '0 0 0', 'darkgray', {boxSize: 1})
-    host = root.entity('a-box', { placement: {on: '#' + base.id }})
+    base = root.testBox('base', { color: 'darkgray' })
+    host = root.testBox('placed', { placement: {on: '#' + base.id }})
     
     host.addEventListener('placed', () => {
       expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
@@ -39,16 +39,13 @@ describe('placement component', () => {
         scale: '2 2 2'
       })
 
-      base = au.entity(scaledParent, 'a-box', {
-        id: root.id('base'),
-        position: '3 3 -3', 
+      base = root.testBoxIn(scaledParent, 'a-box', {
+        position: '3 3 -3',
         color: 'darkgray',
         height: 1
       })
 
-      let placed = root.entity('a-box', { 
-        placement: {on: '#' + base.id }
-      })
+      let placed = root.entity('a-box', { placement: { on: '#' + base.id }})
 
       placed.addEventListener('placed', () => {
         expect(pos(placed).x).to.be.closeTo(7, TOLERANCE)
@@ -61,27 +58,24 @@ describe('placement component', () => {
   
   describe('when thing being placed on is already loaded', () => {
     it('should place its host entity directly on top of its on base', (done) => {
-      base = root.addTestBox('base', '0 0.6 -1.2', 'darkgray', {boxSize: 1})
-      base.addEventListener('loaded', () => {
-        addToScene('<a-box id="host" placement="on: #base">')
-        host = select('#host')
+      base = root.testBox('base')
+      host = root.entity('a-box', { placement: { on: '#' + base.id }})
 
-        host.addEventListener('placed', () => {
-          expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
-          expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
-          expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
-          done()
-        })
+      host.addEventListener('placed', () => {
+        expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
+        expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
+        expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
+        done()
       })
     })    
   })
   
   describe('placing multiple entities on a square base', () => {
     it('should position two placed entities along x axis of base in centre of equal halves', done => {
-      base = root.addTestBox('base', '0 0.6 -1.2', 'darkgray', {boxSize: 1})
+      base = root.testBox('base')
+      host = root.entity('a-box', { placement: { on: '#' + base.id }})
       addToScene('<a-box id="host1" color="blue" placement="on: #base">')
       addToScene('<a-box id="host2" color="yellow" placement="on: #base">')
-      host = select('#host1')      
       let host2 = select('#host2')      
       
       host2.addEventListener('placed', () => {
