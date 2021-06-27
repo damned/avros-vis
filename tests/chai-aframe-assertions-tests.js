@@ -1,13 +1,12 @@
-/* global chai*/
+/* global chai aframeTestScene */
 const expect = chai.expect
 
 import aframeAssertions from './chai-aframe-assertions.js'
 
 // chai.use(aframeAssertions);
+
 describe('chai aframe assertions', () => {
-  it('should pass', () => {
-    expect(false).to.be.false
+  it('should run a test at all', () => {
+    expect(true).to.be.true
   })
 })
-
-mocha.run();
