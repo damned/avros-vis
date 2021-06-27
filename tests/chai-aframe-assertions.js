@@ -1,4 +1,4 @@
-/* global AFRAME */
+/* global AFRAME THREE */
 var aframeAssertions = function () {
   return function (chai, utils) {
     let Assertion = chai.Assertion;
@@ -9,26 +9,43 @@ var aframeAssertions = function () {
     }
 
     const getSize = (el) => {
-      
+      const sizeBox = new THREE.Box3()
+      el.object3D.updateWorldMatrix(true, false)
+      const size = sizeBox.setFromObject(el.object3D).getSize(new THREE.Vector3())
       return AFRAME.utils.coordinates.stringify(size)
     }
 
-    Assertion.addMethod('occupy', function(val, msg) {
+    Assertion.addMethod('occupy', function(expected, msg) {
       let self = this
-      let obj = self._obj
+      let actual = self._obj
       
-      let actualPosition = getPosition(obj)
-      let expectedPosition = getPosition(val)
+      let actualPosition = getPosition(actual)
+      let expectedPosition = getPosition(expected)
       
-      const positionFailureMessage = () => ` - actual position ${actualPosition} did not match expected position ${expectedPosition}`
-      const inversePositionFailureMessage = () => ` - at ${expectedPosition}`
+      let actualSize = getSize(actual)
+      let expectedSize = getSize(expected)
+      
+      const positionFailureDetail = () => ` - actual position ${actualPosition} did not match expected position ${expectedPosition}`
+      const sizeFailureDetail = () => ` - actual size ${actualSize} did not match expected size ${expectedSize}`
       
       const positionMatch = actualPosition === expectedPosition
       const sizeMatch = actualSize === expectedSize
+            
+      const failureMessageDetail = () => {
+        if (!positionMatch) {
+          return positionFailureDetail()
+        }
+        if (!sizeMatch) {
+          return sizeFailureDetail()
+        }
+        return 'problem composing assert failure message in aframeAssertions'
+      }
       
-      self.assert(positionMatch,
-                 'expected entity to occupy same space as comparison entity' + positionFailureMessage(),
-                 'expected entity not to occupy same space as comparison entity' + inversePositionFailureMessage())
+      const inverseFailureDetail = () => ` - at ${expectedPosition} and size ${expectedSize}`
+      
+      self.assert(positionMatch && sizeMatch,
+                 'expected entity to occupy same space as comparison entity' + failureMessageDetail(),
+                 'expected entity not to occupy same space as comparison entity' + inverseFailureDetail())
     })
   }
 }

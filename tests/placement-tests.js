@@ -144,7 +144,7 @@ describe('placement component', () => {
             root.markBox({ position: '-1.75 0.75 -1.75', scale: '0.5 0.5 0.5' }),
           ]
           
-          expect([ host, host2, host3, host4 ]).to.be.occupying(placements)
+          expect([ host, host2, host3, host4 ]).to.occupy(placements)
           
           done()
         })
