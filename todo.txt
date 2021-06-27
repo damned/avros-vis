@@ -7,7 +7,18 @@ refac to things
 
 approach
 [x] spike views manually
-[ ] move to test-drive for functionality
+[.] aggressively improve test infrastructure
+ - [x] test scene with optional scene clean/recreate vs re-use
+ - [x] using independent world-space test roots, allowing for post-test move for review (makeViewable())
+ - [ ] extract au.creator lib based on au.addEntityTo for cheapest creation syntax
+ - [ ] auto-generation of test root offsets (pre / post test?) with defaulted optional bounds
+ - [ ] lay out tests for review
+ - [ ] move all scene-based test to latest test scene / root usage
+ - [ ] lay out all tests and review
+ - [ ] mocha test runner page integration
+   - [ ] keep scene viewable w/ pane for embedded scene
+   - [ ] bring test root into view for test (when click on it / hover?)
+[.] move to test-drive for functionality
  - [x] basic model boards / panels
  - [x] move to things and render with styles
  - [ ] move to low level components to allow simpler testing / construction at model level
