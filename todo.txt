@@ -10,6 +10,7 @@ approach
 [.] aggressively improve test infrastructure
  - [x] test scene with optional scene clean/recreate vs re-use
  - [x] using independent world-space test roots, allowing for post-test move for review (makeViewable())
+ - [ ] add mocha expectations for matching 
  - [ ] extract au.creator lib based on au.addEntityTo for cheapest creation syntax
  - [ ] extract squash lib
  - [ ] auto-generation of test root offsets (pre / post test?) with defaulted optional bounds
@@ -104,3 +105,4 @@ pipelines
 
 testing
 [ ] if split setup/it works, focus on related entities after failure
+[ ] embed primrosevr console for test and code
