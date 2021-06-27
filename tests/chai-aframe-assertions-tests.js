@@ -131,21 +131,28 @@ describe('chai aframe assertions', () => {
           })
         })
 
-        xit('should fail if one of two boxes does not occupy the same space as two other boxes', done => {
+        it('should fail if one of two boxes does not occupy the same space as two other boxes', done => {
           scene.within(() => {
             let boxes = [
-              root.entity('a-box'),
-              root.entity('a-box'),
-              root.entity('a-box'),
+              root.entity('a-box', {position: '0 1 0'}),
               root.entity('a-box')
             ]
+            let expectedBoxes = [
+              root.entity('a-box'),
+              root.entity('a-box', {position: '0 0 1'}),
+            ]
 
-            au.onceLoaded(boxes[3], () => {
-              expect(boxes.slice(0, 2)).to.occupy(boxes.slice(2, 4))
+            au.onceLoaded(expectedBoxes[1], () => {
+              expect(() => {
+                expect(boxes).to.occupy(expectedBoxes)
+              }).to.throw(Error, /expected entity to occupy same space as comparison entity/)
               done()
             })
           })
         })
+        
+        it('check that counts match')
+        it('better error messages for multiple entities')
       })
     })
   })

@@ -2,6 +2,8 @@
 var chai = chai || {}
 var expect = chai.expect
 
+chai.use(aframeAssertions());
+
 var TOLERANCE = 0.001
 
 describe('placement component', () => {
