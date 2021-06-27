@@ -76,8 +76,12 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       return au.entityHtml('a-box', attributes)
     }
     
+    root.id = name => {
+      return `${prefix}-${name}`
+    }
+
     root.addTestBoxTo = (parent, name, pos, color, options, extraAttributes) => {
-      let testBoxId = `${prefix}-${name}`
+      let testBoxId = root.id(name)
 
       let html = testBoxHtml(testBoxId, name, pos, color, options, extraAttributes)      
       
@@ -87,7 +91,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     root.addTestBox = (name, pos, color, options, extraAttributes) => {
       return root.addTestBoxTo(rootEl, name, pos, color, options, extraAttributes)
     }
-    
+        
     root.entity = (entity, attributes) => {
       return au.entity(rootEl, entity, attributes)
     }

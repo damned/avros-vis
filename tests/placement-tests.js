@@ -41,15 +41,17 @@ describe('placement component', () => {
         position: '1 1 1', 
         scale: '2 2 2'
       })
-      base = au.entity(scaledParent, )
-      scene.innerHTML = '<a-entity position="1 1 1" scale="2 2 2">' + 
-                          '<a-box id="trans-base" position="3 3 -3" color="darkgray" height="1">' +
-                        '</a-entity>'
 
-      base = document.querySelector('#trans-base')
+      base = au.entity(scaledParent, 'a-box', {
+        id: root.id + '-base',
+        position: '3 3 -3', 
+        color: 'darkgray',
+        height: 1
+      })
 
-      addToScene('<a-box id="placed" placement="on: #trans-base">')
-      let placed = select('#placed')
+      let placed = root.entity('a-box', { 
+        placement: {on: '#' + base.id }
+      })
 
       placed.addEventListener('placed', () => {
         expect(pos(placed).x).to.be.closeTo(7, TOLERANCE)
