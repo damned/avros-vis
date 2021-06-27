@@ -12,8 +12,8 @@ describe('chai aframe assertions', () => {
 
     it('allows for only a failing test being green if we are testing for failing assertion', () => {
       expect(() => {
-        expect(true).to.be.true
-      }).to.throw(Error)
+        expect(false).to.be.true
+      }).to.throw(Error, /expected false to be true/)
     })
 
   })
@@ -24,15 +24,22 @@ describe('chai aframe assertions', () => {
     beforeEach(() => scene.reset())
     
     describe('occupying', () => {
+      beforeEach(() => root = scene.addRoot())
       it('should pass if two boxes occupy the same space', () => {
-        root = scene.addRoot()
-        
         let aBox = root.entity('a-box')
         let anotherBox = root.entity('a-box')
         
         expect(aBox).to.occupy(anotherBox)
       })
 
+      it('should fail if two boxes do not occupy the same space as they are at different positions', () => {
+        let aBox = root.entity('a-box')
+        let anotherBox = root.entity('a-box', { position: '1 0 0' })
+        
+        expect(() => {
+          expect(aBox).to.occupy(anotherBox)
+        }).to.throw(Error, /expected entity to occupy same space as comparison entity.*position.*0 0 0.*1 0 0/)
+      })
     })
   })
 })
