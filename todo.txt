@@ -11,6 +11,7 @@ approach
  - [x] test scene with optional scene clean/recreate vs re-use
  - [x] using independent world-space test roots, allowing for post-test move for review (makeViewable())
  - [ ] extract au.creator lib based on au.addEntityTo for cheapest creation syntax
+ - [ ] extract squash lib
  - [ ] auto-generation of test root offsets (pre / post test?) with defaulted optional bounds
  - [ ] lay out tests for review
  - [ ] move all scene-based test to latest test scene / root usage
@@ -35,10 +36,11 @@ approach
    - [x] place on across scaled entities
    - [x] place multiple things on, constraining x and z
    - [.] place multiple things on non-unit objects (fixing 6 on es issues)
+   - [ ] allow specify margins for placed entitys
    - [ ] switch placement on to use size constraint by default
    - [ ] multi-segment edges (squared)
    - [ ] place on multiple entities - specify order
-   
+   - [ ] auto-stretch for placed entities (e.g. subnets)
  - [ ] refactor model to use placement components
  - [ ] add onto existing entities
  - [ ] connectors
