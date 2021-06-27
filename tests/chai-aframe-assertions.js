@@ -19,43 +19,46 @@ var aframeAssertions = function () {
       let self = this
       let rawActual = self._obj
 
-      let actual, expected
-      if (Array.isArray(rawActual)) {
-        actual = rawActual[0]
+      const asArray = (raw) => {
+        if (Array.isArray(rawActual)) {
+          return raw
+        }
+        return [raw]
       }
-      else {
-        actual = rawActual
-      }
-      if (Array.isArray(rawExpected)) {
-        expected = rawExpected[0]
-      }
-      else {
-        expected = rawExpected
-      }
+      
+      let actuals = asArray(rawActual)
+      let expecteds = asArray(rawExpected)
 
-      let actualPosition = getPosition(actual)
-      let expectedPosition = getPosition(expected)
+      expecteds.forEach(expected => {
+        actuals.forEach(actual => {
+          let actualPosition = getPosition(actual)
+          let expectedPosition = getPosition(expected)
+
+          let actualSize = getSize(actual)
+          let expectedSize = getSize(expected)
+
+        })
+
       
-      let actualSize = getSize(actual)
-      let expectedSize = getSize(expected)
-      
-      const positionFailureDetail = () => ` - actual position ${actualPosition} did not match expected position ${expectedPosition}`
-      const sizeFailureDetail = () => ` - actual size ${actualSize} did not match expected size ${expectedSize}`
-      
-      const positionMatch = actualPosition === expectedPosition
-      const sizeMatch = actualSize === expectedSize
-            
-      const failureMessageDetail = () => {
-        if (!positionMatch) {
-          return positionFailureDetail()
+        const positionFailureDetail = (actualPosition, expectedPosition) => ` - actual position ${actualPosition} did not match expected position ${expectedPosition}`
+        const sizeFailureDetail = (actualSize, expectedSize) => ` - actual size ${actualSize} did not match expected size ${expectedSize}`
+
+        const positionMatch = actualPosition === expectedPosition
+        const sizeMatch = actualSize === expectedSize
+
+        const failureMessageDetail = () => {
+          if (!positionMatch) {
+            return positionFailureDetail()
+          }
+          if (!sizeMatch) {
+            return sizeFailureDetail()
+          }
+          return 'problem composing assert failure message in aframeAssertions'
         }
-        if (!sizeMatch) {
-          return sizeFailureDetail()
-        }
-        return 'problem composing assert failure message in aframeAssertions'
-      }
-      
-      const inverseFailureDetail = () => ` - at ${expectedPosition} and size ${expectedSize}`
+        const inverseFailureDetail = () => ` - at ${expectedPosition} and size ${expectedSize}`
+      })
+
+
       
       self.assert(positionMatch && sizeMatch,
                  'expected entity to occupy same space as comparison entity' + failureMessageDetail(),

@@ -95,23 +95,43 @@ describe('chai aframe assertions', () => {
           })
         })
         
-        it('should pass if two boxes occupy the same space as two other boxes', done => {
+        it('should pass if two boxes occupy the same space as two other boxes in same order', done => {
           scene.within(() => {
             let boxes = [
-              root.entity('a-box'),
-              root.entity('a-box'),
-              root.entity('a-box'),
+              root.entity('a-box', {position: '0 1 0'}),
+              root.entity('a-box')
+            ]
+            let expectedBoxes = [
+              root.entity('a-box', {position: '0 1 0'}),
               root.entity('a-box')
             ]
 
-            au.onceLoaded(boxes[3], () => {
-              expect(boxes.slice(0, 2)).to.occupy(boxes.slice(2, 4))
+            au.onceLoaded(expectedBoxes[1], () => {
+              expect(boxes).to.occupy(expectedBoxes)
               done()
             })
           })
         })
 
-        it('should fail if two boxes occupy the same space as two other boxes', done => {
+        it('should pass if two boxes occupy the same space as two other boxes in a different order', done => {
+          scene.within(() => {
+            let boxes = [
+              root.entity('a-box', {position: '0 1 0'}),
+              root.entity('a-box')
+            ]
+            let expectedBoxes = [
+              root.entity('a-box'),
+              root.entity('a-box', {position: '0 1 0'}),
+            ]
+
+            au.onceLoaded(expectedBoxes[1], () => {
+              expect(boxes).to.occupy(expectedBoxes)
+              done()
+            })
+          })
+        })
+
+        xit('should fail if one of two boxes does not occupy the same space as two other boxes', done => {
           scene.within(() => {
             let boxes = [
               root.entity('a-box'),
