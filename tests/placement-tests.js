@@ -126,7 +126,7 @@ describe('placement component', () => {
     })
 
     it('should position and size four entities evenly over the four quarters of their base', done => {
-      base = root.testBox({ 
+      base = root.testBox('quarters', { 
         color: 'pink',
         position: '-2 0 -2'
       })
