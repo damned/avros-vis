@@ -20,11 +20,8 @@ describe('placement component', () => {
     root = scene.addRoot()
   })
 
-  beforeEach(() => {
-    base = root.addTestBox('base', '0 0.6 -1.2', 'darkgray', {boxSize: 1})
-  })
-      
   it('should place its host entity directly on top of its on base', (done) => {
+    base = root.addTestBox('base', '0 0 ', 'darkgray', {boxSize: 1})
     host = root.entity('a-box', { placement: {on: '#' + base.id }})
     
     host.addEventListener('placed', () => {
@@ -37,13 +34,13 @@ describe('placement component', () => {
   
   describe('being placed upon a non-default space base', () => {
     it('should place the host entity on top of the base', done => {
-      let scaledParent = root.entity('a-entity', { 
+      let scaledParent = root.entity('a-entity', {
         position: '1 1 1', 
         scale: '2 2 2'
       })
 
       base = au.entity(scaledParent, 'a-box', {
-        id: root.id + '-base',
+        id: root.id('base'),
         position: '3 3 -3', 
         color: 'darkgray',
         height: 1
@@ -64,6 +61,7 @@ describe('placement component', () => {
   
   describe('when thing being placed on is already loaded', () => {
     it('should place its host entity directly on top of its on base', (done) => {
+      base = root.addTestBox('base', '0 0.6 -1.2', 'darkgray', {boxSize: 1})
       base.addEventListener('loaded', () => {
         addToScene('<a-box id="host" placement="on: #base">')
         host = select('#host')
@@ -80,6 +78,7 @@ describe('placement component', () => {
   
   describe('placing multiple entities on a square base', () => {
     it('should position two placed entities along x axis of base in centre of equal halves', done => {
+      base = root.addTestBox('base', '0 0.6 -1.2', 'darkgray', {boxSize: 1})
       addToScene('<a-box id="host1" color="blue" placement="on: #base">')
       addToScene('<a-box id="host2" color="yellow" placement="on: #base">')
       host = select('#host1')      

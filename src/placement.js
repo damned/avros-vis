@@ -56,6 +56,7 @@ AFRAME.registerComponent('placement', {
           self.updatePlacement = (placeIndex, placeTotalCount, split, ix, iz) => {
             log('placed id and count', placeIndex, placeTotalCount)
             log('host id: ', host.id)
+            log('baseHost id: ', baseHost.id)
             log(() => ['base parent hasLoaded: ', baseHost.parentNode?.hasLoaded])
             
             let targetPos = au.world.anchorPoint({
