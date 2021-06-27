@@ -29,40 +29,53 @@ var aframeAssertions = function () {
       let actuals = asArray(rawActual)
       let expecteds = asArray(rawExpected)
 
-      expecteds.forEach(expected => {
-        actuals.forEach(actual => {
-          let actualPosition = getPosition(actual)
-          let expectedPosition = getPosition(expected)
+      const positionFailureDetail = (last) => ` - actual position ${last.actualPosition} did not match expected position ${last.expectedPosition}`
+      const sizeFailureDetail = (last) => ` - actual size ${last.actualSize} did not match expected size ${last.expectedSize}`
 
-          let actualSize = getSize(actual)
-          let expectedSize = getSize(expected)
-
-        })
-
-      
-        const positionFailureDetail = (actualPosition, expectedPosition) => ` - actual position ${actualPosition} did not match expected position ${expectedPosition}`
-        const sizeFailureDetail = (actualSize, expectedSize) => ` - actual size ${actualSize} did not match expected size ${expectedSize}`
-
-        const positionMatch = actualPosition === expectedPosition
-        const sizeMatch = actualSize === expectedSize
-
-        const failureMessageDetail = () => {
-          if (!positionMatch) {
-            return positionFailureDetail()
-          }
-          if (!sizeMatch) {
-            return sizeFailureDetail()
-          }
-          return 'problem composing assert failure message in aframeAssertions'
+      const failureMessageDetail = (last) => {
+        if (!last.positionMatch) {
+          return positionFailureDetail(last)
         }
-        const inverseFailureDetail = () => ` - at ${expectedPosition} and size ${expectedSize}`
+        if (!last.sizeMatch) {
+          return sizeFailureDetail(last)
+        }
+        return 'problem composing assert failure message in aframeAssertions'
+      }
+      const inverseFailureDetail = (last) => ` - at ${last.expectedPosition} and size ${last.expectedSize}`
+      
+      let last = {}
+      expecteds.forEach(expected => {
+        let match = false
+        let last = {}
+        last.expectedPosition = getPosition(expected)
+        last.expectedSize = getSize(expected)
+        
+        actuals.forEach(actual => {
+          last.actualPosition = getPosition(actual)
+          last.actualSize = getSize(actual)
+
+          last.positionMatch = last.actualPosition === last.expectedPosition
+          last.sizeMatch = last.actualSize === last.expectedSize
+      
+          if (last.sizeMatch && last.positionMatch) {
+            match = true
+            return;
+          }
+        })
+        if (!match) {
+          self.assert(false,
+                     'expected entity to occupy same space as comparison entity' + failureMessageDetail(last),
+                     'expected entity not to occupy same space as comparison entity' + inverseFailureDetail(last))
+          return
+        }
+
       })
 
-
+      // all must have matched
+      self.assert(true,
+                 'expected entity to occupy same space as comparison entity' + failureMessageDetail(last),
+                 'expected entity not to occupy same space as comparison entity' + inverseFailureDetail(last))
       
-      self.assert(positionMatch && sizeMatch,
-                 'expected entity to occupy same space as comparison entity' + failureMessageDetail(),
-                 'expected entity not to occupy same space as comparison entity' + inverseFailureDetail())
     })
   }
 }
