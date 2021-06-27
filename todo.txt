@@ -33,9 +33,12 @@ approach
    - [x] factor out functions to get positions of one object relative to another, regardless of components etc.
      - [x] include visual debug
    - [x] place on across scaled entities
-   - [.] place multiple things on, constraining x and z
+   - [x] place multiple things on, constraining x and z
+   - [.] place multiple things on non-unit objects (fixing 6 on es issues)
+   - [ ] switch placement on to use size constraint by default
    - [ ] multi-segment edges (squared)
    - [ ] place on multiple entities - specify order
+   
  - [ ] refactor model to use placement components
  - [ ] add onto existing entities
  - [ ] connectors
