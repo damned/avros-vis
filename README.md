@@ -12,4 +12,4 @@ The project is a mix of manual spiking and some test-driven components.
 
 Tests can be run by visiting here:
 
-[https://avros-vis.glitch.me/tests.html]()
+[https://avros-vis.glitch.me/tests.html](https://avros-vis.glitch.me/tests.html)
