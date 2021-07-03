@@ -22,6 +22,8 @@ describe('placement component', () => {
     root = scene.addRoot()
   })
 
+  afterEach(() => root.makeViewable())
+
   it('should place its host entity directly on top of its on base', (done) => {
     base = root.testBox('base', { color: 'darkgray' })
     host = root.testBox('placed', { placement: {on: '#' + base.id }})
@@ -42,7 +44,7 @@ describe('placement component', () => {
       })
 
       base = root.testBoxIn(scaledParent, 'a-box', {
-        position: '3 3 -3',
+        position: '1 1 -1',
         color: 'darkgray',
         height: 1
       })
@@ -50,9 +52,9 @@ describe('placement component', () => {
       let placed = root.entity('a-box', { placement: { on: '#' + base.id }})
 
       placed.addEventListener('placed', () => {
-        expect(pos(placed).x).to.be.closeTo(7, TOLERANCE)
-        expect(pos(placed).y).to.be.closeTo(8.5, TOLERANCE)
-        expect(pos(placed).z).to.be.closeTo(-5, TOLERANCE)
+        expect(pos(placed).x).to.be.closeTo(3, TOLERANCE)
+        expect(pos(placed).y).to.be.closeTo(4.5, TOLERANCE)
+        expect(pos(placed).z).to.be.closeTo(-1, TOLERANCE)
         done()
       })
     })
@@ -130,13 +132,13 @@ describe('placement component', () => {
     it('should position and size four entities evenly over the four quarters of their base', done => {
       base = root.testBox('quarters', { 
         color: 'pink',
-        position: '-2 0 -2'
+        position: '0.5 0 0.5'
       })
       let targets = [
-        root.markBox({ position: '-2.25 0.75 -2.25', scale: '0.5 0.5 0.5' }),
-        root.markBox({ position: '-1.75 0.75 -2.25', scale: '0.5 0.5 0.5' }),
-        root.markBox({ position: '-2.25 0.75 -1.75', scale: '0.5 0.5 0.5' }),
-        root.markBox({ position: '-1.75 0.75 -1.75', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '0.25 0.75 0.25', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '0.75 0.75 0.25', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '0.25 0.75 0.75', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '0.75 0.75 0.75', scale: '0.5 0.5 0.5' }),
       ]
       au.onceLoaded(base, () => {
         host =      root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})

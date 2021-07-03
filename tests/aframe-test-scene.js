@@ -35,15 +35,17 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   scene.inScene = scene.within
   
-  function Root(prefix) {
+  function Root(prefix, index) {
     let rootEl = au.entity(sceneEl, 'a-entity', { id: `${prefix}-test-root`})
     const root = {
       addHtml: (html, selector) => scene.addHtmlTo(rootEl, html, selector),
       addHtmlTo: (parent, html, selector) => scene.addHtmlTo(parent, html, selector),
       el: rootEl,
       makeViewable: () => {
-        rootEl.setAttribute('position', '0 1 0')
-        rootEl.setAttribute('scale', '0.2 0.2 0.2')
+        let x = -1 + index * 0.2
+        let scale = 0.2
+        rootEl.setAttribute('position', `${x} 1 -0.5`)
+        rootEl.setAttribute('scale', `${scale} ${scale} ${scale}`)
       },
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
@@ -144,7 +146,8 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     }
     
     if (!roots[prefix]) {
-      roots[prefix] = Root(prefix)
+      let index = Object.keys(roots).length
+      roots[prefix] = Root(prefix,index)
     }
     return roots[prefix]
   }
