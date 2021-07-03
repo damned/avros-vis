@@ -165,7 +165,7 @@ describe('placement component', () => {
         depth: 0.4,
         height: 1
       })
-      let target = root.markBox({ position: '0 1.2 0', scale: '0.4 0.4 0.4' })      
+      let target = root.markBox({ position: '0 0.7 0', scale: '0.4 0.4 0.4' })      
       au.onceLoaded(base, () => {
         let placed = root.entity('a-box', { color: 'red', placement: { on: '#' + base.id, constrain: true }})
         placed.addEventListener('placed', () => {

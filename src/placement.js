@@ -16,7 +16,7 @@ AFRAME.registerComponent('placement', {
         placeOn: (placement) => {
           onPlacements.push(placement)
           let count = onPlacements.length
-          let split = calcAreaXZSplit({ x: 1, z: 1 }, count)
+          let split = calcAreaXZSplit({ x: au.world.width(baseEl), z: au.world.depth(baseEl) }, count)
           let ix = 0
           let iz = 0
           

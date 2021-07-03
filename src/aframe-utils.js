@@ -41,6 +41,10 @@ au.world.width = el => {
   let bbox = au.world.bounds(el)
   return bbox.max.x - bbox.min.x
 }
+au.world.depth = el => {
+  let bbox = au.world.bounds(el)
+  return bbox.max.z - bbox.min.z
+}
 
 au.world.top = el => au.world.bounds(el).max.y
 
