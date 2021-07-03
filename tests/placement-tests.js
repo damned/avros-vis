@@ -74,8 +74,17 @@ describe('placement component', () => {
     })    
   })
   
-  describe('placing multiple entities on a square base', () => {
-    it('should position two placed entities along x axis of base in centre of equal halves', done => {
+  describe('placing multiple entities on a square base', function () {
+    let thisDescribe, thisBefore
+    thisDescribe = this
+    console.log('thisDescribe', thisDescribe)
+    beforeEach(function () {
+      thisBefore = this
+      console.log('thisBefore', thisBefore)
+    })
+    it('should position two placed entities along x axis of base in centre of equal halves', function (done) {
+      let thisTest = this
+      console.log('thisTest', thisTest)
       base = root.testBox('base')
       host = root.entity('a-box', {
         color: 'blue', 
