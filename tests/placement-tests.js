@@ -44,7 +44,7 @@ describe('placement component', () => {
       })
 
       base = root.testBoxIn(scaledParent, 'a-box', {
-        position: '0.1 0.1 -1',
+        position: '0.1 0.1 -0.2',
         color: 'darkgray',
         height: 1
       })
@@ -54,7 +54,7 @@ describe('placement component', () => {
       placed.addEventListener('placed', () => {
         expect(pos(placed).x).to.be.closeTo(0.3, TOLERANCE)
         expect(pos(placed).y).to.be.closeTo(1.8, TOLERANCE)
-        expect(pos(placed).z).to.be.closeTo(-1.9, TOLERANCE)
+        expect(pos(placed).z).to.be.closeTo(-0.3, TOLERANCE)
         done()
       })
     })
@@ -105,7 +105,7 @@ describe('placement component', () => {
       root.testing(this)
       base = root.testBox('base', {
         color: "brown", 
-        position: '-2 0 -1'
+        position: '-0.2 0.2 -0.3'
       })
       
       au.onceLoaded(base, () => {
@@ -125,8 +125,8 @@ describe('placement component', () => {
           expect(Math.min(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base).x - width(base) / 4, TOLERANCE, 'host 1 x')
           expect(Math.max(pos(host).x, pos(host2).x)).to.be.closeTo(pos(base).x  + width(base) / 4, TOLERANCE, 'host 2 x')
 
-          expect(au.getEntitySize(host).x).to.equal(0.5)
-          expect(au.getEntitySize(host2).x).to.equal(0.5)
+          expect(au.getEntitySize(host).x).to.be.closeTo(0.5, TOLERANCE)
+          expect(au.getEntitySize(host2).x).to.be.closeTo(0.5, TOLERANCE)
           done()
         })
       })
