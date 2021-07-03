@@ -36,11 +36,16 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   scene.inScene = scene.within
   
   function Root(prefix, index) {
+    let testContext = undefined
     let test = undefined
+    const setTextContext = (ctx) => {
+      test = ctx.test
+      testContext = ctx
+    }
     let testName = () => {
       if (test) {
         console.log('test', test)
-        return test.title
+        return test.title.split(' ').join('\n')
       }
       return 'test-' + index
     }
@@ -56,13 +61,13 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         const box = new THREE.BoxHelper( rootEl.object3D, 0xffff00 );
         rootEl.object3D.add( box );
         
-        rootEl.setAttribute('balloon-label', `label: ${testName()}`)
+        rootEl.setAttribute('balloon-label', `label: ${testName()}; y-offset: 0.6`)
         rootEl.setAttribute('position', `${x} 1 -0.5`)
         rootEl.setAttribute('scale', `${scale} ${scale} ${scale}`)
       },
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
-      testing: 
+      testing: testContext => setTextContext(testContext),
       withMark: (vector3, color = 'red') => {
         let markPos = au.xyzTriplet(vector3)
         console.log('mark pos', markPos)

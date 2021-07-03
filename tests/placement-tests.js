@@ -22,7 +22,8 @@ describe('placement component', () => {
 
   afterEach(() => root.makeViewable())
 
-  it('should place its host entity directly on top of its on base', (done) => {
+  it('should place its host entity directly on top of its on base', function(done) {
+    root.testing(this)
     base = root.testBox('base', { color: 'darkgray' })
     host = root.testBox('placed', { placement: {on: '#' + base.id }})
     
@@ -38,12 +39,12 @@ describe('placement component', () => {
     it('should place the host entity on top of the base', function(done) {
       root.testing(this)
       let scaledParent = root.entity('a-entity', {
-        position: '1 1 1', 
+        position: '0.1 0.1 0.1', 
         scale: '2 2 2'
       })
 
       base = root.testBoxIn(scaledParent, 'a-box', {
-        position: '1 1 -1',
+        position: '0.1 0.1 -1',
         color: 'darkgray',
         height: 1
       })
@@ -51,16 +52,17 @@ describe('placement component', () => {
       let placed = root.entity('a-box', { placement: { on: '#' + base.id }})
 
       placed.addEventListener('placed', () => {
-        expect(pos(placed).x).to.be.closeTo(3, TOLERANCE)
-        expect(pos(placed).y).to.be.closeTo(4.5, TOLERANCE)
-        expect(pos(placed).z).to.be.closeTo(-1, TOLERANCE)
+        expect(pos(placed).x).to.be.closeTo(0.3, TOLERANCE)
+        expect(pos(placed).y).to.be.closeTo(1.8, TOLERANCE)
+        expect(pos(placed).z).to.be.closeTo(-1.9, TOLERANCE)
         done()
       })
     })
   })
   
   describe('when thing being placed on is already loaded', () => {
-    it('should place its host entity directly on top of its on base', (done) => {
+    it('should place its host entity directly on top of its on base', function(done) {
+      root.testing(this)
       base = root.testBox('base')
       host = root.entity('a-box', { placement: { on: '#' + base.id }})
 
@@ -74,7 +76,8 @@ describe('placement component', () => {
   })
   
   describe('placing multiple entities on a square base', () => {
-    it('should position two placed entities along x axis of base in centre of equal halves', done => {
+    it('should position two placed entities along x axis of base in centre of equal halves', function(done) {
+      root.testing(this)
       base = root.testBox('base')
       host = root.entity('a-box', {
         color: 'blue', 
@@ -98,7 +101,8 @@ describe('placement component', () => {
   })
 
   describe('placing and sizing multiple entities on a square base', () => {
-    it('should position and size two placed entities along x axis of base in centre of equal halves', done => {
+    it('should position and size two placed entities along x axis of base in centre of equal halves', function(done) {
+      root.testing(this)
       base = root.testBox('base', {
         color: "brown", 
         position: '-2 0 -1'
@@ -128,7 +132,8 @@ describe('placement component', () => {
       })
     })
 
-    it('should position and size four entities evenly over the four quarters of their base', done => {
+    it('should position and size four entities evenly over the four quarters of their base', function(done) {
+      root.testing(this)
       base = root.testBox('quarters', { 
         color: 'pink',
         position: '0.5 0 0.5'
