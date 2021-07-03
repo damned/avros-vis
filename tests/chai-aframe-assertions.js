@@ -14,6 +14,11 @@ var aframeAssertions = function () {
       const size = sizeBox.setFromObject(el.object3D).getSize(new THREE.Vector3())
       return AFRAME.utils.coordinates.stringify(size)
     }
+    
+    const vectorMatch = (v1, v2, decimals) => {
+      const scalarMatch = (a, b) => a.toFixed(decimals) == b.toFixed(decimals)
+      return scalarMatch(v1.x, v2.x) && scalarMatch(v1.y, v2.y) && scalarMatch(v1.z, v2.z)
+    }
 
     Assertion.addMethod('occupy', function(rawExpected, msg) {
       let self = this
