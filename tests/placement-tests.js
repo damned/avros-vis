@@ -175,7 +175,33 @@ describe('placement component', () => {
       })
     })
     
-    it('should size and place entities appropriately over a non-unit-sized square base', function(done) {})
+    it('should size and place entities appropriately over a non-unit-sized square base', function(done) {
+      root.testing(this)
+      base = root.testBox('small-quarters', { 
+        color: 'blue',
+        position: '0.2 0.2 0.2',
+        width: 0.4,
+        depth: 0.4,
+        height: 0.4
+      })
+      let targets = [
+        root.markBox({ position: '0.1 0.5 0.1', scale: '0.2 0.2 0.2' }),
+        root.markBox({ position: '0.3 0.5 0.3', scale: '0.2 0.2 0.2' }),
+        root.markBox({ position: '0.1 0.5 0.3', scale: '0.2 0.2 0.2' }),
+        root.markBox({ position: '0.3 0.5 0.1', scale: '0.2 0.2 0.2' }),
+      ]
+      au.onceLoaded(base, () => {
+        let placed =  root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})
+        let placed2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true }})
+        let placed3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true }})
+        let placed4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
+
+        placed4.addEventListener('placed', () => {
+          expect([ placed, placed2, placed3, placed4 ]).to.occupy(targets)
+          done()
+        })
+      })      
+    })
 
     it('should size and place entities respecting a margin', function(done) {})
   })
