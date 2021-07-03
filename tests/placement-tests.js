@@ -174,5 +174,9 @@ describe('placement component', () => {
         })
       })
     })
+    
+    it('should size and place entities appropriately over a non-unit-sized square base', function(done) {})
+
+    it('should size and place entities respecting a margin', function(done) {})
   })
 })
