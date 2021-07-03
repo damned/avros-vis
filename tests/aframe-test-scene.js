@@ -48,9 +48,9 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         const box = new THREE.BoxHelper( rootEl.object3D, 0xffff00 );
         rootEl.object3D.add( box );
         
+        rootEl.setAttribute('balloon-label', `label: test ${index}`)
         rootEl.setAttribute('position', `${x} 1 -0.5`)
         rootEl.setAttribute('scale', `${scale} ${scale} ${scale}`)
-
       },
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
