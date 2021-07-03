@@ -175,13 +175,16 @@ describe('placement component', () => {
       })
     })
     
-    it('should size and place entities appropriately over a non-unit-sized square base', function(done) {
+  })
+  
+  describe('placing and sizing on a non-square base', () => {
+    it('should size and place entities appropriately over a rectangular base', function(done) {
       root.testing(this)
-      base = root.testBox('small-quarters', { 
+      base = root.testBox('small-sixths', { 
         color: 'blue',
-        position: '0.2 0.2 0.2',
+        position: '0.2 0.2 0.3',
         width: 0.4,
-        depth: 0.4,
+        depth: 0.6,
         height: 0.4
       })
       let targets = [
@@ -189,20 +192,22 @@ describe('placement component', () => {
         root.markBox({ position: '0.3 0.5 0.3', scale: '0.2 0.2 0.2' }),
         root.markBox({ position: '0.1 0.5 0.3', scale: '0.2 0.2 0.2' }),
         root.markBox({ position: '0.3 0.5 0.1', scale: '0.2 0.2 0.2' }),
+        root.markBox({ position: '0.1 0.5 0.5', scale: '0.2 0.2 0.2' }),
+        root.markBox({ position: '0.3 0.5 0.5', scale: '0.2 0.2 0.2' })
       ]
       let placed =  root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})
       let placed2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true }})
       let placed3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true }})
       let placed4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
+      let placed5 = root.entity('a-box', { color: 'grey',   placement: { on: '#' + base.id, constrain: true }})
+      let placed6 = root.entity('a-box', { color: 'white',  placement: { on: '#' + base.id, constrain: true }})
 
       au.onceLoaded(base, () => {
         placed4.addEventListener('placed', () => {
-          expect([ placed, placed2, placed3, placed4 ]).to.occupy(targets)
+          expect([ placed, placed2, placed3, placed4, placed5, placed6 ]).to.occupy(targets)
           done()
         })
       })      
     })
-
-    it('should size and place entities respecting a margin', function(done) {})
   })
 })
