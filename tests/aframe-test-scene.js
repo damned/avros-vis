@@ -35,9 +35,11 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   scene.inScene = scene.within
   
-  function Root(prefix, index, test) {
+  function Root(prefix, index) {
+    let test = undefined
     let testName = () => {
       if (test) {
+        console.log('test', test)
         return test.title
       }
       return 'test-' + index
@@ -60,6 +62,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       },
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
+      testing: 
       withMark: (vector3, color = 'red') => {
         let markPos = au.xyzTriplet(vector3)
         console.log('mark pos', markPos)
@@ -150,17 +153,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     return root
   }
   
-  scene.addRoot = (context) => {
-    let prefix = undefined
-    let theTest = undefined
-    if (typeof(context) == 'string') {
-      prefix = context
-    }
-    else {
-      if (context && context.test) {
-        theTest = context.test
-      }
-    }
+  scene.addRoot = (prefix) => {
     const randomId = () => 'root' + Math.random().toString(36).substring(7)
     if (!prefix) {
       prefix = randomId()
@@ -168,7 +161,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     
     if (!roots[prefix]) {
       let index = Object.keys(roots).length
-      roots[prefix] = Root(prefix, index, theTest)
+      roots[prefix] = Root(prefix, index)
     }
     return roots[prefix]
   }

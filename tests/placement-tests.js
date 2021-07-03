@@ -18,9 +18,7 @@ describe('placement component', () => {
 
   beforeEach(() => scene.reset())
 
-  beforeEach(function() {
-    root = scene.addRoot(this)
-  })
+  beforeEach(() => root = scene.addRoot())
 
   afterEach(() => root.makeViewable())
 
@@ -37,7 +35,8 @@ describe('placement component', () => {
   })
   
   describe('being placed upon a non-default space base', () => {
-    it('should place the host entity on top of the base', done => {
+    it('should place the host entity on top of the base', function(done) {
+      root.testing(this)
       let scaledParent = root.entity('a-entity', {
         position: '1 1 1', 
         scale: '2 2 2'
