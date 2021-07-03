@@ -115,7 +115,7 @@ au.world.anchorPoint = (anchorSpec, el) => {
   return anchor
 }
 
-au.xyzTriplet = xyz => `${xyz.x} ${xyz.y} ${xyz.z}`
+au.xyzTriplet = xyz => xyz ? `${xyz.x} ${xyz.y} ${xyz.z}` : '-undefined-'
 
 
 au.catching = (fn) => {

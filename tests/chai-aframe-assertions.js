@@ -1,18 +1,19 @@
-/* global AFRAME THREE */
+/* global AFRAME THREE aframeUtils*/
 var aframeAssertions = function () {
   return function (chai, utils) {
     let Assertion = chai.Assertion;
     let flag = utils.flag
+    const au = aframeUtils
 
     const getPosition = (el) => {
-      return AFRAME.utils.coordinates.stringify(el.object3D.position)
+      return el.object3D.position
     }
 
     const getSize = (el) => {
       const sizeBox = new THREE.Box3()
       el.object3D.updateWorldMatrix(true, false)
       const size = sizeBox.setFromObject(el.object3D).getSize(new THREE.Vector3())
-      return AFRAME.utils.coordinates.stringify(size)
+      return size
     }
     
     const vectorMatch = (v1, v2, decimals) => {
@@ -33,9 +34,9 @@ var aframeAssertions = function () {
       
       let actuals = asArray(rawActual)
       let expecteds = asArray(rawExpected)
-
-      const positionFailureDetail = (last) => ` - actual position ${last.actualPosition} did not match expected position ${last.expectedPosition}`
-      const sizeFailureDetail = (last) => ` - actual size ${last.actualSize} did not match expected size ${last.expectedSize}`
+      
+      const positionFailureDetail = (last) => ` - actual position ${au.xyzTriplet(last.actualPosition)} did not match expected position ${au.xyzTriplet(last.expectedPosition)}`
+      const sizeFailureDetail = (last) => ` - actual size ${au.xyzTriplet(last.actualSize)} did not match expected size ${au.xyzTriplet(last.expectedSize)}`
 
       const failureMessageDetail = (last) => {
         if (!last.positionMatch) {
@@ -59,8 +60,8 @@ var aframeAssertions = function () {
           last.actualPosition = getPosition(actual)
           last.actualSize = getSize(actual)
 
-          last.positionMatch = last.actualPosition === last.expectedPosition
-          last.sizeMatch = last.actualSize === last.expectedSize
+          last.positionMatch = vectorMatch(last.actualPosition, last.expectedPosition)
+          last.sizeMatch = vectorMatch(last.actualSize, last.expectedSize)
       
           if (last.sizeMatch && last.positionMatch) {
             match = true

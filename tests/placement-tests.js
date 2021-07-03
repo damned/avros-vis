@@ -170,6 +170,7 @@ describe('placement component', () => {
         let placed = root.entity('a-box', { color: 'red', placement: { on: '#' + base.id, constrain: true }})
         placed.addEventListener('placed', () => {
           expect(placed).to.occupy(target)
+          done()
         })
       })
     })
