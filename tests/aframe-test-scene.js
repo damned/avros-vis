@@ -42,10 +42,22 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       test = ctx.test
       testContext = ctx
     }
+    let splitIntoLines = (text, lineSize) => {
+      let lines = ''
+      let line = ''
+      text.split(' ').forEach(word => {
+        let separator = ''
+        if (lines.length > 0) {
+          separator = '\n'
+        }
+        lines += separator + word
+      })
+      return lines
+    }
     let testName = () => {
       if (test) {
         console.log('test', test)
-        return test.title.split(' ').join('\n')
+        return splitIntoLines(test.title, 20)
       }
       return 'test-' + index
     }
@@ -61,7 +73,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         const box = new THREE.BoxHelper( rootEl.object3D, 0xffff00 );
         rootEl.object3D.add( box );
         
-        rootEl.setAttribute('balloon-label', `label: ${testName()}; y-offset: 0.6`)
+        rootEl.setAttribute('balloon-label', `label: ${testName()}; y-offset: 0.2; scale: 0.1`)
         rootEl.setAttribute('position', `${x} 1 -0.5`)
         rootEl.setAttribute('scale', `${scale} ${scale} ${scale}`)
       },
