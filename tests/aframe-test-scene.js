@@ -1,4 +1,4 @@
-/* global au */
+/* global au THREE */
 
 var aframeTestScene = function(options = {recreateOnReset: false}) {
   const aframeContainer = document.getElementById('aframe-container')
@@ -42,10 +42,15 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       addHtmlTo: (parent, html, selector) => scene.addHtmlTo(parent, html, selector),
       el: rootEl,
       makeViewable: () => {
-        let x = -1 + index * 0.2
-        let scale = 0.2
+        let x = -1 + index * 0.5
+        let scale = 0.15        
+        
+        const box = new THREE.BoxHelper( rootEl.object3D, 0xffff00 );
+        rootEl.object3D.add( box );
+        
         rootEl.setAttribute('position', `${x} 1 -0.5`)
         rootEl.setAttribute('scale', `${scale} ${scale} ${scale}`)
+
       },
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
@@ -117,7 +122,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     let _markRootEl
     const markRoot = () => {
       if (_markRootEl === undefined) {
-        _markRootEl = au.entity(sceneEl, 'a-entity', { id: `${prefix}-test-mark-root`})
+        _markRootEl = au.entity(rootEl, 'a-entity', { id: `${prefix}-test-mark-root`})
       }
       return _markRootEl
     }
