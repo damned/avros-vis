@@ -156,5 +156,22 @@ describe('placement component', () => {
         })
       })
     })
+    
+    it('should size an entity appropriately over a non-unit-sized square base', function(done) {
+      root.testing(this)
+      base = root.testBox('base', { 
+        color: 'green',
+        width: 0.4,
+        depth: 0.4,
+        height: 1
+      })
+      let target = root.markBox({ position: '0 1.2 0', scale: '0.4 0.4 0.4' })      
+      au.onceLoaded(base, () => {
+        let placed = root.entity('a-box', { color: 'red', placement: { on: '#' + base.id, constrain: true }})
+        placed.addEventListener('placed', () => {
+          expect(placed).to.occupy(target)
+        })
+      })
+    })
   })
 })
