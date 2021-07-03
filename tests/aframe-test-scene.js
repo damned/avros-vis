@@ -35,7 +35,13 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   scene.inScene = scene.within
   
-  function Root(prefix, index) {
+  function Root(prefix, index, test) {
+    let testName = () => {
+      if (test) {
+        return test.title
+      }
+      return 'test-' + index
+    }
     let rootEl = au.entity(sceneEl, 'a-entity', { id: `${prefix}-test-root`})
     const root = {
       addHtml: (html, selector) => scene.addHtmlTo(rootEl, html, selector),
@@ -48,7 +54,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         const box = new THREE.BoxHelper( rootEl.object3D, 0xffff00 );
         rootEl.object3D.add( box );
         
-        rootEl.setAttribute('balloon-label', `label: test ${index}`)
+        rootEl.setAttribute('balloon-label', `label: ${testName()}`)
         rootEl.setAttribute('position', `${x} 1 -0.5`)
         rootEl.setAttribute('scale', `${scale} ${scale} ${scale}`)
       },
@@ -144,7 +150,17 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     return root
   }
   
-  scene.addRoot = (prefix) => {
+  scene.addRoot = (context) => {
+    let prefix = undefined
+    let theTest = undefined
+    if (typeof(context) == 'string') {
+      prefix = context
+    }
+    else {
+      if (context && context.test) {
+        theTest = context.test
+      }
+    }
     const randomId = () => 'root' + Math.random().toString(36).substring(7)
     if (!prefix) {
       prefix = randomId()
@@ -152,7 +168,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     
     if (!roots[prefix]) {
       let index = Object.keys(roots).length
-      roots[prefix] = Root(prefix,index)
+      roots[prefix] = Root(prefix, index, theTest)
     }
     return roots[prefix]
   }
