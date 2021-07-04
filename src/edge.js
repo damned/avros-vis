@@ -27,6 +27,10 @@ AFRAME.registerComponent('edge', {
       
       let createLineName = () => (self.id ? 'line__' + self.id : 'line')
       
+      const addSibling = entity => {
+        const sibling = au.entity(entity)
+      }
+      
       let addLine = () => {
         au.catching(() => {
           log('addLine: host is loaded: ', host.hasLoaded)
@@ -66,7 +70,7 @@ AFRAME.registerComponent('edge', {
           else {
             start = au.xyzTriplet(vectorToOther)
           }
-          host.setAttribute(createLineName(), `start: ${start}; end: ${end}; color: ${color}`)
+          addSibling(host).setAttribute(createLineName(), `start: ${start}; end: ${end}; color: ${color}`)
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true
         })
