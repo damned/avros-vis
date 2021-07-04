@@ -91,6 +91,7 @@ describe('edge component', () => {
 
       let edgeCreatedCount = 0
       source.addEventListener('edged', event => {
+        console.log('edged received in test')
         edgeCreatedCount += 1
         if (edgeCreatedCount < 2) return
         let addedLine1 = event.detail.edgeEntity.components.line
