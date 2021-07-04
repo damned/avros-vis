@@ -129,6 +129,7 @@ au.catching = (fn) => {
 
 au.log = function() {
   let self = arguments.callee
+  let logAlias = console.log.bind(console)
   if (self.active == false) {
     return;
   }
@@ -140,7 +141,7 @@ au.log = function() {
       args = Array.isArray(lazyLogItems) ? [...lazyLogItems] : [lazyLogItems]
     }
   }
-  self.logImpl.apply(this, args)
+  logAlias.apply(console, args)
 }
 au.log.logImpl = console.log
 au.log.active = true
