@@ -90,13 +90,17 @@ describe('edge component', () => {
       source = select('#source')
 
       let edgeCreatedCount = 0
+      let addedLine1, addedLine2
       source.addEventListener('edged', event => {
         console.log('edged received in test')
         edgeCreatedCount += 1
-        if (edgeCreatedCount < 2) return
-        let addedLine1 = event.detail.edgeEntity.components.line
-        let addedLine2 = event.detail.edgeEntity.components.line__2
-        expect(Object.keys(event.detail.edgeEntity.components)).to.equal('bob')
+        if (edgeCreatedCount < 2) {
+          addedLine1 = event.detail.edgeEntity.components.line
+          return
+        }
+        else {
+          addedLine2 = event.detail.edgeEntity.components.line
+        }
         expect(addedLine1.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine2.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine1.data.end).to.eql({x: 1, y: -1, z: 1})

@@ -25,8 +25,6 @@ AFRAME.registerComponent('edge', {
       let justEdged = false
       let emitEdgedNext = false      
       
-      let createLineName = () => (self.id ? 'line__' + self.id : 'line')
-      
       const addSibling = entity => {
         const sibling = au.entity(entity.parentNode, 'a-entity', {
           position: au.xyzTriplet(entity.object3D.position),

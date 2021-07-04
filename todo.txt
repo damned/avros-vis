@@ -15,10 +15,10 @@ approach
    - [ ] possible syntax: builda.box({ at: '-2.25 0.75 -2.25', scale: 0.5 }).and.one.with({xz:'1 0'}) - needs single element and array duality
  - [ ] add a like/butWith/but.with for replicating entities with slight changes
  - [ ] extract squash lib - use shorthand for flat, x-flat, wall etc. scale / dimension modifiers
- - [ ] auto-generation of test root offsets (pre / post test?) with defaulted optional bounds
- - [ ] lay out tests for review
- - [ ] move all scene-based test to latest test scene / root usage
- - [ ] lay out all tests and review
+ - [.] auto-generation of test root offsets (pre / post test?) with defaulted optional bounds
+ - [.] lay out tests for review
+ - [.] move all scene-based test to latest test scene / root usage
+ - [.] lay out all tests and review
  - [ ] mocha test runner page integration
    - [ ] keep scene viewable w/ pane for embedded scene
    - [ ] bring test root into view for test (when click on it / hover?)
@@ -38,8 +38,8 @@ approach
      - [x] include visual debug
    - [x] place on across scaled entities
    - [x] place multiple things on, constraining x and z
-   - [.] place multiple things on non-unit objects (fixing 6 on es issues)
-   - [ ] allow specify margins for placed entitys
+   - [x] place multiple things on non-unit objects (fixing 6 on es issues)
+   - [.] allow specify margins for placed entitys
    - [ ] switch placement on to use size constraint by default
    - [ ] multi-segment edges (squared)
    - [ ] place on multiple entities - specify order
