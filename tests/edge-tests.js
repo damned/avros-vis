@@ -54,7 +54,7 @@ describe('edge component', () => {
           dest = select('#dest')
 
           dest.addEventListener('edged', event => {
-            let addedLine = dest.components.line
+            let addedLine = event.detail.edgeEntity.components.line
             expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
             expect(addedLine.data.start).to.eql({x: 1, y: 2, z: 0})
             done()
@@ -72,7 +72,7 @@ describe('edge component', () => {
       source = select('#source')
 
       source.addEventListener('edged', event => {
-        let addedLine = source.components.line
+        let addedLine = event.detail.edgeEntity.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.end).to.eql({x: 2, y: -1, z: 1})
         done()
@@ -93,8 +93,9 @@ describe('edge component', () => {
       source.addEventListener('edged', event => {
         edgeCreatedCount += 1
         if (edgeCreatedCount < 2) return
-        let addedLine1 = source.components.line
-        let addedLine2 = source.components.line__2
+        let addedLine1 = event.detail.edgeEntity.components.line
+        let addedLine2 = event.detail.edgeEntity.components.line__2
+        expect(Object.keys(event.detail.edgeEntity.components)).to.equal('bob')
         expect(addedLine1.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine2.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine1.data.end).to.eql({x: 1, y: -1, z: 1})
@@ -113,7 +114,7 @@ describe('edge component', () => {
       source = select('#sourcex')      
 
       source.addEventListener('edged', event => {
-        let addedLine = source.components.line
+        let addedLine = event.detail.edgeEntity.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.end).to.eql({x: 2, y: 2, z: 2})
         done()
@@ -126,8 +127,8 @@ describe('edge component', () => {
       addToScene('<a-sphere id="source" edge="from: #dest" radius="0.1" position="-1 -1 -1" scale="0.5 0.5 0.5">')
       source = select('#source')
 
-      source.addEventListener('edged', () => {
-        let addedLine = source.components.line
+      source.addEventListener('edged', event => {
+        let addedLine = event.detail.edgeEntity.components.line
         expect(addedLine.data.start).to.eql({x: 4, y: 4, z: 4})
         expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
         done()
@@ -140,8 +141,8 @@ describe('edge component', () => {
       addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="1 1 1">')
       source = select('#source')
 
-      source.addEventListener('edged', () => {
-        let addedLine = source.components.line
+      source.addEventListener('edged', event => {
+        let addedLine = event.detail.edgeEntity.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.end).to.eql({x: 4, y: 2, z: 2})
         done()
@@ -154,8 +155,8 @@ describe('edge component', () => {
       addToScene('<a-sphere id="source" edge="from: #dest" radius="0.1" position="1 1 1">')
       source = select('#source')
 
-      source.addEventListener('edged', () => {
-        let addedLine = source.components.line
+      source.addEventListener('edged', event => {
+        let addedLine = event.detail.edgeEntity.components.line
         expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.start).to.eql({x: 4, y: 2, z: 2})
         done()
@@ -173,8 +174,8 @@ describe('edge component', () => {
                  '</-a-entity>')
       source = select('#source')
 
-      source.addEventListener('edged', () => {
-        let addedLine = source.components.line
+      source.addEventListener('edged', event => {
+        let addedLine = event.detail.edgeEntity.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.end).to.eql({x: -1.5, y: -0.5, z: -0.5})
         done()
