@@ -71,7 +71,7 @@ const _au_resizeToConstraints = (object3d, sizeConstraints, worldSize, worldScal
   }
 }
 
-au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
+au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints, marginPercent) => {
   if (JSON.stringify(anchorSpec) != au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }
