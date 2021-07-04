@@ -28,7 +28,11 @@ AFRAME.registerComponent('edge', {
       let createLineName = () => (self.id ? 'line__' + self.id : 'line')
       
       const addSibling = entity => {
-        const sibling = au.entity(entity)
+        const sibling = au.entity(entity.parentNode, 'a-entity', {
+          position: au.xyzTriplet(entity.object3D.position),
+          scale: au.xyzTriplet(entity.object3D.scale)
+        })
+        return sibling
       }
       
       let addLine = () => {
@@ -70,7 +74,8 @@ AFRAME.registerComponent('edge', {
           else {
             start = au.xyzTriplet(vectorToOther)
           }
-          addSibling(host).setAttribute(createLineName(), `start: ${start}; end: ${end}; color: ${color}`)
+          self.edgeEntity = addSibling(host)
+          self.edgeEntity.setAttribute(createLineName(), `start: ${start}; end: ${end}; color: ${color}`)
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true
         })
@@ -84,7 +89,7 @@ AFRAME.registerComponent('edge', {
         }
         else if (emitEdgedNext) {
           emitEdgedNext = false
-          host.emit('edged')          
+          host.emit('edged', { edgeEntity: self.edgeEntity })          
         }
       }
       

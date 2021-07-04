@@ -36,8 +36,8 @@ describe('edge component', () => {
       addToScene('<a-sphere id="dest" radius="0.1" edge="from: #source" position="1 1 -1">')
       dest = select('#dest')
 
-      dest.addEventListener('edged', () => {
-        let addedLine = dest.components.line
+      dest.addEventListener('edged', event => {
+        let addedLine = event.detail.edgeEntity.components.line
         expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.start).to.eql({x: -2, y: 1, z: -1})
         done()
@@ -53,7 +53,7 @@ describe('edge component', () => {
           addToScene('<a-sphere id="dest" radius="0.1" edge="from: #source; color: red" position="0 0 -1">')
           dest = select('#dest')
 
-          dest.addEventListener('edged', () => {
+          dest.addEventListener('edged', event => {
             let addedLine = dest.components.line
             expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
             expect(addedLine.data.start).to.eql({x: 1, y: 2, z: 0})
@@ -71,7 +71,7 @@ describe('edge component', () => {
       addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="-1 2 -2">')
       source = select('#source')
 
-      source.addEventListener('edged', () => {
+      source.addEventListener('edged', event => {
         let addedLine = source.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.end).to.eql({x: 2, y: -1, z: 1})
@@ -90,7 +90,7 @@ describe('edge component', () => {
       source = select('#source')
 
       let edgeCreatedCount = 0
-      source.addEventListener('edged', () => {
+      source.addEventListener('edged', event => {
         edgeCreatedCount += 1
         if (edgeCreatedCount < 2) return
         let addedLine1 = source.components.line
@@ -112,7 +112,7 @@ describe('edge component', () => {
       dest = select('#destx')
       source = select('#sourcex')      
 
-      source.addEventListener('edged', () => {
+      source.addEventListener('edged', event => {
         let addedLine = source.components.line
         expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
         expect(addedLine.data.end).to.eql({x: 2, y: 2, z: 2})
