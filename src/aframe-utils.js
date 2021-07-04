@@ -126,10 +126,8 @@ au.catching = (fn) => {
   }
 }
 
-
 au.log = function() {
   let self = arguments.callee
-  let logAlias = console.log.bind(console)
   if (self.active == false) {
     return;
   }
@@ -141,10 +139,16 @@ au.log = function() {
       args = Array.isArray(lazyLogItems) ? [...lazyLogItems] : [lazyLogItems]
     }
   }
-  logAlias.apply(console, args)
+  if (self.includeCaller) {
+    const callerStackOffset = 2
+    let caller = new Error().stack.split('\n')[callerStackOffset]
+    args.push('\n...' + caller)
+  }
+  self.logImpl.apply(this, args)
 }
 au.log.logImpl = console.log
 au.log.active = true
+au.log.includeCaller = false
 
 au.earliestAncestor = (el) => {
   let earliest = el
