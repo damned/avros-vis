@@ -273,7 +273,28 @@ describe('aframe utils a.k.a. au', () => {
               })
             })
           })
-          it('constrains a unit cube to world space size constraints in x with and added percent margin on each of x and z', (done) => {
+          it('constrains a unit cube to world space size constraints in x with and added percent margin on each of x and z', function(done) {
+            
+            
+      let targets = [
+        root.markBox({ position: '0.25 0.75 0.25', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '0.75 0.75 0.25', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '0.25 0.75 0.75', scale: '0.5 0.5 0.5' }),
+        root.markBox({ position: '0.75 0.75 0.75', scale: '0.5 0.5 0.5' }),
+      ]
+      au.onceLoaded(base, () => {
+        host =      root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})
+        let host2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true }})
+        let host3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true }})
+        let host4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
+
+        host4.addEventListener('placed', () => {
+          expect([ host, host2, host3, host4 ]).to.occupy(targets)
+          done()
+        })
+      })
+
+            
             scene.within(() => {
               
               let target = withMark(vec3(2, 1, -1), 's')
