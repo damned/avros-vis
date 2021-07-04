@@ -274,40 +274,15 @@ describe('aframe utils a.k.a. au', () => {
             })
           })
           it('constrains a unit cube to world space size constraints in x with and added percent margin on each of x and z', function(done) {
-            
-            
-      let targets = [
-        root.markBox({ position: '0.25 0.75 0.25', scale: '0.5 0.5 0.5' }),
-        root.markBox({ position: '0.75 0.75 0.25', scale: '0.5 0.5 0.5' }),
-        root.markBox({ position: '0.25 0.75 0.75', scale: '0.5 0.5 0.5' }),
-        root.markBox({ position: '0.75 0.75 0.75', scale: '0.5 0.5 0.5' }),
-      ]
-      au.onceLoaded(base, () => {
-        host =      root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})
-        let host2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true }})
-        let host3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true }})
-        let host4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
-
-        host4.addEventListener('placed', () => {
-          expect([ host, host2, host3, host4 ]).to.occupy(targets)
-          done()
-        })
-      })
-
-            
-            scene.within(() => {
+            root.testing(this)              
               
-              let target = withMark(vec3(2, 1, -1), 's')
-              
-              subject = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 1 })
-              subject.addEventListener('loaded', () => {
-                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target, {x: 0.5}, 10)
-                expect(xyz(au.world.anchorPoint({x:0,   y:0, z:0},   subject))).to.eql(xyz(withMark(vec3(1.8, 1, -1.2))))
-                expect(xyz(au.world.anchorPoint({x:100, y:0, z:0},   subject))).to.eql(xyz(withMark(vec3(2.2, 1, -1.2))))
-                expect(xyz(au.world.anchorPoint({x:100, y:0, z:100}, subject))).to.eql(xyz(withMark(vec3(2.2, 1, -0.8))))
-                expect(xyz(au.world.anchorPoint({x:0,   y:0, z:100}, subject))).to.eql(xyz(withMark(vec3(1.8, 1, -0.8))))
-                done()
-              })
+            let target = root.entity('a-box', { position: '0 0.9 0', scale: '0.8 0.8 0.8', material: { color: 'lightgreen', wireframe: true } })
+            subject = addWorldBox('place-with-margin', '0 0 0', 'lightblue', { boxSize: 1 })
+
+            subject.addEventListener('loaded', () => {
+              au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target, { x: 0.5 }, 10)
+              expect(subject).to.occupy(target)
+              done()
             })
           })
         })
