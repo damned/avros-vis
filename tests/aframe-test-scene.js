@@ -9,7 +9,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   const scene = {
     reset: () => {
       if (options.recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
-        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
+        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray"></a-scene>'
         roots = {}
       }
       sceneEl = select('a-scene')
