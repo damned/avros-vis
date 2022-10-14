@@ -21,7 +21,7 @@ var Panel = function(name, base) {
     el.setAttribute('class', 'panel')
     el.setAttribute('color', 'pink')
     el.setAttribute('height', height)
-    el.setAttribute('placement', `on: #${base.id()}`)
+    el.setAttribute('placement', `on: #${base.id()}; constrain: false; margin: 0`)
     self.el = el
     parent.appendChild(el)
     return el
@@ -51,7 +51,7 @@ var Board = function(name, type) {
     el.setAttribute('class', type)
     el.setAttribute('color', 'blue')
     el.setAttribute('height', '' + height)
-    el.setAttribute('placement', `on: #${parent.id}`)
+    el.setAttribute('placement', `on: #${parent.id}; margin: 0`)
     return el
   }
   
