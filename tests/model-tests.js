@@ -78,8 +78,6 @@ describe('model', () => {
     
   it('should add two panels onto a square board by even split left and right i.e. vary in x', (done) => {
     
-    // overarching test for sharing placement on something
-    
     table.addEventListener('loaded', () => {
       let board = model.board('board')
       let panel = board.panel('panel1')
