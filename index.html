@@ -24,19 +24,18 @@
       </a-assets>
 
       <a-entity position="0 0 -1">
-
-        
         
         <a-entity id="main-display" class="display" position="0 1 -0.5" scale="0.5 0.5 0.5">
 
           <a-box id="sng" class="sn" color="#585" wireframe="false"
                  placement="on: #main-board"
-                 scale="0.42 0.02 0.92"></a-box>
+                 scale="0.42 0.02 0.92"></a-box> <!-- need auto-stretch to remove this -->
           <a-box class="sn" color="#855" 
                  placement="on: #main-board"
-                 scale="0.42 0.02 0.92"></a-box>
+                 scale="0.42 0.02 0.92"></a-box> <!-- need auto-stretch to remove this -->
 
-          <a-box id="nlb" placement="on: #sng" balloon-label="label: nlb" color="#444" mixin="srv"></a-box>
+          <!-- need auto-stretch to remove this -->
+          <a-box id="nlb" placement="on: #sng; constrain: false" balloon-label="label: nlb" color="#444" mixin="srv"></a-box>
 
           <a-box id="ag" balloon-label="label: ag" color="#444" mixin="srv" position="1 0.5 0.7"></a-box>
 
