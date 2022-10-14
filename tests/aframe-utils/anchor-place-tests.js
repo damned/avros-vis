@@ -262,7 +262,7 @@ describe('aframe utils a.k.a. au', () => {
           it('constrains a unit cube to world space size constraints in x', (done) => {
             scene.within(() => {
               
-              let target = withMark(vec3(2, 1, -1), 's')
+              let target = withMark(vec3(2, 1, -1), 'beige')
               
               placed = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 1 })
               placed.addEventListener('loaded', () => {
@@ -277,7 +277,26 @@ describe('aframe utils a.k.a. au', () => {
               })
             })
           })
-          it('WIP constrains using margins a unit cube to world space size constraints in x with an added percent margin on each of x and z', function(done) {
+          it('constrains using margin a unit cube to world space size constraints in x with an added percent margin', function(done) {
+            scene.within(() => {
+              
+              let target = withMark(vec3(1, 1, -1), 'green')
+              
+              placed = addWorldBox('placed-constrained-with-margin', '0 0 0', 'lightgreen', { boxSize: 1 })
+              placed.addEventListener('loaded', () => {
+                
+                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, placed, target, {x: 0.5}, 10)
+                
+                expect(xyz(au.world.anchorPoint({x:0,   y:0, z:0},   placed))).to.eql(xyz(withMark(vec3(1.8, 1, -1.25))))
+                expect(xyz(au.world.anchorPoint({x:100, y:0, z:0},   placed))).to.eql(xyz(withMark(vec3(2.2, 1, -1.25))))
+                expect(xyz(au.world.anchorPoint({x:100, y:0, z:100}, placed))).to.eql(xyz(withMark(vec3(2.2, 1, -0.))))
+                expect(xyz(au.world.anchorPoint({x:0,   y:0, z:100}, placed))).to.eql(xyz(withMark(vec3(1.8, 1, -0.8))))
+                done()
+              })
+            })
+          })
+
+          it('constrains using margins a unit cube to world space size constraints in x with an added percent margin on each of x and z', function(done) {
             root.testing(this)              
               
             let target = root.entity('a-box', { 
