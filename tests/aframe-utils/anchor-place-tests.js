@@ -177,6 +177,8 @@ describe('aframe utils a.k.a. au', () => {
     })
 
     describe('placeByAnchor()', () => {
+      let placed
+
       it('should define central bottom anchor as 50% in xz and 0% in y', () => {
         expect(au.ANCHOR_BOTTOM_MIDDLE).to.eql({x: 50, y: 0, z: 50})
       })
@@ -204,9 +206,9 @@ describe('aframe utils a.k.a. au', () => {
 
         it('should allow anchor bottom middle using values not the constant', (done) => {
           scene.within(() => {
-            subject = addWorldBox('check-place-by-anchor-args', '4 4 4', 'beige')
-            subject.addEventListener('loaded', () => {
-              au.world.placeByAnchor({x: 50, y: 0, z: 50}, subject, vec3(1, 0, 0))
+            placed = addWorldBox('check-place-by-anchor-args', '4 4 4', 'beige')
+            placed.addEventListener('loaded', () => {
+              au.world.placeByAnchor({x: 50, y: 0, z: 50}, placed, vec3(1, 0, 0))
               done()
             })
           })
@@ -216,10 +218,10 @@ describe('aframe utils a.k.a. au', () => {
           it('should place simple box so that its bottom-middle anchor point matches a given world point', (done) => {
             scene.within(() => {
               let target = withMark(vec3(1, 1, 1))
-              subject = addWorldBox('simple-anchor-placement', '0 0 0', 'lightgreen', { boxSize: 0.4 })
-              subject.addEventListener('loaded', () => {
-                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
-                let position = subject.object3D.position
+              placed = addWorldBox('simple-anchor-placement', '0 0 0', 'lightgreen', { boxSize: 0.4 })
+              placed.addEventListener('loaded', () => {
+                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, placed, target)
+                let position = placed.object3D.position
                 expect(position.x).to.be.closeTo(1, TOLERANCE)
                 expect(position.y).to.be.closeTo(1.2, TOLERANCE)
                 expect(position.z).to.be.closeTo(1, TOLERANCE)
@@ -234,10 +236,10 @@ describe('aframe utils a.k.a. au', () => {
 
               let scaledParent = root.addHtml('<a-entity id="scaled-place-parent" position="2 2 2" scale="0.4 0.4 0.4">', '#scaled-place-parent')
               scaledParent.addEventListener('loaded', () => {
-                subject = root.addTestBoxTo(scaledParent, 'scaled-place-child', '-2 1 -1', 'yellow', { boxSize: 1 }, {})
-                subject.addEventListener('loaded', () => {
-                  au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target)
-                  let position = subject.object3D.getWorldPosition(new THREE.Vector3())
+                placed = root.addTestBoxTo(scaledParent, 'scaled-place-child', '-2 1 -1', 'yellow', { boxSize: 1 }, {})
+                placed.addEventListener('loaded', () => {
+                  au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, placed, target)
+                  let position = placed.object3D.getWorldPosition(new THREE.Vector3())
                   expect(position.x).to.be.closeTo(1, TOLERANCE)
                   expect(position.y).to.be.closeTo(1.2, TOLERANCE)
                   expect(position.z).to.be.closeTo(-1, TOLERANCE)
@@ -262,18 +264,20 @@ describe('aframe utils a.k.a. au', () => {
               
               let target = withMark(vec3(2, 1, -1), 's')
               
-              subject = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 1 })
-              subject.addEventListener('loaded', () => {
-                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target, {x: 0.5})
-                expect(xyz(au.world.anchorPoint({x:0,   y:0, z:0},   subject))).to.eql(xyz(withMark(vec3(1.75, 1, -1.25))))
-                expect(xyz(au.world.anchorPoint({x:100, y:0, z:0},   subject))).to.eql(xyz(withMark(vec3(2.25, 1, -1.25))))
-                expect(xyz(au.world.anchorPoint({x:100, y:0, z:100}, subject))).to.eql(xyz(withMark(vec3(2.25, 1, -0.75))))
-                expect(xyz(au.world.anchorPoint({x:0,   y:0, z:100}, subject))).to.eql(xyz(withMark(vec3(1.75, 1, -0.75))))
+              placed = addWorldBox('place-and-size', '0 0 0', 'lightblue', { boxSize: 1 })
+              placed.addEventListener('loaded', () => {
+                
+                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, placed, target, {x: 0.5})
+                
+                expect(xyz(au.world.anchorPoint({x:0,   y:0, z:0},   placed))).to.eql(xyz(withMark(vec3(1.75, 1, -1.25))))
+                expect(xyz(au.world.anchorPoint({x:100, y:0, z:0},   placed))).to.eql(xyz(withMark(vec3(2.25, 1, -1.25))))
+                expect(xyz(au.world.anchorPoint({x:100, y:0, z:100}, placed))).to.eql(xyz(withMark(vec3(2.25, 1, -0.75))))
+                expect(xyz(au.world.anchorPoint({x:0,   y:0, z:100}, placed))).to.eql(xyz(withMark(vec3(1.75, 1, -0.75))))
                 done()
               })
             })
           })
-          it('constrains using margins a unit cube to world space size constraints in x with an added percent margin on each of x and z', function(done) {
+          it('WIP constrains using margins a unit cube to world space size constraints in x with an added percent margin on each of x and z', function(done) {
             root.testing(this)              
               
             let target = root.entity('a-box', { 
@@ -286,6 +290,7 @@ describe('aframe utils a.k.a. au', () => {
 
             subject.addEventListener('loaded', () => {
               au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, subject, target, { x: 0.5 }, 10)
+              // WIP
               // expect(subject).to.occupy(target)
               done()
             })
