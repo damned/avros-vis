@@ -18,7 +18,7 @@
   <body>
     <a-scene>
       <a-assets>
-        <a-mixin id="srv" geometry="primitive: box; height: 0.05; depth: 0.05; width: 0.05"></a-mixin>
+        <a-mixin id="srv" geometry="primitive: box; height: 0.10; depth: 0.10; width: 0.10"></a-mixin>
         <a-mixin id="esi" geometry="primitive: box" placement></a-mixin>
         <a-mixin id="dbt" geometry="primitive: cylinder; height: 0.2; radius: 0.1"></a-mixin>
       </a-assets>
@@ -34,7 +34,7 @@
                  placement="on: #main-board"
                  scale="0.42 0.02 0.92"></a-box> <!-- need auto-stretch to remove this -->
 
-          <!-- need auto-stretch to remove this -->
+          <!-- need height constraint to optimize this -->
           <a-box id="nlb" placement="on: #sng; constrain: false" balloon-label="label: nlb" color="#444" mixin="srv"></a-box>
 
           <a-box id="ag" balloon-label="label: ag" color="#444" mixin="srv" position="1 0.5 0.7"></a-box>
@@ -62,8 +62,6 @@
                  edge__2="to: #tool; color: orange"
                  ></a-box>
 
-
-
           <a-box id="es" edge="from: #lam; color: pink" balloon-label="label: es" color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3"></a-box>
           <a-box color="#558" placement="on: #es"></a-box>
           <a-box color="#558" mixin="esi" placement="on: #es"></a-box>
@@ -80,11 +78,11 @@
 
         <a-entity id="tr-display" class="display" position="-1 1 -1" scale="0.5 0.5 0.5">
 
-          <a-entity balloon-label="label: srvc" color="#444" mixin="dbt" placement="on: #tr-display-board"></a-entity>
-          <a-entity balloon-label="label: unit" color="#444" mixin="dbt" placement="on: #tr-display-board"></a-entity>
+          <a-entity balloon-label="label: srvc" color="#444" mixin="dbt" placement="on: #tr-display-board; margin: 20"></a-entity>
+          <a-entity balloon-label="label: unit" color="#444" mixin="dbt" placement="on: #tr-display-board; margin: 20"></a-entity>
 
-          <a-entity balloon-label="label: pric" color="#444" mixin="dbt" placement="on: #tr-display-board"></a-entity>
-          <a-entity balloon-label="label: feat" color="#444" mixin="dbt" placement="on: #tr-display-board"></a-entity>
+          <a-entity balloon-label="label: pric" color="#444" mixin="dbt" placement="on: #tr-display-board; margin: 20"></a-entity>
+          <a-entity balloon-label="label: feat" color="#444" mixin="dbt" placement="on: #tr-display-board; margin: 20"></a-entity>
 
           <a-plane id="tr-display-board" class="display-board" color="#399" position="0 0 0.5" rotation="-90 0 0"></a-plane>
         </a-entity>
