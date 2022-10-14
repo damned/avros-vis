@@ -3,6 +3,7 @@ AFRAME.registerComponent('placement', {
   schema: {
     on: { type: 'selector' },
     constrain: { type: 'boolean', default: false },
+    margin: { type: 'int', default: 0 },
     sized: { type: 'boolean', default: true } /// TODO make synonym of constrain, but default true
   },
   init: function () {
@@ -68,7 +69,7 @@ AFRAME.registerComponent('placement', {
             log(() => 'setting placement to ' + JSON.stringify(targetPos))
             log('constrain', self.data.constrain)
             if (self.data.constrain) {
-              au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos, {x: split.sizes.x})
+              au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos, {x: split.sizes.x}, self.data.margin)
             }
             else {
               au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)              

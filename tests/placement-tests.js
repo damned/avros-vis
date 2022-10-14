@@ -14,7 +14,7 @@ describe('placement component', () => {
   const width = au.world.width
   const pos = el => el.object3D.position
 
-  let base, host, root
+  let base, host, placed, root
 
   beforeEach(() => scene.reset())
 
@@ -22,30 +22,30 @@ describe('placement component', () => {
 
   afterEach(() => root.makeViewable())
 
-  it('should place its host entity directly on top of its on base', function(done) {
+  it('should place its entity directly on top of its on base', function(done) {
     root.testing(this)
     base = root.testBox('base', { color: 'darkgray' })
-    host = root.testBox('placed', { placement: {on: '#' + base.id }})
+    placed = root.testBox('placed', { placement: {on: '#' + base.id }})
     
-    host.addEventListener('placed', () => {
-      expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
-      expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
-      expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
+    placed.addEventListener('placed', () => {
+      expect(bottom(placed)).to.be.closeTo(top(base), TOLERANCE)
+      expect(pos(placed).x).to.be.closeTo(pos(base).x, TOLERANCE)
+      expect(pos(placed).z).to.be.closeTo(pos(base).z, TOLERANCE)
       done()
     })
   })
   
-  it('should place its host entity on its base but narrowed on each side by a percent margin', function(done) {
+  it('should place its entity on its base but narrowed on each side by a percent margin', function(done) {
     root.testing(this)
     base = root.testBox('base', { color: 'darkblue' })
-    host = root.testBox('placed', { placement: { on: '#' + base.id, constrain: true, margin: 10 }})
+    placed = root.testBox('placed', { placement: { on: '#' + base.id, constrain: true, margin: 10 }})
     
-    host.addEventListener('placed', () => {
-      expect(bottom(host)).to.be.closeTo(top(base), TOLERANCE)
-      expect(pos(host).x).to.be.closeTo(pos(base).x, TOLERANCE)
-      expect(pos(host).z).to.be.closeTo(pos(base).z, TOLERANCE)
-      expect(au.world.width(host)).to.be.closeTo(au.world.width(base) * 0.8, TOLERANCE)
-      expect(au.world.depth(host)).to.be.closeTo(au.world.depth(base) * 0.8, TOLERANCE)
+    placed.addEventListener('placed', () => {
+      expect(bottom(placed)).to.be.closeTo(top(base), TOLERANCE)
+      expect(pos(placed).x).to.be.closeTo(pos(base).x, TOLERANCE)
+      expect(pos(placed).z).to.be.closeTo(pos(base).z, TOLERANCE)
+      expect(au.world.width(placed)).to.be.closeTo(au.world.width(base) * 0.8, TOLERANCE)
+      expect(au.world.depth(placed)).to.be.closeTo(au.world.depth(base) * 0.8, TOLERANCE)
       done()
     })
   })

@@ -60,7 +60,7 @@ au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED = JSON.stringify(au.ANCHOR_BOTTOM_MIDDLE)
 
 const _au_resizeToConstraints = (object3d, sizeConstraints, marginPercent, worldSize, worldScale) => {
   if (sizeConstraints) {
-    let xConstraintWithMargin = sizeConstraints.x * (1 - marginPercent / 100)
+    let xConstraintWithMargin = sizeConstraints.x * (1 - 2 * marginPercent / 100)
     if (worldSize.x != xConstraintWithMargin) {
       let scaleChangeFactor = xConstraintWithMargin / worldSize.x //((100 - marginPercent - marginPercent) * sizeConstraints.x) / (worldSize.x * 100)
       au.log('updating local scale for x constraint, scale factor: ', scaleChangeFactor)

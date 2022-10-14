@@ -285,8 +285,8 @@ describe('aframe utils a.k.a. au', () => {
               placed = addWorldBox('placed-constrained-with-margin', '0 0 0', 'lightgreen', { boxSize: 1 })
               placed.addEventListener('loaded', () => {
                 
-                const percentMarginInXRelativeToXConstraint = 20
-                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, placed, target, {x: 0.5}, percentMarginInXRelativeToXConstraint)
+                const percentMarginInXOnEachSideRelativeToXConstraint = 10
+                au.world.placeByAnchor(au.ANCHOR_BOTTOM_MIDDLE, placed, target, {x: 0.5}, percentMarginInXOnEachSideRelativeToXConstraint)
                 
                 expect(xyz(au.world.anchorPoint({x:0,   y:0, z:0},   placed))).to.eql(xyz(withMark(vec3(0.8, 1, -1.2))))
                 expect(xyz(au.world.anchorPoint({x:100, y:0, z:0},   placed))).to.eql(xyz(withMark(vec3(1.2, 1, -1.2))))
