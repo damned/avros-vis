@@ -4,6 +4,13 @@ now
 all tdd
 refac to things
 
+next
+
+ditch avr-os
+pick next topic
+ - dogfood code?
+ - infra?
+ - simple and build up?
 
 approach
 [x] spike views manually
