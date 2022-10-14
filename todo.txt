@@ -39,7 +39,8 @@ approach
    - [x] place on across scaled entities
    - [x] place multiple things on, constraining x and z
    - [x] place multiple things on non-unit objects (fixing 6 on es issues)
-   - [.] allow specify margins for placed entities
+   - [x] allow specify margins for placed entities
+     - [x] specified as % of constraint size, currently only in x
    - [ ] switch placement on to use size constraint by default
    - [ ] multi-segment edges (squared)
    - [ ] place on multiple entities - specify order
