@@ -273,7 +273,7 @@ describe('aframe utils a.k.a. au', () => {
               })
             })
           })
-          it('constrains a unit cube to world space size constraints in x with and added percent margin on each of x and z', function(done) {
+          it('constrains using margins a unit cube to world space size constraints in x with an added percent margin on each of x and z', function(done) {
             root.testing(this)              
               
             let target = root.entity('a-box', { 
