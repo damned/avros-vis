@@ -64,7 +64,7 @@ describe('placement component', () => {
         height: 1
       })
 
-      let placed = root.entity('a-box', { placement: { on: '#' + base.id }})
+      let placed = root.entity('a-box', { placement: { on: '#' + base.id, constrain: false, margin: 0 }})
 
       placed.addEventListener('placed', () => {
         expect(pos(placed).x).to.be.closeTo(0.3, TOLERANCE)
