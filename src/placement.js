@@ -2,7 +2,7 @@
 AFRAME.registerComponent('placement', {
   schema: {
     on: { type: 'selector' },
-    constrain: { type: 'boolean', default: false },
+    constrain: { type: 'boolean', default: true },
     margin: { type: 'int', default: 0 },
     sized: { type: 'boolean', default: true } /// TODO make synonym of constrain, but default true
   },

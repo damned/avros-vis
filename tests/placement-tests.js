@@ -96,11 +96,11 @@ describe('placement component', () => {
       base = root.testBox('base')
       host = root.entity('a-box', {
         color: 'blue', 
-        placement: { on: '#' + base.id }
+        placement: { on: '#' + base.id, constrain: false }
       })
       let host2 = root.entity('a-box', {
         color: 'yellow', 
-        placement: { on: '#' + base.id }
+        placement: { on: '#' + base.id, constrain: false }
       })
       
       host2.addEventListener('placed', () => {
@@ -126,11 +126,11 @@ describe('placement component', () => {
       au.onceLoaded(base, () => {
         host = root.entity('a-box', {
           color: 'blue', 
-          placement: { on: '#' + base.id, constrain: true }
+          placement: { on: '#' + base.id, constrain: true, margin: 0 }
         })
         let host2 = root.entity('a-box', {
           color: 'yellow', 
-          placement: { on: '#' + base.id, constrain: true }
+          placement: { on: '#' + base.id, constrain: true, margin: 0 }
         })
 
         host2.addEventListener('placed', () => {
@@ -160,10 +160,10 @@ describe('placement component', () => {
         root.markBox({ position: '0.75 0.75 0.75', scale: '0.5 0.5 0.5' }),
       ]
       au.onceLoaded(base, () => {
-        host =      root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})
-        let host2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true }})
-        let host3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true }})
-        let host4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
+        host =      root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true, margin: 0 }})
+        let host2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true, margin: 0 }})
+        let host3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true, margin: 0 }})
+        let host4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true, margin: 0 }})
 
         host4.addEventListener('placed', () => {
           expect([ host, host2, host3, host4 ]).to.occupy(targets)
