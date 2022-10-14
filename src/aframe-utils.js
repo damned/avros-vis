@@ -58,10 +58,11 @@ au.getEntitySize = el => { // world space if world transforms up to date
 au.ANCHOR_BOTTOM_MIDDLE = {x:50, y:0, z:50}
 au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED = JSON.stringify(au.ANCHOR_BOTTOM_MIDDLE)
 
-const _au_resizeToConstraints = (object3d, sizeConstraints, worldSize, worldScale) => {
+const _au_resizeToConstraints = (object3d, sizeConstraints, marginPercent, worldSize, worldScale) => {
   if (sizeConstraints) {
-    if (worldSize.x != sizeConstraints.x) {
-      let scaleChangeFactor = sizeConstraints.x / worldSize.x //((100 - marginPercent - marginPercent) * sizeConstraints.x) / (worldSize.x * 100)
+    let xConstraintWithMargin = sizeConstraints.x * (1 - marginPercent / 100)
+    if (worldSize.x != xConstraintWithMargin) {
+      let scaleChangeFactor = xConstraintWithMargin / worldSize.x //((100 - marginPercent - marginPercent) * sizeConstraints.x) / (worldSize.x * 100)
       au.log('updating local scale for x constraint, scale factor: ', scaleChangeFactor)
       au.log('before scale change, worldScale: ', JSON.stringify(worldScale))
       object3d.scale.multiplyScalar(scaleChangeFactor)
@@ -71,7 +72,7 @@ const _au_resizeToConstraints = (object3d, sizeConstraints, worldSize, worldScal
   }
 }
 
-au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
+au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints, marginPercent = 0) => {
   if (JSON.stringify(anchorSpec) != au.ANCHOR_BOTTOM_MIDDLE_SERIALIZED) {
     throw new Error('Currently only support ANCHOR_BOTTOM_MIDDLE ({x: 50, y: 0, z: 50})')
   }
@@ -87,7 +88,7 @@ au.world.placeByAnchor = (anchorSpec, el, position, sizeConstraints) => {
   let worldSize = au.getEntitySize(el)
   au.log('world size', worldSize)
   
-  _au_resizeToConstraints(object3d, sizeConstraints, worldSize, worldScale) 
+  _au_resizeToConstraints(object3d, sizeConstraints, marginPercent, worldSize, worldScale) 
   
   worldSize = au.getEntitySize(el)
   
