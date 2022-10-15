@@ -23,28 +23,47 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   
   const viewTest = index => {
-    reviewerCameraRig3d.position.x = orderedRoots[index % orderedRoots.length].el.object3D.position.x
+    reviewerCameraRig3d.position.x = orderedRoots[Math.max(index, 0) % orderedRoots.length].el.object3D.position.x
   }
   
-  const KEYCODE_LEFT_ = 188
-  const KEYCODE_RIGHT = 190
+  const KEYCODE_LEFT_ANGLE = 188
+  const KEYCODE_RIGHT_ANGLE = 190
   
   const testReviewSetup = (sceneEl) => {
     sceneEl.addEventListener('enter-vr', () => {
       select('#elephant').setAttribute('color', 'red')
       debugVrMode('entered VR', sceneEl)
+      if (AFRAME.utils.device.checkHeadsetConnected()) {
+        reviewerCameraRig3d = sceneEl.camera
+        viewTest(currentReviewIndex)
+        window.addEventListener('keydown', event => {
+          console.log('keydown', event.keyCode)
+          if (event.keyCode === KEYCODE_LEFT_ANGLE) {
+            currentReviewIndex -= 1
+            viewTest(currentReviewIndex)
+            select('#elephant').setAttribute('color', 'black')
+          }
+          else if (event.keyCode === KEYCODE_RIGHT_ANGLE) {
+            currentReviewIndex += 1            
+            viewTest(currentReviewIndex)
+            select('#elephant').setAttribute('color', 'white')
+          }
+        })
+      }
       if (!AFRAME.utils.device.checkHeadsetConnected()) {
         reviewerCameraRig3d = sceneEl.camera
         viewTest(currentReviewIndex)
         window.addEventListener('keydown', event => {
           console.log('keydown', event.keyCode)
-          if (event.keyCode === KEYCODE_LEFT) {
-            currentReviewIndex += 1
+          if (event.keyCode === KEYCODE_LEFT_ANGLE) {
+            currentReviewIndex -= 1
             viewTest(currentReviewIndex)
+            select('#elephant').setAttribute('color', 'black')
           }
-          else if (event.keyCode === KEYCODE_RIGHT) {
-            currentReviewIndex -= 1            
+          else if (event.keyCode === KEYCODE_RIGHT_ANGLE) {
+            currentReviewIndex += 1            
             viewTest(currentReviewIndex)
+            select('#elephant').setAttribute('color', 'white')
           }
         })
       }
