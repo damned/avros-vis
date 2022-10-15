@@ -32,7 +32,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       select('#elephant').setAttribute('color', 'yellow')
     }
     if (AFRAME.utils.device.isMobile()) {
-      select('#elephant').setAttribute('color', 'brown')
+      select('#elephant').setAttribute('color', 'orange')
     }
 
   }
