@@ -26,6 +26,9 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     reviewerCameraRig3d.position.x = orderedRoots[index % orderedRoots.length].el.object3D.position.x
   }
   
+  const KEYCODE_LEFT_ = 188
+  const KEYCODE_RIGHT = 190
+  
   const testReviewSetup = (sceneEl) => {
     sceneEl.addEventListener('enter-vr', () => {
       select('#elephant').setAttribute('color', 'red')
@@ -33,7 +36,17 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       if (!AFRAME.utils.device.checkHeadsetConnected()) {
         reviewerCameraRig3d = sceneEl.camera
         viewTest(currentReviewIndex)
-        window.addEventListener('keydown', event => console.log('keydown', event.keyCode))
+        window.addEventListener('keydown', event => {
+          console.log('keydown', event.keyCode)
+          if (event.keyCode === KEYCODE_LEFT) {
+            currentReviewIndex += 1
+            viewTest(currentReviewIndex)
+          }
+          else if (event.keyCode === KEYCODE_RIGHT) {
+            currentReviewIndex -= 1            
+            viewTest(currentReviewIndex)
+          }
+        })
       }
     }) 
     sceneEl.addEventListener('exit-vr', () => {
