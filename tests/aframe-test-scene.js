@@ -34,24 +34,17 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       select('#elephant').setAttribute('color', 'red')
       debugVrMode('entered VR', sceneEl)
       if (AFRAME.utils.device.checkHeadsetConnected()) {
-        reviewerCameraRig3d = sceneEl.camera
+        reviewerCameraRig3d = select('#camera-rig').object3D
         viewTest(currentReviewIndex)
-        window.addEventListener('keydown', event => {
-          console.log('keydown', event.keyCode)
-          if (event.keyCode === KEYCODE_LEFT_ANGLE) {
-            currentReviewIndex -= 1
-            viewTest(currentReviewIndex)
-            select('#elephant').setAttribute('color', 'black')
-          }
-          else if (event.keyCode === KEYCODE_RIGHT_ANGLE) {
-            currentReviewIndex += 1            
-            viewTest(currentReviewIndex)
-            select('#elephant').setAttribute('color', 'white')
-          }
+        const rightHand = scene.addHtml('<a-entity id="righty" oculus-touch-controls="hand: right"></a-entity>', '#righty')
+        rightHand.addEventListener('abuttondown', event => {
+          currentReviewIndex += 1            
+          viewTest(currentReviewIndex)
+          select('#elephant').setAttribute('color', 'white')
         })
       }
       if (!AFRAME.utils.device.checkHeadsetConnected()) {
-        reviewerCameraRig3d = sceneEl.camera
+        reviewerCameraRig3d = select('#camera-rig').object3D
         viewTest(currentReviewIndex)
         window.addEventListener('keydown', event => {
           console.log('keydown', event.keyCode)
@@ -85,7 +78,10 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   const scene = {
     reset: () => {
       if (options.recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
-        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray"><a-box id="elephant" position="2 2 2" scale="2 2 2" color="black"></a-box></a-scene>'
+        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray">' 
+            + '<a-entity id="camera-rig"><a-camera></a-camera></a-entity>' 
+            + '<a-box id="elephant" position="2 2 2" scale="2 2 2" color="black"></a-box>' 
+            + '</a-scene>'
         roots = {}
         sceneEl = select('a-scene')
         testReviewSetup(sceneEl)
