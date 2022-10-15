@@ -7,7 +7,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   let roots = {}
   let orderedRoots = []
   let currentReviewIndex = 0;
-  let reviewerCameraRig3d = null;
+  let reviewerCameraRig = null;
 
   const debugVrMode = (context, sceneEl) => {
     console.log(context)
@@ -23,7 +23,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   
   const viewTest = index => {
-    reviewerCameraRig3d.position.x = orderedRoots[Math.max(index, 0) % orderedRoots.length].el.object3D.position.x
+    reviewerCameraRig.object3D.position.x = orderedRoots[Math.max(index, 0) % orderedRoots.length].el.object3D.position.x
   }
   
   const KEYCODE_LEFT_ANGLE = 188
@@ -34,9 +34,9 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       select('#elephant').setAttribute('color', 'red')
       debugVrMode('entered VR', sceneEl)
       if (AFRAME.utils.device.checkHeadsetConnected()) {
-        reviewerCameraRig3d = select('#camera-rig').object3D
+        reviewerCameraRig = select('#camera-rig')
         viewTest(currentReviewIndex)
-        const rightHand = scene.addHtml('<a-entity id="righty" oculus-touch-controls="hand: right"></a-entity>', '#righty')
+        const rightHand = scene.addHtmlTo(reviewerCameraRig, '<a-entity id="righty" oculus-touch-controls="hand: right"></a-entity>', '#righty')
         rightHand.addEventListener('abuttondown', event => {
           currentReviewIndex += 1            
           viewTest(currentReviewIndex)
@@ -44,7 +44,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         })
       }
       if (!AFRAME.utils.device.checkHeadsetConnected()) {
-        reviewerCameraRig3d = select('#camera-rig').object3D
+        reviewerCameraRig = select('#camera-rig')
         viewTest(currentReviewIndex)
         window.addEventListener('keydown', event => {
           console.log('keydown', event.keyCode)
