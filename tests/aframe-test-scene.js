@@ -6,13 +6,21 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   let select = selector => document.querySelector(selector)
   let roots = {}
 
-  const testReviewSetup = (scene, sceneEl) => {
+  const debugVrMode = (context, sceneEl) => {
+    console.log(context)
+    console.log("is('vr-mode')", sceneEl.is('vr-mode'))
+    console.log('headset connected', AFRAME.utils.device.checkHeadsetConnected())
+    console.log('is mobile (simple viewer)', AFRAME.utils.device.isMobile())
+    
+  }
+  
+  const testReviewSetup = (sceneEl) => {
     sceneEl.addEventListener('enter-vr', () => {
-      console.log('entered VR')
+      console.log('entered VR', sceneEl.is('vr-mode'))
       select('#elephant').setAttribute('color', 'red')
     }) 
     sceneEl.addEventListener('exit-vr', () => {
-      console.log('exited VR')
+      console.log('exited VR', sceneEl.is('vr-mode'))
     }) 
   }
   
@@ -21,8 +29,9 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       if (options.recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
         aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray"><a-box id="elephant" position="2 2 2" scale="2 2 2" color="black"></a-box></a-scene>'
         roots = {}
+        sceneEl = select('a-scene')
+        testReviewSetup(sceneEl)
       }
-      sceneEl = select('a-scene')
     },
     within: (handler) => {
       if (sceneEl.renderStarted) {
