@@ -7,7 +7,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   let roots = {}
   let orderedRoots = []
   let currentReviewIndex = 0;
-  let reviewerCameraRig = null;
+  let reviewerCameraRig3d = null;
 
   const debugVrMode = (context, sceneEl) => {
     console.log(context)
@@ -23,7 +23,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   
   const viewTest = index => {
-    reviewerCameraRig.object3D.position.x = orderedRoots[index % orderedRoots.length].el.object3D.position.x
+    reviewerCameraRig3d.position.x = orderedRoots[index % orderedRoots.length].el.object3D.position.x
   }
   
   const testReviewSetup = (sceneEl) => {
@@ -31,8 +31,9 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       select('#elephant').setAttribute('color', 'red')
       debugVrMode('entered VR', sceneEl)
       if (!AFRAME.utils.device.checkHeadsetConnected()) {
-        reviewerCameraRig = sceneEl.
+        reviewerCameraRig3d = sceneEl.camera
         viewTest(currentReviewIndex)
+        window.addEventListener('keydown', event => console.log('keydown', event.keyCode))
       }
     }) 
     sceneEl.addEventListener('exit-vr', () => {
