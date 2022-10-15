@@ -5,6 +5,8 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   let sceneEl = aframeContainer.querySelector('a-scene')
   let select = selector => document.querySelector(selector)
   let roots = {}
+  let currentReviewIndex = 0;
+  let cameraEl
 
   const debugVrMode = (context, sceneEl) => {
     console.log(context)
