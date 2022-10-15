@@ -6,10 +6,20 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   let select = selector => document.querySelector(selector)
   let roots = {}
 
+  const testReviewSetup = (scene, sceneEl) => {
+    sceneEl.addEventListener('enter-vr', () => {
+      console.log('entered VR')
+      select('#elephant').setAttribute('color', 'red')
+    }) 
+    sceneEl.addEventListener('exit-vr', () => {
+      console.log('exited VR')
+    }) 
+  }
+  
   const scene = {
     reset: () => {
       if (options.recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
-        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray"></a-scene>'
+        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray"><a-box id="elephant" position="2 2 2" scale="2 2 2" color="black"></a-box></a-scene>'
         roots = {}
       }
       sceneEl = select('a-scene')
@@ -77,7 +87,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       makeViewable: () => {
         let x = -1 + index * 0.5
         let scale = 0.15        
-        const displayRootWireframe = true
+        const displayRootWireframe = false
         if (displayRootWireframe) {
           const box = new THREE.BoxHelper( rootEl.object3D, 'lightyellow' );
           rootEl.object3D.add( box );          
