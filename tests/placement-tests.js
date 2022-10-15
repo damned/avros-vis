@@ -210,12 +210,12 @@ describe('placement component', () => {
         root.markBox({ position: '0.1 0.5 0.5', scale: '0.2 0.2 0.2' }),
         root.markBox({ position: '0.3 0.5 0.5', scale: '0.2 0.2 0.2' })
       ]
-      let placed =  root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true }})
-      let placed2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true }})
-      let placed3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true }})
-      let placed4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true }})
-      let placed5 = root.entity('a-box', { color: 'grey',   placement: { on: '#' + base.id, constrain: true }})
-      let placed6 = root.entity('a-box', { color: 'white',  placement: { on: '#' + base.id, constrain: true }})
+      let placed =  root.entity('a-box', { color: 'blue',   placement: { on: '#' + base.id, constrain: true, margin: 0 }})
+      let placed2 = root.entity('a-box', { color: 'yellow', placement: { on: '#' + base.id, constrain: true, margin: 0 }})
+      let placed3 = root.entity('a-box', { color: 'red',    placement: { on: '#' + base.id, constrain: true, margin: 0 }})
+      let placed4 = root.entity('a-box', { color: 'green',  placement: { on: '#' + base.id, constrain: true, margin: 0 }})
+      let placed5 = root.entity('a-box', { color: 'grey',   placement: { on: '#' + base.id, constrain: true, margin: 0 }})
+      let placed6 = root.entity('a-box', { color: 'white',  placement: { on: '#' + base.id, constrain: true, margin: 0 }})
 
       au.onceLoaded(base, () => {
         placed4.addEventListener('placed', () => {
