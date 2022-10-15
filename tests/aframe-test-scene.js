@@ -1,4 +1,4 @@
-/* global au THREE */
+/* global au THREE AFRAME */
 
 var aframeTestScene = function(options = {recreateOnReset: false}) {
   const aframeContainer = document.getElementById('aframe-container')
@@ -10,17 +10,23 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     console.log(context)
     console.log("is('vr-mode')", sceneEl.is('vr-mode'))
     console.log('headset connected', AFRAME.utils.device.checkHeadsetConnected())
+    if (AFRAME.utils.device.checkHeadsetConnected()) {
+      select('#elephant').setAttribute('color', 'blue')
+    }
     console.log('is mobile (simple viewer)', AFRAME.utils.device.isMobile())
-    
+    if (AFRAME.utils.device.isMobile()) {
+      select('#elephant').setAttribute('color', 'pink')
+    }
   }
   
   const testReviewSetup = (sceneEl) => {
     sceneEl.addEventListener('enter-vr', () => {
-      console.log('entered VR', sceneEl.is('vr-mode'))
       select('#elephant').setAttribute('color', 'red')
+      debugVrMode('entered VR', sceneEl)
     }) 
     sceneEl.addEventListener('exit-vr', () => {
-      console.log('exited VR', sceneEl.is('vr-mode'))
+      select('#elephant').setAttribute('color', 'green')
+      debugVrMode('exited VR', sceneEl)
     }) 
   }
   
