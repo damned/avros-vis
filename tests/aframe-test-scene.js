@@ -5,6 +5,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   let sceneEl = aframeContainer.querySelector('a-scene')
   let select = selector => document.querySelector(selector)
   let roots = {}
+  let orderedRoots = []
   let currentReviewIndex = 0;
   let reviewerCameraRig = null;
 
@@ -22,7 +23,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   
   const viewTest = index => {
-    
+    reviewerCameraRig.object3D.position.x = orderedRoots[index % orderedRoots.length].el.object3D.position.x
   }
   
   const testReviewSetup = (sceneEl) => {
@@ -30,12 +31,14 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       select('#elephant').setAttribute('color', 'red')
       debugVrMode('entered VR', sceneEl)
       if (!AFRAME.utils.device.checkHeadsetConnected()) {
+        reviewerCameraRig = sceneEl.
         viewTest(currentReviewIndex)
       }
     }) 
     sceneEl.addEventListener('exit-vr', () => {
       select('#elephant').setAttribute('color', 'green')
       debugVrMode('exited VR', sceneEl)
+      currentReviewIndex += 1
     })
     if (AFRAME.utils.device.checkHeadsetConnected()) {
       select('#elephant').setAttribute('color', 'yellow')
@@ -208,7 +211,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       let defaults = {
         material: {
           wireframe: true
-        },
+        }
       }
       let merged = Object.assign(defaults, { id: root.id(name) }, attributes)
       return au.entity(markRoot(), 'a-box', merged)
@@ -230,6 +233,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     if (!roots[prefix]) {
       let index = Object.keys(roots).length
       roots[prefix] = Root(prefix, index)
+      orderedRoots[index] = roots[prefix]
     }
     return roots[prefix]
   }
