@@ -6,7 +6,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   let select = selector => document.querySelector(selector)
   let roots = {}
   let currentReviewIndex = 0;
-  let cameraEl
+  let reviewerCameraRig = null;
 
   const debugVrMode = (context, sceneEl) => {
     console.log(context)
@@ -21,10 +21,17 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     }
   }
   
+  const viewTest = index => {
+    
+  }
+  
   const testReviewSetup = (sceneEl) => {
     sceneEl.addEventListener('enter-vr', () => {
       select('#elephant').setAttribute('color', 'red')
       debugVrMode('entered VR', sceneEl)
+      if (!AFRAME.utils.device.checkHeadsetConnected()) {
+        viewTest(currentReviewIndex)
+      }
     }) 
     sceneEl.addEventListener('exit-vr', () => {
       select('#elephant').setAttribute('color', 'green')
