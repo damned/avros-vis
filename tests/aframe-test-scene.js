@@ -27,7 +27,14 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     sceneEl.addEventListener('exit-vr', () => {
       select('#elephant').setAttribute('color', 'green')
       debugVrMode('exited VR', sceneEl)
-    }) 
+    })
+    if (AFRAME.utils.device.checkHeadsetConnected()) {
+      select('#elephant').setAttribute('color', 'yellow')
+    }
+    if (AFRAME.utils.device.isMobile()) {
+      select('#elephant').setAttribute('color', 'brown')
+    }
+
   }
   
   const scene = {
