@@ -16,7 +16,7 @@ describe('placement component', () => {
 
   let base, host, placed, root
 
-  beforeEach(() => scene.reset())
+  beforeEach(scene.reset)
 
   beforeEach(() => root = scene.addRoot())
 

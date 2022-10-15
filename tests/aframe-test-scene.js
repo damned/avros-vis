@@ -77,7 +77,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       makeViewable: () => {
         let x = -1 + index * 0.5
         let scale = 0.15        
-        const displayRootWireframe = false
+        const displayRootWireframe = true
         if (displayRootWireframe) {
           const box = new THREE.BoxHelper( rootEl.object3D, 'lightyellow' );
           rootEl.object3D.add( box );          
