@@ -1,16 +1,11 @@
 now
 
+improve grokkability
+ - move over fully to visual test results
+ - improve interaction in visual test results
 20 min
 all tdd
 refac to things
-
-next
-
-ditch avr-os
-pick next topic
- - dogfood code?
- - infra?
- - simple and build up?
 
 approach
 [x] spike views manually
@@ -58,6 +53,10 @@ approach
  - [ ] connectors
  - [ ] start building out current model
  - [ ] move to things and styles?
+[ ] move from avr-os to new subject for main graph, from:
+  - dogfood code?
+  - infra?
+  - simple and build up?
 
 completeness
 [x] tasks
