@@ -1,11 +1,14 @@
 /* global au THREE AFRAME */
-
-var aframeTestScene = function(options = {recreateOnReset: false}) {
+const aframeTestScene = function(overrides) {
+  const options = Object.assign({
+    sceneName: 'some scene',
+    recreateOnReset: false
+  }, overrides)
   const aframeContainer = document.getElementById('aframe-container')
   let sceneEl = aframeContainer.querySelector('a-scene')
   let select = selector => document.querySelector(selector)
   let roots = {}
-  console.log('initializing orderedRoots')
+  console.log('initializing orderedRoots for scene ' + options.sceneName)
   let orderedRoots = []
   let currentReviewIndex = 0;
   let reviewerCameraRig = null;
@@ -24,7 +27,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   
   const viewTest = index => {
-    console.log('orderedRoots length', orderedRoots.length)
+    console.log('orderedRoots length', orderedRoots.length, 'in scene', options.sceneName)
     let rootToView = orderedRoots[Math.max(index, 0) % orderedRoots.length]
     if (rootToView !== undefined) {
       reviewerCameraRig.object3D.position.x = rootToView.el.object3D.position.x

@@ -5,7 +5,7 @@ var expect = chai.expect
 chai.use(aframeAssertions());
 
 describe('chai aframe assertions', () => {
-  const scene = aframeTestScene()
+  const scene = aframeTestScene({sceneName: 'chai asserts'})
   
   const au = aframeUtils
   

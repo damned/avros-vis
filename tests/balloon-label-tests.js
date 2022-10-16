@@ -6,7 +6,7 @@ var TOLERANCE = 0.001
 
 
 describe('balloon-label component', () => {
-  const scene = aframeTestScene({recreateOnReset: false})
+  const scene = aframeTestScene({ sceneName: 'balloon labels', recreateOnReset: false})
   let root
 
   const select = selector => document.querySelector(selector)

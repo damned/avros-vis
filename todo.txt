@@ -15,6 +15,9 @@ approach
  - [x] add chai expectation(s) for matching entities under test to expected entities
  - [x] move between tests in post-testing visual review - '<' or '>' on desktop, 'A' in Quest
  - [x] lay out tests for review
+ - [.] fix scene / root mismatch vs VR/controls (init'd in first scene)
+   - [ ] could just lazy load scene so filtered is always the single scene
+   - [ ] be nicer to manage multiple scenes and allow nav between
  - [.] move all scene-based test to latest test scene / root usage
  - [.] lay out all tests and review
  - [ ] extract au.creata lib based on au.addEntityTo for cheapest creation syntax
@@ -26,6 +29,7 @@ approach
    - [ ] keep scene viewable w/ pane for embedded scene
    - [ ] bring test root into view for test (when click on it / hover?)
  - [ ] onceLoaded improvements - let test scene / root track entities and provide ability to run code once loaded 
+ - [ ] review code in visual review
 [.] move to test-drive for functionality
  - [x] basic model boards / panels
  - [x] move to things and render with styles

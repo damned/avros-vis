@@ -7,7 +7,7 @@ chai.use(aframeAssertions());
 var TOLERANCE = 0.001
 
 describe('placement component', () => {
-  const scene = aframeTestScene()
+  const scene = aframeTestScene({ sceneName: 'placement tests'})
   const select = selector => document.querySelector(selector)
   const top = au.world.top
   const bottom = au.world.bottom
