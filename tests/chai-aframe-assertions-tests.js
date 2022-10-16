@@ -5,6 +5,7 @@ var expect = chai.expect
 chai.use(aframeAssertions());
 
 describe('chai aframe assertions', () => {
+  const scene = aframeTestScene()
   const au = aframeUtils
   describe('basic mocha and chai understanding', () => {
     it('allows a passing test to be green', () => {
@@ -20,23 +21,23 @@ describe('chai aframe assertions', () => {
   })
   
   describe('in scene', () => {
-    let scene, root
-    beforeEach(() => scene = aframeTestScene())
+    let root
+    
     beforeEach(() => scene.reset())
+    afterEach(() => root.makeViewable())
     
     describe('occupy', () => {
       beforeEach(() => root = scene.addRoot())
       
       describe('for single entities', () => {
-        it('should pass if two boxes occupy the same space', done => {
-          scene.within(() => {
-            let aBox = root.entity('a-box')
-            let anotherBox = root.entity('a-box')
+        it('should pass if two boxes occupy the same space', function(done) {
+          root.testing(this)
+          let aBox = root.entity('a-box')
+          let anotherBox = root.entity('a-box')
 
-            au.onceLoaded(anotherBox, () => {
-              expect(aBox).to.occupy(anotherBox)
-              done()
-            })
+          au.onceLoaded(anotherBox, () => {
+            expect(aBox).to.occupy(anotherBox)
+            done()
           })
         })
 
