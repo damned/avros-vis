@@ -39,8 +39,7 @@ describe('balloon-label component', () => {
 
     host = root.entity('a-box', { 
       height: 0.1, 
-      'balloon-label': 'label: ouch; y-offset: 0.7', 
-      position: 2
+      'balloon-label': 'label: ouch; y-offset: 0.7'
     })
     
     au.onceLoaded(host, () => {
@@ -61,12 +60,12 @@ describe('balloon-label component', () => {
     au.onceLoaded(host, () => {
       au.onceLoaded(root.select('a-text'), label => {
         host.addEventListener('balloonlabel.moved', () => {
-          expect(pos(label).x).to.be.closeTo(1, TOLERANCE)
-          expect(pos(label).z).to.be.closeTo(3, TOLERANCE)
-          expect(pos(label).y).to.be.closeTo(2 + 0.5, TOLERANCE)
+          expect(pos(label).x).to.be.closeTo(0.1, TOLERANCE)
+          expect(pos(label).z).to.be.closeTo(0.3, TOLERANCE)
+          expect(pos(label).y).to.be.closeTo(0.2 + 0.5, TOLERANCE)
           done()
         })        
-        pos(host).set(1, 2, 3)
+        pos(host).set(0.1, 0.2, 0.3)
       })
     })
   })
