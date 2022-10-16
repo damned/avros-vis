@@ -166,7 +166,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       },
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
-      testing: function(testContext) {
+      testing: (testContext) => {
         if (this === window) {
           console.log('most likely testing from arrow test function')
         }
@@ -175,6 +175,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         }
         else {
           console.log('this is specified but not the test context')
+          console.log(this)
         }
         setTextContext(testContext)
       },
