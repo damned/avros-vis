@@ -69,9 +69,11 @@
       if (location.search.includes('refresh=true')) {
         setInterval(() => location.reload(), 10 * 1000)        
       }
+      const mainTestLinksContainer = document.querySelector('#main-test-links')
       runner.on("suite", suite => {
         if (suite.parent && suite.parent.root) {
           console.log('added top level suite', suite.title)
+          mainTestLinksContainer.insertAdjacentHTML('beforeend', '<a href="?grep=' + encodeURIComponent(suite.title) + '">' + suite.title + '</a>')
         }
       })
     </script>
