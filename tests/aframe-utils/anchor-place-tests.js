@@ -4,7 +4,7 @@ var expect = chai.expect
 
 var TOLERANCE = 0.001
 
-describe('aframe utils a.k.a. au', () => {
+describe('aframe utils anchor placement', () => {
   let select = selector => document.querySelector(selector)    
   
   describe('aframe scene related', () => {

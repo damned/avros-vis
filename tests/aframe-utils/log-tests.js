@@ -13,7 +13,7 @@ let createFakeLog = function() {
   return logFn
 }
 
-describe('aframe utils a.k.a. au', () => {
+describe('aframe utils logging', () => {
   let select = selector => document.querySelector(selector)    
   
   describe('log()', () => {

@@ -37,6 +37,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         reviewerCameraRig = select('#camera-rig')
         viewTest(currentReviewIndex)
         const rightHand = scene.addHtmlTo(reviewerCameraRig, '<a-entity id="righty" oculus-touch-controls="hand: right"></a-entity>', '#righty')
+        select('#elephant').setAttribute('color', 'pink')
         rightHand.addEventListener('abuttondown', event => {
           currentReviewIndex += 1            
           viewTest(currentReviewIndex)
@@ -143,9 +144,9 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     }
     let testName = () => {
       if (test) {
-        return test.file + test.fullTitle()
         console.log('test', test)
         return splitIntoLines(test.title, 20)
+        // return test.fullTitle() // including ancestor titles
       }
       return 'test-' + index
     }
