@@ -166,7 +166,6 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
         rootEl.setAttribute('position', `${x} 1 -0.5`)
         rootEl.setAttribute('scale', `${scale} ${scale} ${scale}`)
       },
-      onceLoaded: callback => au.onceLoaded()
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
       testing: (testContext) => {

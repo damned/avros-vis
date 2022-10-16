@@ -25,6 +25,7 @@ approach
  - [ ] mocha test runner page integration
    - [ ] keep scene viewable w/ pane for embedded scene
    - [ ] bring test root into view for test (when click on it / hover?)
+ - [ ] onceLoaded improvements - let test scene / root track entities and provide ability to run code once loaded 
 [.] move to test-drive for functionality
  - [x] basic model boards / panels
  - [x] move to things and render with styles
