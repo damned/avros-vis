@@ -112,6 +112,17 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     let testContext = undefined
     let test = undefined
     const setTextContext = (ctx) => {
+        if (ctx === window) {
+          console.warn('testing using arrow test function? use normal test functions to allow access to test context with "this"')
+        }
+        else if (this.test !== undefined) {
+          console.log('most likely testing from non-arrow test function')
+        }
+        else {
+          console.log('this is specified but not the test context')
+          console.log(this)
+        }
+
       console.log('in setTextContext')
       console.log('test from ctx', ctx.test)
       console.log('this', this)
@@ -167,16 +178,6 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
       prefix: prefix,
       select: selector => rootEl.querySelector(selector),
       testing: (testContext) => {
-        if (this === window) {
-          console.log('most likely testing from arrow test function')
-        }
-        else if (this.test !== undefined) {
-          console.log('most likely testing from non-arrow test function')
-        }
-        else {
-          console.log('this is specified but not the test context')
-          console.log(this)
-        }
         setTextContext(testContext)
       },
       withMark: (vector3, color = 'red') => {
