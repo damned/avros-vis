@@ -35,8 +35,8 @@ describe('chai aframe assertions', () => {
 
         it('should pass if two boxes occupy the same space within a small float tolerance', function(done) {
           root.testing(this)
-          let aBox = root.entity('a-box', {position: {x:1,y:1,z:0.99997}, scale: {x:1,y:1.0002,z:1}})
-          let anotherBox = root.entity('a-box', {position: {x:1.0001,y:1.0001,z:1}, scale: {x:0.99998,y:1,z:1.0000011}})
+          let aBox = root.entity('a-box', { color: 'white', position: '0.21 0.1 0.19997', scale: '1 1.0002 1'})
+          let anotherBox = root.entity('a-box', { position: '0.2001 0.1001 0.2', scale: '0.99998 1 1.0000011'})
 
           au.onceLoaded(anotherBox, () => {
             expect(aBox).to.occupy(anotherBox)
@@ -46,7 +46,7 @@ describe('chai aframe assertions', () => {
 
         it('should fail if two boxes are at different positions', function(done) {
           root.testing(this)
-          let aBox = root.entity('a-box')
+          let aBox = root.entity('a-box', { color: 'red' })
           let anotherBox = root.entity('a-box', { position: '1 0 0' })
 
           au.onceLoaded(anotherBox, () => {
