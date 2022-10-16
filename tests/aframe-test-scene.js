@@ -143,7 +143,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     }
     let testName = () => {
       if (test) {
-        return test.parent.fullTitle()
+        return test.file + test.fullTitle()
         console.log('test', test)
         return splitIntoLines(test.title, 20)
       }
