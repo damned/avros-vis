@@ -5,6 +5,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   let sceneEl = aframeContainer.querySelector('a-scene')
   let select = selector => document.querySelector(selector)
   let roots = {}
+  console.log('initializing orderedRoots')
   let orderedRoots = []
   let currentReviewIndex = 0;
   let reviewerCameraRig = null;
@@ -23,7 +24,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   
   const viewTest = index => {
-    console.log('orderedRoots', orderedRoots)
+    console.log('orderedRoots length', orderedRoots.length)
     let rootToView = orderedRoots[Math.max(index, 0) % orderedRoots.length]
     if (rootToView !== undefined) {
       reviewerCameraRig.object3D.position.x = rootToView.el.object3D.position.x
@@ -276,7 +277,9 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     if (!roots[prefix]) {
       let index = Object.keys(roots).length
       roots[prefix] = Root(prefix, index)
+      console.log('adding to orderedRoots using index ' + index)
       orderedRoots[index] = roots[prefix]
+      console.log('orderedRoots length ' + orderedRoots.length)
     }
     return roots[prefix]
   }

@@ -45,7 +45,7 @@ describe('aframe utils', () => {
   })
   
   describe('aframe scene related', () => {
-    const scene = aframeTestScene()
+    const scene = aframeTestScene({ sceneName: 'aframe utils'})
 
     beforeEach(scene.reset)
     
