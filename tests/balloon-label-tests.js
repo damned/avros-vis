@@ -13,7 +13,7 @@ describe('balloon-label component', () => {
 
   let host
 
-  beforeEach(() => scene.reset())
+  beforeEach(scene.reset)
       
   it('should place the label directly above the host entity, by default 0.5 above origin', (done) => {
     root = scene.addRoot('static-label')
