@@ -23,7 +23,7 @@ describe('balloon-label component', () => {
     
     host = root.entity('a-box', { height: 0.1, 'balloon-label': 'label: oof'})
     
-    au.onceLoaded(host, () => {
+    root.onceLoaded(() => {
       au.onceLoaded(root.select('a-text'), label => {
         expect(pos(label).x).to.be.closeTo(pos(host).x, TOLERANCE)
         expect(pos(label).z).to.be.closeTo(pos(host).z, TOLERANCE)
