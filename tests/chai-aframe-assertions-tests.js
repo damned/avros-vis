@@ -24,8 +24,8 @@ describe('chai aframe assertions', () => {
       describe('for single entities', () => {
         it('should pass if two boxes occupy the same space', function(done) {
           root.testing(this)
-          let aBox = root.entity('a-box')
-          let anotherBox = root.entity('a-box')
+          let aBox = root.testBox('first', { color: 'blue' })
+          let anotherBox = root.testBox('second', { color: 'darkblue' })
 
           au.onceLoaded(anotherBox, () => {
             expect(aBox).to.occupy(anotherBox)

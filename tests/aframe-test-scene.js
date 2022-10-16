@@ -223,7 +223,7 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
           'y-offset': 1.2
         },
         material: {
-          color: attributes.color | 'mauve',
+          color: attributes.color || 'mauve',
           transparent: true, 
           opacity: 0.3
         },
