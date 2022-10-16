@@ -112,21 +112,12 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     let testContext = undefined
     let test = undefined
     const setTextContext = (ctx) => {
-        if (ctx === window) {
-          console.warn('testing using arrow test function? use normal test functions to allow access to test context with "this"')
-        }
-        else if (this.test !== undefined) {
-          console.log('most likely testing from non-arrow test function')
-        }
-        else {
-          console.log('this is specified but not the test context')
-          console.log(this)
-        }
-
-      console.log('in setTextContext')
-      console.log('test from ctx', ctx.test)
-      console.log('this', this)
-      console.log('test from this', this.test)
+      if (ctx === window) {
+        console.warn('testing using arrow test function? use normal test functions to allow access to test context with "this"')
+      }
+      else if (ctx.test === undefined) {
+        console.warn('passed argument as test context does not have test information, should use "this" to access mocha test context')
+      }
       test = ctx.test
       testContext = ctx
     }

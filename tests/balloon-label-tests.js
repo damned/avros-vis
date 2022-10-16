@@ -15,6 +15,7 @@ describe('balloon-label component', () => {
   let host
 
   beforeEach(scene.reset)
+  afterEach(() => root.makeViewable())
       
   it('should place the label directly above the host entity, by default 0.5 above origin', function(done) {
     root = scene.addRoot('static-label')
@@ -32,8 +33,9 @@ describe('balloon-label component', () => {
     })
   })
   
-  it('should place the label directly above the host entity, by specified offset above origin plus 0.5', (done) => {
+  it('should place the label directly above the host entity, by specified offset above origin plus 0.5', function(done) {
     root = scene.addRoot('static-offset-label')
+    root.testing(this)
 
     host = root.entity('a-box', { 
       height: 0.1, 
@@ -51,8 +53,9 @@ describe('balloon-label component', () => {
     })
   })
   
-  it('should move the label directly over the host entity when it moves', (done) => {
+  it('should move the label directly over the host entity when it moves', function(done) {
     root = scene.addRoot('dynamic-label')
+    root.testing(this)
     
     host = root.entity('a-box', { height: 0.1, 'balloon-label': 'label: boff'})
     au.onceLoaded(host, () => {
