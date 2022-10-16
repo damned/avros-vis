@@ -13,7 +13,7 @@
       #mocha-stats em {
         color: yellow
       }
-      a:visited {
+      a:link, a:visited {
         color: lightgray
       }
     </style>
@@ -27,12 +27,13 @@
     <script src="src/balloon-label.js"></script>
   </head>
   <body>
-    <div id="main-test-links">
+    <div>
       <p>
         Test group links
       </p>
-      <a href="tests.html">All tests</a>
-      <a href="?grep=placement+component">placement component</a>
+      <ul id="main-test-links">
+        <li><a href="tests.html">All tests</a></li>
+      </ul>
     </div>
     <div id="mocha"></div>
     <div id="aframe-container" style="min-height: 400px">
@@ -73,7 +74,7 @@
       runner.on("suite", suite => {
         if (suite.parent && suite.parent.root) {
           console.log('added top level suite', suite.title)
-          mainTestLinksContainer.insertAdjacentHTML('beforeend', '<a href="?grep=' + encodeURIComponent(suite.title) + '">' + suite.title + '</a>')
+          mainTestLinksContainer.insertAdjacentHTML('beforeend', '<li><a href="?grep=' + encodeURIComponent(suite.title) + '">' + suite.title + '</a></li>')
         }
       })
     </script>
