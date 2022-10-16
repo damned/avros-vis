@@ -112,6 +112,8 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
     let testContext = undefined
     let test = undefined
     const setTextContext = (ctx) => {
+      console.log('in setTextContext')
+      console.log('ctx', JSON.stringify(ctx))
       test = ctx.test
       testContext = ctx
     }

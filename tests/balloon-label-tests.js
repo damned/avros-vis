@@ -17,6 +17,7 @@ describe('balloon-label component', () => {
       
   it('should place the label directly above the host entity, by default 0.5 above origin', (done) => {
     root = scene.addRoot('static-label')
+    root.testing(this)
     
     host = root.entity('a-box', { height: 0.1, 'balloon-label': 'label: oof'})
     
