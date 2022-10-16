@@ -23,7 +23,11 @@ var aframeTestScene = function(options = {recreateOnReset: false}) {
   }
   
   const viewTest = index => {
-    reviewerCameraRig.object3D.position.x = orderedRoots[Math.max(index, 0) % orderedRoots.length].el.object3D.position.x
+    console.log('orderedRoots', orderedRoots)
+    let rootToView = orderedRoots[Math.max(index, 0) % orderedRoots.length]
+    if (rootToView !== undefined) {
+      reviewerCameraRig.object3D.position.x = rootToView.el.object3D.position.x
+    }
   }
   
   const KEYCODE_LEFT_ANGLE = 188
