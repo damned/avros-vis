@@ -4,7 +4,6 @@ var expect = chai.expect
 
 var TOLERANCE = 0.001
 
-var test
 
 describe('balloon-label component', () => {
   const scene = aframeTestScene({recreateOnReset: false})
@@ -17,9 +16,8 @@ describe('balloon-label component', () => {
 
   beforeEach(scene.reset)
       
-  it('should place the label directly above the host entity, by default 0.5 above origin', test = (done) => {
+  it('should place the label directly above the host entity, by default 0.5 above origin', function(done) {
     root = scene.addRoot('static-label')
-    console.log('test function assigned at test declaration', test.name)
     root.testing(this)
     
     host = root.entity('a-box', { height: 0.1, 'balloon-label': 'label: oof'})
