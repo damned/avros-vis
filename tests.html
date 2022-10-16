@@ -65,10 +65,15 @@
     <script src="tests/balloon-label-tests.js"></script>
     
     <script class="mocha-exec">
-      mocha.run();
+      const runner = mocha.run();
       if (location.search.includes('refresh=true')) {
         setInterval(() => location.reload(), 10 * 1000)        
       }
+      runner.on("suite", suite => {
+        if (suite.parent && suite.parent.root) {
+          console.log('added top level suite', suite.title)
+        }
+      })
     </script>
   </body>
 </html>
