@@ -19,7 +19,6 @@ describe('placement component', () => {
   beforeEach(scene.reset)
 
   beforeEach(() => root = scene.addRoot())
-
   afterEach(() => root.makeViewable())
 
   it('should place its entity directly on top of its on base', function(done) {
