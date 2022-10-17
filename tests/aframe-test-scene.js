@@ -94,7 +94,7 @@ const aframeTestScene = function(overrides) {
     reset: () => {
       console.log('running reset for scene: ' + sceneId())
       if (options.recreateOnReset || aframeContainer.querySelector('a-scene#' + sceneId()) === null) {
-        aframeContainer.insertAdjacentHTML('afterbegin', '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray">' 
+        aframeContainer.insertAdjacentHTML('afterbegin', '<a-scene id="' + sceneId() + '" embedded style="height: 300px; width: 600px;" background="color: lightgray">' 
             + '<a-entity id="camera-rig"><a-camera></a-camera></a-entity>' 
             + '<a-box id="elephant" position="2 2 2" scale="2 2 2" color="black"></a-box>' 
             + '</a-scene>')
