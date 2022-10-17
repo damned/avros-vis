@@ -1,14 +1,20 @@
 /* global au THREE AFRAME */
 const aframeTestScene = function(overrides) {
   const options = Object.assign({
-    sceneName: 'some scene',
     recreateOnReset: false
   }, overrides)
+  const sceneName = () => {
+    if (options.sceneName) {
+      return options.sceneName
+    }
+    throw new Error('sceneName not set')
+  }
+  const sceneId = () => sceneName().toLowerCase().replaceAll(' ', '-')
   const aframeContainer = document.getElementById('aframe-container')
   let sceneEl = aframeContainer.querySelector('a-scene')
   let select = selector => document.querySelector(selector)
   let roots = {}
-  console.log('initializing orderedRoots for scene ' + options.sceneName)
+  console.log('initializing orderedRoots for scene ' + sceneId())
   let orderedRoots = []
   let currentReviewIndex = 0;
   let reviewerCameraRig = null;
@@ -27,7 +33,7 @@ const aframeTestScene = function(overrides) {
   }
   
   const viewTest = index => {
-    console.log('orderedRoots length', orderedRoots.length, 'in scene', options.sceneName)
+    console.log('orderedRoots length', orderedRoots.length, 'in scene', sceneId())
     let rootToView = orderedRoots[Math.max(index, 0) % orderedRoots.length]
     if (rootToView !== undefined) {
       reviewerCameraRig.object3D.position.x = rootToView.el.object3D.position.x
@@ -86,16 +92,16 @@ const aframeTestScene = function(overrides) {
   
   const scene = {
     reset: () => {
-      console.log('running reset for scene: ' + options.sceneName)
-      if (options.recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
-        aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray">' 
+      console.log('running reset for scene: ' + sceneId())
+      if (options.recreateOnReset || aframeContainer.querySelector('a-scene#' + sceneId()) === null) {
+        aframeContainer.insertAdjacentHTML('afterbegin', '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray">' 
             + '<a-entity id="camera-rig"><a-camera></a-camera></a-entity>' 
             + '<a-box id="elephant" position="2 2 2" scale="2 2 2" color="black"></a-box>' 
-            + '</a-scene>'
+            + '</a-scene>')
         roots = {}
-        sceneEl = select('a-scene')
+        sceneEl = select('a-scene#' + sceneId())
         testReviewSetup(sceneEl)
-        console.log('wiring test review setup for scene: ' + options.sceneName)
+        console.log('wiring test review setup for scene: ' + sceneId())
       }
     },
     within: (handler) => {

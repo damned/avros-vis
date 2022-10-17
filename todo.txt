@@ -16,6 +16,7 @@ approach
  - [x] move between tests in post-testing visual review - '<' or '>' on desktop, 'A' in Quest
  - [x] lay out tests for review
  - [.] fix scene / root mismatch vs VR/controls (init'd in first scene)
+   - [ ] decide whether we want 1 scene or multiple scenes - and then have 1 actual scene or multiple or move away from scenes altogether
    - [ ] could just lazy load scene so filtered is always the single scene
    - [ ] be nicer to manage multiple scenes and allow nav between
  - [.] move all scene-based test to latest test scene / root usage
