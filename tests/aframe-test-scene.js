@@ -86,6 +86,7 @@ const aframeTestScene = function(overrides) {
   
   const scene = {
     reset: () => {
+      console.log('running reset for scene: ' + options.sceneName)
       if (options.recreateOnReset || aframeContainer.querySelector('a-scene') === null) {
         aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;" background="color: lightgray">' 
             + '<a-entity id="camera-rig"><a-camera></a-camera></a-entity>' 
@@ -94,6 +95,7 @@ const aframeTestScene = function(overrides) {
         roots = {}
         sceneEl = select('a-scene')
         testReviewSetup(sceneEl)
+        console.log('wiring test review setup for scene: ' + options.sceneName)
       }
     },
     within: (handler) => {
