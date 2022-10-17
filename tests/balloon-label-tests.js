@@ -17,7 +17,7 @@ describe('balloon-label component', () => {
   beforeEach(scene.reset)
   afterEach(() => root.makeViewable())
       
-  it('should place the label directly above the labelled entity, by default 0.5 above origin', function(done) {
+  xit('should place the label directly above the labelled entity, by default 0.5 above origin', function(done) {
     root = scene.addRoot('static-label')
     root.testing(this)
     
@@ -33,7 +33,7 @@ describe('balloon-label component', () => {
     })
   })
   
-  it('should place the label directly above the labelled entity, by specified offset above origin plus 0.5', function(done) {
+  xit('should place the label directly above the labelled entity, by specified offset above origin plus 0.5', function(done) {
     root = scene.addRoot('static-offset-label')
     root.testing(this)
 
@@ -52,7 +52,7 @@ describe('balloon-label component', () => {
     })
   })
   
-  it('should move the label directly over the labelled entity when it moves', function(done) {
+  xit('should move the label directly over the labelled entity when it moves', function(done) {
     root = scene.addRoot('dynamic-label')
     root.testing(this)
     

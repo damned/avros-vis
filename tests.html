@@ -53,18 +53,26 @@
     </script>
     
     <script src="tests/aframe-test-scene.js"></script>
-<!--
-    disabling because world space tests now failing with multiple scens   
     <script src="tests/chai-aframe-assertions-tests.js"></script> 
     <script src="tests/split-tests.js"></script>
     <script src="tests/edge-tests.js"></script>
     <script src="tests/placement-tests.js"></script>
     <script src="tests/aframe-utils-tests.js"></script>
-    <script src="tests/aframe-utils/anchor-place-tests.js"></script>
-    <script src="tests/aframe-utils/log-tests.js"></script> -->
+    <script src="tests/aframe-utils/log-tests.js"></script>
+
+    <script src="tests/balloon-label-tests.js"></script>
+    <script src="tests/model-tests.js"></script>
     <script src="tests/aframe-utils/world-space-tests.js"></script>
-<!--     <script src="tests/model-tests.js"></script>
-    <script src="tests/balloon-label-tests.js"></script> -->
+    <script src="tests/aframe-utils/anchor-place-tests.js"></script>
+
+<!--
+
+    disabling because world space tests now failing with multiple scenes - maybe lack of specificity in
+    selecting entities to assert against?
+
+
+-->
+
     
     <script class="mocha-exec">
       const runner = mocha.run();
