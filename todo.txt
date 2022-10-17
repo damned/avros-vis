@@ -17,7 +17,7 @@ approach
  - [x] lay out tests for review
  - [.] fix scene / root mismatch vs VR/controls (init'd in first scene)
    - [x] separate a-scene per Scene object
-   - [ ] fix au world space tests vs balloon label tests conflict
+   - [.] fix au world space tests vs balloon label tests conflict - move to test roots
    - [ ] ensure hook up on enter vr on correct scene, wire keyboard into correct scene (at mo randoming around scenes)
  - [.] move all scene-based test to latest test scene / root usage
  - [.] lay out all tests and review
