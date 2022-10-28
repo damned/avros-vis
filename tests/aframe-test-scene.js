@@ -93,7 +93,7 @@ const aframeTestScene = function(overrides) {
   let consoleEl
   const scene = {
     reset: () => {
-      console.log('running reset for scene: ' + sceneId())
+      au.log('running reset for scene: ' + sceneId())
       if (options.recreateOnReset || aframeContainer.querySelector('a-scene#' + sceneId()) === null) {
         aframeContainer.insertAdjacentHTML('afterbegin', '<a-scene id="' + sceneId() + '" embedded style="height: 300px; width: 600px;" background="color: lightgray">' 
             + '<a-entity id="camera-rig"><a-camera></a-camera></a-entity>' 
@@ -125,7 +125,7 @@ const aframeTestScene = function(overrides) {
     addHtml: (html, selector) => scene.addHtmlTo(sceneEl, html, selector),
     turnOnConsole: () => {
       if (consoleEl === undefined) {
-        consoleEl = scene.addHtml('', '#' ++ '.consoleEl')        
+        consoleEl = scene.addHtml('<a-text class="console" position="0 2 -2" value="console"></a-text>', '#' + sceneId() + ' .console')
       }
 
     }
