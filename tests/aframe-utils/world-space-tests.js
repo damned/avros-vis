@@ -8,8 +8,9 @@ describe('aframe utils space functions', () => {
   let select = selector => document.querySelector(selector)    
   
   describe('aframe scene related', () => {
-    const scene = aframeTestScene({ sceneName: 'aframe utils space functions'})
+    let scene
 
+    beforeAll(() => scene = aframeTestScene({ sceneName: 'aframe utils space functions'}))
     beforeEach(scene.reset)
     
     describe('world-space utils', () => {
