@@ -90,6 +90,7 @@ const aframeTestScene = function(overrides) {
 
   }
   
+  let consoleEl
   const scene = {
     reset: () => {
       console.log('running reset for scene: ' + sceneId())
@@ -121,7 +122,13 @@ const aframeTestScene = function(overrides) {
       }
       return undefined
     },
-    addHtml: (html, selector) => scene.addHtmlTo(sceneEl, html, selector)
+    addHtml: (html, selector) => scene.addHtmlTo(sceneEl, html, selector),
+    turnOnConsole: () => {
+      if (consoleEl === undefined) {
+        consoleEl = scene.addHtml('', '#' ++ '.consoleEl')        
+      }
+
+    }
   }
   scene.inScene = scene.within
   
@@ -172,6 +179,7 @@ const aframeTestScene = function(overrides) {
       addHtmlTo: (parent, html, selector) => scene.addHtmlTo(parent, html, selector),
       el: rootEl,
       makeViewable: () => {
+        scene.turnOnConsole()
         let x = -1 + index * 0.5
         let scale = 0.15        
         const displayRootWireframe = false
