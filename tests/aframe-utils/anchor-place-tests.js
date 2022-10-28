@@ -139,7 +139,7 @@ describe('aframe utils anchor placement', () => {
             let scaledParent = anchorTestRoot.addHtml('<a-entity id="scaled-blf-parent" position="-1 1 -1" scale="0.4 0.4 0.4">', '#scaled-blf-parent')
             scaledParent.addEventListener('loaded', () => {
               // scaledParent.addtextbox(...)
-              subject = anchorTestRoot.addTestBoxTo(scaledParent, 'scaled-blf-child', '-1 1 -1', 'turqouise', { boxSize: 1 }, {})
+              subject = anchorTestRoot.addTestBoxTo(scaledParent, 'scaled-blf-child', '-1 1 -1', 'cyan', { boxSize: 1 }, {})
               subject.addEventListener('loaded', () => {
                 let anchor = withMark(au.world.anchorPoint(bottomLeftFarAnchor, subject))
                 expect(anchor.x).to.be.closeTo(-1.6, TOLERANCE)
