@@ -8,9 +8,10 @@ describe('aframe utils anchor placement', () => {
   let select = selector => document.querySelector(selector)    
   
   describe('aframe scene related', () => {
-    const scene = aframeTestScene({ sceneName: 'aframe utils anchor placement'})
+    let scene
 
-    beforeEach(scene.reset)
+    before(() => scene = aframeTestScene({ sceneName: 'aframe utils anchor placement'}))
+    beforeEach(() => scene.reset())
     
     let vec3 = (x, y, z) => new THREE.Vector3(x, y, z)
     let subject

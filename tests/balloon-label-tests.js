@@ -6,9 +6,12 @@ var TOLERANCE = 0.001
 
 
 describe('balloon-label component', () => {
-  const scene = aframeTestScene({ sceneName: 'balloon labels', recreateOnReset: false})
-  let root
+  let scene, root
 
+  before(() => scene = aframeTestScene({ sceneName: 'balloon labels', recreateOnReset: false}))
+  beforeEach(() => scene.reset())
+
+  
   const select = selector => document.querySelector(selector)
   const pos = el => el.object3D.position
 

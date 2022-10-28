@@ -45,9 +45,10 @@ describe('aframe utils', () => {
   })
   
   describe('aframe scene related', () => {
-    const scene = aframeTestScene({ sceneName: 'aframe utils'})
+    let scene
 
-    beforeEach(scene.reset)
+    before(() => scene = aframeTestScene({ sceneName: 'aframe utils'}))
+    beforeEach(() => scene.reset())
     
     describe('earliestAncestor()', () => {
       

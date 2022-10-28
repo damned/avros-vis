@@ -6,6 +6,8 @@ chai.use(aframeAssertions());
 
 describe('chai aframe assertions', () => {
   const scene = aframeTestScene({sceneName: 'chai asserts'})
+    before(() => scene = aframeTestScene({ sceneName: 'aframe utils space functions'}))
+    beforeEach(() => scene.reset())
   
   const au = aframeUtils
   

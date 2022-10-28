@@ -10,8 +10,8 @@ describe('aframe utils space functions', () => {
   describe('aframe scene related', () => {
     let scene
 
-    beforeAll(() => scene = aframeTestScene({ sceneName: 'aframe utils space functions'}))
-    beforeEach(scene.reset)
+    before(() => scene = aframeTestScene({ sceneName: 'aframe utils space functions'}))
+    beforeEach(() => scene.reset())
     
     describe('world-space utils', () => {
       
