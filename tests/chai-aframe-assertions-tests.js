@@ -5,11 +5,10 @@ var expect = chai.expect
 chai.use(aframeAssertions());
 
 describe('chai aframe assertions', () => {
-  const scene = aframeTestScene({sceneName: 'chai asserts'})
-    before(() => scene = aframeTestScene({ sceneName: 'aframe utils space functions'}))
-    beforeEach(() => scene.reset())
-  
   const au = aframeUtils
+  let scene
+
+  before(() => scene = aframeTestScene({sceneName: 'chai asserts'}))
   
   describe('in scene', () => {
     let root

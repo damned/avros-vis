@@ -241,7 +241,7 @@ const aframeTestScene = function(overrides) {
           'y-offset': 1.2
         },
         material: {
-          color: attributes.color || 'mauve',
+          color: attributes.color || 'purple',
           transparent: true, 
           opacity: 0.3
         },

@@ -10,14 +10,12 @@ describe('balloon-label component', () => {
 
   before(() => scene = aframeTestScene({ sceneName: 'balloon labels', recreateOnReset: false}))
   beforeEach(() => scene.reset())
-
   
   const select = selector => document.querySelector(selector)
   const pos = el => el.object3D.position
 
   let labelled
 
-  beforeEach(scene.reset)
   afterEach(() => root.makeViewable())
       
   xit('should place the label directly above the labelled entity, by default 0.5 above origin', function(done) {

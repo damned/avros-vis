@@ -7,16 +7,18 @@ chai.use(aframeAssertions());
 var TOLERANCE = 0.001
 
 describe('placement component', () => {
-  const scene = aframeTestScene({ sceneName: 'placement tests'})
   const select = selector => document.querySelector(selector)
   const top = au.world.top
   const bottom = au.world.bottom
   const width = au.world.width
   const pos = el => el.object3D.position
+  
+  let scene
 
   let base, host, placed, root
 
-  beforeEach(scene.reset)
+  before(() => scene = aframeTestScene({ sceneName: 'placement tests'}))
+  beforeEach(() => scene.reset())
 
   beforeEach(() => root = scene.addRoot())
   afterEach(() => root.makeViewable())
