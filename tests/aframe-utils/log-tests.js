@@ -93,7 +93,8 @@ describe('aframe utils logging', () => {
         
         au.log('boo'); let errorToCaptureLineNumber = new Error()
         
-        expect(fakeLog.getCalls()[0]).to.startsWith(THIS_TEST_FILE + ':' + lineNumberFromStack(errorToCaptureLineNumber.stack))
+        expect(fakeLog.getCalls()[0][0]).to.eql(THIS_TEST_FILE + ':' + lineNumberFromStack(errorToCaptureLineNumber.stack))
+        expect(fakeLog.getCalls()[0][1]).to.eql('boo')
       })
     })
   })

@@ -143,7 +143,7 @@ au.log = function() {
   if (self.includeCaller) {
     const callerStackOffset = 2
     let caller = new Error().stack.split('\n')[callerStackOffset]
-    args.push('\n...' + caller)
+    args.unshift(caller.match(/\/([^\/]*:\d+):/)[1])
   }
   self.logImpl.apply(this, args)
 }
