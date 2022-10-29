@@ -55,7 +55,7 @@ AFRAME.registerComponent('follower', {
     let leaderSpec = this.data.leader
     // this.el.setAttribute('debugged', `follower: leaderSpec = ${leaderSpec}`)
     log('follower update', leaderSpec)
-    this.leader = $(leaderSpec).get(0)
+    this.leader = document.querySelector(leaderSpec)
     // this.el.setAttribute('debugged', 'follower: leader = ' + leaderSpec)
   },
   follow: function(leader, lock='') {

@@ -162,7 +162,7 @@ const aframeTestScene = function(overrides) {
     }
     else {
       console.log('waiting for render to start')
-      scene.addEventListener('renderstart', onRenderStartHandler)
+      sceneEl.addEventListener('renderstart', handler)
     }
   }
   let applyActions = function(handler) {
