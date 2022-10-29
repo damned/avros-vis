@@ -13,6 +13,10 @@ let createFakeLog = function() {
   return logFn
 }
 
+const lineNumberFromStack = stack => {
+  return stack.split('\n').find(line => line.includes('log-tests.js'))
+}
+
 describe('aframe utils logging', () => {
   let select = selector => document.querySelector(selector)    
   
@@ -38,6 +42,7 @@ describe('aframe utils logging', () => {
       beforeEach(() => {
         fakeLog = createFakeLog()
         au.log.logImpl = fakeLog
+        au.log.prefixWithCallSite = false
         au.log.active = true
       })
       it('should actually log for a single non-function argument', () => {
@@ -83,9 +88,8 @@ describe('aframe utils logging', () => {
       it('should prefix logging with call site information if turned on', () => {
         au.log.prefixWithCallSite = true
         au.log('boo')
-        expect(fakeLog.getCalls().length).to.eql(0)
+        expect(fakeLog.getCalls()[0]).to.startsWith('log-tests.js:' +    lineNumberFromStack(new Error().stack))
       })
-      afterEach()
     })
   })
 })
