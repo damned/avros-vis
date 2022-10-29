@@ -98,7 +98,7 @@ AFRAME.registerComponent('placement', {
       log('update: baseHost progenitor is loaded: ', au.earliestAncestor(baseHost).hasLoaded)
 
       if (au.earliestAncestor(baseHost).hasLoaded) {
-        placeOn()
+        placeSelfOnBase()
       }
       else {
         au.earliestAncestor(baseHost).addEventListener('loaded', placeOn)
