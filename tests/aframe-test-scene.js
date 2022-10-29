@@ -152,6 +152,29 @@ const aframeTestScene = function(overrides) {
     }
   }
   scene.inScene = scene.within
+  let actionDelayMs = 20
+  let applyAction = (handler) => {
+    if (sceneEl.renderStarted) {
+      console.log('render already started!')
+      setTimeout(() => { // maybe really should be waiting for next render cycle (or complete this and another?)
+        handler()
+      }, actionDelayMs)
+    }
+    else {
+      console.log('waiting for render to start')
+      scene.addEventListener('renderstart', onRenderStartHandler)
+    }
+  }
+  let applyActions = function(handler) {
+    let handlers = Array.from(arguments)
+    applyAction(() => {
+      handlers[0]()
+      if (handlers.length > 1) {
+        applyActions.apply(this, handlers.slice(1))
+      }
+    })
+  }
+  scene.actions = applyActions
   
   function Root(prefix, index) {
     let testContext = undefined

@@ -15,6 +15,14 @@ au.doubleTick = handler => au.tick(() => {
   })
 })
 
+au.catching = fn => {
+  try {
+    fn();
+  } catch (e) {
+    au.log("caught exception in catching", e);
+  }
+}
+
 
 au.world = {}
 

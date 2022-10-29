@@ -1,4 +1,4 @@
-/* global aframeTestScene */
+/* global aframeTestScene testable */
 describe('follower component', () => {
   
   let scene, root
@@ -13,7 +13,7 @@ describe('follower component', () => {
  
   afterEach(() => root.makeViewable())
   
-  it('should follow another component functionally', function(done) {
+  it('should follow another component functionally', done => {
     
 
     let leaderEl = root.addHtml('<a-box id="theleader" opacity="0.2" color="yellow" position="-1 1 -3"></a-box>', '#theleader')
@@ -23,10 +23,12 @@ describe('follower component', () => {
     let follower = testable(followerEl)
 
     scene.actions(() => {
+      console.log('first action')
       expect(follower.position).to.shallowDeepEqual(leader.position)        
       leader.position.set(2, 2, 2)
     },
     () => {
+      console.log('about done')
       expect(follower.position).to.shallowDeepEqual({x: 2, y: 2, z: 2})
       done()
     })
