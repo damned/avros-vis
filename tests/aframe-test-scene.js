@@ -1,4 +1,21 @@
 /* global au THREE AFRAME */
+let testable = (entity, componentName) => {
+  let position = () => entity.object3D.position
+  let api = {
+    moveTo: pos => {
+      position().copy(pos)
+    },
+    get position() {
+      return position()
+    }
+  }
+  if (componentName) {
+    api[componentName] = () => entity.components[componentName]
+  }
+  return api
+}
+
+
 const aframeTestScene = function(overrides) {
   const options = Object.assign({
     recreateOnReset: false

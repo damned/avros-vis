@@ -1,25 +1,23 @@
 /* global aframeTestScene */
 describe('follower component', () => {
   
-  let scene
+  let scene, root
 
-  let base, host, placed, root
-
-  before(function() {  })
-  beforeEach(function() {
+  before(function() {
     scene = aframeTestScene({ context: this })
+  })
+  beforeEach(function() {
     scene.reset()
+    root = scene.addRoot()
   })
  
-  beforeEach(() => root = scene.addRoot())
   afterEach(() => root.makeViewable())
   
-  it('should follow another component functionally', (done) => {
-    let leaderEl = $('<a-box id="theleader" opacity="0.2" color="yellow" position="-1 1 -3"></a-box>').get(0)
-    let followerEl = $('<a-sphere id="thefollower" color="red" follower="leader: #theleader" radius="0.4" position="1 1 -2"></a-sphere>').get(0)
+  it('should follow another component functionally', function(done) {
+    
 
-    scene.append(leaderEl)
-    scene.append(followerEl)
+    let leaderEl = root.addHtml('<a-box id="theleader" opacity="0.2" color="yellow" position="-1 1 -3"></a-box>', '#theleader')
+    let followerEl = root.addHtml('<a-sphere id="thefollower" color="red" follower="leader: #theleader" radius="0.4" position="1 1 -2"></a-sphere>', '#thefollower')
 
     let leader = testable(leaderEl)
     let follower = testable(followerEl)
