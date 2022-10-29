@@ -10,14 +10,19 @@
     <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
     
     <script crossorigin src="https://unpkg.com/lodash@1.3.0/dist/lodash.min.js"></script>
+
+    
+    <script crossorigin src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
     <script src="src/aframe-utils.js"></script>
     <script src="src/balloon-label.js"></script>
     <script src="src/split.js"></script>
     <script src="src/placement.js"></script>
     <script src="src/edge.js"></script>
+    <script src="https://vr-builder.glitch.me/js/aframe-util.js"></script>
     <script src="https://vr-builder.glitch.me/js/grabber.js"></script>
     <script src="https://vr-builder.glitch.me/js/hand.js"></script>
     <script src="https://vr-builder.glitch.me/js/move-handles.js"></script>
+    <script src="https://vr-builder.glitch.me/js/toucher.js"></script>
     <script src="https://vr-builder.glitch.me/js/user-mover.js"></script>
     <script type="application/javascript">
       aframeUtils.log.includeCaller = true
@@ -32,8 +37,6 @@
         <img id="four-way-arrow" src="https://cdn.glitch.com/a0e144b7-dc44-4d24-a07d-26b1afe59bcf%2Ffour-way-arrow.png?v=1594823269623">
       </a-assets>
 
-      <a-entity move-handles="gap: 0.6; extent: 6; height: 0.85; size: 0.12"></a-entity>
-      
       <a-entity position="0 0 -1">
         
         <a-entity id="main-display" class="display" position="0 1 -0.5" scale="0.5 0.5 0.5">
@@ -110,6 +113,8 @@
         <a-entity id="right-hand" user-mover hand-side="right"></a-entity>
       </a-entity>
       
+      <a-entity move-handles="gap: 0.6; extent: 6; height: 0.85; size: 0.12"></a-entity>
+
     </a-scene>
     <script>
       // let builder = ModelBuilder(document.querySelector('a-scene'))
