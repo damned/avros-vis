@@ -55,6 +55,22 @@ approach
    - [ ] auto-stretch for placed entities (e.g. subnets)
    - [ ] multi-segment edges (squared)
    - [ ] place on multiple entities - specify order
+ - [.] allow user interaction - re-use vr-builder components
+   - [x] hands
+   - [x] self-move
+   - [x] allow grab-move hard-positioned base
+     - [x] spike with placements updating to new position at end
+     - [ ] backfill tests for update on moveend
+     - [ ] trigger other relevant updates
+       - [ ] update edge positions
+   - [ ] move vr-builder components into project with tests and removal of jquery
+     - [ ] hand.js
+     - [ ] grabber.js
+     - [ ] toucher.js
+     - [ ] user-mover.js
+     - [ ] follower.js
+     - [ ] etc.
+   - [ ] placement on base when grab-move object onto base
  - [ ] refactor model to use placement components
  - [ ] add onto existing entities
  - [ ] connectors
