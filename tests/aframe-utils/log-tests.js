@@ -80,6 +80,12 @@ describe('aframe utils logging', () => {
         au.log(logFn)
         expect(called).to.be.false
       })
+      it('should prefix logging with call site information if turned on', () => {
+        au.log.prefixWithCallSite = true
+        au.log('boo')
+        expect(fakeLog.getCalls().length).to.eql(0)
+      })
+      afterEach()
     })
   })
 })
