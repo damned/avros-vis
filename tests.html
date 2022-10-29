@@ -25,16 +25,21 @@
     <script src="src/split.js"></script>
     <script src="src/placement.js"></script>
     <script src="src/balloon-label.js"></script>
+
+    <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://vr-builder.glitch.me/js/follower.js"></script>
   </head>
   <body>
-    <div>
-      <p>
-        Test group links
-      </p>
-      <ul id="main-test-links">
-        <li><a href="tests.html">All tests</a></li>
-      </ul>
-    </div>
+    <header>
+      <div>
+        <p>
+          Test group links
+        </p>
+        <ul id="main-test-links">
+          <li><a href="tests.html">All tests</a></li>
+        </ul>
+      </div>
+    </header>
     <div id="mocha"></div>
     <div id="aframe-container" style="min-height: 400px">
     </div>
@@ -66,6 +71,7 @@
     <script src="tests/model-tests.js"></script>
     <script src="tests/balloon-label-tests.js"></script>
 
+    <script src="tests/follower-tests.js"></script>
 <!--
 
     disabling because world space tests now failing with multiple scenes - maybe lack of specificity in
@@ -73,7 +79,6 @@
 
 
 -->
-
     
     <script class="mocha-exec">
       const runner = mocha.run();
