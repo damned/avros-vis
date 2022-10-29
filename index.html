@@ -5,6 +5,10 @@
     <title>System Visualisation</title>
     <meta name="description" content="VR system visualisation example using a-frame.js">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    
+    <!-- for hand.js etc, think about removing jquery -->
+    <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    
     <script crossorigin src="https://unpkg.com/lodash@1.3.0/dist/lodash.min.js"></script>
     <script src="src/aframe-utils.js"></script>
     <script src="src/balloon-label.js"></script>
@@ -25,6 +29,7 @@
         <a-mixin id="srv" geometry="primitive: box; height: 0.10; depth: 0.10; width: 0.10"></a-mixin>
         <a-mixin id="esi" geometry="primitive: box" placement></a-mixin>
         <a-mixin id="dbt" geometry="primitive: cylinder; height: 0.2; radius: 0.1"></a-mixin>
+        <img id="four-way-arrow" src="https://cdn.glitch.com/a0e144b7-dc44-4d24-a07d-26b1afe59bcf%2Ffour-way-arrow.png?v=1594823269623">
       </a-assets>
 
       <a-entity move-handles="gap: 0.6; extent: 6; height: 0.85; size: 0.12"></a-entity>
