@@ -15,7 +15,9 @@ let createFakeLog = function() {
 
 const THIS_TEST_FILE = 'log-tests.js'
 const lineNumberFromStack = stack => {
-  return stack.split('\n').find(line => line.includes(THIS_TEST_FILE))
+  const lineNumberMatcher = new RegExp(`${THIS_TEST_FILE}:(\\d+)`)
+  const stackTopLine = stack.split('\n').find(line => line.includes(THIS_TEST_FILE))
+  return stackTopLine.match(lineNumberMatcher)[1]
 }
 
 describe('aframe utils logging', () => {
@@ -87,7 +89,7 @@ describe('aframe utils logging', () => {
         expect(called).to.be.false
       })
       it('should prefix logging with call site information if turned on', () => {
-        au.log.prefixWithCallSite = true
+        au.log.includeCaller = true
         
         au.log('boo'); let errorToCaptureLineNumber = new Error()
         
