@@ -5,11 +5,12 @@ describe('follower component', () => {
 
   let base, host, placed, root
 
-  before(function() {
+  before(function() {  })
+  beforeEach(function() {
     scene = aframeTestScene({ context: this })
+    scene.reset()
   })
-  beforeEach(() => scene.reset())
-
+ 
   beforeEach(() => root = scene.addRoot())
   afterEach(() => root.makeViewable())
   

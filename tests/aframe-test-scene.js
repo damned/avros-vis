@@ -8,8 +8,8 @@ const aframeTestScene = function(overrides) {
       return options.sceneName
     }
     if (options.context) {
-      console.log('context', Object.keys(options.context.test))
-      return options.context
+      console.log('context', options.context.test.parent)
+      return options.context.test.parent.title
     }
     throw new Error('sceneName not set')
   }
