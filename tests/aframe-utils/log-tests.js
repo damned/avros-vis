@@ -13,8 +13,9 @@ let createFakeLog = function() {
   return logFn
 }
 
+const THIS_TEST_FILE = 'log-tests.js'
 const lineNumberFromStack = stack => {
-  return stack.split('\n').find(line => line.includes('log-tests.js'))
+  return stack.split('\n').find(line => line.includes(THIS_TEST_FILE))
 }
 
 describe('aframe utils logging', () => {
@@ -87,8 +88,10 @@ describe('aframe utils logging', () => {
       })
       it('should prefix logging with call site information if turned on', () => {
         au.log.prefixWithCallSite = true
-        au.log('boo')
-        expect(fakeLog.getCalls()[0]).to.startsWith('log-tests.js:' +    lineNumberFromStack(new Error().stack))
+        
+        au.log('boo'); let errorToCaptureLineNumber = new Error()
+        
+        expect(fakeLog.getCalls()[0]).to.startsWith(THIS_TEST_FILE + ':' + lineNumberFromStack(errorToCaptureLineNumber.stack))
       })
     })
   })
