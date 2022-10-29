@@ -84,7 +84,18 @@
       if (location.search.includes('refresh=true')) {
         setInterval(() => location.reload(), 10 * 1000)        
       }
-      document.querySelector('header').insertAdjacentHTML('afterbegin', '<p>jquery is ' + ($ === undefined ? '<b>OFF</b>' : '<b>ON</b>') + '</p>')
+      const jquerySymbol = () => {
+        try {
+          return $
+        }
+        catch (e) {
+          if (e instanceof ReferenceError) {
+            return undefined
+          }
+          throw e
+        }
+      }
+      document.querySelector('header').insertAdjacentHTML('afterbegin', '<p>jquery is ' + (jquerySymbol() === undefined ? '<b>OFF</b>' : '<b>ON</b>') + '</p>')
       const mainTestLinksContainer = document.querySelector('#main-test-links')
       runner.on("suite", suite => {
         if (suite.parent && suite.parent.root) {
