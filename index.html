@@ -11,7 +11,10 @@
     <script src="src/split.js"></script>
     <script src="src/placement.js"></script>
     <script src="src/edge.js"></script>
+    <script src="https://vr-builder.glitch.me/js/grabber.js"></script>
     <script src="https://vr-builder.glitch.me/js/hand.js"></script>
+    <script src="https://vr-builder.glitch.me/js/move-handles.js"></script>
+    <script src="https://vr-builder.glitch.me/js/user-mover.js"></script>
     <script type="application/javascript">
       aframeUtils.log.includeCaller = true
     </script>
@@ -24,6 +27,8 @@
         <a-mixin id="dbt" geometry="primitive: cylinder; height: 0.2; radius: 0.1"></a-mixin>
       </a-assets>
 
+      <a-entity move-handles="gap: 0.6; extent: 6; height: 0.85; size: 0.12"></a-entity>
+      
       <a-entity position="0 0 -1">
         
         <a-entity id="main-display" class="display" position="0 1 -0.5" scale="0.5 0.5 0.5">
@@ -93,9 +98,13 @@
         <a-cone id="rev" balloon-label="label: rev; scale: 0.3" color="#444" position="1 1.025 -0.1" scale="0.1 0.1 0.1"></a-cone>
 
       </a-entity>
-        dw
-      <a-entity hand-controls="hand: left; handModelStyle: lowPoly"></a-entity>
-      <a-entity hand-controls="hand: right; handModelStyle: lowPoly"></a-entity>
+
+      <a-entity id="user-rig">
+        <a-camera></a-camera>
+        <a-entity id="left-hand" user-mover hand-side="left"></a-entity>
+        <a-entity id="right-hand" user-mover hand-side="right"></a-entity>
+      </a-entity>
+      
     </a-scene>
     <script>
       // let builder = ModelBuilder(document.querySelector('a-scene'))
