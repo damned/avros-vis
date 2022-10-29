@@ -16,6 +16,16 @@ AFRAME.registerComponent('placement', {
       let instance = {
         placeOn: (placement) => {
           onPlacements.push(placement)
+          instance.updatePlacements()
+          if (onPlacements.length == 1) {
+            log('wiring up moveend listener')
+            baseEl.addEventListener('moveend', () => {
+              log('updating placements')
+              instance.updatePlacements()
+            })
+          }
+        },
+        updatePlacements: () => {
           let count = onPlacements.length
           let split = calcAreaXZSplit({ x: au.world.width(baseEl), z: au.world.depth(baseEl) }, count)
           let ix = 0
@@ -42,9 +52,9 @@ AFRAME.registerComponent('placement', {
       let justPlaced = false
       let emitPlacedNext = false
 
-      let placeOn = () => {
+      let placeSelfOnBase = () => {
         au.catching(() => {
-          log('placeOn: baseHost is loaded: ', baseHost.hasLoaded)
+          log('placeSelfOnBase: baseHost is loaded: ', baseHost.hasLoaded)
           log('baseHost id: ', baseHost.id)
           log('host id: ', host.id)
           
@@ -101,7 +111,7 @@ AFRAME.registerComponent('placement', {
         placeSelfOnBase()
       }
       else {
-        au.earliestAncestor(baseHost).addEventListener('loaded', placeOn)
+        au.earliestAncestor(baseHost).addEventListener('loaded', placeSelfOnBase)
       }
     }
   }
