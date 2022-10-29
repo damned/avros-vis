@@ -1,10 +1,13 @@
+/* global aframeTestScene */
 describe('follower component', () => {
   
   let scene
 
   let base, host, placed, root
 
-  before(() => scene = aframeTestScene({ sceneName: 'follower component'}))
+  before(function() {
+    scene = aframeTestScene({ context: this })
+  })
   beforeEach(() => scene.reset())
 
   beforeEach(() => root = scene.addRoot())

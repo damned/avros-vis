@@ -7,6 +7,10 @@ const aframeTestScene = function(overrides) {
     if (options.sceneName) {
       return options.sceneName
     }
+    if (options.context) {
+      console.log('context', Object.keys(options.context.test))
+      return options.context
+    }
     throw new Error('sceneName not set')
   }
   const sceneId = () => sceneName().toLowerCase().replaceAll(' ', '-')
