@@ -1,4 +1,15 @@
-describe('follow component', () => {
+describe('follower component', () => {
+  
+  let scene
+
+  let base, host, placed, root
+
+  before(() => scene = aframeTestScene({ sceneName: 'follower component'}))
+  beforeEach(() => scene.reset())
+
+  beforeEach(() => root = scene.addRoot())
+  afterEach(() => root.makeViewable())
+  
   it('should follow another component functionally', (done) => {
     let leaderEl = $('<a-box id="theleader" opacity="0.2" color="yellow" position="-1 1 -3"></a-box>').get(0)
     let followerEl = $('<a-sphere id="thefollower" color="red" follower="leader: #theleader" radius="0.4" position="1 1 -2"></a-sphere>').get(0)
