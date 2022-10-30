@@ -10,6 +10,30 @@ Built with [A-Frame](https://aframe.io), a web framework for building virtual re
 
 The project is a mix of manual spiking and some test-driven components.
 
-Tests can be run by visiting here:
+If working on glitch, tests can be run by visiting here:
 
-[https://avros-vis.glitch.me/tests.html](https://avros-vis.glitch.me/tests.html)
+[https://tilt-viz.glitch.me/tests.html](https://tilt-viz.glitch.me/tests.html)
+
+### Local development
+
+The mocha tests can be opened locally in browser (chrome used for dev) by 
+using local file path to `tests.html`, something like `xdg-open` makes that easy.
+
+```
+xdg-open tests.html
+```
+
+Of course a refresh will re-run the tests.
+
+You can also run tests headless on chromium, actually seems pretty stable:
+
+```
+./test
+```
+
+Or
+
+```
+npm test
+```
+

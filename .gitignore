@@ -1,2 +1,4 @@
 .lesshst
 .idea/
+node_modules/
+/tests.log
