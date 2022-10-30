@@ -5,10 +5,7 @@
     <title>System Visualisation</title>
     <meta name="description" content="VR system visualisation example using a-frame.js">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    
-    <!-- for hand.js etc, think about removing jquery -->
-    <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    
+
     <script crossorigin src="https://unpkg.com/lodash@1.3.0/dist/lodash.min.js"></script>
 
     
@@ -19,9 +16,21 @@
     <script src="src/split.js"></script>
     <script src="src/placement.js"></script>
     <script src="src/edge.js"></script>
+
+    <!--
+        scripts coming in from vr-builder - that project used jquery, as move
+        towards re-usable components, move off jquery onto plain dom js
+
+        <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
+      -->
+    <script src="src/follower.js"></script>
+
+    <!--
+        yet to port off jquery
+    -->
+    <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://vr-builder.glitch.me/js/aframe-util.js"></script>
     <script src="https://vr-builder.glitch.me/js/color.js"></script>
-    <script src="https://vr-builder.glitch.me/js/follower.js"></script>
     <script src="https://vr-builder.glitch.me/js/grabber.js"></script>
     <script src="https://vr-builder.glitch.me/js/hand.js"></script>
     <script src="https://vr-builder.glitch.me/js/move-handles.js"></script>
