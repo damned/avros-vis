@@ -1,6 +1,6 @@
 # Project Visualisation
 
-Visualising a system in VR/AR in tabletop format.
+Visualising a system in VR/AR in tabletop format using WebXR
 
 ## Stack
 
