@@ -1,20 +1,19 @@
 /* global au THREE AFRAME */
-let testable = (entity, componentName) => {
-  let position = () => entity.object3D.position
-  let api = {
-    moveTo: pos => {
-      position().copy(pos)
-    },
-    get position() {
-      return position()
+let decorateAsTestable = (entity) => {
+  Object.defineProperty(
+    entity,
+    'position',
+    {
+      get: function() {
+        return entity.object3D.position
+      }
     }
+  )
+  entity.moveTo = pos => {
+    entity.position.copy(pos)
   }
-  if (componentName) {
-    api[componentName] = () => entity.components[componentName]
-  }
-  return api
+  return entity
 }
-
 
 const aframeTestScene = function(overrides) {
   const options = Object.assign({
@@ -139,7 +138,7 @@ const aframeTestScene = function(overrides) {
     addHtmlTo: (parent, html, selector) => {
       parent.insertAdjacentHTML('afterbegin', html)
       if (selector) {
-        return select(selector)
+        return decorateAsTestable(select(selector))
       }
       return undefined
     },
@@ -148,7 +147,6 @@ const aframeTestScene = function(overrides) {
       if (consoleEl === undefined) {
         consoleEl = scene.addHtml('<a-text class="console" position="0 2 -2" value="console"></a-text>', '#' + sceneId() + ' .console')
       }
-
     }
   }
   scene.inScene = scene.within
@@ -165,10 +163,18 @@ const aframeTestScene = function(overrides) {
       sceneEl.addEventListener('renderstart', handler)
     }
   }
-  let applyActions = function(handler) {
+  let applyActions = function() {
     let handlers = Array.from(arguments)
+    handlers.forEach((handler, i) => {
+      if (typeof handler === 'function') {
+        au.log(`great, action handler ${i} is a function`, handler.toString())
+      }
+      else {
+        au.log(`oh dear, action handler ${i} is not a function`, handler.toString())
+      }
+    })
     applyAction(() => {
-      handlers[0]()
+      au.catching(handlers[0], 'handler 0')
       if (handlers.length > 1) {
         applyActions.apply(this, handlers.slice(1))
       }

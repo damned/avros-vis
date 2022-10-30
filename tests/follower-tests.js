@@ -1,4 +1,7 @@
-/* global aframeTestScene testable */
+/* global aframeTestScene */
+var chai = chai || {}
+var expect = chai.expect
+
 describe('follower component', () => {
   
   let scene, root
@@ -17,8 +20,8 @@ describe('follower component', () => {
     let leader, follower
 
     scene.actions(() => {
-      leader = testable(root.addHtml('<a-box id="theleader" opacity="0.2" color="yellow" position="-1 1 -3"></a-box>', '#theleader'))
-      follower = testable(root.addHtml('<a-sphere id="thefollower" color="red" follower="leader: #theleader" radius="0.4" position="1 1 -2"></a-sphere>', '#thefollower'))
+      leader = root.addHtml('<a-box id="theleader" opacity="0.2" color="yellow" position="-1 1 -3"></a-box>', '#theleader')
+      follower = root.addHtml('<a-sphere id="thefollower" color="red" follower="leader: #theleader" radius="0.4" position="1 1 -2"></a-sphere>', '#thefollower')
     },
     () => {
       expect(follower.position).to.shallowDeepEqual(leader.position)        

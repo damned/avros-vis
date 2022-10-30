@@ -15,14 +15,16 @@ au.doubleTick = handler => au.tick(() => {
   })
 })
 
-au.catching = fn => {
+au.catching = (fn, context) => {
   try {
+    if (context !== undefined) {
+      au.log('catching context: ' + context)
+    }
     fn();
   } catch (e) {
     au.log("caught exception in catching", e);
   }
 }
-
 
 au.world = {}
 
@@ -125,15 +127,6 @@ au.world.anchorPoint = (anchorSpec, el) => {
 }
 
 au.xyzTriplet = xyz => xyz ? `${xyz.x} ${xyz.y} ${xyz.z}` : '-undefined-'
-
-
-au.catching = (fn) => {
-  try {
-    fn();
-  } catch (e) {
-    console.log("caught exception in catching", e);
-  }
-}
 
 au.log = function() {
   let self = arguments.callee
