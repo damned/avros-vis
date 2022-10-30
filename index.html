@@ -55,7 +55,7 @@
         
         <a-entity id="main-display" class="display" position="0 1 -0.5" scale="0.5 0.5 0.5">
 
-          <a-box id="sng" class="sn touchable" color="#585" wireframe="false"
+          <a-box id="sng" class="sn touchable" follower-constraint="lock: rotation" color="#585" wireframe="false"
                  placement="on: #main-board"
                  scale="0.42 0.02 0.92"></a-box> <!-- need auto-stretch to remove this -->
           <a-box class="sn" color="#855" 
@@ -90,7 +90,7 @@
                  edge__2="to: #tool; color: orange"
                  ></a-box>
 
-          <a-box id="es" class="touchable" edge="from: #lam; color: pink" balloon-label="label: es" color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3"></a-box>
+          <a-box id="es" class="touchable" follower-constraint="lock: rotation" edge="from: #lam; color: pink" balloon-label="label: es" color="#77a" position="0.2 0.025 0.25" width="0.2" height="0.01" depth="0.3"></a-box>
           <a-box color="#558" placement="on: #es"></a-box>
           <a-box color="#558" mixin="esi" placement="on: #es"></a-box>
           <a-box color="#558" mixin="esi" placement="on: #es"></a-box>
