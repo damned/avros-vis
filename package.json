@@ -8,6 +8,7 @@
     "test": "tests"
   },
   "scripts": {
+    "start": "/opt/nvm/versions/node/v10/bin/ws --port 3000 --log.format combined --directory . --config-file null.config.js --blacklist /.\\(.*\\)",
     "test": "./test"
   },
   "author": "",
