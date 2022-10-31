@@ -20,6 +20,7 @@ function resetToPlacementBeforeFollow(follower) {
 }
 
 AFRAME.registerComponent('follower', {
+  dependencies: ['follower-constraint'],
   schema: {
     leader: {type: 'string', default: ''},
     lock: {type: 'string', default: ''}

@@ -9,6 +9,15 @@ let decorateAsTestable = (entity) => {
       }
     }
   )
+  Object.defineProperty(
+    entity,
+    'rotation',
+    {
+      get: function() {
+        return entity.object3D.rotation
+      }
+    }
+  )
   entity.moveTo = pos => {
     entity.position.copy(pos)
   }
