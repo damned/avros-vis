@@ -2,6 +2,8 @@
 var aframeUtils = aframeUtils || {}
 var au = aframeUtils
 
+au.collider = (collidee) => collidee.components["aabb-collider"]
+
 au.tick = fn => {
   setTimeout(() => {
     fn()

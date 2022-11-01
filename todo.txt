@@ -9,6 +9,7 @@ refac to things
 
 approach
 [x] spike views manually
+[ ] aframe 1.3.0 upgrade
 [.] aggressively improve test infrastructure
  - [x] test scene with optional scene clean/recreate vs re-use
  - [x] using independent world-space test roots, allowing for post-test move for review (makeViewable())

@@ -190,7 +190,8 @@ const aframeTestScene = function(overrides) {
     })
   }
   scene.actions = applyActions
-  
+  scene.setActionDelay = delayMs => actionDelayMs = delayMs
+
   function Root(prefix, index) {
     let testContext = undefined
     let test = undefined
