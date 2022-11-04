@@ -29,6 +29,40 @@ describe('edge component', () => {
       })
     })
 
+    it('should move line between source and destination to new position when source is moved', function(done) {
+      source = root.addHtml('<a-sphere id="sourcemv" radius="0.1" position="-1 2 -2">')
+      dest = root.addHtml('<a-sphere radius="0.1" edge="from: #sourcemv" position="1 1 -1">')
+
+      scene.actions(() => {
+        source.moveTo({x: -1, y: 2, z: -3})
+        source.emit('moveend', {})
+
+        dest.addEventListener('edged', event => {
+          let addedLine = event.detail.edgeEntity.components.line
+          expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
+          expect(addedLine.data.start).to.eql({x: -2, y: 1, z: -2})
+          done()
+        })
+      })
+    })
+
+    it('should move line between source and destination to new position when destination is moved', function(done) {
+      source = root.addHtml('<a-sphere id="sourcemv2" radius="0.1" position="-1 2 -2">')
+      dest = root.addHtml('<a-sphere radius="0.1" edge="from: #sourcemv2" position="1 1 -1">')
+
+      scene.actions(() => {
+        dest.moveTo({x: 1, y: 2, z: -1})
+        dest.emit('moveend', {})
+
+        dest.addEventListener('edged', event => {
+          let addedLine = event.detail.edgeEntity.components.line
+          expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
+          expect(addedLine.data.start).to.eql({x: -2, y: 0, z: -1})
+          done()
+        })
+      })
+    })
+
     describe('when source is already loaded', () => {
       it('should create a line from source to destination', (done) => {
         source = root.addHtml('<a-sphere id="source10" radius="0.1" position="1 2 -1">')

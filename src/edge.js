@@ -72,7 +72,11 @@ AFRAME.registerComponent('edge', {
           else {
             start = au.xyzTriplet(vectorToOther)
           }
-          self.edgeEntity = addSibling(host)
+          if (self.edgeEntity === undefined) {
+            self.edgeEntity = addSibling(host)
+            other.addEventListener('moveend', () => addLine())
+            host.addEventListener('moveend', () => addLine())
+          }
           self.edgeEntity.setAttribute('line', `start: ${start}; end: ${end}; color: ${color}`)
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true
