@@ -84,13 +84,14 @@
 
     <script src="tests/follower-tests.js"></script>
     <script src="tests/grabber-tests.js"></script>
-<!--
+    <script src="tests/toucher-tests.js"></script>
+
+    <!--
 
     disabling because world space tests now failing with multiple scenes - maybe lack of specificity in
     selecting entities to assert against?
 
-
--->
+    -->
     <script class="mocha-exec">
       const runner = mocha.run();
       if (location.search.includes('refresh=true')) {

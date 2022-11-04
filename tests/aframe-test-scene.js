@@ -147,7 +147,7 @@ const aframeTestScene = function(overrides) {
     addHtmlTo: (parent, html, selector) => {
       parent.insertAdjacentHTML('afterbegin', html)
       if (selector) {
-        return decorateAsTestable(select(selector))
+        return decorateAsTestable(parent.querySelector(selector))
       }
       return undefined
     },

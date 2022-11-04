@@ -22,6 +22,7 @@ approach
    - [ ] ensure hook up on enter vr on correct scene, wire keyboard into correct scene (at mo randoming around scenes)
  - [.] move all scene-based test to latest test scene / root usage
  - [.] lay out all tests and review
+ - [ ] replay stages/actions and movements/changes to make sense of e.g. toucher tests
  - [ ] extract au.creata lib based on au.addEntityTo for cheapest creation syntax
    - [ ] possible syntax: builda.box({ at: '-2.25 0.75 -2.25', scale: 0.5 }).and.one.with({xz:'1 0'}) - needs single element and array duality
  - [ ] add a like/butWith/but.with for replicating entities with slight changes
@@ -66,10 +67,10 @@ approach
        - [ ] update edge positions
    - [ ] move vr-builder components into project with tests and removal of jquery
      - [ ] hand.js
-     - [ ] grabber.js
-     - [ ] toucher.js
+     - [x] grabber.js
+     - [x] toucher.js
      - [ ] user-mover.js
-     - [ ] follower.js
+     - [x] follower.js and follower-constraint
      - [ ] etc.
    - [ ] placement on base when grab-move object onto base
  - [ ] refactor model to use placement components

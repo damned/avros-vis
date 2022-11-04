@@ -22,6 +22,7 @@ AFRAME.registerComponent('touch-source', {
         handler(touched)
       })
     }
+
     self.onTouchStart = function(handler) {
       touchStartHandlers.push(handler)
     }
