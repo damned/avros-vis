@@ -149,7 +149,7 @@ const aframeTestScene = function(overrides) {
       if (selector) {
         return decorateAsTestable(parent.querySelector(selector))
       }
-      return undefined
+      return parent.firstChild
     },
     addHtml: (html, selector) => scene.addHtmlTo(sceneEl, html, selector),
     turnOnConsole: () => {

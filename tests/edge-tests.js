@@ -5,36 +5,21 @@ var expect = chai.expect
 var TOLERANCE = 0.001
 
 describe('edge component', () => {
-  const aframeContainer = document.getElementById('aframe-container')
-  const select = selector => document.querySelector(selector)
-  const top = au.world.top
-  const bottom = au.world.bottom
-  const pos = el => el.object3D.position
+  let scene, root
 
-  let scene, source, dest
+  before(function() {
+    scene = aframeTestScene({ context: this })
+  })
+  beforeEach(function() {
+    scene.reset()
+    root = scene.addRoot()
+  })
+  let source, dest
 
-  let addToScene = html => scene.insertAdjacentHTML('afterbegin', html)  
-  let resetSceneBeforeEach = false   // trying out not re-creating scene - seems to work ok
-                                     // ... id clashes are overridden by latest added
-                                     // and speed is better
-                                     // but not as independent and if not developed with
-                                     // reset for each scene, definitely runs a risk of cross-contamination
-
-  let recreateScene = () => {
-    if (resetSceneBeforeEach || aframeContainer.querySelector('a-scene') === null) {
-      aframeContainer.innerHTML = '<a-scene embedded style="height: 300px; width: 600px;"></a-scene>'
-    }
-    scene = select('a-scene')
-  }
-  
-  beforeEach(recreateScene)
-  
   describe('using from property on destination', () => {
     it('should create a line from source to destination', (done) => {
-      addToScene('<a-sphere id="source" radius="0.1" position="-1 2 -2">')
-      source = select('#source')
-      addToScene('<a-sphere id="dest" radius="0.1" edge="from: #source" position="1 1 -1">')
-      dest = select('#dest')
+      source = root.addHtml('<a-sphere id="source0" radius="0.1" position="-1 2 -2">')
+      dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source0" position="1 1 -1">')
 
       dest.addEventListener('edged', event => {
         let addedLine = event.detail.edgeEntity.components.line
@@ -46,12 +31,10 @@ describe('edge component', () => {
 
     describe('when source is already loaded', () => {
       it('should create a line from source to destination', (done) => {
-        addToScene('<a-sphere id="source" radius="0.1" position="1 2 -1">')
-        source = select('#source')
+        source = root.addHtml('<a-sphere id="source10" radius="0.1" position="1 2 -1">')
         
         source.addEventListener('loaded', () => {
-          addToScene('<a-sphere id="dest" radius="0.1" edge="from: #source; color: red" position="0 0 -1">')
-          dest = select('#dest')
+          dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source10; color: red" position="0 0 -1">')
 
           dest.addEventListener('edged', event => {
             let addedLine = event.detail.edgeEntity.components.line
@@ -66,10 +49,8 @@ describe('edge component', () => {
 
   describe('using to property on source', () => {
     it('should create a line from source to destination', (done) => {
-      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 -1">')
-      dest = select('#dest')
-      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="-1 2 -2">')
-      source = select('#source')
+      dest = root.addHtml('<a-sphere id="dest20" radius="0.1" position="1 1 -1">')
+      source = root.addHtml('<a-sphere edge="to: #dest20" radius="0.1" position="-1 2 -2">')
 
       source.addEventListener('edged', event => {
         let addedLine = event.detail.edgeEntity.components.line
@@ -82,12 +63,9 @@ describe('edge component', () => {
 
   describe('using multiple edges', () => {
     it('should create a line from source to two destinations', (done) => {
-      addToScene('<a-sphere id="dest" radius="0.1" position="0 1 -1">')
-      dest = select('#dest')
-      addToScene('<a-sphere id="dest2" radius="0.1" position="1 1 -1">')
-      let dest2 = select('#dest2')
-      addToScene('<a-sphere id="source" edge="to: #dest" edge__2="to: #dest2" radius="0.1" position="-1 2 -2">')
-      source = select('#source')
+      dest = root.addHtml('<a-sphere id="dest-multi" radius="0.1" position="0 1 -1">')
+      let dest2 = root.addHtml('<a-sphere id="dest-multi-2" radius="0.1" position="1 1 -1">')
+      source = root.addHtml('<a-sphere edge="to: #dest-multi" edge__2="to: #dest-multi-2" radius="0.1" position="-1 2 -2">')
 
       let edgeCreatedCount = 0
       let addedLine1, addedLine2
@@ -113,10 +91,8 @@ describe('edge component', () => {
   describe('edges from entities not at default scale', () => {
     
     it('should create a line on source that compensates for scale from itself at origin', (done) => {
-      addToScene('<a-sphere id="destx" radius="0.1" position="1 1 1">')
-      addToScene('<a-sphere id="sourcex" edge="to: #destx" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
-      dest = select('#destx')
-      source = select('#sourcex')      
+      dest = root.addHtml('<a-sphere id="destx" radius="0.1" position="1 1 1">')
+      source = root.addHtml('<a-sphere id="sourcex" edge="to: #destx" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
 
       source.addEventListener('edged', event => {
         let addedLine = event.detail.edgeEntity.components.line
@@ -127,10 +103,8 @@ describe('edge component', () => {
     })
 
     it('should create a line on source that compensates for scale to itself at origin', (done) => {
-      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
-      dest = select('#dest')
-      addToScene('<a-sphere id="source" edge="from: #dest" radius="0.1" position="-1 -1 -1" scale="0.5 0.5 0.5">')
-      source = select('#source')
+      dest = root.addHtml('<a-sphere id="destxx" radius="0.1" position="1 1 1">')
+      source = root.addHtml('<a-sphere edge="from: #destxx" radius="0.1" position="-1 -1 -1" scale="0.5 0.5 0.5">')
 
       source.addEventListener('edged', event => {
         let addedLine = event.detail.edgeEntity.components.line
@@ -141,10 +115,8 @@ describe('edge component', () => {
     })
 
     it('should create edge to a entity nested in a scaled space', (done) => {
-      addToScene('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="dest" radius="0.1" position="1 1 1"></a-entity>')
-      dest = select('#dest')
-      addToScene('<a-sphere id="source" edge="to: #dest" radius="0.1" position="1 1 1">')
-      source = select('#source')
+      dest = root.addHtml('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="desty" radius="0.1" position="1 1 1"></a-entity>', '#desty')
+      source = root.addHtml('<a-sphere edge="to: #desty" radius="0.1" position="1 1 1">')
 
       source.addEventListener('edged', event => {
         let addedLine = event.detail.edgeEntity.components.line
@@ -155,10 +127,8 @@ describe('edge component', () => {
     })
 
     it('should create edge from a entity nested in a scaled space', (done) => {
-      addToScene('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="dest" radius="0.1" position="1 1 1"></a-entity>')
-      dest = select('#dest')
-      addToScene('<a-sphere id="source" edge="from: #dest" radius="0.1" position="1 1 1">')
-      source = select('#source')
+      dest = root.addHtml('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="destz" radius="0.1" position="1 1 1"></a-entity>', '#destz')
+      source = root.addHtml('<a-sphere edge="from: #destz" radius="0.1" position="1 1 1">')
 
       source.addEventListener('edged', event => {
         let addedLine = event.detail.edgeEntity.components.line
@@ -172,12 +142,10 @@ describe('edge component', () => {
 
   describe('edges with space offsets', () => {
     it('should create edge on a source entity in an offset space', (done) => {
-      addToScene('<a-sphere id="dest" radius="0.1" position="1 1 1">')
-      dest = select('#dest')
-      addToScene('<a-entity position="2 0 0" scale="2 2 2">' + 
-                   '<a-sphere id="source" edge="to: #dest" radius="0.1" position="1 1 1">' + 
-                 '</-a-entity>')
-      source = select('#source')
+      dest = root.addHtml('<a-sphere id="desta" radius="0.1" position="1 1 1">')
+      source = root.addHtml('<a-entity position="2 0 0" scale="2 2 2">' +
+          '<a-sphere id="sourcea" edge="to: #desta" radius="0.1" position="1 1 1">' +
+        '</a-entity>', '#sourcea')
 
       source.addEventListener('edged', event => {
         let addedLine = event.detail.edgeEntity.components.line
