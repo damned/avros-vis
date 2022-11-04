@@ -37,3 +37,14 @@ Or
 npm test
 ```
 
+### Local running with images
+
+Due to permissions limitations certain aspects, such as images, are not loaded
+correctly from file locally, but you can start a server running
+locally (on `http://localhost:8000/`) by running:
+
+```
+./run
+```
+
+This requires a working `python3` interpreter.
