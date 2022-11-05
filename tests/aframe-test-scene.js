@@ -1,14 +1,16 @@
 /* global au THREE AFRAME */
 let decorateAsTestable = (entity) => {
-  Object.defineProperty(
-    entity,
-    'position',
-    {
-      get: function() {
-        return entity.object3D.position
-      }
+  Object.defineProperty(entity, 'position', {
+    get: function() {
+      return entity.object3D.position
     }
-  )
+  })
+  Object.defineProperty(entity, 'worldPosition', {
+    get: function() {
+      entity.object3D.updateWorldMatrix(true, false)
+      return entity.object3D.getWorldPosition(new THREE.Vector3())
+    }
+  })
   Object.defineProperty(
     entity,
     'rotation',

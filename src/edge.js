@@ -77,6 +77,9 @@ AFRAME.registerComponent('edge', {
             other.addEventListener('moveend', () => addLine())
             host.addEventListener('moveend', () => addLine())
           }
+          else {
+            self.edgeEntity.object3D.position.copy(host.object3D.position)
+          }
           self.edgeEntity.setAttribute('line', `start: ${start}; end: ${end}; color: ${color}`)
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true

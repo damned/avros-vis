@@ -16,15 +16,30 @@ describe('edge component', () => {
   })
   let source, dest
 
+  const worldPositionOfLocal = (entity, localPosition) => {
+    entity.object3D.updateWorldMatrix(true, false)
+    let local = new THREE.Vector3(localPosition.x, localPosition.y, localPosition.z)
+    return entity.object3D.localToWorld(local)
+  }
+
+  const lineStartWorldPosition = (entity) => {
+    return worldPositionOfLocal(entity, entity.components.line.data.start)
+  }
+
+  const lineEndWorldPosition = (entity) => {
+    return worldPositionOfLocal(entity, entity.components.line.data.end)
+  }
+
   describe('using from property on destination', () => {
     it('should create a line from source to destination', (done) => {
       source = root.addHtml('<a-sphere id="source0" radius="0.1" position="-1 2 -2">')
       dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source0" position="1 1 -1">')
 
       dest.addEventListener('edged', event => {
-        let addedLine = event.detail.edgeEntity.components.line
-        expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.start).to.eql({x: -2, y: 1, z: -1})
+        let lineEntity = event.detail.edgeEntity;
+
+        expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.position)
+        expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.position)
         done()
       })
     })
@@ -38,9 +53,9 @@ describe('edge component', () => {
         source.emit('moveend', {})
 
         dest.addEventListener('edged', event => {
-          let addedLine = event.detail.edgeEntity.components.line
-          expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
-          expect(addedLine.data.start).to.eql({x: -2, y: 1, z: -2})
+          let lineEntity = event.detail.edgeEntity;
+          expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.position)
+          expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.position)
           done()
         })
       })
@@ -55,9 +70,11 @@ describe('edge component', () => {
         dest.emit('moveend', {})
 
         dest.addEventListener('edged', event => {
-          let addedLine = event.detail.edgeEntity.components.line
-          expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
-          expect(addedLine.data.start).to.eql({x: -2, y: 0, z: -1})
+          let lineEntity = event.detail.edgeEntity;
+
+          expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.position)
+          expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.position)
+
           done()
         })
       })
@@ -71,9 +88,11 @@ describe('edge component', () => {
           dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source10; color: red" position="0 0 -1">')
 
           dest.addEventListener('edged', event => {
-            let addedLine = event.detail.edgeEntity.components.line
-            expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
-            expect(addedLine.data.start).to.eql({x: 1, y: 2, z: 0})
+            let lineEntity = event.detail.edgeEntity;
+
+            expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.position)
+            expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.position)
+
             done()
           })
         })
@@ -87,9 +106,11 @@ describe('edge component', () => {
       source = root.addHtml('<a-sphere edge="to: #dest20" radius="0.1" position="-1 2 -2">')
 
       source.addEventListener('edged', event => {
-        let addedLine = event.detail.edgeEntity.components.line
-        expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.end).to.eql({x: 2, y: -1, z: 1})
+        let lineEntity = event.detail.edgeEntity;
+
+        expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.position)
+        expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.position)
+
         done()
       })
     })
@@ -102,21 +123,23 @@ describe('edge component', () => {
       source = root.addHtml('<a-sphere edge="to: #dest-multi" edge__2="to: #dest-multi-2" radius="0.1" position="-1 2 -2">')
 
       let edgeCreatedCount = 0
-      let addedLine1, addedLine2
+      let addedLineHost1, addedLineHost2
       source.addEventListener('edged', event => {
         console.log('edged received in test')
         edgeCreatedCount += 1
         if (edgeCreatedCount < 2) {
-          addedLine1 = event.detail.edgeEntity.components.line
+          addedLineHost1 = event.detail.edgeEntity
           return
         }
         else {
-          addedLine2 = event.detail.edgeEntity.components.line
+          addedLineHost2 = event.detail.edgeEntity
         }
-        expect(addedLine1.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine2.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine1.data.end).to.eql({x: 1, y: -1, z: 1})
-        expect(addedLine2.data.end).to.eql({x: 2, y: -1, z: 1})
+
+        expect(lineStartWorldPosition(addedLineHost1)).to.shallowDeepEqual(source.position)
+        expect(lineStartWorldPosition(addedLineHost2)).to.shallowDeepEqual(source.position)
+        expect(lineEndWorldPosition(addedLineHost1)).to.shallowDeepEqual(dest.position)
+        expect(lineEndWorldPosition(addedLineHost2)).to.shallowDeepEqual(dest2.position)
+
         done()
       })
     })
@@ -129,21 +152,26 @@ describe('edge component', () => {
       source = root.addHtml('<a-sphere id="sourcex" edge="to: #destx" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
 
       source.addEventListener('edged', event => {
-        let addedLine = event.detail.edgeEntity.components.line
-        expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.end).to.eql({x: 2, y: 2, z: 2})
+        let lineEntity = event.detail.edgeEntity;
+
+        expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.worldPosition)
+        expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.worldPosition)
+
         done()
       })
     })
 
     it('should create a line on source that compensates for scale to itself at origin', (done) => {
-      dest = root.addHtml('<a-sphere id="destxx" radius="0.1" position="1 1 1">')
-      source = root.addHtml('<a-sphere edge="from: #destxx" radius="0.1" position="-1 -1 -1" scale="0.5 0.5 0.5">')
+      source = root.addHtml('<a-sphere id="sourcexx" radius="0.1" position="1 1 1">')
+      dest = root.addHtml('<a-sphere edge="from: #sourcexx" radius="0.1" position="-1 -1 -1" scale="0.5 0.5 0.5">')
 
-      source.addEventListener('edged', event => {
-        let addedLine = event.detail.edgeEntity.components.line
-        expect(addedLine.data.start).to.eql({x: 4, y: 4, z: 4})
-        expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
+      dest.addEventListener('edged', event => {
+        let lineEntity = event.detail.edgeEntity;
+
+        // interestingly here position will be same as worldPosition as the scale only matters internally
+        expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.worldPosition)
+        expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.worldPosition)
+
         done()
       })
     })
@@ -153,21 +181,26 @@ describe('edge component', () => {
       source = root.addHtml('<a-sphere edge="to: #desty" radius="0.1" position="1 1 1">')
 
       source.addEventListener('edged', event => {
-        let addedLine = event.detail.edgeEntity.components.line
-        expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.end).to.eql({x: 4, y: 2, z: 2})
+        let lineEntity = event.detail.edgeEntity;
+
+        expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.worldPosition)
+        expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.worldPosition)
+
         done()
       })
     })
 
     it('should create edge from a entity nested in a scaled space', (done) => {
-      dest = root.addHtml('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="destz" radius="0.1" position="1 1 1"></a-entity>', '#destz')
-      source = root.addHtml('<a-sphere edge="from: #destz" radius="0.1" position="1 1 1">')
+      source = root.addHtml('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="sourcez" radius="0.1" position="1 1 1"></a-entity>',
+        '#sourcez')
+      dest = root.addHtml('<a-sphere edge="from: #sourcez" radius="0.1" position="1 1 1">')
 
-      source.addEventListener('edged', event => {
-        let addedLine = event.detail.edgeEntity.components.line
-        expect(addedLine.data.end).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.start).to.eql({x: 4, y: 2, z: 2})
+      dest.addEventListener('edged', event => {
+        let lineEntity = event.detail.edgeEntity;
+
+        expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.worldPosition)
+        expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.worldPosition)
+
         done()
       })
     })
@@ -182,9 +215,11 @@ describe('edge component', () => {
         '</a-entity>', '#sourcea')
 
       source.addEventListener('edged', event => {
-        let addedLine = event.detail.edgeEntity.components.line
-        expect(addedLine.data.start).to.eql({x: 0, y: 0, z: 0})
-        expect(addedLine.data.end).to.eql({x: -1.5, y: -0.5, z: -0.5})
+        let lineEntity = event.detail.edgeEntity;
+
+        expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.worldPosition)
+        expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.worldPosition)
+
         done()
       })
     })
