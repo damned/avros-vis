@@ -64,7 +64,7 @@
                  scale="0.42 0.02 0.92"></a-box> <!-- need auto-stretch to remove this -->
 
           <!-- need height constraint to optimize this -->
-          <a-box id="nlb" placement="on: #sng; constrain: false" balloon-label="label: nlb" color="#444" mixin="srv"></a-box>
+          <a-box id="nlb" placement="on: #sng; constrain: false" edge="from: #fus; color: pink" balloon-label="label: nlb" color="#444" mixin="srv"></a-box>
 
           <a-box id="ag" balloon-label="label: ag" color="#444" mixin="srv" position="1 0.5 0.7"></a-box>
 
@@ -75,7 +75,7 @@
                  edge="from: #nlb; color: pink" 
                  edge__1="to: #ag; color: pink"></a-box>
 
-          <a-entity edge="to: #nlb; color: pink" balloon-label="label: fus; scale: 0.6" geometry="primitive: octahedron; radius: 0.2" material="color: pink" position="-0.6 0.05 -1.4"></a-entity>
+          <a-entity id="fus" balloon-label="label: fus; scale: 0.6" geometry="primitive: octahedron; radius: 0.2" material="color: pink" position="-0.6 0.05 -1.4"></a-entity>
 
           <a-box id="lam" edge="from: #ag; color: pink" balloon-label="label: lam" color="#444" mixin="srv" position="1 0.5 0.1"></a-box>
 
