@@ -10,6 +10,8 @@ Built with [A-Frame](https://aframe.io), a web framework for building virtual re
 
 The project is a mix of manual spiking and some test-driven components.
 
+The details of what's being done are tracked in [todo.txt](todo.txt)
+
 If working on glitch, tests can be run by visiting here:
 
 [https://tilt-viz.glitch.me/tests.html](https://tilt-viz.glitch.me/tests.html)

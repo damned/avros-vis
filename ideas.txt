@@ -1,0 +1,175 @@
+why all this
+
+exploring ideas around three main aspects:
+
+1 - XR Visualisation - see if there is value using 3D and VR for specific visualisation and/or editing activities
+
+so really this is about comparison with 2D diagramming, with regards:
+- ease or depth of understanding something visually esp. with ability to easily spatially interact; and
+- use of in-VR creation / editing / tweaking; and
+- using auto-layout in 3D vs 2D - perhaps easier and more effective with extra degree of movement?
+
+
+2 - TD3DD - to see how automated testing and TDD can be used in VR and vice-versa
+
+i.e. are there specific approaches, tools and visualisations that can help with VR development process? and maybe
+some things that can be applied back into more general TDD and programming?
+
+it's got to the point that there is now largely a scheme in place around a set of full a-frame scene tests that
+run in browser in a few seconds and cover all the code, whilst providing somewhat-useful (if not very mature)
+visual test case review after test run.
+
+ideas about feeding back into general dev would be further down the line - ATM around creating visual representation of
+test cases in terms of test objects, flows and asserts. a slightly narrower case than general code visualisation.
+
+
+3 - XR UX - exploring new UX ideas for XR
+
+this is very nascent ATM - there is still a lot of 2.5D UX going on - quite constrained 2D interfaces floating in
+space - and so much potential:
+ - using more space around user - laying out options and information appropriately to area of view and frequency of use
+ - 3d interfaces
+ - visual representation of information to leverage our ability to pattern match and recognise
+ - creating easy, fast, friendly interfaces that will scale/transfer well to controller-free
+   - easy to control
+   - easy to discover / recover from
+   - avoiding complex modes and button combinations
+   - avoiding slow, deep menu structures
+
+some user questions we want to answer:
+ - what is that?
+ - what is the detail of that?
+ - what can i do?
+ - how do i go there?
+ - how do i change that?
+ - oops, how do i fix that? (if things are easily fixable, user can explore more)
+
+
+overall approach in this project
+
+i've been trying to balance the 3 aspects and pinging between multiple ideas.
+
+now's a good time to simplify the approach and give more focus:
+
+1 - XR Visualisation - the priority / focus: developing a coherent set of trial features against stated use cases
+
+2 - TD3DD - this is now in-flight and ongoing for all dev
+
+the tests and test support features are mature enough to be really helping out, making improvements is ongoing
+as a means to an end: exploring the priority features
+
+3 - XR UX - using ideas as they make sense to support the priority features
+
+i.e. not developing UX ideas for their own ends, specifically to make features work easily / intuitively.  this makes a
+lot more sense as it gives specific use cases to test the UX against.
+
+
+XR Visualisation - Use Cases and Features
+
+
+* current state of tilt-viz visualisation
+
+currently a simplified 3d diagram of some network and infrastructure components, abstracted from a real-world case, is
+represented in lo-fi 3d VR layout.
+
+this diagram (index.html) shows:
+ - 3d objects representing components or individual services or instances
+ - colour and type variation, intended to represent like-ness or type of distinct entities
+ - lines between entities to denote specific connections
+ - placement of entities on other entities or panel-like containers to represent containment or homing
+   - mainly presence of components within a network; or
+   - presence of instances in a cluster
+
+the initial cut of the diagram was done in basic 3d objects with full positional information specified on each 3d entity.
+this is a time-consuming activity, but gave some idea of grokkability of layout, usefulness of table-top diagrams.
+
+this manually created diagram has been simplified by developing new layout-assistance features (using TD3DD) and
+applying them incrementally to this diagram.
+
+these layout assistance features so far cover:
+- ability to place entities directly on other entities by refrence, not position
+- those placed entities to arrange themselves evenly automatically dependent on how many are added
+- optional sizing of the placed entities according to the space available on its target base, optionally with
+  margins
+- edges (lines) that are drawn between the entities automatically by reference, not explicit position
+- text ("balloon") labels that point to and float above the labelled entity
+
+some interactivity features have been added to enable tweaking of the base diagram:
+- representation of hand controllers
+- ability to drag specifically marked entities (with locked rotation, so stay level and face-forward)
+- automatic update of edges and placed entities that are laid out relative to the moved entity
+
+
+* major tilt-viz ideas
+
+** basic diagram editing
+
+this is in-flight at the moment, have brought in some simple components from vr-builder to allow interaction with
+the existing diagram.
+
+[x] already set up ability to grab and move selected entities, and have related placed entities and edges re-arrange
+    themselves
+
+[ ] natural next step is to move all remaining diagram to:
+    1 - use layout assistance where applicable instead of all remaining position hard-coding
+    2 - extend layout assistance to cover remaining entities
+
+[ ] an envisaged case of adding a new entity and placing it alongside existing entities
+
+[ ] ability to add new entities of specified or changeable type
+
+[ ] ability to add or edit labelling to entities
+
+[ ] ability to add or edit extra information related to entities
+
+
+** automatic layout
+
+[ ] constrained simple layout - e.g. as currently implemented regularly laying out a number of entities on a base,
+    respecting e.g. margin controls
+
+[ ] automated edge de-confliction - i.e. some sort of force-direction to allow edges and labels to not overlap
+    confusingly with other entities and edges and labels
+
+[ ] automated entity or group layout - where multiple entities or simple layouts are combined with fully automated layout
+
+[ ] biases and constraints on automated layout. e.g.:
+    1 - can use type or other metadata about entities to bias e.g. L->R or up->down positioning to give more logical
+        layout and consistency vs changes
+    2 - other specific constraints, e.g. horizontal upper and lower limit planes
+
+
+** graph building
+
+[ ] using automated interpretation of input sources to create a basic diagram / pallett (that can be tweaked or
+    automatically laid out)
+
+[ ] specific content sources:
+    1 - terraform (query terraform / *.tf); or
+    2 - aws infra (query aws apis); or
+    3 - code (parse code)
+    4 - general dog (e.g. dogviz)
+
+[ ] display of subset of information, for clarity:
+    1 - filtering of content sources into basic diagram / pallette from exisitng, full-detail feeds; or
+    2 - bespoke specific content sources (probably built from scratch)
+
+
+these above items are kind of interesting but not particularly clearly targeted at a particular use case or scenario -
+maybe this is ok but it seems a bit unfocused.
+
+-> can we target a feasible real-world use-case? if possible aligned to re-use completed work (if useful)?
+
+option 1
+
+construct visualisations of current project, targeting prioritized specific outcomes, from e.g.:
+- render network setup, for understandability
+- render main infrastructure, ditto
+- render all infrastructure, ditto
+- animate real world interaction with system, for whole team empathy
+
+
+
+
+
+
