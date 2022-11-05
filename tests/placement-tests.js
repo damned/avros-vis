@@ -46,7 +46,7 @@ describe('placement component', () => {
       root.testing(this)
 
       scene.actions(() => {
-        base.moveTo('2 2 2')
+        base.moveTo('0 2 -1')
         base.emit('moveend')
       },
       () => {
@@ -57,7 +57,7 @@ describe('placement component', () => {
       })
     })
 
-    it('should re-emit a placed event if it is re-placed when the base is moved', function(done) {
+    it('should re-emit a placed event if the entity is re-placed when the base is moved', function(done) {
       root.testing(this)
 
       let placementEventCount = 0
@@ -74,6 +74,21 @@ describe('placement component', () => {
           expect(pos(placed).z).to.be.closeTo(pos(base).z, TOLERANCE)
           done()
         }
+      })
+    })
+
+    it('should re-place the entity if its base is moved as a result of itself being placed', function(done) {
+      root.testing(this)
+
+      scene.actions(() => {
+        base.moveTo('0 1 -2')
+        base.emit('placed')
+      },
+      () => {
+        expect(bottom(placed)).to.be.closeTo(top(base), TOLERANCE)
+        expect(pos(placed).x).to.be.closeTo(pos(base).x, TOLERANCE)
+        expect(pos(placed).z).to.be.closeTo(pos(base).z, TOLERANCE)
+        done()
       })
     })
   })

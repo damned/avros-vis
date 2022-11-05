@@ -66,11 +66,11 @@ approach
    - [x] self-move
    - [x] allow grab-move hard-positioned base
      - [x] spike with placements updating to new position at end
-     - [ ] backfill tests for update on moveend
-     - [.] trigger other relevant updates
+     - [x] backfill tests for update on moveend
+     - [x] trigger other relevant updates
        - [x] update edge positions
        - [x] also update edges on in-direct placed events if moved entity has placements on it
-       - [ ] presumably need placements to trigger from placed events for placements indirectly dependent upon
+       - [x] presumably need placements to trigger from placed events for placements indirectly dependent upon
    - [ ] move vr-builder components into project with tests and removal of jquery
      - [ ] hand.js
      - [x] grabber.js

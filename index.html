@@ -105,7 +105,9 @@
           <a-box color="#558" mixin="esi" placement="on: #es"></a-box>
           <a-box color="#558" mixin="esi" placement="on: #es"></a-box>
 
-          <a-plane id="main-board" class="display-board" color="gray" position="0 0 0.5" rotation="-90 0 0"></a-plane>
+          <a-plane id="main-board"
+                   class="display-board touchable" follower-constraint="lock: rotation"
+                   color="gray" position="0 0 0.5" rotation="-90 0 0"></a-plane>
         </a-entity>
 
         <a-entity id="trg-to-tr" line="start:     0.05 1.025 -0.15; end: -0.5 1.025 -0.15; color: orange"

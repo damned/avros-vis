@@ -17,12 +17,18 @@ AFRAME.registerComponent('placement', {
         placeOn: (placement) => {
           onPlacements.push(placement)
           instance.updatePlacements()
-          if (onPlacements.length == 1) {
-            log('wiring up moveend listener')
-            baseEl.addEventListener('moveend', () => {
-              log('updating placements')
+
+          function updateOnEvent(trigger) {
+            baseEl.addEventListener(trigger, () => {
+              log('updating placements based on ' + trigger)
               instance.updatePlacements()
             })
+          }
+
+          if (onPlacements.length == 1) {
+            log('wiring up movement listeners')
+            updateOnEvent('moveend');
+            updateOnEvent('placed');
           }
         },
         updatePlacements: () => {
