@@ -16,12 +16,16 @@ approach
  - [x] add chai expectation(s) for matching entities under test to expected entities
  - [x] move between tests in post-testing visual review - '<' or '>' on desktop, 'A' in Quest
  - [x] lay out tests for review
+ - [ ] resolve intermittent timeout issues, presumably from slow frames
+   - [ ] instrument to determine cause - is it that a tick hasn't happened before action step?
+   - [ ] if tick delay is cause, explicitly trigger actions off completion of tick - maybe tock() would help
  - [.] fix scene / root mismatch vs VR/controls (init'd in first scene)
    - [x] separate a-scene per Scene object
    - [.] fix au world space tests vs balloon label tests conflict - move to test roots
    - [ ] ensure hook up on enter vr on correct scene, wire keyboard into correct scene (at mo randoming around scenes)
  - [.] move all scene-based test to latest test scene / root usage
- - [.] lay out all tests and review
+ - [.] lay out all tests and review improvements
+   - [ ] de-conflict labelling of test objects
  - [ ] replay stages/actions and movements/changes to make sense of e.g. toucher tests
  - [ ] extract au.creata lib based on au.addEntityTo for cheapest creation syntax
    - [ ] possible syntax: builda.box({ at: '-2.25 0.75 -2.25', scale: 0.5 }).and.one.with({xz:'1 0'}) - needs single element and array duality
@@ -63,8 +67,8 @@ approach
    - [x] allow grab-move hard-positioned base
      - [x] spike with placements updating to new position at end
      - [ ] backfill tests for update on moveend
-     - [ ] trigger other relevant updates
-       - [ ] update edge positions
+     - [.] trigger other relevant updates
+       - [.] update edge positions
    - [ ] move vr-builder components into project with tests and removal of jquery
      - [ ] hand.js
      - [x] grabber.js
@@ -78,10 +82,12 @@ approach
  - [ ] connectors
  - [ ] start building out current model
  - [ ] move to things and styles?
-[ ] move from avr-os to new subject for main graph, from:
-  - dogfood code?
-  - infra?
-  - simple and build up?
+[ ] move from avr-os
+  - [x] rename to generic: tilt-viz for table-top viz a la tilt-five
+  - [ ] to new subject for main graph, from:
+    - dogfood code?
+    - infra?
+    - simple and build up?
 
 completeness
 [x] tasks
