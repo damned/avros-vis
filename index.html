@@ -66,7 +66,9 @@
           <!-- need height constraint to optimize this -->
           <a-box id="nlb" placement="on: #sng; constrain: false" edge="from: #fus; color: pink" balloon-label="label: nlb" color="#444" mixin="srv"></a-box>
 
-          <a-box id="ag" balloon-label="label: ag" color="#444" mixin="srv" position="1 0.5 0.7"></a-box>
+          <a-box id="ag"
+                 class="touchable" follower-constraint="lock: rotation"
+                 balloon-label="label: ag" color="#444" mixin="srv" position="1 0.5 0.7"></a-box>
 
           <a-box id="age-1" color="#444" mixin="srv" position="0.4 0.025 0.5"
                  edge="from: #nlb; color: pink" 
@@ -77,16 +79,21 @@
 
           <a-entity id="fus" balloon-label="label: fus; scale: 0.6" geometry="primitive: octahedron; radius: 0.2" material="color: pink" position="-0.6 0.05 -1.4"></a-entity>
 
-          <a-box id="lam" edge="from: #ag; color: pink" balloon-label="label: lam" color="#444" mixin="srv" position="1 0.5 0.1"></a-box>
+          <a-box id="lam"
+                 class="touchable" follower-constraint="lock: rotation"
+                 edge="from: #ag; color: pink" balloon-label="label: lam" color="#444" mixin="srv" position="1 0.5 0.1"></a-box>
 
           <a-box id="trg" color="red"  balloon-label="label: tr g" mixin="srv" position="0.1 0.025 0.7"
+                 class="touchable" follower-constraint="lock: rotation"
                  edge="to: #es; color: orange" 
                  ></a-box>
           <a-box id="reg" color="green" balloon-label="label: re g; y-offset: -0.1" mixin="srv" position="0.2 0.025 0.8"
+                 class="touchable" follower-constraint="lock: rotation"
                  edge="to: #es; color: orange" 
                  edge__2="to: #rev; color: orange"
                  ></a-box>
           <a-box id="tog" color="blue"  balloon-label="label: to g; y-offset: -0.2" mixin="srv" position="0.3 0.025 0.9"
+                 class="touchable" follower-constraint="lock: rotation"
                  edge="to: #es; color: orange" 
                  edge__2="to: #tool; color: orange"
                  ></a-box>
