@@ -73,7 +73,7 @@ describe('edge component', () => {
       dest = root.addHtml('<a-sphere radius="0.1" edge="from: #sourcemv2" position="1 1 -1">')
 
       scene.actions(() => {
-        dest.moveTo({x: 1, y: 2, z: -1})
+        dest.moveTo('1 2 -1')
         dest.emit('moveend', {})
 
         dest.addEventListener('edged', event => {
@@ -94,7 +94,7 @@ describe('edge component', () => {
       dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source-replace-1" position="1 1 -1">')
 
       scene.actions(() => {
-        source.moveTo({x: -1, y: 2, z: -3})
+        source.moveTo('-1 2 -3')
         source.emit('placed', {})
 
         dest.addEventListener('edged', event => {
@@ -113,7 +113,7 @@ describe('edge component', () => {
       dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source-replace-2" position="1 1 -1">')
 
       scene.actions(() => {
-        dest.moveTo({x: 1, y: 2, z: -1})
+        dest.moveTo('1 2 -1')
         dest.emit('placed', {})
 
         dest.addEventListener('edged', event => {

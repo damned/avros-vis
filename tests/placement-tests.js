@@ -35,7 +35,49 @@ describe('placement component', () => {
       done()
     })
   })
-  
+
+  context('given its entity has already been placed', () => {
+    beforeEach(() => {
+      base = root.testBox('base', { color: 'darkgray' })
+      placed = root.testBox('placed', { placement: {on: '#' + base.id }})
+    })
+
+    it('should re-place itself on the base if the base is moved', function(done) {
+      root.testing(this)
+
+      scene.actions(() => {
+        base.moveTo('2 2 2')
+        base.emit('moveend')
+      },
+      () => {
+        expect(bottom(placed)).to.be.closeTo(top(base), TOLERANCE)
+        expect(pos(placed).x).to.be.closeTo(pos(base).x, TOLERANCE)
+        expect(pos(placed).z).to.be.closeTo(pos(base).z, TOLERANCE)
+        done()
+      })
+    })
+
+    it('should re-emit a placed event if it is re-placed when the base is moved', function(done) {
+      root.testing(this)
+
+      let placementEventCount = 0
+
+      placed.addEventListener('placed', () => {
+        placementEventCount += 1
+        if (placementEventCount === 1) {
+          base.moveTo('0 1 -1')
+          base.emit('moveend')
+        }
+        else if (placementEventCount === 2) {
+          expect(bottom(placed)).to.be.closeTo(top(base), TOLERANCE)
+          expect(pos(placed).x).to.be.closeTo(pos(base).x, TOLERANCE)
+          expect(pos(placed).z).to.be.closeTo(pos(base).z, TOLERANCE)
+          done()
+        }
+      })
+    })
+  })
+
   it('should place its entity on its base but narrowed on each side by a percent margin', function(done) {
     root.testing(this)
     base = root.testBox('base', { color: 'darkblue' })

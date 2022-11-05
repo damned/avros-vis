@@ -84,12 +84,11 @@ AFRAME.registerComponent('placement', {
             else {
               au.world.placeByAnchor({x:50, y:0, z:50}, host, targetPos)              
             }
+            justPlaced = true
           }
 
           let base = baseHost.placementBase || PlacementBase(baseHost)
           base.placeOn(self)
-
-          justPlaced = true
         })
       }
       

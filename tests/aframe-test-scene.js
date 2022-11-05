@@ -21,7 +21,12 @@ let decorateAsTestable = (entity) => {
     }
   )
   entity.moveTo = pos => {
-    entity.position.copy(pos)
+    if (typeof pos === 'string') {
+      entity.position.copy(AFRAME.utils.coordinates.parse(pos))
+    }
+    else {
+      entity.position.copy(pos)
+    }
   }
   return entity
 }
@@ -317,7 +322,7 @@ const aframeTestScene = function(overrides) {
         },
       }
       let merged = Object.assign(defaults, { id: root.id(name) }, attributes)
-      return au.entity(parent, 'a-box', merged)
+      return decorateAsTestable(au.entity(parent, 'a-box', merged))
     }
 
     root.testBox = (name, attributes = {}) => {

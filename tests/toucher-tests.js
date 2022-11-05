@@ -30,7 +30,7 @@ describe('toucher component', () => {
       root.testing(this)
 
       scene.actions(() => {
-        toucher.moveTo({x: 0, y: 1.9, z: 0})
+        toucher.moveTo('0 1.9 0')
       }, () => {
         expect(toucher.components.toucher.isTouching()).to.be.true
         expect(toucher.components.toucher.closest()).to.eql(touchable)
@@ -42,7 +42,7 @@ describe('toucher component', () => {
       root.testing(this)
 
       scene.actions(() => {
-        toucher.moveTo({x: 0, y: 2.2, z: -1})
+        toucher.moveTo('0 2.2 -1')
       }, () => {
         expect(toucher.components.toucher.isTouching()).to.be.false
         expect(toucher.components.toucher.closest()).to.be.null
