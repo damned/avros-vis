@@ -10,10 +10,11 @@ describe('edge component', () => {
   before(function() {
     scene = aframeTestScene({ context: this })
   })
-  beforeEach(function() {
+  beforeEach(() => {
     scene.reset()
     root = scene.addRoot()
   })
+  afterEach(() => root.makeViewable())
   let source, dest
 
   const worldPositionOfLocal = (entity, localPosition) => {
@@ -31,7 +32,9 @@ describe('edge component', () => {
   }
 
   describe('using from property on destination', () => {
-    it('should create a line from source to destination', (done) => {
+    it('should create a line from source to destination', function (done) {
+      root.testing(this)
+
       source = root.addHtml('<a-sphere id="source0" radius="0.1" position="-1 2 -2">')
       dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source0" position="1 1 -1">')
 
@@ -45,6 +48,8 @@ describe('edge component', () => {
     })
 
     it('should move line between source and destination to new position when source is moved', function(done) {
+      root.testing(this)
+
       source = root.addHtml('<a-sphere id="sourcemv" radius="0.1" position="-1 2 -2">')
       dest = root.addHtml('<a-sphere radius="0.1" edge="from: #sourcemv" position="1 1 -1">')
 
@@ -62,6 +67,8 @@ describe('edge component', () => {
     })
 
     it('should move line between source and destination to new position when destination is moved', function(done) {
+      root.testing(this)
+
       source = root.addHtml('<a-sphere id="sourcemv2" radius="0.1" position="-1 2 -2">')
       dest = root.addHtml('<a-sphere radius="0.1" edge="from: #sourcemv2" position="1 1 -1">')
 
@@ -81,9 +88,11 @@ describe('edge component', () => {
     })
 
     describe('when source is already loaded', () => {
-      it('should create a line from source to destination', (done) => {
+      it('should create a line from source to destination', function (done) {
+        root.testing(this)
+
         source = root.addHtml('<a-sphere id="source10" radius="0.1" position="1 2 -1">')
-        
+
         source.addEventListener('loaded', () => {
           dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source10; color: red" position="0 0 -1">')
 
@@ -101,7 +110,9 @@ describe('edge component', () => {
   })
 
   describe('using to property on source', () => {
-    it('should create a line from source to destination', (done) => {
+    it('should create a line from source to destination', function (done) {
+      root.testing(this)
+
       dest = root.addHtml('<a-sphere id="dest20" radius="0.1" position="1 1 -1">')
       source = root.addHtml('<a-sphere edge="to: #dest20" radius="0.1" position="-1 2 -2">')
 
@@ -117,7 +128,9 @@ describe('edge component', () => {
   })
 
   describe('using multiple edges', () => {
-    it('should create a line from source to two destinations', (done) => {
+    it('should create a line from source to two destinations', function (done) {
+      root.testing(this)
+
       dest = root.addHtml('<a-sphere id="dest-multi" radius="0.1" position="0 1 -1">')
       let dest2 = root.addHtml('<a-sphere id="dest-multi-2" radius="0.1" position="1 1 -1">')
       source = root.addHtml('<a-sphere edge="to: #dest-multi" edge__2="to: #dest-multi-2" radius="0.1" position="-1 2 -2">')
@@ -130,8 +143,7 @@ describe('edge component', () => {
         if (edgeCreatedCount < 2) {
           addedLineHost1 = event.detail.edgeEntity
           return
-        }
-        else {
+        } else {
           addedLineHost2 = event.detail.edgeEntity
         }
 
@@ -147,7 +159,9 @@ describe('edge component', () => {
   
   describe('edges from entities not at default scale', () => {
     
-    it('should create a line on source that compensates for scale from itself at origin', (done) => {
+    it('should create a line on source that compensates for scale from itself at origin', function (done) {
+      root.testing(this)
+
       dest = root.addHtml('<a-sphere id="destx" radius="0.1" position="1 1 1">')
       source = root.addHtml('<a-sphere id="sourcex" edge="to: #destx" radius="0.1" position="0 0 0" scale="0.5 0.5 0.5">')
 
@@ -161,7 +175,9 @@ describe('edge component', () => {
       })
     })
 
-    it('should create a line on source that compensates for scale to itself at origin', (done) => {
+    it('should create a line on source that compensates for scale to itself at origin', function (done) {
+      root.testing(this)
+
       source = root.addHtml('<a-sphere id="sourcexx" radius="0.1" position="1 1 1">')
       dest = root.addHtml('<a-sphere edge="from: #sourcexx" radius="0.1" position="-1 -1 -1" scale="0.5 0.5 0.5">')
 
@@ -176,7 +192,9 @@ describe('edge component', () => {
       })
     })
 
-    it('should create edge to a entity nested in a scaled space', (done) => {
+    it('should create edge to a entity nested in a scaled space', function (done) {
+      root.testing(this)
+
       dest = root.addHtml('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="desty" radius="0.1" position="1 1 1"></a-entity>', '#desty')
       source = root.addHtml('<a-sphere edge="to: #desty" radius="0.1" position="1 1 1">')
 
@@ -190,7 +208,9 @@ describe('edge component', () => {
       })
     })
 
-    it('should create edge from a entity nested in a scaled space', (done) => {
+    it('should create edge from a entity nested in a scaled space', function (done) {
+      root.testing(this)
+
       source = root.addHtml('<a-entity position="2 0 0" scale="3 3 3"><a-sphere id="sourcez" radius="0.1" position="1 1 1"></a-entity>',
         '#sourcez')
       dest = root.addHtml('<a-sphere edge="from: #sourcez" radius="0.1" position="1 1 1">')
@@ -208,7 +228,8 @@ describe('edge component', () => {
   })  
 
   describe('edges with space offsets', () => {
-    it('should create edge on a source entity in an offset space', (done) => {
+    it('should create edge on a source entity in an offset space', function (done) {
+      root.testing(this)
       dest = root.addHtml('<a-sphere id="desta" radius="0.1" position="1 1 1">')
       source = root.addHtml('<a-entity position="2 0 0" scale="2 2 2">' +
           '<a-sphere id="sourcea" edge="to: #desta" radius="0.1" position="1 1 1">' +
