@@ -100,7 +100,7 @@ AFRAME.registerComponent('placement', {
         }
         else if (emitPlacedNext) {
           emitPlacedNext = false
-          host.emit('placed')          
+          host.emit('placed')
         }
       }
       

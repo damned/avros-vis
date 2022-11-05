@@ -76,6 +76,8 @@ AFRAME.registerComponent('edge', {
             self.edgeEntity = addSibling(host)
             other.addEventListener('moveend', () => addLine())
             host.addEventListener('moveend', () => addLine())
+            other.addEventListener('placed', () => addLine())
+            host.addEventListener('placed', () => addLine())
           }
           else {
             self.edgeEntity.object3D.position.copy(host.object3D.position)

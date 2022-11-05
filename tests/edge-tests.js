@@ -87,6 +87,46 @@ describe('edge component', () => {
       })
     })
 
+    it('should move line when source has been automatically (re-)placed', function(done) {
+      root.testing(this)
+
+      source = root.addHtml('<a-sphere id="source-replace-1" radius="0.1" position="-1 2 -2">')
+      dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source-replace-1" position="1 1 -1">')
+
+      scene.actions(() => {
+        source.moveTo({x: -1, y: 2, z: -3})
+        source.emit('placed', {})
+
+        dest.addEventListener('edged', event => {
+          let lineEntity = event.detail.edgeEntity;
+          expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.position)
+          expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.position)
+          done()
+        })
+      })
+    })
+
+    it('should move line when destination has been automatically (re-)placed', function(done) {
+      root.testing(this)
+
+      source = root.addHtml('<a-sphere id="source-replace-2" radius="0.1" position="-1 2 -2">')
+      dest = root.addHtml('<a-sphere radius="0.1" edge="from: #source-replace-2" position="1 1 -1">')
+
+      scene.actions(() => {
+        dest.moveTo({x: 1, y: 2, z: -1})
+        dest.emit('placed', {})
+
+        dest.addEventListener('edged', event => {
+          let lineEntity = event.detail.edgeEntity;
+
+          expect(lineEndWorldPosition(lineEntity)).to.shallowDeepEqual(dest.position)
+          expect(lineStartWorldPosition(lineEntity)).to.shallowDeepEqual(source.position)
+
+          done()
+        })
+      })
+    })
+
     describe('when source is already loaded', () => {
       it('should create a line from source to destination', function (done) {
         root.testing(this)
