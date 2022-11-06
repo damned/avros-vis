@@ -43,25 +43,10 @@
   <body>
     <a-scene>
       <a-assets>
-        <a-mixin id="srv"
-                 geometry="primitive: box; height: 0.15; depth: 0.15; width: 0.15"></a-mixin>
         <img id="four-way-arrow" src="https://cdn.glitch.com/a0e144b7-dc44-4d24-a07d-26b1afe59bcf%2Ffour-way-arrow.png?v=1594823269623">
       </a-assets>
 
       <a-entity class="display" position="0 1 -1">
-
-        <a-box id="server1"
-               class="touchable" follower-constraint="lock: rotation"
-               color="#666"
-               balloon-label="label: server1"
-               mixin="srv" position="-1 0 0"></a-box>
-
-        <a-box id="server2"
-               class="touchable" follower-constraint="lock: rotation"
-               color="#666"
-               balloon-label="label: server2"
-               edge="from: #server1; color: lightgreen"
-               mixin="srv" position="-1 0 -0.25"></a-box>
 
       </a-entity>
 
@@ -82,6 +67,17 @@
       
       const leftHand = Hand($('#left-hand'))
       const rightHand = Hand($('#right-hand'))
+
+      const jsonGraphLoader = () => ({
+        nodes: ['server1', 'server2'],
+        edges: [
+          { from: 'server1', to: 'server2' }
+        ]
+      })
+
+      const displayBuilder = tiltviz.DisplayBuilder(jsonGraphLoader)
+
+      displayBuilder.build(document.querySelector('.display'))
     </script>
   </body>
 </html>
