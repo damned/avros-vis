@@ -10,9 +10,10 @@
     <script crossorigin src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
     <script src="src/aframe-utils.js"></script>
     <script src="src/balloon-label.js"></script>
-    <script src="src/split.js"></script>
-    <script src="src/placement.js"></script>
+    <script src="src/display-builder.js"></script>
     <script src="src/edge.js"></script>
+    <script src="src/placement.js"></script>
+    <script src="src/split.js"></script>
     <!--
         scripts coming in from vr-builder - that project used jquery, as move
         towards re-usable components, move off jquery onto plain dom js
@@ -47,7 +48,7 @@
         <img id="four-way-arrow" src="https://cdn.glitch.com/a0e144b7-dc44-4d24-a07d-26b1afe59bcf%2Ffour-way-arrow.png?v=1594823269623">
       </a-assets>
 
-      <a-entity id="display" position="0 1 -1">
+      <a-entity class="display" position="0 1 -1">
 
         <a-box id="server1"
                class="touchable" follower-constraint="lock: rotation"
