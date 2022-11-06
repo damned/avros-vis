@@ -1,172 +1,45 @@
-ongoing ->
- - all tdd
- - good scouting
-   - move towards all relevant tests with visual review, continuous improvement of:
-     - test readability and features
-     - improving review features and interactions - e.g. clarifying labelling, replay / tick review etc.
+*NB: moved previous fine-grained, unprioritised list of UX, tech and ideas to `todo-detail.txt`*
 
-now
-[x] approach, tdd etc. - decided -> ongoing
-[ ] step back up to higher level, re-prioritise use cases and major product ideas - see ideas.txt
+cards - initial priority, grouped by consecutive feature set
 
+* vr layout from basic scene json - entities and edges
 
-approach details
+[ ] - load entities from json
+[ ] - load edges from json
+[ ] - snap to grid
 
-[x] spike views manually
-[x] aframe 1.3.0 upgrade
-[.] refactor index.html model to use layout assistance features
-[.] aggressively improve test infrastructure
- - [x] test scene with optional scene clean/recreate vs re-use
- - [x] using independent world-space test roots, allowing for post-test move for review (makeViewable())
- - [x] add chai expectation(s) for matching entities under test to expected entities
- - [x] move between tests in post-testing visual review - '<' or '>' on desktop, 'A' in Quest
- - [x] lay out tests for review
- - [ ] resolve intermittent timeout issues, presumably from slow frames
-   - [ ] instrument to determine cause - is it that a tick hasn't happened before action step?
-   - [ ] if tick delay is cause, explicitly trigger actions off completion of tick - maybe tock() would help
-   - [ ] onceLoaded improvements - let test scene / root track entities and provide ability to run code once loaded
- - [.] fix scene / root mismatch vs VR/controls (init'd in first scene)
-   - [x] separate a-scene per Scene object
-   - [.] fix au world space tests vs balloon label tests conflict - move to test roots
-   - [ ] ensure hook up on enter vr on correct scene, wire keyboard into correct scene (at mo randoming around scenes)
- - [x] move all scene-based test to latest test scene / root usage - most done, update remaining as touch them
- - [.] lay out all tests and review improvements
-   - [ ] de-conflict labelling of test objects
- - [ ] replay stages/actions and movements/changes to make sense of e.g. toucher tests
- - [ ] extract au.creata lib based on au.addEntityTo for cheapest creation syntax
-   - [ ] possible syntax: builda.box({ at: '-2.25 0.75 -2.25', scale: 0.5 }).and.one.with({xz:'1 0'}) - needs single element and array duality
- - [ ] add a like/butWith/but.with for replicating entities with slight changes
- - [ ] extract squash lib - use shorthand for flat, x-flat, wall etc. scale / dimension modifiers (for boxes)
- - [.] auto-generation of test root offsets (pre / post test?) with defaulted optional bounds
- - [ ] mocha test runner page integration
-   - [ ] keep scene viewable w/ pane for embedded scene
-   - [ ] bring test root into view for test (when click on it / hover?)
- - [ ] review code in visual review
-[x] move to test-drive for functionality
- - [x] basic model boards / panels
- - [x] move to things and render with styles
- - [x] move to more low components to allow simpler testing / construction at model level
- - [x] place multiple things on, centred - unspecified order
- - [x] factor out functions to get positions of one object relative to another, regardless of components etc.
-   - [x] include visual debug
- - [x] split setup / it trial - didn't really need as yet - can generally set resetSceneBeforeEach to false
-      as setup of each test overrides previous, but should use reset true when changing...
+* scene creation from repos (services and queues)
 
-layout assistance and interaction features
+[ ] - add services from single repo to scene json (url, dir as e.g. command line variables, probably just grep)
+[ ] - enumerate services from json source list (repo url, dir etc.)
+[ ] - add topics as entity with edge from publisher via iam (maybe needs terraform run)
+[ ] - add queues as edges from topics to consumer via iam
 
-[.] layout assistance features
- - [.] auto-layout - positioning without specifying co-ords
-   - [x] place single thing on
-   - [x] single edge from
-   - [x] single edge to
-   - [x] multiple edges
-   - [x] edges between spaces - scales and offsets
-   - [x] place on across scaled entities
-   - [x] place multiple things on, constraining x and z
-   - [x] place multiple things on non-unit objects (fixing 6 on es issues)
-   - [x] allow specify margins for placed entities
-     - [x] specified as % of constraint size, currently only in x
-   - [ ] make constrain limit not target size (i.e. scale down to but not up)
-   - [ ] switch placement on to use size constraint by default
-   - [ ] auto-stretch for placed entities (e.g. subnets)
-   - [ ] multi-segment edges (squared)
-   - [ ] place on multiple entities - specify order
- - [.] allow user interaction - re-use from vr-builder components
-   - [x] hands
-   - [x] self-move
-   - [x] allow grab-move hard-positioned base
-     - [x] spike with placements updating to new position at end
-     - [x] backfill tests for update on moveend
-     - [x] trigger other relevant updates
-       - [x] update edge positions
-       - [x] also update edges on in-direct placed events if moved entity has placements on it
-       - [x] presumably need placements to trigger from placed events for placements indirectly dependent upon
-     - [ ] simplify addition of touchable and follower-constraint with lock down to single component
-   - [ ] move vr-builder components into project with tests and removal of jquery
-     - [ ] hand.js
-     - [x] grabber.js
-     - [x] toucher.js
-     - [ ] user-mover.js
-     - [x] follower.js and follower-constraint
-     - [ ] etc.
-   - [ ] placement on base when grab-move object onto base
-   - [ ] allow grab without handles to move, perhaps some combination of:
-     - [ ] grab high - like monkeying around
-     - [ ] grab low - less effort, maybe makes less sense
-     - [ ] grab immovable object - e.g. table
-       - [ ] maybe takes two hands to move a table?
+* add datastores (databases and buckets, all from repo parse)
 
- - [ ] connectors
- - [ ] move to things and styles?
+[ ] - add dynamodb tables
+[ ] - relate to dynamodb tables by iam
+[ ] - add s3 buckets
+[ ] - relate to s3 buckets by iam
+[ ] - map entity types to styles in static json
 
-[ ] move from avr-os
-  - [x] rename to generic: tilt-viz for table-top viz a la tilt-five
-  - [ ] leave copy of current graph as interactive tweakable example?
-  - [ ] to new subject for main graph, from:
-    - dogfood code?
-    - infra?
-    - simple and build up?
+* persist layout changes
 
-completeness
-[x] tasksservices
-[x] req - fus
-[ ] tg
-[ ] lam scaleup - tower
-[ ] many tr trees
-[ ] azs
+[ ] - serialize to json (write to console, can be used to overrwrite static json)
+[ ] - PUT to server (overwrite named json)
+[ ] - PUT copies to timestamped backup before overwrite
+[ ] - GET from server on startup
 
-[x] tr forest
-[x] services
-[x] req - fus
-[ ] tg
-[ ] lam scaleup - tower
-[ ] many tr trees
-[ ] azs
+* animate data flows
 
-labelling
-[ ] icons
-[ ] rotate to viewer
-[ ] circulators - from topol
+[ ] - animate example message flow along each queue (triggers every few seconds)
+[ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
+[ ] - specify happy path corrections statically (hand coded json)
 
-flows
-[ ] flow along edges, showing direction
-[ ] stop and start (opacity)
-[ ] daily sequence
-[ ] clock
+* add http flows and lambdas
 
-
-stages
-[ ] two stages
-[ ] switch between stages
-
-
-details
-[ ] magnify glass
-[ ] doc lines
-[ ] doc parts
-[ ] switch been focus / scale
-[ ] occlude others
-
-
-interaction
-[ ] pull up/out
-[ ] drag around
-[ ] sleeves
-[ ] fade / highlight - e.g. req/ing
-
-
-progression
-[ ] animate item position between stages
-
-
-privacy
-[x] shorts
-[ ] server render
-[ ] data map from param key
-
-pipelines
-[ ]
-
-testing
-[ ] if split setup/it works, focus on related entities after failure
-[ ] embed primrosevr console for test and code
+[ ] - add http to lbs via security groups
+[ ] - add lbs to ecs via security groups
+[ ] - add lambdas
+[ ] - add lambdas to datastores
+[ ] - add api gateways to lambdas
