@@ -60,6 +60,27 @@ describe('display builder', () => {
     })
   })
 
+  it('loads an edge between two entities from json', function (done) {
+    root.testing(this)
+
+    graphJson = {
+      nodes: ['dbox', 'ebox'],
+      edges: [{
+        from: 'dbox',
+        to: 'ebox'
+      }]
+    }
+
+    displayBuilder.build(display)
+
+    scene.actions(() => {
+      let dbox = root.select('#dbox')
+      let ebox = root.select('#ebox')
+      expect(dbox.getAttribute('edge').to).to.eql(ebox)
+      done()
+    })
+  })
+
 })
 
 function getLabel(addedBox) {
