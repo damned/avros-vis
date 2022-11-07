@@ -190,7 +190,7 @@ const aframeTestScene = function(overrides) {
       }
     })
     applyAction(() => {
-      au.catching(handlers[0], 'handler 0')
+      au.catching(handlers[0], 'handler 0', { rethrow: true })
       if (handlers.length > 1) {
         applyActions.apply(this, handlers.slice(1))
       }

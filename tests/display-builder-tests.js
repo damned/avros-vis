@@ -60,25 +60,29 @@ describe('display builder', () => {
     })
   })
 
-  it('loads an edge between two entities from json', function (done) {
+  it('loads multiple edges from an entity from json', function (done) {
     root.testing(this)
 
     graphJson = {
-      nodes: ['dbox', 'ebox'],
+      nodes: ['source-node', 'to1', 'to2'],
       edges: [{
-        from: 'dbox',
-        to: 'ebox'
+        from: 'source-node',
+        to: 'to1'
+      }, {
+        from: 'source-node',
+        to: 'to2'
       }]
     }
 
     displayBuilder.build(display)
 
     scene.actions(() => {
-      let dbox = root.select('#dbox')
-      let ebox = root.select('#ebox')
-      expect(dbox.getAttribute('edge').to).to.eql(ebox)
-      done()
-    })
+      let sourceNode = root.select('#source-node')
+      let to1 = root.select('#to1')
+      let to2 = root.select('#to2')
+      expect(sourceNode.getAttribute('edge').to).to.eql(to1)
+      expect(sourceNode.getAttribute('edge__1').to).to.eql(to2)
+    }, done)
   })
 
 })

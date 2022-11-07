@@ -4,8 +4,8 @@ cards - initial priority, grouped by consecutive feature set
 
 * vr layout from basic scene json - entities and edges
 
-[.] - load entities from json
-[ ] - load edges from json
+[x] - load entities from json
+[x] - load edges from json
 [ ] - snap to grid
 
 * scene creation from repos (services and queues)

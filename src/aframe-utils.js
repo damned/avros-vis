@@ -17,7 +17,7 @@ au.doubleTick = handler => au.tick(() => {
   })
 })
 
-au.catching = (fn, context) => {
+au.catching = (fn, context, options = { rethrow: false }) => {
   try {
     if (context !== undefined) {
       au.log('catching context: ' + context)
@@ -25,6 +25,9 @@ au.catching = (fn, context) => {
     fn();
   } catch (e) {
     au.log("caught exception in catching", e);
+    if (options.rethrow) {
+      throw e
+    }
   }
 }
 

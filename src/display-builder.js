@@ -16,25 +16,27 @@ tiltviz.DisplayBuilder = function(loader) {
       + ` width="${length}" height="${length}" depth="${length}" ></a-box>`)
   }
 
-  function createEdgeAttribute(edge) {
-    if (edge === null || edge === undefined) {
-      return ''
-    }
-    return ` edge="to: #${edge.to}" `
+  function createEdgeAttributes(edges) {
+    let concatenated = ''
+    edges.forEach((edge, i) => {
+      let suffix = (i === 0 ? '' : '__' + i);
+      concatenated += ` edge${suffix}="to: #${edge.to}"`
+    })
+    return concatenated
   }
 
-  function extractEdgeFromNode(graph, nodeId) {
+  function extractEdgesFromNode(graph, nodeId) {
     if (graph.edges) {
-      return graph.edges.find(e => e.from === nodeId)
+      return graph.edges.filter(e => e.from === nodeId)
     }
-    return null
+    return []
   }
 
   api.build = rootEl => {
     const graph = loader()
     graph.nodes.forEach((nodeId, i) => {
-      let edge = extractEdgeFromNode(graph, nodeId);
-      createNode(rootEl, nodeId, i, createEdgeAttribute(edge));
+      let edges = extractEdgesFromNode(graph, nodeId);
+      createNode(rootEl, nodeId, i, createEdgeAttributes(edges));
     });
   }
 
