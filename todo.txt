@@ -43,3 +43,11 @@ cards - initial priority, grouped by consecutive feature set
 [ ] - add lambdas
 [ ] - add lambdas to datastores
 [ ] - add api gateways to lambdas
+
+---
+
+* new scope
+
+- deconflict labels - moveability? user-attraction?
+- presentation in browser
+

@@ -8,7 +8,7 @@ tiltviz.DisplayBuilder = function(loader) {
   function createNode(rootEl, nodeId, i, edgeAttribute) {
     const length = 0.1
     rootEl.insertAdjacentHTML('beforeend',
-      `<a-box id="${nodeId}" balloon-label="label: ${nodeId}"`
+      `<a-box id="${nodeId}" balloon-label="label: ${nodeId}; y-offset: -0.35; scale: 0.3"`
       + edgeAttribute
       + ' class="touchable" follower-constraint="lock: rotation"'
       + ' color="#666"'
