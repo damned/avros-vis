@@ -6,7 +6,7 @@ cards - initial priority, grouped by consecutive feature set
 
 [x] - load entities from json
 [x] - load edges from json
-[ ] - snap to grid
+[.] - snap to grid
 
 * scene creation from repos (services and queues)
 

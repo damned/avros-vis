@@ -19,6 +19,14 @@ function resetToPlacementBeforeFollow(follower) {
   }
 }
 
+function snapAxisValueToGrid(gridSize, value) {
+  au.log('grid size', gridSize)
+  if (gridSize && gridSize > 0) {
+    return Math.round(value / gridSize) * gridSize
+  }
+  return value
+}
+
 AFRAME.registerComponent('follower', {
   dependencies: ['follower-constraint'],
   schema: {
@@ -31,6 +39,7 @@ AFRAME.registerComponent('follower', {
     // this.el.setAttribute('debugged', 'follower: init')
     this.updateCount = 0
     this.tickCount = 0
+    this.snapToGrid = -1
 
     this.axisLimit = -1
     this.axisLock = ''
@@ -39,6 +48,7 @@ AFRAME.registerComponent('follower', {
       this.axisLimit = constraints.axisLimit
       this.axisLock = constraints.axisLock
       this.lock += constraints.lock
+      this.snapToGrid = constraints.snapToGrid
     }
   },
   update: function(oldData) {
@@ -68,12 +78,13 @@ AFRAME.registerComponent('follower', {
     resetToPlacementBeforeFollow(this)
   },
   tick: function() {
-    this.tickCount++
-    if (this.leader == null || this.leader == undefined) {
+    const self = this
+    self.tickCount++
+    if (self.leader == null || self.leader == undefined) {
       return;
     }
     au.catching(() => {
-      savePlacementBeforeFollow(this)
+      savePlacementBeforeFollow(self)
       let followerObject3d = this.el.object3D
       let leaderPos = followerObject3d.parent.worldToLocal(this.leader.object3D.getWorldPosition(new THREE.Vector3()))
       // log('follower', 'got leader pos:', leaderPos)
@@ -91,9 +102,9 @@ AFRAME.registerComponent('follower', {
             return -this.axisLimit
           }
         }
-        return axisValue
+        return snapAxisValueToGrid(self.snapToGrid, axisValue)
       }
-      if (this.lock != 'position') {
+      if (this.lock !== 'position') {
         let z
         if (this.axisLock == 'z') {
           z = followerObject3d.position.z
@@ -103,7 +114,7 @@ AFRAME.registerComponent('follower', {
         }
         followerObject3d.position.set(limited(leaderPos.x), limited(leaderPos.y), z)
       }
-      if (this.lock != 'rotation') {
+      if (this.lock !== 'rotation') {
         followerObject3d.rotation.copy(leaderRot)
       }
     })

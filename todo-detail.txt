@@ -81,7 +81,12 @@ layout assistance and interaction features
        - [x] update edge positions
        - [x] also update edges on in-direct placed events if moved entity has placements on it
        - [x] presumably need placements to trigger from placed events for placements indirectly dependent upon
-     - [ ] simplify addition of touchable and follower-constraint with lock down to single component
+     - [ ] simplify addition of touchable and follower-constraint with
+       - [ ] find constraints by walking up ancestors and using first match (or merge?)
+       - [ ] wrap up into single component
+     - [ ] refactor follow constraints whereby follower passes values through a constraint filter
+           that can be implemented separately, preventing accretion of all constraint functionality in
+           follower itself
    - [ ] move vr-builder components into project with tests and removal of jquery
      - [ ] hand.js
      - [x] grabber.js
