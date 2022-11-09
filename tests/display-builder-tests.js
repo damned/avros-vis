@@ -60,6 +60,28 @@ describe('display builder', () => {
     })
   })
 
+  it('loads an entity with defined position at that location', function (done) {
+    root.testing(this)
+
+    graphJson = {
+      nodes: [{
+        id: 'obox'
+      }, {
+        id: 'pbox',
+        position: '1 1 1'
+      }]
+    }
+
+    displayBuilder.build(display)
+
+    scene.actions(() => {
+      let obox = root.select('#obox')
+      let positionedBox = root.select('#pbox')
+      expect(au.xyzTriplet(positionedBox.getAttribute('position'))).to.eql('1 1 1');
+      done()
+    })
+  })
+
   it('loads multiple edges from an entity from json', function (done) {
     root.testing(this)
 

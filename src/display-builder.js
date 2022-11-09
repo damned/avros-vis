@@ -4,15 +4,21 @@ var tiltviz = tiltviz || {}
 tiltviz.DisplayBuilder = function(loader) {
   const api = {}
 
-  function createNode(rootEl, nodeId, i, edgeAttribute) {
+  function createNode(rootEl, node, defaultPlacementCount, edgeAttribute) {
     const length = 0.1
+    let nodeId = node.id
+    let position = node.position;
+    if (node.position === undefined) {
+      position = `0 0 -${defaultPlacementCount++ * 2 * length}`;
+    }
     rootEl.insertAdjacentHTML('beforeend',
       `<a-box id="${nodeId}" balloon-label="label: ${nodeId}; y-offset: -0.35; scale: 0.3"`
       + edgeAttribute
       + ' class="touchable" follower-constraint="lock: rotation; snap-to-grid: 0.1"'
       + ' color="#666"'
-      + ` position="0 0 -${i * 2 * length}"`
+      + ` position="${position}"`
       + ` width="${length}" height="${length}" depth="${length}" ></a-box>`)
+    return defaultPlacementCount
   }
 
   function createEdgeAttributes(edges) {
@@ -33,10 +39,10 @@ tiltviz.DisplayBuilder = function(loader) {
 
   api.build = rootEl => {
     const graph = loader()
+    let defaultPlacementCount = 0
     graph.nodes.forEach((node, i) => {
-      let nodeId = node.id
-      let edges = extractEdgesFromNode(graph, nodeId);
-      createNode(rootEl, nodeId, i, createEdgeAttributes(edges));
+      let edges = extractEdgesFromNode(graph, node.id);
+      defaultPlacementCount = createNode(rootEl, node, defaultPlacementCount, createEdgeAttributes(edges));
     });
   }
 
