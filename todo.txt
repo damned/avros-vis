@@ -15,11 +15,12 @@ cards - initial priority, grouped by consecutive feature set
 
 * persist layout changes
 
-[X] - serialize to json (write to console, can be used to overrwrite static json)
+[x] - serialize to json (write to console, can be used to overrwrite static json)
 [x] - GET from server on startup
 [x] - read positions from graph json
-[X] - serialize on move
-[.] - PUT to server (overwrite named json) on move
+[x] - serialize on move
+[x] - PUT to server (overwrite named json) on move
+[ ] - server PUT async w/ graph id
 
 * build out basic graphName for purposes of general understanding
 
