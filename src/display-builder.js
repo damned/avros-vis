@@ -3,6 +3,7 @@ var tiltviz = tiltviz || {}
 
 tiltviz.DisplayBuilder = function(loader) {
   const api = {}
+  const entityMoveHandlers = [];
 
   function createNode(rootEl, node, defaultPlacementCount, edgeAttribute) {
     const length = 0.1
@@ -18,6 +19,9 @@ tiltviz.DisplayBuilder = function(loader) {
       + ' color="#666"'
       + ` position="${position}"`
       + ` width="${length}" height="${length}" depth="${length}" ></a-box>`)
+
+    entityMoveHandlers.forEach(handler => rootEl.lastChild.addEventListener('moveend', handler))
+
     return defaultPlacementCount
   }
 
@@ -44,6 +48,11 @@ tiltviz.DisplayBuilder = function(loader) {
       let edges = extractEdgesFromNode(graph, node.id);
       defaultPlacementCount = createNode(rootEl, node, defaultPlacementCount, createEdgeAttributes(edges));
     });
+  }
+
+  api.withEntityMoveHandler = handler => {
+    entityMoveHandlers.push(handler)
+    return api
   }
 
   return api

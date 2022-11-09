@@ -70,9 +70,16 @@
         return JSON.parse(request.responseText)
       }
 
-      const displayBuilder = tiltviz.DisplayBuilder(networkJsonGraphLoader)
+      let displayRoot = document.querySelector('.display');
+      
+      const displaySerializer = tiltviz.DisplaySerializer();
+      function handleDisplayChange() {
+        console.log(JSON.stringify(displaySerializer.toGraph(displayRoot)))
+      }
 
-      displayBuilder.build(document.querySelector('.display'))
+      tiltviz.DisplayBuilder(networkJsonGraphLoader)
+              .withEntityMoveHandler(handleDisplayChange)
+              .build(displayRoot)
     </script>
   </body>
 </html>

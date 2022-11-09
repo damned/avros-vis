@@ -3,11 +3,13 @@
   "nodes": [
     {"id": "mesh"},
     {"id": "nems"},
-    {"id": "suspension"},
+    {
+      "id": "suspension",
+      "position": "-0.5 0.5 -0.5"
+    },
     {"id": "re-registration"},
     {
-      "id": "pds-adaptor",
-      "position": "-1 1 -1"
+      "id": "pds-adaptor"
     }
   ],
   "edges": [
