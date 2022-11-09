@@ -2,7 +2,7 @@
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 NO_COLOR='\033[0m'
-npx mocha-headless-chrome -f tests.html > tests.log
+npx mocha-headless-chrome -f public/tests.html > tests.log
 export TEST_EXIT=$?
 if [[ $TEST_EXIT -ne 0 ]]; then
   echo 'exit code' $TEST_EXIT

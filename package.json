@@ -5,14 +5,17 @@
   "main": "",
   "directories": {
     "doc": "doc",
-    "test": "tests"
+    "test": "public/tests"
   },
   "scripts": {
-    "start": "/opt/nvm/versions/node/v10/bin/ws --port 3000 --log.format combined --directory . --config-file null.config.js --blacklist /.\\(.*\\)",
+    "start": "node server.js",
     "test": "./test"
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "express": "~4.18.2"
+  },
   "devDependencies": {
     "mocha-headless-chrome": "~4.0.0"
   }

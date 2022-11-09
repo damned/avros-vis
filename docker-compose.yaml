@@ -1,0 +1,9 @@
+version: "2.2"
+services:
+  tilt-viz-server:
+    build: .
+    working_dir: /work
+    volumes:
+      - .:/work
+    ports:
+      - "3000:3000"

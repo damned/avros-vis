@@ -53,28 +53,44 @@
       const leftHand = Hand(document.querySelector('#left-hand'))
       const rightHand = Hand(document.querySelector('#right-hand'))
 
-      const graphName = new URLSearchParams(document.location.search).get('graph-name');
-      const jsonGraphPath = graphName ? '.data/' + graphName + '.json' : 'default-graph.json'
+      const graphName = new URLSearchParams(document.location.search).get('graph');
+      let graphId = graphName ?? 'default'
+
+      const jsonGraphPath = () => 'graph/' + graphId
+
+      const captureGraphId = graph => {
+        graphId = graph.id ?? 'default'
+        return graph
+      }
 
       const networkJsonGraphLoader = () => {
         const request = new XMLHttpRequest();
-        request.open('GET', jsonGraphPath, false);  // `false` == synchronous
+        let getPath = jsonGraphPath();
+        console.log('loading from ' + getPath)
+        request.open('GET', getPath, false);  // `false` == synchronous
         request.send(null);
 
         if (request.status !== 200) {
           return {
-            nodes: [{id: 'failed to load ' + jsonGraphPath}],
+            nodes: [{id: 'failed to load ' + getPath}],
             edges: []
           }
         }
-        return JSON.parse(request.responseText)
+        return captureGraphId(JSON.parse(request.responseText))
       }
 
       let displayRoot = document.querySelector('.display');
 
       const displaySerializer = tiltviz.DisplaySerializer();
       function handleDisplayChange() {
-        console.log(JSON.stringify(displaySerializer.toGraph(displayRoot)))
+        let json = JSON.stringify(displaySerializer.toGraph(displayRoot));
+        console.log('updating display graph ' + graphId)
+        const request = new XMLHttpRequest();
+        request.open('PUT', jsonGraphPath(), false);  // `false` == synchronous
+        request.setRequestHeader('Content-Type', 'application/json')
+        request.send(json);
+
+        console.log('updated display graph')
       }
 
       tiltviz.DisplayBuilder(networkJsonGraphLoader)

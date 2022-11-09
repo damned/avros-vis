@@ -18,9 +18,8 @@ cards - initial priority, grouped by consecutive feature set
 [X] - serialize to json (write to console, can be used to overrwrite static json)
 [x] - GET from server on startup
 [x] - read positions from graph json
-[ ] - serialize on move
-[ ] - PUT to server (overwrite named json) on move
-[ ] - PUT copies to timestamped backup before overwrite
+[X] - serialize on move
+[.] - PUT to server (overwrite named json) on move
 
 * build out basic graphName for purposes of general understanding
 
@@ -34,6 +33,7 @@ cards - initial priority, grouped by consecutive feature set
 * further ux improvements
 
 [ ] - user rotate
+[ ] - PUT copies to timestamped backup before overwrite
 [ ] - undo / redo
 [ ] - design background / room
 
