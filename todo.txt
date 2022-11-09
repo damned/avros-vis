@@ -6,9 +6,41 @@ cards - initial priority, grouped by consecutive feature set
 
 [x] - load entities from json
 [x] - load edges from json
-[.] - snap to grid
+[x] - snap to grid
 
-* scene creation from repos (services and queues)
+* basic ux tweaks
+
+[ ] - user move grabbing anywhere
+[ ] - user move up and down
+
+* persist layout changes
+
+[ ] - serialize to json (write to console, can be used to overrwrite static json)
+[ ] - PUT to server (overwrite named json)
+[ ] - PUT copies to timestamped backup before overwrite
+[ ] - GET from server on startup
+
+* build out basic graph for purposes of general understanding
+
+[ ] - add types for topics and queues
+[ ] - add types for http vs queue connections
+[ ] - add types for datastores - dbs and filestores
+[ ] - add api gatways and lambdas
+[ ] - add ability to label edges
+[ ] - add basic legend (static on wall?)
+
+* further ux improvements
+
+[ ] - user rotate
+[ ] - undo / redo
+
+* animate data flows
+
+[ ] - animate example message flow along each queue (triggers every few seconds)
+[ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
+[ ] - specify happy path corrections statically (hand coded json)
+
+* automated graph creation from repos (services and queues)
 
 [ ] - add services from single repo to scene json (url, dir as e.g. command line variables, probably just grep)
 [ ] - enumerate services from json source list (repo url, dir etc.)
@@ -19,22 +51,16 @@ cards - initial priority, grouped by consecutive feature set
 
 [ ] - add dynamodb tables
 [ ] - relate to dynamodb tables by iam
-[ ] - add s3 buckets
-[ ] - relate to s3 buckets by iam
-[ ] - map entity types to styles in static json
-
-* persist layout changes
+[ ] - add s3 bucketsgit@github.com:damned/tf-g* persist layout changes
 
 [ ] - serialize to json (write to console, can be used to overrwrite static json)
 [ ] - PUT to server (overwrite named json)
 [ ] - PUT copies to timestamped backup before overwrite
 [ ] - GET from server on startup
 
-* animate data flows
-
-[ ] - animate example message flow along each queue (triggers every few seconds)
-[ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
-[ ] - specify happy path corrections statically (hand coded json)
+rok.git
+[ ] - relate to s3 buckets by iam
+[ ] - map entity types to styles in static json
 
 * add http flows and lambdas
 
@@ -50,4 +76,13 @@ cards - initial priority, grouped by consecutive feature set
 
 - deconflict labels - moveability? user-attraction?
 - presentation in browser
+
+* Ste feedback
+
+- move everything up and down
+- rotate everything
+- what is this? legend - display on wall
+- ability to undo / redo stack or similar
+- watch versions on persistence - maybe add migrations?
+
 
