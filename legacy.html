@@ -27,6 +27,7 @@
     <script src="src/follower.js"></script>
     <script src="src/follower-constraint.js"></script>
     <script src="src/grabber.js"></script>
+    <script src="src/hand.js"></script>
     <script src="src/touch-source.js"></script>
     <script src="src/toucher.js"></script>
     <script src="src/move-handles.js"></script>
@@ -36,7 +37,6 @@
     -->
     <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://vr-builder.glitch.me/js/aframe-util.js"></script>
-    <script src="https://vr-builder.glitch.me/js/hand.js"></script>
     <script src="https://vr-builder.glitch.me/js/user-move-handle.js"></script>
     <script src="src/user-mover.js"></script>
     <script type="application/javascript">
@@ -146,8 +146,8 @@
       
       au.log.active = false
       
-      const leftHand = Hand($('#left-hand'))
-      const rightHand = Hand($('#right-hand'))
+      const leftHand = Hand(document.querySelector('#left-hand'))
+      const rightHand = Hand(document.querySelector('#right-hand'))
     </script>
   </body>
 </html>

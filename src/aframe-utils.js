@@ -4,6 +4,16 @@ var au = aframeUtils
 
 au.collider = (collidee) => collidee.components["aabb-collider"]
 
+au.newId = () => Date.now().toString()
+
+au.afterCreation = function(fn) {
+  setTimeout(() => {
+    au.catching(() => {
+      fn()
+    })
+  }, 0)
+}
+
 au.tick = fn => {
   setTimeout(() => {
     fn()

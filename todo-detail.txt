@@ -88,12 +88,11 @@ layout assistance and interaction features
            that can be implemented separately, preventing accretion of all constraint functionality in
            follower itself
    - [ ] move vr-builder components into project with tests and removal of jquery
-     - [ ] hand.js
+     - [x] hand.js
      - [x] grabber.js
      - [x] toucher.js
      - [ ] user-mover.js
      - [x] follower.js and follower-constraint
-     - [ ] etc.
    - [ ] placement on base when grab-move object onto base
    - [ ] allow grab without handles to move, perhaps some combination of:
      - [ ] grab high - like monkeying around
