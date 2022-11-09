@@ -14,12 +14,6 @@
     <script src="src/edge.js"></script>
     <script src="src/placement.js"></script>
     <script src="src/split.js"></script>
-    <!--
-        scripts coming in from vr-builder - that project used jquery, as move
-        towards re-usable components, move off jquery onto plain dom js
-
-        <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
-      -->
     <script src="src/color.js"></script>
     <script src="src/follower.js"></script>
     <script src="src/follower-constraint.js"></script>
@@ -27,17 +21,6 @@
     <script src="src/hand.js"></script>
     <script src="src/touch-source.js"></script>
     <script src="src/toucher.js"></script>
-
-
-    <!--
-        yet to port off jquery
-    -->
-    <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
-    <script src="src/move-handles.js"></script>
-    <script src="https://vr-builder.glitch.me/js/user-move-handle.js"></script>
-
-    <script src="https://vr-builder.glitch.me/js/aframe-util.js"></script>
     <script src="src/user-mover.js"></script>
     <script type="application/javascript">
       aframeUtils.log.includeCaller = true
@@ -59,8 +42,6 @@
         <a-entity id="left-hand" user-mover hand-side="left"></a-entity>
         <a-entity id="right-hand" user-mover hand-side="right"></a-entity>
       </a-entity>
-      
-      <a-entity move-handles="gap: 0.6; extent: 6; height: 0.85; size: 0.12"></a-entity>
 
       <a-text id="ddd" position="0 2 -2" scale="0.1 0.1 0.1"></a-text>
 
