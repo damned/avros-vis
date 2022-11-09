@@ -96,7 +96,7 @@ var Hand = function(hand, options) {
     model.setAttribute('debugged', message)
   }
 
-  const grabHandler = function(event) {
+  const triggerGraspHandler = function(event) {
     let graspInfo = { graspId: au.newId() }
     grabber.grasp(graspInfo)
     model.emit('grasp', graspInfo)
@@ -115,7 +115,7 @@ var Hand = function(hand, options) {
   hand.setAttribute('reacher', 'components-to-play: remote-toucher')
   hand.setAttribute('remote-toucher', '')
 
-  hand.addEventListener('triggerdown', grabHandler)
+  hand.addEventListener('triggerdown', triggerGraspHandler)
   hand.addEventListener('triggerup', triggerReleaseHandler)
 
 

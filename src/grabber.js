@@ -143,7 +143,7 @@ AFRAME.registerComponent('grabber', {
         host.setAttribute('opacity', 0.5)
       }
       else {
-        host.emit('grasp')
+        host.emit('miss')
       }
     }.bind(this))
   },

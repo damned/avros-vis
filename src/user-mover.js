@@ -29,8 +29,8 @@ AFRAME.registerComponent('user-mover', {
       })
     }
     else {
-      host.addEventListener('grasp', () => {
-        au.log('user-mover', 'starting move on grasp')
+      host.addEventListener('miss', () => {
+        au.log('user-mover', 'starting move on missed grab')
         startUserMove()
       })
     }
