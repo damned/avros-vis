@@ -15,12 +15,13 @@ cards - initial priority, grouped by consecutive feature set
 
 * persist layout changes
 
-[ ] - serialize to json (write to console, can be used to overrwrite static json)
-[ ] - PUT to server (overwrite named json)
-[ ] - PUT copies to timestamped backup before overwrite
+[X] - serialize to json (write to console, can be used to overrwrite static json)
 [x] - GET from server on startup
+[ ] - read positions from graph json
+[ ] - PUT to server (overwrite named json) on move
+[ ] - PUT copies to timestamped backup before overwrite
 
-* build out basic graph for purposes of general understanding
+* build out basic graphName for purposes of general understanding
 
 [ ] - add types for topics and queues
 [ ] - add types for http vs queue connections
@@ -41,7 +42,7 @@ cards - initial priority, grouped by consecutive feature set
 [ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
 [ ] - specify happy path corrections statically (hand coded json)
 
-* automated graph creation from repos (services and queues)
+* automated graphName creation from repos (services and queues)
 
 [ ] - add services from single repo to scene json (url, dir as e.g. command line variables, probably just grep)
 [ ] - enumerate services from json source list (repo url, dir etc.)

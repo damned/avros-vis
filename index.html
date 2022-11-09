@@ -11,6 +11,7 @@
     <script src="src/aframe-utils.js"></script>
     <script src="src/balloon-label.js"></script>
     <script src="src/display-builder.js"></script>
+    <script src="src/display-serializer.js"></script>
     <script src="src/edge.js"></script>
     <script src="src/placement.js"></script>
     <script src="src/split.js"></script>
@@ -52,8 +53,8 @@
       const leftHand = Hand(document.querySelector('#left-hand'))
       const rightHand = Hand(document.querySelector('#right-hand'))
 
-      const graph = new URLSearchParams(document.location.search).get('graph-name');
-      const jsonGraphPath = graph ? '.data/' + graph + '.json' : 'default-graph.json'
+      const graphName = new URLSearchParams(document.location.search).get('graph-name');
+      const jsonGraphPath = graphName ? '.data/' + graphName + '.json' : 'default-graph.json'
 
       const networkJsonGraphLoader = () => {
         const request = new XMLHttpRequest();
@@ -62,7 +63,7 @@
 
         if (request.status !== 200) {
           return {
-            nodes: ['failed to load ' + jsonGraphPath],
+            nodes: [{id: 'failed to load ' + jsonGraphPath}],
             edges: []
           }
         }

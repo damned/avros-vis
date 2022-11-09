@@ -24,6 +24,7 @@
     <script src="src/balloon-label.js"></script>
     <script src="src/color.js"></script>
     <script src="src/display-builder.js"></script>
+    <script src="src/display-serializer.js"></script>
     <script src="src/edge.js"></script>
     <script src="src/grabber.js"></script>
     <script src="src/hand.js"></script>
@@ -32,13 +33,6 @@
     <script src="src/split.js"></script>
     <script src="src/touch-source.js"></script>
     <script src="src/toucher.js"></script>
-
-<!--
-    scripts coming in from vr-builder - that project used jquery, as move
-    towards re-usable components, move off jquery onto plain dom js
-
-    <script crossorigin src="https://code.jquery.com/jquery-3.4.1.js"></script>
-  -->
     <script src="src/follower-constraint.js"></script>
     <script src="src/follower.js"></script>
   </head>
@@ -70,10 +64,11 @@
       
       aframeUtils.log.active = true
     </script>
-    
+
     <script src="tests/aframe-test-scene.js"></script>
-    <script src="tests/display-builder-tests.js"></script>
     <script src="tests/chai-aframe-assertions-tests.js"></script>
+    <script src="tests/display-builder-tests.js"></script>
+    <script src="tests/display-serializer-tests.js"></script>
     <script src="tests/split-tests.js"></script>
     <script src="tests/edge-tests.js"></script>
     <script src="tests/hand-tests.js"></script>

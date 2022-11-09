@@ -1,0 +1,119 @@
+/* global DisplaySerializer */
+describe('DisplaySerializer', () => {
+  
+  describe('serialize to graph data', () => {
+
+    let scene, root
+
+    before(function() {
+      scene = aframeTestScene({ context: this })
+      scene.setActionDelay(50)
+    })
+
+    beforeEach(function() {
+      scene.reset()
+      root = scene.addRoot()
+    })
+
+    afterEach(() => root.makeViewable())
+
+    let display
+
+    it('should write an entity as a node with position values', function(done) {
+      root.testing(this)
+
+      display = root.addHtml('<a-entity><a-box id="bob" position="1 1 1"></a-box></a-entity>')
+
+      let graph = {}
+      scene.actions(() => {
+        graph = tiltviz.DisplaySerializer().toGraph(display)
+      }, () => {
+        expect(graph).to.shallowDeepEqual({
+          nodes: [{
+            id: 'bob',
+            position: '1 1 1'
+          }],
+          edges: []
+        })
+      }, done)
+
+    })
+
+    it('should write multiple entities as nodes with position values', function(done) {
+      root.testing(this)
+
+      display = root.addHtml('<a-entity>' +
+          '<a-box id="foo" position="0 1 0"></a-box>' +
+          '<a-box id="bar" position="0 2 0"></a-box>' +
+        '</a-entity>')
+
+      let graph = {}
+      scene.actions(() => {
+        graph = tiltviz.DisplaySerializer().toGraph(display)
+      }, () => {
+        expect(graph).to.shallowDeepEqual({
+          nodes: [{
+            id: 'foo',
+            position: '0 1 0'
+          }, {
+            id: 'bar',
+            position: '0 2 0'
+          }],
+          edges: []
+        })
+      }, done)
+
+    })
+
+    it('should write graph with an edge between two entities', function(done) {
+      root.testing(this)
+
+      display = root.addHtml('<a-entity>' +
+          '<a-box id="from" edge="to: #tog" position="0 1 0"></a-box>' +
+          '<a-box id="tog" position="0 2 0"></a-box>' +
+        '</a-entity>')
+
+      let graph = {}
+      scene.actions(() => {
+        graph = tiltviz.DisplaySerializer().toGraph(display)
+      }, () => {
+        expect(graph.nodes.map(node => node.id)).to.eql(['from', 'tog'])
+        expect(graph.edges).to.not.be.empty
+        expect(graph.edges).to.eql([{
+          from: 'from',
+          to: 'tog'
+        }])
+      }, done)
+    })
+
+    it('should write graph multiple edges from an entity', function(done) {
+      root.testing(this)
+
+      display = root.addHtml('<a-entity>' +
+          '<a-box id="start" edge="to: #one" edge__1="to: #two" edge__2="to: #three" position="0 1 0"></a-box>' +
+          '<a-box id="one" position="0 2 -1"></a-box>' +
+          '<a-box id="two" position="0 3 -1"></a-box>' +
+          '<a-box id="three" position="0 4 -1"></a-box>' +
+        '</a-entity>')
+
+      let graph = {}
+      scene.actions(() => {
+        graph = tiltviz.DisplaySerializer().toGraph(display)
+      }, () => {
+        expect(graph.nodes.map(node => node.id)).to.eql(['start', 'one', 'two', 'three'])
+        expect(graph.edges.length).to.eql(3)
+        expect(graph.edges).to.eql([{
+          from: 'start',
+          to: 'one'
+        }, {
+          from: 'start',
+          to: 'two'
+        }, {
+          from: 'start',
+          to: 'three'
+        }])
+      }, done)
+    })
+
+  })
+})

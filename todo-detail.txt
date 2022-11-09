@@ -104,8 +104,8 @@ layout assistance and interaction features
 
 [ ] move from avr-os
   - [x] rename to generic: tilt-viz for table-top viz a la tilt-five
-  - [ ] leave copy of current graph as interactive tweakable example?
-  - [ ] to new subject for main graph, from:
+  - [ ] leave copy of current graphName as interactive tweakable example?
+  - [ ] to new subject for main graphName, from:
     - dogfood code?
     - infra?
     - simple and build up?

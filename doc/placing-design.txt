@@ -83,7 +83,7 @@ stacking would maybe want to be relaxed
 
 ### doman vs view vs display graphs - transformations all the way down
 
-how much to fully embrace each level as a graph?
+how much to fully embrace each level as a graphName?
 
 what does this mean for interactivity and dynamic behaviour?
 

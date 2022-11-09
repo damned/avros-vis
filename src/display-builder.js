@@ -2,7 +2,6 @@
 var tiltviz = tiltviz || {}
 
 tiltviz.DisplayBuilder = function(loader) {
-  const self = this
   const api = {}
 
   function createNode(rootEl, nodeId, i, edgeAttribute) {
@@ -34,7 +33,8 @@ tiltviz.DisplayBuilder = function(loader) {
 
   api.build = rootEl => {
     const graph = loader()
-    graph.nodes.forEach((nodeId, i) => {
+    graph.nodes.forEach((node, i) => {
+      let nodeId = node.id
       let edges = extractEdgesFromNode(graph, nodeId);
       createNode(rootEl, nodeId, i, createEdgeAttributes(edges));
     });

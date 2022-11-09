@@ -30,7 +30,7 @@ describe('display builder', () => {
     root.testing(this)
 
     graphJson = {
-      nodes: ['abox']
+      nodes: [{id: 'abox'}]
     }
 
     displayBuilder.build(display)
@@ -46,7 +46,7 @@ describe('display builder', () => {
     root.testing(this)
 
     graphJson = {
-      nodes: ['bbox', 'cbox']
+      nodes: [{id: 'bbox'}, {id: 'cbox'}]
     }
 
     displayBuilder.build(display)
@@ -64,7 +64,7 @@ describe('display builder', () => {
     root.testing(this)
 
     graphJson = {
-      nodes: ['source-node', 'to1', 'to2'],
+      nodes: [{id: 'source-node'}, {id: 'to1'}, {id: 'to2'}],
       edges: [{
         from: 'source-node',
         to: 'to1'
