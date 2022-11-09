@@ -52,18 +52,24 @@
       const leftHand = Hand(document.querySelector('#left-hand'))
       const rightHand = Hand(document.querySelector('#right-hand'))
 
-      const jsonGraphLoader = () => ({
-        nodes: ['mesh', 'nems', 'suspension', 're-registration', 'pds-adaptor'],
-        edges: [
-          { from: 'mesh', to: 'nems' },
-          { from: 'nems', to: 'suspension' },
-          { from: 'nems', to: 're-registration' },
-          { from: 're-registration', to: 'pds-adaptor' },
-          { from: 'suspension', to: 'pds-adaptor' },
-        ]
-      })
+      const graph = new URLSearchParams(document.location.search).get('graph-name');
+      const jsonGraphPath = graph ? '.data/' + graph + '.json' : 'default-graph.json'
 
-      const displayBuilder = tiltviz.DisplayBuilder(jsonGraphLoader)
+      const networkJsonGraphLoader = () => {
+        const request = new XMLHttpRequest();
+        request.open('GET', jsonGraphPath, false);  // `false` == synchronous
+        request.send(null);
+
+        if (request.status !== 200) {
+          return {
+            nodes: ['failed to load ' + jsonGraphPath],
+            edges: []
+          }
+        }
+        return JSON.parse(request.responseText)
+      }
+
+      const displayBuilder = tiltviz.DisplayBuilder(networkJsonGraphLoader)
 
       displayBuilder.build(document.querySelector('.display'))
     </script>

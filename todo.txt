@@ -11,14 +11,14 @@ cards - initial priority, grouped by consecutive feature set
 * basic ux tweaks
 
 [x] - user move up and down
-[ ] - user move grabbing anywhere
+[x] - user move grabbing anywhere
 
 * persist layout changes
 
 [ ] - serialize to json (write to console, can be used to overrwrite static json)
 [ ] - PUT to server (overwrite named json)
 [ ] - PUT copies to timestamped backup before overwrite
-[ ] - GET from server on startup
+[x] - GET from server on startup
 
 * build out basic graph for purposes of general understanding
 
