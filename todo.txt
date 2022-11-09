@@ -10,8 +10,8 @@ cards - initial priority, grouped by consecutive feature set
 
 * basic ux tweaks
 
+[x] - user move up and down
 [ ] - user move grabbing anywhere
-[ ] - user move up and down
 
 * persist layout changes
 
@@ -33,6 +33,7 @@ cards - initial priority, grouped by consecutive feature set
 
 [ ] - user rotate
 [ ] - undo / redo
+[ ] - design background / room
 
 * animate data flows
 

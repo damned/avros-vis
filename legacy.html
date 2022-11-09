@@ -38,7 +38,7 @@
     <script src="https://vr-builder.glitch.me/js/aframe-util.js"></script>
     <script src="https://vr-builder.glitch.me/js/hand.js"></script>
     <script src="https://vr-builder.glitch.me/js/user-move-handle.js"></script>
-    <script src="https://vr-builder.glitch.me/js/user-mover.js"></script>
+    <script src="src/user-mover.js"></script>
     <script type="application/javascript">
       aframeUtils.log.includeCaller = true
     </script>
@@ -133,8 +133,8 @@
 
       <a-entity id="user-rig">
         <a-camera></a-camera>
-        <a-entity id="left-hand" user-mover hand-side="left"></a-entity>
-        <a-entity id="right-hand" user-mover hand-side="right"></a-entity>
+        <a-entity id="left-hand" user-mover="horizontal: true" hand-side="left"></a-entity>
+        <a-entity id="right-hand" user-mover="horizontal: true" hand-side="right"></a-entity>
       </a-entity>
       
       <a-entity move-handles="gap: 0.6; extent: 6; height: 0.85; size: 0.12"></a-entity>
