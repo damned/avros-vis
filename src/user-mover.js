@@ -1,7 +1,8 @@
 /* global AFRAME THREE */
 AFRAME.registerComponent('user-mover', {
   schema: {
-    horizontal: { type: 'boolean', default: false }
+    horizontal: { type: 'boolean', default: false },
+    useHandles: { type: 'boolean', default: false }
   },
   init: function() {
     let self = this
@@ -16,11 +17,23 @@ AFRAME.registerComponent('user-mover', {
     let worldAnchorPoint = new THREE.Vector3()
     let worldOffsetFromAnchor = new THREE.Vector3()
 
-    host.addEventListener('grab', () => {
-      au.log('user-mover', 'grab')
+    function startUserMove() {
       host3d.getWorldPosition(worldAnchorPoint)
       moving = true
-    })
+    }
+
+    if (self.data.useHandles) {
+      host.addEventListener('grab', () => {
+        au.log('user-mover', 'starting move on grab')
+        startUserMove();
+      })
+    }
+    else {
+      host.addEventListener('grasp', () => {
+        au.log('user-mover', 'starting move on grasp')
+        startUserMove()
+      })
+    }
 
     host.addEventListener('ungrasp',  () => {
       au.log('user-mover', 'ungrasp')

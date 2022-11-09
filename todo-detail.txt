@@ -99,7 +99,6 @@ layout assistance and interaction features
      - [ ] grab low - less effort, maybe makes less sense
      - [ ] grab immovable object - e.g. table
        - [ ] maybe takes two hands to move a table?
-
  - [ ] connectors
  - [ ] move to things and styles?
 
@@ -110,6 +109,10 @@ layout assistance and interaction features
     - dogfood code?
     - infra?
     - simple and build up?
+
+de-coupling of components
+[ ] - re-think cheesy 'user-move-handle' specific code in hand.js to re-emit grab
+[ ] - follower to offload restrictions or modifications to function provided by particular constraint
 
 completeness
 [x] tasksservices

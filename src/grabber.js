@@ -116,6 +116,8 @@ AFRAME.registerComponent('grabber', {
           })
           return
         }
+
+        // ok yeah this is pretty cheesy
         if (tograb.hasAttribute('user-move-handle')) {
           host.emit('grab')
           return
@@ -139,7 +141,10 @@ AFRAME.registerComponent('grabber', {
 
         debugColor(this.grabbed, 'blue')
         host.setAttribute('opacity', 0.5)
-      }          
+      }
+      else {
+        host.emit('grasp')
+      }
     }.bind(this))
   },
   release: function(event) {
