@@ -91,7 +91,6 @@ describe('display builder', () => {
     displayBuilder.build(display)
 
     scene.actions(() => {
-      let obox = root.select('#obox')
       let positionedBox = root.select('#pbox')
       expect(au.xyzTriplet(positionedBox.getAttribute('position'))).to.eql('1 1 1');
       done()

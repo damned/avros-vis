@@ -2,16 +2,16 @@
   "id": "edited",
   "nodes": [
     {
-      "id": "mesh"
+      "id": "mesh-forwarder"
     },
     {
-      "id": "nems"
+      "id": "nems-event-processor"
     },
     {
-      "id": "suspension"
+      "id": "suspension-service"
     },
     {
-      "id": "re-registration"
+      "id": "re-registration-service"
     },
     {
       "id": "pds-adaptor"
@@ -20,7 +20,9 @@
   "edges": [
     {
       "from": "mesh",
-      "to": "nems"
+      "to": "nems",
+      "type": "queue",
+      "id": "nems-event-processor-incoming"
     },
     {
       "from": "nems",

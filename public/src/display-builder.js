@@ -13,7 +13,7 @@ tiltviz.DisplayBuilder = function(loader) {
       position = `0 0 -${defaultPlacementCount++ * 2 * length}`;
     }
     rootEl.insertAdjacentHTML('beforeend',
-      `<a-box id="${nodeId}" balloon-label="label: ${nodeId}; y-offset: -0.35; scale: 0.3"`
+      `<a-box id="${nodeId}" balloon-label="label: ${nodeId}; y-offset: -0.35; scale: 0.2"`
       + edgeAttribute
       + ' class="touchable" follower-constraint="lock: rotation; snap-to-grid: 0.1"'
       + ' color="#666"'
