@@ -2,24 +2,19 @@
   "id": "edited",
   "nodes": [
     {
-      "id": "mesh",
-      "position": "-0.30000000000000004 0.1 -0.1"
+      "id": "mesh"
     },
     {
-      "id": "nems",
-      "position": "0 0.1 -0.1"
+      "id": "nems"
     },
     {
-      "id": "suspension",
-      "position": "0.4 0.1 -0.1"
+      "id": "suspension"
     },
     {
-      "id": "re-registration",
-      "position": "0 0.1 -0.6000000000000001"
+      "id": "re-registration"
     },
     {
-      "id": "pds-adaptor",
-      "position": "0.4 0.4 -0.5"
+      "id": "pds-adaptor"
     }
   ],
   "edges": [

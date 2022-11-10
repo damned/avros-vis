@@ -22,14 +22,15 @@ cards - initial priority, grouped by consecutive feature set
 [x] - PUT to server (overwrite named json) on move
 [x] - server PUT async w/ graph id
 
-* build out basic graphName for purposes of general understanding
+* build out basic graph for purposes of general understanding
 
-[ ] - add types for topics and queues
-[ ] - add types for http vs queue connections
+[ ] - add queue edge type with changed line style
+[ ] - add queue vs http edge legend (static on wall?)
+[ ] - label along edges
 [ ] - add types for datastores - dbs and filestores
 [ ] - add api gatways and lambdas
 [ ] - add ability to label edges
-[ ] - add basic legend (static on wall?)
+[ ] - add entity legend (static on wall?)
 
 * further ux improvements
 
@@ -44,7 +45,11 @@ cards - initial priority, grouped by consecutive feature set
 [ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
 [ ] - specify happy path corrections statically (hand coded json)
 
-* automated graphName creation from repos (services and queues)
+* visualisation improvements
+
+[ ] - add topic as metadata on queue
+
+* automated graph creation from repos (services and queues)
 
 [ ] - add services from single repo to scene json (url, dir as e.g. command line variables, probably just grep)
 [ ] - enumerate services from json source list (repo url, dir etc.)
@@ -56,13 +61,6 @@ cards - initial priority, grouped by consecutive feature set
 [ ] - add dynamodb tables
 [ ] - relate to dynamodb tables by iam
 [ ] - add s3 bucketsgit@github.com:damned/tf-g* persist layout changes
-
-[ ] - serialize to json (write to console, can be used to overrwrite static json)
-[ ] - PUT to server (overwrite named json)
-[ ] - PUT copies to timestamped backup before overwrite
-[ ] - GET from server on startup
-
-rok.git
 [ ] - relate to s3 buckets by iam
 [ ] - map entity types to styles in static json
 
