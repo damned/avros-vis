@@ -66,7 +66,7 @@
       const networkJsonGraphLoader = () => {
         const request = new XMLHttpRequest();
         let getPath = jsonGraphPath();
-        console.log('loading from ' + getPath)
+        au.log('loading from ' + getPath)
         request.open('GET', getPath, false);  // `false` == synchronous
         request.send(null);
 
@@ -84,13 +84,19 @@
       const displaySerializer = tiltviz.DisplaySerializer();
       function handleDisplayChange() {
         let json = JSON.stringify(displaySerializer.toGraph(displayRoot));
-        console.log('updating display graph ' + graphId)
-        const request = new XMLHttpRequest();
-        request.open('PUT', jsonGraphPath(), false);  // `false` == synchronous
-        request.setRequestHeader('Content-Type', 'application/json')
-        request.send(json);
-
-        console.log('updated display graph')
+        au.log('updating display graph ' + graphId)
+        const req = new XMLHttpRequest();
+        req.open('PUT', jsonGraphPath());
+        req.setRequestHeader('Content-Type', 'application/json')
+        req.addEventListener('readystatechange', () => {
+          if (req.readyState == XMLHttpRequest.DONE) {
+            au.log('updated display graph')
+            if (req.status !== 200) {
+              au.log(`oops, though, PUT status was ${req.status} (${req.statusText})`)
+            }
+          }
+        })
+        req.send(json)
       }
 
       tiltviz.DisplayBuilder(networkJsonGraphLoader)

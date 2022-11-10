@@ -20,7 +20,7 @@ cards - initial priority, grouped by consecutive feature set
 [x] - read positions from graph json
 [x] - serialize on move
 [x] - PUT to server (overwrite named json) on move
-[ ] - server PUT async w/ graph id
+[x] - server PUT async w/ graph id
 
 * build out basic graphName for purposes of general understanding
 
