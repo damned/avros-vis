@@ -44,6 +44,9 @@ tiltviz.DisplayBuilder = function(loader) {
   api.build = rootEl => {
     const graph = loader()
     let defaultPlacementCount = 0
+    if (graph.id) {
+      rootEl.dataset.graphId = graph.id
+    }
     graph.nodes.forEach((node, i) => {
       let edges = extractEdgesFromNode(graph, node.id);
       defaultPlacementCount = createNode(rootEl, node, defaultPlacementCount, createEdgeAttributes(edges));

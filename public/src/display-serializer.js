@@ -4,7 +4,6 @@ var tiltviz = tiltviz || {}
 tiltviz.DisplaySerializer = function() {
   const api = {}
 
-
   function forEachEdgeComponent(entity, edgeHandler) {
     let edgeCount = 0
     Object.entries(entity.components).forEach(entry => {
@@ -22,6 +21,7 @@ tiltviz.DisplaySerializer = function() {
     const edges = []
 
     let mainEntityFilter = el => el.components.geometry !== undefined;
+
     Array.from(rootEl.children).filter(mainEntityFilter).forEach(entity => {
       let position = entity.getAttribute('position');
       let id = entity.getAttribute('id');
@@ -39,6 +39,7 @@ tiltviz.DisplaySerializer = function() {
     })
 
     return {
+      id: rootEl.dataset.graphId,
       nodes: nodes,
       edges: edges
     }

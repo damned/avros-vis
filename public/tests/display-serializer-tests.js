@@ -10,14 +10,29 @@ describe('DisplaySerializer', () => {
       scene.setActionDelay(50)
     })
 
+    let display, serializer
+
     beforeEach(function() {
       scene.reset()
       root = scene.addRoot()
+      serializer = tiltviz.DisplaySerializer();
     })
 
     afterEach(() => root.makeViewable())
 
-    let display
+    it('should persist id of graph from graph-id data attribute of root element', function(done) {
+      root.testing(this)
+
+      display = root.addHtml('<a-entity data-graph-id="cheese"></a-entity>')
+
+      let graph = {}
+      scene.actions(() => {
+          graph = serializer.toGraph(display)
+        },
+        () => {
+          expect(graph.id).to.eql('cheese')
+        }, done)
+    })
 
     it('should write an entity as a node with position values', function(done) {
       root.testing(this)
@@ -26,17 +41,14 @@ describe('DisplaySerializer', () => {
 
       let graph = {}
       scene.actions(() => {
-        graph = tiltviz.DisplaySerializer().toGraph(display)
-      }, () => {
-        expect(graph).to.shallowDeepEqual({
-          nodes: [{
-            id: 'bob',
-            position: '1 1 1'
-          }],
-          edges: []
-        })
-      }, done)
-
+          graph = serializer.toGraph(display)
+        },
+        () => {
+          expect(graph).to.shallowDeepEqual({
+            nodes: [{ id: 'bob', position: '1 1 1'}],
+            edges: []
+          })
+        }, done)
     })
 
     it('should write multiple entities as nodes with position values', function(done) {
@@ -49,7 +61,7 @@ describe('DisplaySerializer', () => {
 
       let graph = {}
       scene.actions(() => {
-        graph = tiltviz.DisplaySerializer().toGraph(display)
+        graph = serializer.toGraph(display)
       }, () => {
         expect(graph).to.shallowDeepEqual({
           nodes: [{
@@ -75,7 +87,7 @@ describe('DisplaySerializer', () => {
 
       let graph = {}
       scene.actions(() => {
-        graph = tiltviz.DisplaySerializer().toGraph(display)
+        graph = serializer.toGraph(display)
       }, () => {
         expect(graph.nodes.map(node => node.id)).to.eql(['from', 'tog'])
         expect(graph.edges).to.not.be.empty
@@ -98,7 +110,7 @@ describe('DisplaySerializer', () => {
 
       let graph = {}
       scene.actions(() => {
-        graph = tiltviz.DisplaySerializer().toGraph(display)
+        graph = serializer.toGraph(display)
       }, () => {
         expect(graph.nodes.map(node => node.id)).to.eql(['start', 'one', 'two', 'three'])
         expect(graph.edges.length).to.eql(3)

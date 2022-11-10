@@ -26,6 +26,22 @@ describe('display builder', () => {
     displayBuilder = tiltviz.DisplayBuilder(jsonLoader)
   })
 
+  it('persists the graph id used for persistence to the graph-id data attribute of the display root', function (done) {
+    root.testing(this)
+
+    graphJson = {
+      id: 'bob',
+      nodes: []
+    }
+
+    displayBuilder.build(display)
+
+    scene.actions(() => {
+      expect(display.dataset.graphId).to.eql('bob')
+      done()
+    })
+  })
+
   it('loads an entity from json', function (done) {
     root.testing(this)
 
