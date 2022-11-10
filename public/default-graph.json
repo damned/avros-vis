@@ -19,25 +19,25 @@
   ],
   "edges": [
     {
-      "from": "mesh",
-      "to": "nems",
+      "from": "mesh-forwarder",
+      "to": "nems-event-processor",
       "type": "queue",
       "id": "nems-event-processor-incoming"
     },
     {
-      "from": "nems",
-      "to": "suspension"
+      "from": "nems-event-processor",
+      "to": "suspension-service"
     },
     {
-      "from": "nems",
-      "to": "re-registration"
+      "from": "nems-event-processor",
+      "to": "re-registration-service"
     },
     {
-      "from": "suspension",
+      "from": "suspension-service",
       "to": "pds-adaptor"
     },
     {
-      "from": "re-registration",
+      "from": "re-registration-service",
       "to": "pds-adaptor"
     }
   ]

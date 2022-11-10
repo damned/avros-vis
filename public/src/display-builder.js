@@ -5,7 +5,7 @@ tiltviz.DisplayBuilder = function(loader) {
   const api = {}
   const entityMoveHandlers = [];
 
-  function createNode(rootEl, node, defaultPlacementCount, edgeAttribute) {
+  function createNode(rootEl, node, defaultPlacementCount, edgeAttributes) {
     const length = 0.1
     let nodeId = node.id
     let position = node.position;
@@ -14,7 +14,7 @@ tiltviz.DisplayBuilder = function(loader) {
     }
     rootEl.insertAdjacentHTML('beforeend',
       `<a-box id="${nodeId}" balloon-label="label: ${nodeId}; y-offset: -0.35; scale: 0.2"`
-      + edgeAttribute
+      + edgeAttributes
       + ' class="touchable" follower-constraint="lock: rotation; snap-to-grid: 0.1"'
       + ' color="#666"'
       + ` position="${position}"`
