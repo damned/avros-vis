@@ -82,7 +82,7 @@ AFRAME.registerComponent('edge', {
           else {
             self.edgeEntity.object3D.position.copy(host.object3D.position)
           }
-          self.edgeEntity.setAttribute('line', `start: ${start}; end: ${end}; color: ${color}`)
+          self.edgeEntity.setAttribute('fatline', `start: ${start}; end: ${end}; color: ${color}`)
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true
         })

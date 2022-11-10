@@ -16,6 +16,7 @@
     <script src="src/display-builder.js"></script>
     <script src="src/display-serializer.js"></script>
     <script src="src/edge.js"></script>
+    <script src="src/fatline.js"></script>
     <script src="src/placement.js"></script>
     <script src="src/split.js"></script>
     <script src="src/color.js"></script>
@@ -106,15 +107,15 @@
               .withEntityMoveHandler(handleDisplayChange)
               .build(displayRoot)
 
-      const line = new MeshLine();
-      line.setPoints([ new THREE.Vector3(0,0,0), new THREE.Vector3(1, 1, -1)]);
-      const material = new MeshLineMaterial({
-        color: new THREE.Color('red'),
-        lineWidth: 0.1
-      })
-
-      const mesh = new THREE.Mesh(line, material);
-      displayRoot.object3D.add(mesh)
+      // const line = new MeshLine();
+      // line.setPoints([ new THREE.Vector3(0,0,0), new THREE.Vector3(1, 1, -1)]);
+      // const material = new MeshLineMaterial({
+      //   color: new THREE.Color('red'),
+      //   lineWidth: 0.1
+      // })
+      //
+      // const mesh = new THREE.Mesh(line, material);
+      // displayRoot.object3D.add(mesh)
     </script>
   </body>
 </html>

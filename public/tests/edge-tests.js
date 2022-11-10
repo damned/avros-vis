@@ -24,11 +24,11 @@ describe('edge component', () => {
   }
 
   const lineStartWorldPosition = (entity) => {
-    return worldPositionOfLocal(entity, entity.components.line.data.start)
+    return worldPositionOfLocal(entity, entity.components.fatline.data.start)
   }
 
   const lineEndWorldPosition = (entity) => {
-    return worldPositionOfLocal(entity, entity.components.line.data.end)
+    return worldPositionOfLocal(entity, entity.components.fatline.data.end)
   }
 
   describe('using from property on destination', () => {
