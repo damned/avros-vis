@@ -11,7 +11,26 @@ AFRAME.registerSystem('node', {
       depth: 0.1
     }
 
+    const bucket = {
+      primitive: 'cone',
+      height: 0.1,
+      radiusBottom: 0.04,
+      radiusTop: 0.05
+    }
+
+    const cylinder = {
+      primitive: 'cylinder',
+      height: 0.1,
+      radius: 0.05
+    }
+    
     self.typesToAttributes = {
+      db: {
+        material: {
+          color: '#495'
+        },
+        geometry: cylinder
+      },
       nhs: {
         material: {
           color: '#005EB8'
@@ -22,14 +41,10 @@ AFRAME.registerSystem('node', {
         material: {
           color: 'orange'
         },
-        geometry: {
-          primitive: 'cone',
-          height: 0.1,
-          radiusBottom: 0.04,
-          radiusTop: 0.05
-        }
+        geometry: bucket
       }
     }
+
     self.typesToAttributes[self.DEFAULT_TYPE] = {
       material: {
         color: '#666'

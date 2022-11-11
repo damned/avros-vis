@@ -66,13 +66,12 @@ describe('display builder', () => {
         nodes: [{id: 'cheesy', type: 'db'}]
       }
 
-      displayBuilder.build(display)
-
-      scene.actions(() => {
-        const loadedNode = root.select('#cheesy');
-        expect(loadedNode.getAttribute('geometry').primitive).to.eql('cylinder')
-        done()
-      })
+      scene.actions(() => displayBuilder.build(display),
+        () => {
+          const loadedNode = root.select('#cheesy');
+          expect(loadedNode.getAttribute('geometry').primitive).to.eql('cylinder')
+          done()
+        })
     })
 
     it('persists node type onto entity as data attribute', function (done) {
@@ -82,13 +81,12 @@ describe('display builder', () => {
         nodes: [{id: 'wotsit', type: 'db'}]
       }
 
-      displayBuilder.build(display)
-
-      scene.actions(() => {
-        const loadedNode = root.select('#wotsit');
-        expect(loadedNode.dataset.nodeType).to.eql('db')
-        done()
-      })
+      scene.actions(() => displayBuilder.build(display),
+        () => {
+          const loadedNode = root.select('#wotsit');
+          expect(loadedNode.dataset.nodeType).to.eql('db')
+          done()
+        })
     })
 
     it('loads an edge with type from json', function (done) {
@@ -103,12 +101,11 @@ describe('display builder', () => {
         }]
       }
 
-      displayBuilder.build(display)
-
-      scene.actions(() => {
-        let queueStartNode = root.select('#queue-from')
-        expect(queueStartNode.getAttribute('edge').type).to.eql('queue')
-      }, done)
+      scene.actions(() => displayBuilder.build(display),
+        () => {
+          let queueStartNode = root.select('#queue-from')
+          expect(queueStartNode.getAttribute('edge').type).to.eql('queue')
+        }, done)
     })
   })
 
