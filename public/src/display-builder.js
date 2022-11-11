@@ -10,7 +10,8 @@ tiltviz.DisplayBuilder = function(loader) {
     let nodeId = node.id
     let position = node.position;
     if (node.position === undefined) {
-      position = `0 0 -${defaultPlacementCount++ * 2 * length}`;
+      const offset = defaultPlacementCount++ * 2 * length;
+      position = `${offset} 0 -${offset}`;
     }
     rootEl.insertAdjacentHTML('beforeend',
       `<a-box id="${nodeId}" balloon-label="label: ${nodeId}; y-offset: -0.35; scale: 0.2"`
