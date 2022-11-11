@@ -25,32 +25,38 @@
   ],
   "edges": [
     {
+      "type": "queue",
       "from": "nems",
       "to": "mesh-mailbox"
     },
     {
-      "from": "mesh-mailbox",
-      "to": "mesh-forwarder"
-    },
-    {
+      "type": "http",
       "from": "mesh-forwarder",
-      "to": "nems-event-processor",
-      "type": "queue",
-      "id": "nems-event-processor-incoming"
+      "to": "mesh-mailbox"
     },
     {
+      "id": "nems-event-processor-incoming",
+      "type": "queue",
+      "from": "mesh-forwarder",
+      "to": "nems-event-processor"
+    },
+    {
+      "type": "queue",
       "from": "nems-event-processor",
       "to": "suspension-service"
     },
     {
+      "type": "queue",
       "from": "nems-event-processor",
       "to": "re-registration-service"
     },
     {
+      "type": "http",
       "from": "suspension-service",
       "to": "pds-adaptor"
     },
     {
+      "type": "http",
       "from": "re-registration-service",
       "to": "pds-adaptor"
     }

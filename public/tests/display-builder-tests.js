@@ -122,6 +122,26 @@ describe('display builder', () => {
     }, done)
   })
 
+  it('loads an edge with type from json', function (done) {
+    root.testing(this)
+
+    graphJson = {
+      nodes: [{id: 'queue-from'}, {id: 'queue-to'}],
+      edges: [{
+        type: 'queue',
+        from: 'queue-from',
+        to: 'gueue-to'
+      }]
+    }
+
+    displayBuilder.build(display)
+
+    scene.actions(() => {
+      let queueStartNode = root.select('#queue-from')
+      expect(queueStartNode.getAttribute('edge').type).to.eql('queue')
+    }, done)
+  })
+
 })
 
 function getLabel(addedBox) {

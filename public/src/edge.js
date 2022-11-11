@@ -4,8 +4,7 @@ AFRAME.registerComponent('edge', {
   schema: {
     from: { type: 'selector' },
     to: { type: 'selector' },
-    color: { type: 'color', default: 'blue' },
-    width: { type: 'number', default: 0.02  }
+    type: { type: 'string', default: undefined }
   },
   init: function () {
     let self = this
@@ -21,9 +20,6 @@ AFRAME.registerComponent('edge', {
       let otherProgenitor = au.earliestAncestor(other)
       let hostProgenitor = au.earliestAncestor(host)
 
-      
-      let color = self.data.color
-      let width = self.data.width
       let justEdged = false
       let emitEdgedNext = false      
       
@@ -34,7 +30,19 @@ AFRAME.registerComponent('edge', {
         })
         return sibling
       }
-      
+
+      const typesToAttributes = {
+        'http': { color: 'lightblue', width: 0.02 },
+        'queue': { color: 'orange', width: 0.03 }
+      }
+
+      function attributesOfType(type) {
+        if (typesToAttributes.hasOwnProperty(type)) {
+          return typesToAttributes[type]
+        }
+        return { color: 'blue', width: 0.02 }
+      }
+
       let addLine = () => {
         au.catching(() => {
           log('addLine: host is loaded: ', host.hasLoaded)
@@ -84,7 +92,9 @@ AFRAME.registerComponent('edge', {
           else {
             self.edgeEntity.object3D.position.copy(host.object3D.position)
           }
-          self.edgeEntity.setAttribute('fatline', `start: ${start}; end: ${end}; color: ${color}; width: ${width}`)
+          const typeAttributes = attributesOfType(self.data.type)
+          const attributes = Object.assign({ start, end }, typeAttributes)
+          self.edgeEntity.setAttribute('fatline', au.attributeValue(attributes))
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true
         })

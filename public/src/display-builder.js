@@ -29,7 +29,11 @@ tiltviz.DisplayBuilder = function(loader) {
     let concatenated = ''
     edges.forEach((edge, i) => {
       let suffix = (i === 0 ? '' : '__' + i);
-      concatenated += ` edge${suffix}="to: #${edge.to}"`
+      let attributes = {
+        to: '#' + edge.to,
+        type: edge.type
+      }
+      concatenated += ` edge${suffix}="${au.attributeValue(attributes)}"`
     })
     return concatenated
   }

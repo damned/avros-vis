@@ -24,7 +24,7 @@ cards - initial priority, grouped by consecutive feature set
 
 * build out basic graph for purposes of general understanding
 
-[ ] - add queue edge type with changed line style
+[x] - add queue edge type with changed line style
 [ ] - add queue vs http edge legend (static on wall?)
 [ ] - label along edges
 [ ] - add types for datastores - dbs and filestores

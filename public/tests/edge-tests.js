@@ -285,4 +285,51 @@ describe('edge component', () => {
       })
     })
   })
+
+  describe('different types of edges', () => {
+    it('should create a default or unspecified type blue edge', function (done) {
+      root.testing(this)
+
+      source = root.addHtml('<a-sphere id="defstart" radius="0.1" position="-1 2 -2">')
+      dest = root.addHtml('<a-sphere radius="0.1" edge="from: #defstart" position="1 1 -1">')
+
+      dest.addEventListener('edged', event => {
+        let lineComponent = event.detail.edgeEntity.components.fatline;
+
+        expect(lineComponent.data.width).to.be.closeTo(0.02, TOLERANCE)
+        expect(lineComponent.data.color).to.eql('blue')
+        done()
+      })
+    })
+
+    it('should create a queue type edge which is fatter and orange', function (done) {
+      root.testing(this)
+
+      source = root.addHtml('<a-sphere id="queuestart" radius="0.1" position="-1 2 -2">')
+      dest = root.addHtml('<a-sphere radius="0.1" edge="from: #queuestart; type: queue" position="1 1 -1">')
+
+      dest.addEventListener('edged', event => {
+        let lineComponent = event.detail.edgeEntity.components.fatline;
+
+        expect(lineComponent.data.width).to.be.closeTo(0.03, TOLERANCE)
+        expect(lineComponent.data.color).to.eql('orange')
+        done()
+      })
+    })
+
+    it('should create an http type edge which is slimmer and a different color', function (done) {
+      root.testing(this)
+
+      source = root.addHtml('<a-sphere id="httpstart" radius="0.1" position="-1 2 -2">')
+      dest = root.addHtml('<a-sphere radius="0.1" edge="from: #httpstart; type: http" position="1 1 -1">')
+
+      dest.addEventListener('edged', event => {
+        let lineComponent = event.detail.edgeEntity.components.fatline;
+
+        expect(lineComponent.data.color).to.not.eql('orange')
+        expect(lineComponent.data.width).to.be.lessThan(0.029)
+        done()
+      })
+    })
+  })
 })
