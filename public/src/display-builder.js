@@ -4,6 +4,7 @@ var tiltviz = tiltviz || {}
 tiltviz.DisplayBuilder = function(loader) {
   const api = {}
   const entityMoveHandlers = [];
+  const attrs = au.attributeValue
 
   function createNode(rootEl, node, defaultPlacementCount, edgeAttributes) {
     const length = 0.1
@@ -13,13 +14,35 @@ tiltviz.DisplayBuilder = function(loader) {
       const offset = defaultPlacementCount++ * 2 * length;
       position = `${offset} 0 -${offset}`;
     }
-    rootEl.insertAdjacentHTML('beforeend',
-      `<a-box id="${nodeId}" balloon-label="label: ${nodeId}; y-offset: -0.35; scale: 0.2"`
-      + edgeAttributes
-      + ' class="touchable" follower-constraint="lock: rotation; snap-to-grid: 0.1"'
-      + ' color="#666"'
-      + ` position="${position}"`
-      + ` width="${length}" height="${length}" depth="${length}" ></a-box>`)
+
+    const typeSpec = {
+      material: {
+        color: '#666'
+      },
+      geometry: {
+        primitive: 'box',
+        width: length,
+        height: length,
+        depth: length
+      }
+    }
+
+    const typeAttributes = {
+      material: attrs(typeSpec.material),
+      geometry: attrs(typeSpec.geometry)
+    };
+
+    const attributes = Object.assign({
+      id: nodeId,
+      class: 'touchable',
+      'balloon-label': attrs({label: nodeId, yOffset: -0.35, scale: 0.2}),
+      'follower-constraint': attrs({lock: 'rotation', 'snap-to-grid': 0.1}),
+      position: position
+    }, edgeAttributes, typeAttributes)
+
+    const nodeHtml = au.entityHtml('a-entity', attributes)
+
+    rootEl.insertAdjacentHTML('beforeend', nodeHtml)
 
     entityMoveHandlers.forEach(handler => rootEl.lastChild.addEventListener('moveend', handler))
 
@@ -27,16 +50,16 @@ tiltviz.DisplayBuilder = function(loader) {
   }
 
   function createEdgeAttributes(edges) {
-    let concatenated = ''
+    const all = {}
     edges.forEach((edge, i) => {
       let suffix = (i === 0 ? '' : '__' + i);
       let attributes = {
         to: '#' + edge.to,
         type: edge.type
       }
-      concatenated += ` edge${suffix}="${au.attributeValue(attributes)}"`
+      all[`edge${suffix}`] = attrs(attributes)
     })
-    return concatenated
+    return all
   }
 
   function extractEdgesFromNode(graph, nodeId) {
