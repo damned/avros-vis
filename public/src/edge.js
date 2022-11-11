@@ -1,4 +1,23 @@
 /* globals AFRAME THREE au */
+AFRAME.registerSystem('edge', {
+  init: function () {
+    const self = this
+    self.DEFAULT_TYPE = '_default'
+    self.typesToAttributes = {
+      'http': { color: 'lightblue', width: 0.015 },
+      'queue': { color: 'orange', width: 0.03 }
+    }
+    self.typesToAttributes[self.DEFAULT_TYPE] = { color: 'blue', width: 0.02 }
+
+    self.attributesOfType = type => {
+      if (self.typesToAttributes.hasOwnProperty(type)) {
+        return self.typesToAttributes[type]
+      }
+      return self.typesToAttributes[self.DEFAULT_TYPE]
+    }
+  },
+});
+
 AFRAME.registerComponent('edge', {
   multiple: true,
   schema: {
@@ -7,8 +26,9 @@ AFRAME.registerComponent('edge', {
     type: { type: 'string', default: undefined }
   },
   init: function () {
-    let self = this
-    let host = self.el
+    const LOADED_EVENT = 'loaded';
+    const self = this
+    const host = self.el
     let log = au.log
     
     self.update = () => {
@@ -29,18 +49,6 @@ AFRAME.registerComponent('edge', {
           scale: au.xyzTriplet(entity.object3D.scale)
         })
         return sibling
-      }
-
-      const typesToAttributes = {
-        'http': { color: 'lightblue', width: 0.02 },
-        'queue': { color: 'orange', width: 0.03 }
-      }
-
-      function attributesOfType(type) {
-        if (typesToAttributes.hasOwnProperty(type)) {
-          return typesToAttributes[type]
-        }
-        return { color: 'blue', width: 0.02 }
       }
 
       let addLine = () => {
@@ -92,7 +100,7 @@ AFRAME.registerComponent('edge', {
           else {
             self.edgeEntity.object3D.position.copy(host.object3D.position)
           }
-          const typeAttributes = attributesOfType(self.data.type)
+          const typeAttributes = self.system.attributesOfType(self.data.type)
           const attributes = Object.assign({ start, end }, typeAttributes)
           self.edgeEntity.setAttribute('fatline', au.attributeValue(attributes))
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
@@ -131,14 +139,14 @@ AFRAME.registerComponent('edge', {
           // done
         }
         else if (otherProgenitor.hasLoaded) {
-          hostProgenitor.addEventListener('loaded', fn)
+          hostProgenitor.addEventListener(LOADED_EVENT, fn)
         }
         else if (hostProgenitor.hasLoaded) {
-          otherProgenitor.addEventListener('loaded', fn)
+          otherProgenitor.addEventListener(LOADED_EVENT, fn)
         }
         else {
-          hostProgenitor.addEventListener('loaded', () => doIfFullyLoaded(fn))
-          otherProgenitor.addEventListener('loaded', () => doIfFullyLoaded(fn))
+          hostProgenitor.addEventListener(LOADED_EVENT, () => doIfFullyLoaded(fn))
+          otherProgenitor.addEventListener(LOADED_EVENT, () => doIfFullyLoaded(fn))
         }
       }
       

@@ -370,6 +370,7 @@ const aframeTestScene = function(overrides) {
     return roots[prefix]
   }
 
+  scene.systems = () => sceneEl.systems
 
   scene.reset()
 

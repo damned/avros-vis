@@ -25,12 +25,12 @@ cards - initial priority, grouped by consecutive feature set
 * build out basic graph for purposes of general understanding
 
 [x] - add queue edge type with changed line style
-[ ] - add queue vs http edge legend (static on wall?)
-[ ] - label along edges
+[x] - add queue vs http edge legend
 [ ] - add types for datastores - dbs and filestores
+[ ] - add entity legend (static on wall?)
 [ ] - add api gatways and lambdas
 [ ] - add ability to label edges
-[ ] - add entity legend (static on wall?)
+[ ] - label along edges
 
 * further ux improvements
 
