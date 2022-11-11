@@ -26,7 +26,7 @@ cards - initial priority, grouped by consecutive feature set
 
 [x] - add queue edge type with changed line style
 [x] - add queue vs http edge legend
-[.] - add types for datastores - dbs and filestores
+[x] - add types for datastores - dbs and filestores
 [ ] - add entity legend
 [ ] - add api gatways and lambdas
 [ ] - add ability to label edges
@@ -37,6 +37,12 @@ cards - initial priority, grouped by consecutive feature set
 [ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
 [ ] - specify happy path corrections statically (hand coded json)
 
+* visualisation improvements
+
+[ ] - horizontal group
+[ ] - add topic as metadata on queue
+[ ] - AZs as horizontal layers
+
 * in-browser review improvements
 
 [ ] - set viewpoints and easy nav-to
@@ -46,12 +52,6 @@ cards - initial priority, grouped by consecutive feature set
 
 [ ] - user rotate
 [ ] - undo / redo
-
-* visualisation improvements
-
-[ ] - horizontal group
-[ ] - add topic as metadata on queue
-[ ] - AZs as horizontal layers
 
 * slickness improvements
 

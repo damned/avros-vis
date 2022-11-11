@@ -3,15 +3,30 @@ AFRAME.registerSystem('node', {
   init: function () {
     const self = this
     self.DEFAULT_TYPE = '_default'
+
+    const box = {
+      primitive: 'box',
+      width: 0.1,
+      height: 0.1,
+      depth: 0.1
+    }
+
     self.typesToAttributes = {
-      db: {
+      nhs: {
         material: {
-          color: '#495'
+          color: '#005EB8'
+        },
+        geometry: box
+      },
+      s3: {
+        material: {
+          color: 'orange'
         },
         geometry: {
-          primitive: 'cylinder',
+          primitive: 'cone',
           height: 0.1,
-          radius: 0.05
+          radiusBottom: 0.04,
+          radiusTop: 0.05
         }
       }
     }
@@ -19,12 +34,7 @@ AFRAME.registerSystem('node', {
       material: {
         color: '#666'
       },
-      geometry: {
-        primitive: 'box',
-        width: 0.1,
-        height: 0.1,
-        depth: 0.1
-      }
+      geometry: box
     }
 
     self.attributesOfType = type => {

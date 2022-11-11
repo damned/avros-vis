@@ -2,9 +2,11 @@
   "id": "edited",
   "nodes": [
     {
+      "type": "nhs",
       "id": "nems"
     },
     {
+      "type": "nhs",
       "id": "mesh-mailbox"
     },
     {
@@ -24,7 +26,29 @@
       "id": "re-registration-service"
     },
     {
+      "id": "active-suspensions-db",
+      "type": "db"
+    },
+    {
       "id": "pds-adaptor"
+    },
+    {
+      "id": "ehr-transfer-service"
+    },
+    {
+      "id": "transfer-tracker-db",
+      "type": "db"
+    },
+    {
+      "id": "ehr-repository"
+    },
+    {
+      "id": "ehr-repository-db",
+      "type": "db"
+    },
+    {
+      "id": "ehr-repository-data",
+      "type": "s3"
     }
   ],
   "edges": [
@@ -67,6 +91,34 @@
       "type": "http",
       "from": "re-registration-service",
       "to": "pds-adaptor"
+    },
+    {
+      "from": "re-registration-service",
+      "to": "active-suspensions-db"
+    },
+    {
+      "type": "queue",
+      "from": "suspension-service",
+      "to": "ehr-transfer-service"
+    },
+    {
+      "type": "queue",
+      "from": "ehr-transfer-service",
+      "to": "transfer-tracker-db"
+    },
+    {
+      "type": "queue",
+      "from": "ehr-transfer-service",
+      "to": "ehr-repository"
+    },
+    {
+      "from": "ehr-repository",
+      "to": "ehr-repository-db"
+    },
+    {
+      "from": "ehr-repository",
+      "to": "ehr-repository-data"
     }
+
   ]
 }
