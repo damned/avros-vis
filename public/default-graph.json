@@ -102,7 +102,6 @@
       "to": "ehr-transfer-service"
     },
     {
-      "type": "queue",
       "from": "ehr-transfer-service",
       "to": "transfer-tracker-db"
     },

@@ -23,7 +23,7 @@ AFRAME.registerSystem('node', {
       height: 0.1,
       radius: 0.05
     }
-    
+
     self.typesToAttributes = {
       db: {
         material: {
