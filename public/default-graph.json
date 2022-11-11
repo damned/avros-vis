@@ -17,6 +17,10 @@
       "id": "suspension-service"
     },
     {
+      "id": "latest-event-db",
+      "type": "db"
+    },
+    {
       "id": "re-registration-service"
     },
     {

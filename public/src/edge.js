@@ -7,7 +7,7 @@ AFRAME.registerSystem('edge', {
       'http': { color: 'lightblue', width: 0.015 },
       'queue': { color: 'orange', width: 0.03 }
     }
-    self.typesToAttributes[self.DEFAULT_TYPE] = { color: 'blue', width: 0.02 }
+    self.typesToAttributes[self.DEFAULT_TYPE] = { color: 'blue', width: 0.01 }
 
     self.attributesOfType = type => {
       if (self.typesToAttributes.hasOwnProperty(type)) {

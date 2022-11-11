@@ -4,6 +4,31 @@ var tiltviz = tiltviz || {}
 tiltviz.DisplaySerializer = function() {
   const api = {}
 
+  function extractNodeData(entity) {
+    let id = entity.getAttribute('id');
+    let position = entity.getAttribute('position');
+    const nodeData = {
+      id: id,
+      position: au.xyzTriplet(position)
+    };
+    if (entity.dataset.nodeType) {
+      nodeData.type = entity.dataset.nodeType
+    }
+    return nodeData;
+  }
+
+  function extractEdgeData(component, id) {
+    const edgeData = component.data;
+    const edgeProperties = {
+      from: id,
+      to: edgeData.to.getAttribute('id')
+    };
+    if (edgeData.type) {
+      edgeProperties.type = edgeData.type
+    }
+    return edgeProperties;
+  }
+
   function forEachEdgeComponent(entity, edgeHandler) {
     let edgeCount = 0
     Object.entries(entity.components).forEach(entry => {
@@ -23,23 +48,10 @@ tiltviz.DisplaySerializer = function() {
     let mainEntityFilter = el => el.components.geometry !== undefined;
 
     Array.from(rootEl.children).filter(mainEntityFilter).forEach(entity => {
-      let position = entity.getAttribute('position');
-      let id = entity.getAttribute('id');
-      nodes.push({
-        id: id,
-        position: au.xyzTriplet(position)
-      })
-      forEachEdgeComponent(entity, (component, index) => {
-        console.log('got edge component, index: ' + index)
-        const edgeData = component.data;
-        const edgeProperties = {
-          from: id,
-          to: edgeData.to.getAttribute('id')
-        };
-        if (edgeData.type) {
-          edgeProperties.type = edgeData.type
-        }
-        edges.push(edgeProperties)
+      const nodeData = extractNodeData(entity);
+      nodes.push(nodeData)
+      forEachEdgeComponent(entity, component => {
+        edges.push(extractEdgeData(component, nodeData.id))
       })
     })
 

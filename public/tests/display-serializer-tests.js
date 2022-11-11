@@ -89,20 +89,6 @@ describe('DisplaySerializer', () => {
       }, done)
     })
 
-    it('should write edge type', function(done) {
-      root.testing(this)
-
-      display = root.addHtml('<a-entity>' +
-          '<a-box id="from" edge="to: #toq; type: queue" position="0 1 0"></a-box>' +
-          '<a-box id="toq"></a-box>' +
-        '</a-entity>')
-
-      scene.actions(() => {
-        let graph = serializer.toGraph(display)
-        expect(graph.edges[0].type).to.eql('queue')
-      }, done)
-    })
-
     it('should write graph with multiple edges from an entity', function(done) {
       root.testing(this)
 
@@ -128,6 +114,35 @@ describe('DisplaySerializer', () => {
           to: 'three'
         }])
       }, done)
+    })
+
+    describe('writing types', () => {
+      it('should write node type', function(done) {
+        root.testing(this)
+
+        display = root.addHtml('<a-entity>' +
+          '<a-box data-node-type="bob"></a-box>' +
+          '</a-entity>')
+
+        scene.actions(() => {
+          let graph = serializer.toGraph(display)
+          expect(graph.nodes[0].type).to.eql('bob')
+        }, done)
+      })
+
+      it('should write edge type', function(done) {
+        root.testing(this)
+
+        display = root.addHtml('<a-entity>' +
+          '<a-box id="from" edge="to: #toq; type: queue" position="0 1 0"></a-box>' +
+          '<a-box id="toq"></a-box>' +
+          '</a-entity>')
+
+        scene.actions(() => {
+          let graph = serializer.toGraph(display)
+          expect(graph.edges[0].type).to.eql('queue')
+        }, done)
+      })
     })
 
   })

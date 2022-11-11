@@ -58,6 +58,60 @@ describe('display builder', () => {
     })
   })
 
+  describe('loading domain types', () => {
+    it('loads look of node entity based on type', function (done) {
+      root.testing(this)
+
+      graphJson = {
+        nodes: [{id: 'cheesy', type: 'db'}]
+      }
+
+      displayBuilder.build(display)
+
+      scene.actions(() => {
+        const loadedNode = root.select('#cheesy');
+        expect(loadedNode.getAttribute('geometry').primitive).to.eql('cylinder')
+        done()
+      })
+    })
+
+    it('persists node type onto entity as data attribute', function (done) {
+      root.testing(this)
+
+      graphJson = {
+        nodes: [{id: 'wotsit', type: 'db'}]
+      }
+
+      displayBuilder.build(display)
+
+      scene.actions(() => {
+        const loadedNode = root.select('#wotsit');
+        expect(loadedNode.dataset.nodeType).to.eql('db')
+        done()
+      })
+    })
+
+    it('loads an edge with type from json', function (done) {
+      root.testing(this)
+
+      graphJson = {
+        nodes: [{id: 'queue-from'}, {id: 'queue-to'}],
+        edges: [{
+          type: 'queue',
+          from: 'queue-from',
+          to: 'gueue-to'
+        }]
+      }
+
+      displayBuilder.build(display)
+
+      scene.actions(() => {
+        let queueStartNode = root.select('#queue-from')
+        expect(queueStartNode.getAttribute('edge').type).to.eql('queue')
+      }, done)
+    })
+  })
+
   it('loads two entities from json', function (done) {
     root.testing(this)
 
@@ -119,26 +173,6 @@ describe('display builder', () => {
       let to2 = root.select('#to2')
       expect(sourceNode.getAttribute('edge').to).to.eql(to1)
       expect(sourceNode.getAttribute('edge__1').to).to.eql(to2)
-    }, done)
-  })
-
-  it('loads an edge with type from json', function (done) {
-    root.testing(this)
-
-    graphJson = {
-      nodes: [{id: 'queue-from'}, {id: 'queue-to'}],
-      edges: [{
-        type: 'queue',
-        from: 'queue-from',
-        to: 'gueue-to'
-      }]
-    }
-
-    displayBuilder.build(display)
-
-    scene.actions(() => {
-      let queueStartNode = root.select('#queue-from')
-      expect(queueStartNode.getAttribute('edge').type).to.eql('queue')
     }, done)
   })
 

@@ -5,28 +5,20 @@ tiltviz.DisplayBuilder = function(loader) {
   const api = {}
   const entityMoveHandlers = [];
   const attrs = au.attributeValue
+  const sceneEl = document.querySelector('a-scene')
 
   function createNode(rootEl, node, defaultPlacementCount, edgeAttributes) {
-    const length = 0.1
+    const nodeSystem = sceneEl.systems.node
+
     let nodeId = node.id
     let position = node.position;
     if (node.position === undefined) {
-      const offset = defaultPlacementCount++ * 2 * length;
+      const offset = defaultPlacementCount++ * 2 * 0.1;
       position = `${offset} 0 -${offset}`;
     }
 
-    const typeSpec = {
-      material: {
-        color: '#666'
-      },
-      geometry: {
-        primitive: 'box',
-        width: length,
-        height: length,
-        depth: length
-      }
-    }
-
+    console.log('node type', node.type)
+    const typeSpec = nodeSystem.attributesOfType(node.type)
     const typeAttributes = {
       material: attrs(typeSpec.material),
       geometry: attrs(typeSpec.geometry)
@@ -35,6 +27,7 @@ tiltviz.DisplayBuilder = function(loader) {
     const attributes = Object.assign({
       id: nodeId,
       class: 'touchable',
+      'data-node-type': node.type,
       'balloon-label': attrs({label: nodeId, yOffset: -0.35, scale: 0.2}),
       'follower-constraint': attrs({lock: 'rotation', 'snap-to-grid': 0.1}),
       position: position
