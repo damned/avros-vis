@@ -5,7 +5,7 @@ AFRAME.registerComponent('edge', {
     from: { type: 'selector' },
     to: { type: 'selector' },
     color: { type: 'color', default: 'blue' },
-    lineWidth: { type: 'number', default: 0.02  }
+    width: { type: 'number', default: 0.02  }
   },
   init: function () {
     let self = this
@@ -23,7 +23,7 @@ AFRAME.registerComponent('edge', {
 
       
       let color = self.data.color
-      let lineWidth = self.data.lineWidth
+      let width = self.data.width
       let justEdged = false
       let emitEdgedNext = false      
       
@@ -84,7 +84,7 @@ AFRAME.registerComponent('edge', {
           else {
             self.edgeEntity.object3D.position.copy(host.object3D.position)
           }
-          self.edgeEntity.setAttribute('fatline', `start: ${start}; end: ${end}; color: ${color}; line-width: ${lineWidth}`)
+          self.edgeEntity.setAttribute('fatline', `start: ${start}; end: ${end}; color: ${color}; width: ${width}`)
           log(() => 'setting start pos to ' + start + ' setting end to ' + end)
           justEdged = true
         })

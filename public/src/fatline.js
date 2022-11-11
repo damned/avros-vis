@@ -12,7 +12,7 @@ AFRAME.registerComponent('fatline', {
     start: {type: 'vec3', default: {x: 0, y: 0, z: 0}},
     end: {type: 'vec3', default: {x: 0, y: 0, z: 0}},
     color: {type: 'color', default: '#74BEC1'},
-    lineWidth: {type: 'number', default: 0.01},
+    width: {type: 'number', default: 0.01},
     opacity: {type: 'number', default: 1},
     visible: {default: true}
   },
@@ -28,7 +28,7 @@ AFRAME.registerComponent('fatline', {
 
     material = this.material = new MeshLineMaterial({
       color: data.color,
-      lineWidth: data.lineWidth,
+      lineWidth: data.width,
       opacity: data.opacity,
       visible: data.visible
     })
@@ -69,7 +69,7 @@ AFRAME.registerComponent('fatline', {
     if (geoNeedsUpdate) {
       geometry.attributes.position.needsUpdate = true;
       geometry.computeBoundingSphere();
-      lineGeometry.setGeometry(geometry)
+      lineGeometry.setGeometry(geometry);
     }
 
     material.color.setStyle(data.color);
@@ -77,6 +77,7 @@ AFRAME.registerComponent('fatline', {
     material.opacity = data.opacity;
     material.transparent = data.opacity < 1;
     material.visible = data.visible;
+    material.lineWidth = data.width;
   },
 
   remove: function () {
