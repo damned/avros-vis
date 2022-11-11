@@ -31,10 +31,15 @@ tiltviz.DisplaySerializer = function() {
       })
       forEachEdgeComponent(entity, (component, index) => {
         console.log('got edge component, index: ' + index)
-        edges.push({
+        const edgeData = component.data;
+        const edgeProperties = {
           from: id,
-          to: component.data.to.getAttribute('id')
-        })
+          to: edgeData.to.getAttribute('id')
+        };
+        if (edgeData.type) {
+          edgeProperties.type = edgeData.type
+        }
+        edges.push(edgeProperties)
       })
     })
 
