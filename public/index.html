@@ -31,6 +31,11 @@
     <script type="application/javascript">
       aframeUtils.log.includeCaller = true
     </script>
+    <style>
+      a-scene {
+        background-color: black;
+      }
+    </style>
   </head>
   <body>
     <a-scene>
@@ -44,21 +49,28 @@
 
       </a-entity>
 
-
       <a-entity id="user-rig">
         <a-camera></a-camera>
-        <a-entity id="left-hand" user-mover hand-side="left"></a-entity>
-        <a-entity id="right-hand" user-mover hand-side="right"></a-entity>
+        <a-entity id="left-hand" user-mover hand-side="left" visible="false"></a-entity>
+        <a-entity id="right-hand" user-mover hand-side="right" visible="false"></a-entity>
       </a-entity>
 
       <a-text id="ddd" position="0 2 -2" scale="0.1 0.1 0.1"></a-text>
 
     </a-scene>
     <script>
+      const sceneEl = document.querySelector('a-scene')
       au.log.active = false
-      
+
       const leftHand = Hand(document.querySelector('#left-hand'))
       const rightHand = Hand(document.querySelector('#right-hand'))
+
+      const makeVisible = el => el.setAttribute('visible', 'true');
+
+      sceneEl.addEventListener('enter-vr', () => {
+        makeVisible(leftHand)
+        makeVisible(rightHand)
+      })
 
       const graphName = new URLSearchParams(document.location.search).get('graph');
       let graphId = graphName ?? 'default'
