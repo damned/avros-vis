@@ -30,14 +30,11 @@ cards - initial priority, grouped by consecutive feature set
 [ ] - add entity legend (static on wall?)
 [ ] - add api gatways and lambdas
 [ ] - add ability to label edges
-[ ] - label along edges
 
 * further ux improvements
 
 [ ] - user rotate
-[ ] - PUT copies to timestamped backup before overwrite
 [ ] - undo / redo
-[ ] - design background / room
 
 * animate data flows
 
@@ -45,9 +42,27 @@ cards - initial priority, grouped by consecutive feature set
 [ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
 [ ] - specify happy path corrections statically (hand coded json)
 
+* in-browser review improvements
+
+[ ] - set viewpoints and easy nav-to
+[ ] - lerp to viewpoint
+
 * visualisation improvements
 
+[ ] - horizontal group
 [ ] - add topic as metadata on queue
+[ ] - AZs as horizontal layers
+
+* slickness improvements
+
+[ ] - label along edges
+[ ] - design background / room
+[ ] - rounded rect group
+[ ] - 3d icons for entities (3dicons.co?)
+
+* de-prioritized
+
+[ ] - PUT copies to timestamped backup before overwrite
 
 * automated graph creation from repos (services and queues)
 
