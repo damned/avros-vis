@@ -60,6 +60,10 @@
       "to": "pds-adaptor"
     },
     {
+      "from": "suspension-service",
+      "to": "latest-event-db"
+    },
+    {
       "type": "http",
       "from": "re-registration-service",
       "to": "pds-adaptor"
