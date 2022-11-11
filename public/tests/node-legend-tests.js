@@ -4,7 +4,7 @@ var expect = chai.expect
 
 var TOLERANCE = 0.001
 
-describe('edge legend component', () => {
+describe('node legend component', () => {
   let scene, root
 
   before(function() {
@@ -18,22 +18,21 @@ describe('edge legend component', () => {
 
   let legend
 
-  it('should lay out examples of the different line styles against type names', function (done) {
+  it('should lay out examples of the different node styles against type names', function (done) {
     root.testing(this)
 
-    legend = root.addHtml('<a-entity id="edge-ledge" position="0 1 -1" edge-legend >')
+    legend = root.addHtml('<a-entity id="node-ledge" position="0 1 -1" node-legend >')
 
-    let edgeTypes;
+    let nodeTypes;
 
     scene.actions(() => {
-        edgeTypes = Object.keys(scene.systems().edge.typesToAttributes);
+        nodeTypes = Object.keys(scene.systems().node.typesToAttributes);
       },
       () => {
         let legendDescriptions = legend.querySelectorAll('a-text');
-        expect(legendDescriptions.length).to.eql(edgeTypes.length)
-        expect(legendDescriptions[0].getAttribute('value')).to.be.oneOf(edgeTypes)
+        expect(legendDescriptions.length).to.eql(nodeTypes.length)
+        expect(legendDescriptions[0].getAttribute('value')).to.be.oneOf(nodeTypes)
         done()
       })
   })
-
 })
