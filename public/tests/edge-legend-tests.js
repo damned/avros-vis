@@ -29,7 +29,7 @@ describe('edge legend component', () => {
         edgeTypes = Object.keys(scene.systems().edge.typesToAttributes);
       },
       () => {
-        let legendDescriptions = legend.querySelectorAll('a-text');
+        let legendDescriptions = legend.querySelectorAll('a-text.legend-label');
         expect(legendDescriptions.length).to.eql(edgeTypes.length)
         expect(legendDescriptions[0].getAttribute('value')).to.be.oneOf(edgeTypes)
         done()

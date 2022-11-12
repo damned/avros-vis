@@ -26,6 +26,9 @@ tiltviz.DisplaySerializer = function() {
     if (edgeData.type) {
       edgeProperties.type = edgeData.type
     }
+    if (edgeData.label) {
+      edgeProperties.id = edgeData.label
+    }
     return edgeProperties;
   }
 
@@ -45,7 +48,7 @@ tiltviz.DisplaySerializer = function() {
     const nodes = []
     const edges = []
 
-    let mainEntityFilter = el => el.components.geometry !== undefined;
+    let mainEntityFilter = el => el.classList.contains('node')
 
     Array.from(rootEl.children).filter(mainEntityFilter).forEach(entity => {
       const nodeData = extractNodeData(entity);

@@ -23,6 +23,7 @@ AFRAME.registerComponent('edge-legend', {
       }))
       el.insertAdjacentHTML('beforeend', au.entityHtml('a-text', {
         'value': type === edgeSystem.DEFAULT_TYPE ? 'other' : type,
+        class: 'legend-label',
         position: `0.06 ${y} 0`,
         scale: '0.2 0.2 0.2'
       }))

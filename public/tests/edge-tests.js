@@ -167,6 +167,28 @@ describe('edge component', () => {
     })
   })
 
+  describe('labelling', () => {
+    it('should add a text label to the midpoint of the edge', function (done) {
+      root.testing(this)
+
+      source = root.addHtml('<a-sphere ' +
+        'position="2 1 -1" id="labsrc" radius="0.1" >')
+      dest = root.addHtml('<a-sphere ' +
+        'position="0 0 0" ' +
+        'edge="from: #labsrc; label: oooh" ' +
+        'radius="0.1">')
+
+      dest.addEventListener('edged', event => {
+        let textEntity = root.select('.edge-label');
+
+        expect(textEntity).to.not.be.null
+        expect(textEntity.getAttribute('value')).to.eql('oooh')
+        expect(textEntity.getAttribute('position')).to.shallowDeepEqual({x: 1, y: 0.5, z: -0.5})
+        done()
+      })
+    })
+  })
+
   describe('using multiple edges', () => {
     it('should create a line from source to two destinations', function (done) {
       root.testing(this)

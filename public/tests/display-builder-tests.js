@@ -42,7 +42,7 @@ describe('display builder', () => {
     })
   })
 
-  it('loads an entity from json', function (done) {
+  it('loads a domain node from json marking it as such', function (done) {
     root.testing(this)
 
     graphJson = {
@@ -54,6 +54,7 @@ describe('display builder', () => {
     scene.actions(() => {
       let addedBox = root.select('#abox')
       expect(getLabel(addedBox)).to.eql('abox')
+      expect(Array.from(addedBox.classList)).to.include('node')
       done()
     })
   })
@@ -155,7 +156,8 @@ describe('display builder', () => {
       nodes: [{id: 'source-node'}, {id: 'to1'}, {id: 'to2'}],
       edges: [{
         from: 'source-node',
-        to: 'to1'
+        to: 'to1',
+        id: 'id1'
       }, {
         from: 'source-node',
         to: 'to2'
@@ -169,6 +171,7 @@ describe('display builder', () => {
       let to1 = root.select('#to1')
       let to2 = root.select('#to2')
       expect(sourceNode.getAttribute('edge').to).to.eql(to1)
+      expect(sourceNode.components.edge.data.label).to.eql('id1')
       expect(sourceNode.getAttribute('edge__1').to).to.eql(to2)
     }, done)
   })

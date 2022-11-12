@@ -39,7 +39,7 @@ tiltviz.DisplayBuilder = function(loader) {
 
     const attributes = Object.assign({
       id: nodeId,
-      class: 'touchable',
+      class: 'touchable node',
       'data-node-type': node.type,
       'balloon-label': attrs({label: nodeId, yOffset: -0.35, scale: 0.2, color: FONT_COLOR}),
       'follower-constraint': attrs({lock: 'rotation', 'snap-to-grid': 0.1}),
@@ -62,6 +62,9 @@ tiltviz.DisplayBuilder = function(loader) {
       let attributes = {
         to: '#' + edge.to,
         type: edge.type
+      }
+      if (edge.id) {
+        attributes.label = edge.id
       }
       all[`edge${suffix}`] = attrs(attributes)
     })

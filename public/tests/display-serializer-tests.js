@@ -31,10 +31,25 @@ describe('DisplaySerializer', () => {
         }, done)
     })
 
+    it('should ignore entities that are not marked as nodes', function(done) {
+      root.testing(this)
+
+      display = root.addHtml('<a-entity>'
+        +   '<a-box id="notrealnode"></a-box>'
+        +   '<a-box id="realnode" class="node"></a-box>'
+        + '</a-entity>')
+
+      scene.actions(() => {
+          let graph = serializer.toGraph(display)
+          expect(graph.nodes.length).to.eql(1)
+          expect(graph.nodes[0].id).to.eql('realnode')
+        }, done)
+    })
+
     it('should write an entity as a node with position values', function(done) {
       root.testing(this)
 
-      display = root.addHtml('<a-entity><a-box id="bob" position="1 1 1"></a-box></a-entity>')
+      display = root.addHtml('<a-entity><a-box id="bob" class="node" position="1 1 1"></a-box></a-entity>')
 
       scene.actions(() => {
           let graph = serializer.toGraph(display)
@@ -49,8 +64,8 @@ describe('DisplaySerializer', () => {
       root.testing(this)
 
       display = root.addHtml('<a-entity>' +
-          '<a-box id="foo" position="0 1 0"></a-box>' +
-          '<a-box id="bar" position="0 2 0"></a-box>' +
+          '<a-box id="foo" class="node" position="0 1 0"></a-box>' +
+          '<a-box id="bar" class="node" position="0 2 0"></a-box>' +
         '</a-entity>')
 
       scene.actions(() => {
@@ -70,12 +85,12 @@ describe('DisplaySerializer', () => {
 
     })
 
-    it('should write graph with an edge between two entities', function(done) {
+    it('should write graph with an edge between two entities taking edge id from label', function(done) {
       root.testing(this)
 
       display = root.addHtml('<a-entity>' +
-          '<a-box id="from" edge="to: #tog" position="0 1 0"></a-box>' +
-          '<a-box id="tog" position="0 2 0"></a-box>' +
+          '<a-box id="from" edge="to: #tog; label: aww" class="node" position="0 1 0"></a-box>' +
+          '<a-box id="tog" class="node" position="0 2 0"></a-box>' +
         '</a-entity>')
 
       scene.actions(() => {
@@ -84,7 +99,8 @@ describe('DisplaySerializer', () => {
         expect(graph.edges).to.not.be.empty
         expect(graph.edges).to.eql([{
           from: 'from',
-          to: 'tog'
+          to: 'tog',
+          id: 'aww'
         }])
       }, done)
     })
@@ -93,10 +109,10 @@ describe('DisplaySerializer', () => {
       root.testing(this)
 
       display = root.addHtml('<a-entity>' +
-          '<a-box id="start" edge="to: #one" edge__1="to: #two" edge__2="to: #three" position="0 1 0"></a-box>' +
-          '<a-box id="one" position="0 2 -1"></a-box>' +
-          '<a-box id="two" position="0 3 -1"></a-box>' +
-          '<a-box id="three" position="0 4 -1"></a-box>' +
+          '<a-box id="start" edge="to: #one" edge__1="to: #two" edge__2="to: #three" class="node" position="0 1 0"></a-box>' +
+          '<a-box id="one" class="node" position="0 2 -1"></a-box>' +
+          '<a-box id="two" class="node" position="0 3 -1"></a-box>' +
+          '<a-box id="three" class="node" position="0 4 -1"></a-box>' +
         '</a-entity>')
 
       scene.actions(() => {
@@ -121,7 +137,7 @@ describe('DisplaySerializer', () => {
         root.testing(this)
 
         display = root.addHtml('<a-entity>' +
-          '<a-box data-node-type="bob"></a-box>' +
+          '<a-box class="node" data-node-type="bob"></a-box>' +
           '</a-entity>')
 
         scene.actions(() => {
@@ -134,7 +150,7 @@ describe('DisplaySerializer', () => {
         root.testing(this)
 
         display = root.addHtml('<a-entity>' +
-          '<a-box id="from" edge="to: #toq; type: queue" position="0 1 0"></a-box>' +
+          '<a-box id="from" edge="to: #toq; type: queue" class="node" position="0 1 0"></a-box>' +
           '<a-box id="toq"></a-box>' +
           '</a-entity>')
 

@@ -23,6 +23,7 @@ AFRAME.registerComponent('edge', {
   schema: {
     from: { type: 'selector' },
     to: { type: 'selector' },
+    label: { type: 'string', default: ''},
     type: { type: 'string', default: undefined }
   },
   init: function () {
@@ -49,6 +50,17 @@ AFRAME.registerComponent('edge', {
           scale: au.xyzTriplet(entity.object3D.scale)
         })
         return sibling
+      }
+
+      const addLabel = (parent, localPosition) => {
+        const label = au.entity(parent, 'a-text', {
+          position: au.xyzTriplet(localPosition),
+          class: 'edge-label',
+          align: 'center',
+          baseline: 'bottom',
+          value: self.data.label
+        })
+        return label
       }
 
       let addLine = () => {
@@ -90,8 +102,10 @@ AFRAME.registerComponent('edge', {
           else {
             start = au.xyzTriplet(vectorToOther)
           }
+          let midpoint = new THREE.Vector3().copy(vectorToOther).divideScalar(2)
           if (self.edgeEntity === undefined) {
             self.edgeEntity = addSibling(host)
+            self.labelEntity = addLabel(self.edgeEntity, midpoint)
             other.addEventListener('moveend', () => addLine())
             host.addEventListener('moveend', () => addLine())
             other.addEventListener('placed', () => addLine())
@@ -99,6 +113,7 @@ AFRAME.registerComponent('edge', {
           }
           else {
             self.edgeEntity.object3D.position.copy(host.object3D.position)
+            self.labelEntity.object3D.position.copy(midpoint)
           }
           const typeAttributes = self.system.attributesOfType(self.data.type)
           const attributes = Object.assign({ start, end }, typeAttributes)
