@@ -30,17 +30,27 @@ cards - initial priority, grouped by consecutive feature set
 [x] - add entity legend
 [x] - add service types
 [x] - add api gateways and lambdas
-[ ] - add ability to label edges
+[x] - add ability to label edges
 
-* animate data flows
+* review, re-plan
+
+[x] - what purpose? convey understanding
+[x] - currently? good static high level understanding
+[x] - what's next? detail of how processing
+[x] - how to convey that? per scenario, show flow, allow detail insight
+[x] - how to show? recorded walkthrough; or browser step through (description, viewpoint and animation)
+
+* animate data flows, sequences
 
 [ ] - animate example message flow along each queue (triggers every few seconds)
 [ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
-[ ] - specify happy path corrections statically (hand coded json)
+[ ] - ability to pause, step
+[ ] - specify happy path corrections statically (hand coded json?)
+[ ] - menu of scenarios
 
 * visualisation improvements
 
-[ ] - horizontal group
+[ ] - horizontal group (can help edit: move multiple)
 [ ] - add topic as metadata on queue
 [ ] - AZs as horizontal layers
 
@@ -53,11 +63,13 @@ cards - initial priority, grouped by consecutive feature set
 
 [ ] - user rotate
 [ ] - undo / redo
+[ ] - merge updated data
 
 * slickness improvements
 
 [ ] - label along edges
 [ ] - design background / room
+[ ] - de-conflict labels - moveability? user-attraction?
 [ ] - rounded rect group
 [ ] - 3d icons for entities (3dicons.co?)
 
@@ -90,17 +102,8 @@ cards - initial priority, grouped by consecutive feature set
 
 ---
 
-* new scope
+* remainingg Ste feedback notes
 
-- deconflict labels - moveability? user-attraction?
-- presentation in browser
-
-* Ste feedback
-
-- move everything up and down
-- rotate everything
-- what is this? legend - display on wall
-- ability to undo / redo stack or similar
 - watch versions on persistence - maybe add migrations?
 
 

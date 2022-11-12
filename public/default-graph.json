@@ -44,6 +44,10 @@
       "id": "pds-adaptor"
     },
     {
+      "type": "nhs",
+      "id": "pds"
+    },
+    {
       "type": "ecs-java",
       "language": "java",
       "id": "ehr-transfer-service"
@@ -91,14 +95,15 @@
   ],
   "edges": [
     {
+      "id": "change-of-gp",
       "type": "queue",
       "from": "nems",
       "to": "mesh-mailbox"
     },
     {
       "type": "http",
-      "from": "mesh-forwarder",
-      "to": "mesh-mailbox"
+      "from": "mesh-mailbox",
+      "to": "mesh-forwarder"
     },
     {
       "id": "nems-event-processor-incoming",
@@ -129,6 +134,16 @@
       "type": "http",
       "from": "re-registration-service",
       "to": "pds-adaptor"
+    },
+    {
+      "type": "http",
+      "from": "pds-adaptor",
+      "to": "pds"
+    },
+    {
+      "id": "current-gp-changed",
+      "from": "pds",
+      "to": "nems"
     },
     {
       "from": "re-registration-service",
