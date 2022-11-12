@@ -2,6 +2,7 @@
 var tiltviz = tiltviz || {}
 
 tiltviz.DisplayBuilder = function(loader) {
+  const FONT_COLOR = '#ddd';
   const api = {}
   const entityMoveHandlers = [];
   const attrs = au.attributeValue
@@ -40,7 +41,7 @@ tiltviz.DisplayBuilder = function(loader) {
       id: nodeId,
       class: 'touchable',
       'data-node-type': node.type,
-      'balloon-label': attrs({label: nodeId, yOffset: -0.35, scale: 0.2}),
+      'balloon-label': attrs({label: nodeId, yOffset: -0.35, scale: 0.2, color: FONT_COLOR}),
       'follower-constraint': attrs({lock: 'rotation', 'snap-to-grid': 0.1}),
       position: position
     }, edgeAttributes, typeAttributes)
