@@ -18,7 +18,7 @@ AFRAME.registerComponent('node-legend', {
       }))
       el.insertAdjacentHTML('beforeend', au.entityHtml('a-text', {
         'value': type === nodeSystem.DEFAULT_TYPE ? 'other' : type,
-        position: `${x + 0.06} ${y} 0`,
+        position: `${x - 0.02} ${y} 0`,
         scale: '0.2 0.2 0.2'
       }))
     }
