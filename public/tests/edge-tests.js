@@ -296,7 +296,7 @@ describe('edge component', () => {
       dest.addEventListener('edged', event => {
         let lineComponent = event.detail.edgeEntity.components.fatline;
 
-        expect(lineComponent.data.width).to.be.closeTo(0.02, TOLERANCE)
+        expect(lineComponent.data.width).to.be.closeTo(0.01, TOLERANCE)
         expect(lineComponent.data.color).to.eql('blue')
         done()
       })

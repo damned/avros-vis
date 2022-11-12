@@ -10,40 +10,78 @@
       "id": "mesh-mailbox"
     },
     {
+      "type": "ecs-python",
+      "language": "python",
       "id": "mesh-forwarder"
     },
     {
+      "type": "ecs-java",
+      "language": "java",
       "id": "nems-event-processor"
     },
     {
+      "type": "ecs-java",
+      "language": "java",
       "id": "suspension-service"
     },
     {
       "id": "latest-event-db",
+      "db": "dynamodb",
       "type": "db"
     },
     {
+      "type": "ecs-java",
       "id": "re-registration-service"
     },
     {
       "id": "active-suspensions-db",
+      "db": "dynamodb",
       "type": "db"
     },
     {
+      "type": "ecs-java",
+      "language": "java",
       "id": "pds-adaptor"
     },
     {
+      "type": "ecs-java",
+      "language": "java",
       "id": "ehr-transfer-service"
     },
     {
       "id": "transfer-tracker-db",
+      "db": "dynamodb",
       "type": "db"
     },
     {
+      "type": "ecs-nodejs",
+      "language": "js",
+      "id": "gp2gp-messenger"
+    },
+    {
+      "type": "nhs",
+      "id": "mhs-inbound"
+    },
+    {
+      "id": "active-mq"
+    },
+    {
+      "type": "nhs",
+      "id": "mhs-outbound"
+    },
+    {
+      "type": "nhs",
+      "id": "spine"
+    },
+    {
+      "type": "ecs-nodejs",
+      "language": "js",
       "id": "ehr-repository"
     },
     {
       "id": "ehr-repository-db",
+      "db": "postgres",
+      "service": "RDS",
       "type": "db"
     },
     {
@@ -117,7 +155,36 @@
     {
       "from": "ehr-repository",
       "to": "ehr-repository-data"
+    },
+    {
+      "type": "http",
+      "from": "ehr-transfer-service",
+      "to": "gp2gp-messenger"
+    },
+    {
+      "type": "http",
+      "from": "gp2gp-messenger",
+      "to": "mhs-outbound"
+    },
+    {
+      "type": "http",
+      "from": "mhs-outbound",
+      "to": "spine"
+    },
+    {
+      "type": "http",
+      "from": "spine",
+      "to": "mhs-inbound"
+    },
+    {
+      "type": "http",
+      "from": "mhs-inbound",
+      "to": "active-mq"
+    },
+    {
+      "type": "queue",
+      "from": "active-mq",
+      "to": "ehr-transfer-service"
     }
-
   ]
 }

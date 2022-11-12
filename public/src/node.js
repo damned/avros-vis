@@ -25,17 +25,35 @@ AFRAME.registerSystem('node', {
     }
 
     self.typesToAttributes = {
-      db: {
+      'ecs-java': {
         material: {
-          color: '#495'
+          color: '#9b9'
         },
-        geometry: cylinder
+        geometry: box
+      },
+      'ecs-nodejs': {
+        material: {
+          color: '#b9b'
+        },
+        geometry: box
+      },
+      'ecs-python': {
+        material: {
+          color: '#bb5'
+        },
+        geometry: box
       },
       nhs: {
         material: {
           color: '#005EB8'
         },
         geometry: box
+      },
+      db: {
+        material: {
+          color: '#6a7'
+        },
+        geometry: cylinder
       },
       s3: {
         material: {
@@ -62,4 +80,4 @@ AFRAME.registerSystem('node', {
       return self.typesToAttributes[self.DEFAULT_TYPE]
     }
   },
-});
+})
