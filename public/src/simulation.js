@@ -1,11 +1,21 @@
 /* globals AFRAME au */
 AFRAME.registerComponent('simulation', {
   init: function () {
+    const DELAY_BETWEEN_SIMULATIONS_MS = 2000;
+    const EDGE_TRANSIT_TIME_MS = 1500
+
     const self = this
     const el = self.el
+
     const initSimEventAnimation = () => {
       const firstNode = el.querySelector('.node')
-      const nextNode = node => node.components.edge.data.to
+      const nextNode = node => {
+        const edge = node.components.edge
+        if (edge) {
+          return edge.data.to;
+        }
+        return null
+      }
 
       let next = nextNode(firstNode)
 
@@ -14,19 +24,26 @@ AFRAME.registerComponent('simulation', {
         radius: 0.03,
         color: 'white'
       })
-      const transitTime = 1000
       const startNextTransit = () => {
         simEvent.setAttribute('animation', au.attributeValue({
           property: 'position',
           to: au.xyzTriplet(next.getAttribute('position')),
-          dur: transitTime,
+          dur: EDGE_TRANSIT_TIME_MS,
           easing: 'easeInOutQuad'
         }))
         next = nextNode(next)
+        if (next) {
+          setTimeout(startNextTransit, 1.2 * EDGE_TRANSIT_TIME_MS)
+        }
+        else {
+          setTimeout(() => {
+            simEvent.remove()
+            initSimEventAnimation()
+          }, DELAY_BETWEEN_SIMULATIONS_MS)
+        }
       }
       startNextTransit()
-      setInterval(startNextTransit, 1.2 * transitTime)
     }
-    setTimeout(initSimEventAnimation, 1000)
+    setTimeout(initSimEventAnimation, DELAY_BETWEEN_SIMULATIONS_MS)
   }
 })
