@@ -24,6 +24,7 @@ AFRAME.registerComponent('edge', {
     from: { type: 'selector' },
     to: { type: 'selector' },
     label: { type: 'string', default: ''},
+    labelSize: { type: 'number', default: 0.12 },
     type: { type: 'string', default: undefined }
   },
   init: function () {
@@ -53,11 +54,13 @@ AFRAME.registerComponent('edge', {
       }
 
       const addLabel = (parent, localPosition) => {
+        const labelSize = self.data.labelSize
         const label = au.entity(parent, 'a-text', {
           position: au.xyzTriplet(localPosition),
           class: 'edge-label',
           align: 'center',
           baseline: 'bottom',
+          scale: `${labelSize} ${labelSize} ${labelSize}`,
           value: self.data.label
         })
         return label
