@@ -6,15 +6,24 @@ tiltviz.DisplayBuilder = function(loader) {
   const entityMoveHandlers = [];
   const attrs = au.attributeValue
   const sceneEl = document.querySelector('a-scene')
+  const STRIPE_SIZE = 7;
+
+  function calculateDefaultPlacement(i) {
+    const inStripeOffset = i % STRIPE_SIZE;
+    const stripeOffsetX = Math.floor(i / STRIPE_SIZE) * 0.5
+    const offsetZ = inStripeOffset * 0.2;
+    const offsetX = (i * 0.2) - stripeOffsetX;
+    return `${offsetX} 0 -${offsetZ}`;
+  }
 
   function createNode(rootEl, node, defaultPlacementCount, edgeAttributes) {
     const nodeSystem = sceneEl.systems.node
 
     let nodeId = node.id
     let position = node.position;
+
     if (node.position === undefined) {
-      const offset = defaultPlacementCount++ * 2 * 0.1;
-      position = `${offset} 0 -${offset}`;
+      position = calculateDefaultPlacement(defaultPlacementCount++);
     }
 
     console.log('node type', node.type)
