@@ -29,7 +29,7 @@ cards - initial priority, grouped by consecutive feature set
 [x] - add types for datastores - dbs and filestores
 [x] - add entity legend
 [x] - add service types
-[ ] - add api gateways and lambdas
+[.] - add api gateways and lambdas
 [ ] - add ability to label edges
 
 * animate data flows

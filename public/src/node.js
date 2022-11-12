@@ -24,7 +24,30 @@ AFRAME.registerSystem('node', {
       radius: 0.05
     }
 
+    const tetrahedron = {
+      primitive: 'tetrahedron',
+      radius: 0.08
+    }
+
     self.typesToAttributes = {
+      nhs: {
+        material: {
+          color: '#005EB8'
+        },
+        geometry: box
+      },
+      aws: {
+        material: {
+          color: 'orange'
+        },
+        geometry: box
+      },
+      db: {
+        material: {
+          color: '#6a7'
+        },
+        geometry: cylinder
+      },
       'ecs-java': {
         material: {
           color: '#9b9'
@@ -43,17 +66,12 @@ AFRAME.registerSystem('node', {
         },
         geometry: box
       },
-      nhs: {
+      'lambda': {
         material: {
-          color: '#005EB8'
+          color: 'orange'
         },
-        geometry: box
-      },
-      db: {
-        material: {
-          color: '#6a7'
-        },
-        geometry: cylinder
+        geometry: tetrahedron,
+        rotation: '-30 0 60'
       },
       s3: {
         material: {

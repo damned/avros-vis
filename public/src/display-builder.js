@@ -32,6 +32,9 @@ tiltviz.DisplayBuilder = function(loader) {
       material: attrs(typeSpec.material),
       geometry: attrs(typeSpec.geometry)
     };
+    if (typeSpec.rotation) {
+      typeAttributes.rotation = typeSpec.rotation
+    }
 
     const attributes = Object.assign({
       id: nodeId,

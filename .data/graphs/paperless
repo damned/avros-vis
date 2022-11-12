@@ -1,0 +1,19 @@
+{
+  "id": "paperless-edited",
+  "nodes": [
+    {
+      "type": "aws",
+      "id": "api-gateway"
+    },
+    {
+      "type": "lambda",
+      "id": "document-search"
+    }
+  ],
+  "edges": [
+    {
+      "from": "api-gateway",
+      "to": "document-search"
+    }
+  ]
+}
