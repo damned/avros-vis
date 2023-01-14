@@ -38,21 +38,35 @@ cards - initial priority, grouped by consecutive feature set
 [x] - currently? good static high level understanding
 [x] - what's next? detail of how processing
 [x] - how to convey that? per scenario, show flow, allow detail insight
-[x] - how to show? recorded walkthrough; or browser step through (description, viewpoint and animation)
+[x] - how to show?
+  - recorded walkthrough; or
+  - browser step through (description, viewpoint and animation)
+[x] - what's next next? access depth of detail on components
+[x] - how access depth of detail? description in background - carousel wall - aframe-layout and aframe-look-at and rotate to context
 
 * animate data flows, sequences
 
-[ ] - animate example message flow along each queue (triggers every few seconds)
+[x] - animate example message flow along each queue (triggers every few seconds)
 [ ] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
+[ ] - model http method and direction (NB modelling graph with from->to in direction of main data flow)
 [ ] - ability to pause, step
 [ ] - specify happy path corrections statically (hand coded json?)
 [ ] - menu of scenarios
 
 * visualisation improvements
 
+[ ] - business actors and events
+  - state - indexed record
+  - action / event
+  - transaction
+  - speech?
+[ ] - representing mass events vs focus on example(s)
+[ ] - pull through README description
 [ ] - horizontal group (can help edit: move multiple)
 [ ] - add topic as metadata on queue
 [ ] - AZs as horizontal layers
+[ ] - rollup/expand
+[ ] - layers - eg network + logical, sqs api + queue
 
 * in-browser review improvements
 
