@@ -11,6 +11,8 @@
     <script crossorigin src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
     <script crossorigin src="https://unpkg.com/three.meshline@1.4.0/src/THREE.MeshLine.js"></script>
 
+    <script type="module" src="lib/three-rounded-box.js"></script>
+    
     <script src="src/aframe-utils.js"></script>
     <script src="src/balloon-label.js"></script>
     <script src="src/color.js"></script>
@@ -51,7 +53,12 @@
 
       <a-entity class="display" simulation position="0 1 -1">
 
+      <a-entity class="detail" position="-1 1 1">
+        <a-entity position="0 0 0.051" text="wrap-count: 30; value: bob that is some weird extra text description that we are talking about here; width: 0.9; align: center"></a-entity>
       </a-entity>
+        
+      </a-entity>
+      
 
       <a-entity id="user-rig">
         <a-camera></a-camera>
@@ -125,6 +132,16 @@
       tiltviz.DisplayBuilder(networkJsonGraphLoader)
               .withEntityMoveHandler(handleDisplayChange)
               .build(displayRoot)
+    </script>
+    <script type="module">
+      
+      import { RoundedBoxGeometry } from "./lib/three-rounded-box.js";
+      
+      let geometry_1 = new RoundedBoxGeometry(1, 0.4, 0.1, 3);
+      let material_1 = new THREE.MeshPhongMaterial({ color: '#333' });
+      let cube_1 = new THREE.Mesh(geometry_1, material_1);
+      let detailEl = document.querySelector('.detail')
+      detailEl.object3D.add(cube_1)
 
     </script>
   </body>

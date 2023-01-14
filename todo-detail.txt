@@ -135,6 +135,9 @@ labelling
 [ ] rotate to viewer
 [ ] circulators - from topol
 
+performance
+[ ] cheaper text: https://www.npmjs.com/package/aframe-text-sprite/v/3.0.0 - (note https://github.com/SeregPie/THREE.TextSprite/issues/29)
+
 flows
 [ ] flow along edges, showing direction
 [ ] stop and start (opacity)
