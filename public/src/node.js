@@ -78,7 +78,8 @@ AFRAME.registerSystem('node', {
           color: 'orange'
         },
         geometry: bucket
-      }
+      },
+      scenario: {}
     }
 
     self.typesToAttributes[self.DEFAULT_TYPE] = {
@@ -88,14 +89,38 @@ AFRAME.registerSystem('node', {
       geometry: box
     }
 
-    self.attributesOfType = type => {
-      console.log('getting node attributes of type ' + type)
-      if (self.typesToAttributes.hasOwnProperty(type)) {
-        console.log('returning specific type attributes')
-        return self.typesToAttributes[type]
+    self.withDynamicAttributes = (baseAttributes, node) => {
+      const type = node.type
+      if (type == 'scenario') {
+        return Object.assign({}, baseAttributes, {
+          customAttributes: {
+            tablet: {
+              text: node.description
+            }
+          },
+          customData: {
+            description: node.description
+          }
+        })
       }
-      console.log('returning default attributes')
-      return self.typesToAttributes[self.DEFAULT_TYPE]
+      else {
+        return baseAttributes
+      }
+    }
+
+    self.attributesFor = node => {
+      const type = node.type
+      console.log('getting node attributes of type ' + type)
+      let baseAttributes
+      if (self.typesToAttributes.hasOwnProperty(type)) {
+        console.log('basing on specific type attributes')
+        baseAttributes = self.typesToAttributes[type]
+      }
+      else {
+        console.log('basing on default attributes')
+        baseAttributes = self.typesToAttributes[self.DEFAULT_TYPE]
+      }
+      return self.withDynamicAttributes(baseAttributes, node)
     }
   },
 })

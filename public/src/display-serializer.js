@@ -14,6 +14,9 @@ tiltviz.DisplaySerializer = function() {
     if (entity.dataset.nodeType) {
       nodeData.type = entity.dataset.nodeType
     }
+    if (entity.dataset.custom) {
+      Object.assign(nodeData, JSON.parse(entity.dataset.custom))
+    }
     return nodeData;
   }
 

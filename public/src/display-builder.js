@@ -28,11 +28,18 @@ tiltviz.DisplayBuilder = function(loader) {
     }
 
     console.log('node type', node.type)
-    const typeSpec = nodeSystem.attributesOfType(node.type)
-    const typeAttributes = {
-      material: attrs(typeSpec.material),
-      geometry: attrs(typeSpec.geometry)
-    };
+    const typeSpec = nodeSystem.attributesFor(node)
+
+    const typeAttributes = {}
+    if (typeSpec.customAttributes) {
+      Object.assign(typeAttributes, typeSpec.customAttributes)
+      typeAttributes['data-custom'] = JSON.stringify(typeSpec.customData).replace(/"/g, '&quot;')
+    }
+    else {
+      typeAttributes.material = attrs(typeSpec.material)
+      typeAttributes.geometry = attrs(typeSpec.geometry)
+    }
+
     if (typeSpec.rotation) {
       typeAttributes.rotation = typeSpec.rotation
     }

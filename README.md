@@ -48,5 +48,3 @@ locally (on `http://localhost:8000/`) by running:
 ```
 ./run
 ```
-
-This requires a working `python3` interpreter.

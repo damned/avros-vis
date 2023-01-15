@@ -12,7 +12,13 @@
     <script crossorigin src="https://unpkg.com/three.meshline@1.4.0/src/THREE.MeshLine.js"></script>
 
     <script type="module" src="lib/three-rounded-box.js"></script>
-    
+    <script type="module">
+
+      import { RoundedBoxGeometry } from "./lib/three-rounded-box.js";
+      window.RoundedBoxGeometry = RoundedBoxGeometry
+
+    </script>
+
     <script src="src/aframe-utils.js"></script>
     <script src="src/balloon-label.js"></script>
     <script src="src/color.js"></script>
@@ -30,6 +36,7 @@
     <script src="src/placement.js"></script>
     <script src="src/simulation.js"></script>
     <script src="src/split.js"></script>
+    <script src="src/tablet.js"></script>
     <script src="src/touch-source.js"></script>
     <script src="src/toucher.js"></script>
     <script src="src/user-mover.js"></script>
@@ -48,8 +55,8 @@
         <img id="four-way-arrow" src="https://cdn.glitch.com/a0e144b7-dc44-4d24-a07d-26b1afe59bcf%2Ffour-way-arrow.png?v=1594823269623">
       </a-assets>
 
-      <a-entity class="legend" edge-legend="title: connections" position="0 2 -2"></a-entity>
-      <a-entity class="legend" node-legend="title: components" position="1 2 -2"></a-entity>
+      <a-entity class="legend" edge-legend="title: connections" position="0 3 -2"></a-entity>
+      <a-entity class="legend" node-legend="title: components" position="1 3 -2"></a-entity>
 
       <a-entity class="display" simulation position="0 1 -1">
 
@@ -132,17 +139,6 @@
       tiltviz.DisplayBuilder(networkJsonGraphLoader)
               .withEntityMoveHandler(handleDisplayChange)
               .build(displayRoot)
-    </script>
-    <script type="module">
-      
-      import { RoundedBoxGeometry } from "./lib/three-rounded-box.js";
-      
-      let geometry_1 = new RoundedBoxGeometry(1, 0.4, 0.1, 3);
-      let material_1 = new THREE.MeshPhongMaterial({ color: '#333' });
-      let cube_1 = new THREE.Mesh(geometry_1, material_1);
-      let detailEl = document.querySelector('.detail')
-      detailEl.object3D.add(cube_1)
-
     </script>
   </body>
 </html>

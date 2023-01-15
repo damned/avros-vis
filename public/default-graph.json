@@ -118,7 +118,10 @@
       "to": "gp-b"
     },
     {
-      "id": "registers-with-pds",
+      "from": "gp-a",
+      "to": "pds"
+    },
+    {
       "from": "gp-b",
       "to": "pds"
     },

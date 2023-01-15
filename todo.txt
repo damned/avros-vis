@@ -63,6 +63,7 @@ cards - initial priority, grouped by consecutive feature set
 
 * visualisation improvements
 
+[ ] - carousel of project info
 [ ] - business actors and events
   - state - indexed record
   - action / event
