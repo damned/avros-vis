@@ -139,7 +139,7 @@ the existing diagram.
     2 - other specific constraints, e.g. horizontal upper and lower limit planes
 
 
-** graphName building
+** graph building
 
 [ ] using automated interpretation of input sources to create a basic diagram / pallett (that can be tweaked or
     automatically laid out)

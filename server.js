@@ -1,4 +1,5 @@
 const http = require('http')
+const https = require('https');
 const fs = require('fs')
 const express = require('express')
 
@@ -12,12 +13,19 @@ function doSomeMagicToMakeExpressParseJsonBodyAsYoudExpectItDidOutOfTheBox() {
 
 process.title = "tilt-viz-server";
 
+const devCredentials = {
+  key: fs.readFileSync('devcert/server.key', 'utf8'),
+  cert: fs.readFileSync('devcert/server.crt', 'utf8')
+};
+
 const port = process.env.PORT || 3000;
+const devHttpsPort = process.env.HTTPS_PORT || 3001;
 
 const app = express();
 app.use(express.static('public'))
 
 const webServer = http.createServer(app)
+const devHttpsServer = https.createServer(devCredentials, app);
 
 const graphJsonFilepath = (graphId) => `.data/graphs/${graphId}`
 
@@ -47,4 +55,7 @@ app.put('/graph/:graphId', function (req, res) {
 
 webServer.listen(port, () => {
   console.log("listening on http://localhost:" + port);
+});
+devHttpsServer.listen(devHttpsPort, () => {
+  console.log("listening on https://localhost:" + devHttpsPort);
 });

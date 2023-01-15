@@ -2,6 +2,23 @@
   "id": "edited",
   "nodes": [
     {
+      "type": "scenario",
+      "id": "change-of-gp-a-to-b",
+      "description": "Patient Bob changes GP from A to B"
+    },
+    {
+      "type": "gp",
+      "id": "gp-a"
+    },
+    {
+      "type": "patient",
+      "id": "bob"
+    },
+    {
+      "type": "gp",
+      "id": "gp-b"
+    },
+    {
       "type": "nhs",
       "id": "nems"
     },
@@ -94,6 +111,17 @@
     }
   ],
   "edges": [
+    {
+      "id": "registers-with-gp",
+      "type": "interaction",
+      "from": "patient",
+      "to": "gp-b"
+    },
+    {
+      "id": "registers-with-pds",
+      "from": "gp-b",
+      "to": "pds"
+    },
     {
       "id": "change-of-gp",
       "type": "queue",
