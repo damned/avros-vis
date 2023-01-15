@@ -8,7 +8,12 @@ AFRAME.registerComponent('simulation', {
     const el = self.el
 
     const initSimEventAnimation = () => {
-      const firstNode = el.querySelector('.node')
+      const scenario = el.querySelector("[data-node-type='scenario']")
+      console.log('got scenario', scenario)
+      const firstNodeSelector = '#' + scenario.dataset.startsWith;
+      console.log('got first node selector', firstNodeSelector)
+      const firstNode = el.querySelector(firstNodeSelector)
+      console.log('got first node', firstNode)
       const nextNode = node => {
         const edge = node.components.edge
         if (edge) {

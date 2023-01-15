@@ -48,8 +48,8 @@ cards - initial priority, grouped by consecutive feature set
 
 [x] - animate example message flow along each queue (triggers every few seconds)
 [x] - happy path flow - animated message triggers next service (happy path assumed as goes on to another service)
-[ ] - represent scenarios as description tablets
-[ ] - trigger scenario animation per scenario in loop
+[x] - represent scenarios as description tablets
+[.] - trigger scenario animation per scenario in loop
 [ ] - override path on per-scenario basis
 [ ] - model http method and direction (NB modelling graph with from->to in direction of main data flow)
 [ ] - ability to pause, step

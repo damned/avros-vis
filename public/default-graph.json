@@ -112,9 +112,19 @@
   ],
   "edges": [
     {
+      "type": "involves",
+      "from": "change-of-gp-a-to-b",
+      "to": "bob"
+    },
+    {
+      "type": "starts-with",
+      "from": "change-of-gp-a-to-b",
+      "to": "gp-b"
+    },
+    {
       "id": "registers-with-gp",
-      "type": "interaction",
-      "from": "patient",
+      "type": "interacts-with",
+      "from": "bob",
       "to": "gp-b"
     },
     {

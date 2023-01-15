@@ -3,8 +3,12 @@ AFRAME.registerSystem('edge', {
   init: function () {
     const self = this
     self.DEFAULT_TYPE = '_default'
+    const scenarioLink = { color: 'yellow', width: 0.002 };
     self.typesToAttributes = {
       'http': { color: 'lightblue', width: 0.015 },
+      'involves': scenarioLink,
+      'interacts-with': scenarioLink,
+      'starts-with': scenarioLink,
       'queue': { color: 'orange', width: 0.03 }
     }
     self.typesToAttributes[self.DEFAULT_TYPE] = { color: 'blue', width: 0.01 }

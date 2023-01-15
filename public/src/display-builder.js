@@ -73,6 +73,9 @@ tiltviz.DisplayBuilder = function(loader) {
       if (edge.id) {
         attributes.label = edge.id
       }
+      if (edge.type == 'starts-with') {
+        all['data-starts-with'] = edge.to
+      }
       all[`edge${suffix}`] = attrs(attributes)
     })
     return all
